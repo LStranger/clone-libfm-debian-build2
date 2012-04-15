@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmPathEntry</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-thumbnail.html" title="fm-thumbnail">
+<link rel="next" href="libfm-fm-file-properties.html" title="fm-file-properties">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-thumbnail.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-file-properties.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmPathEntry.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmPathEntry.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmPathEntry.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmPathEntry.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#FmPathEntry.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmPathEntry">
+<a name="FmPathEntry"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmPathEntry.top_of_page"></a>FmPathEntry</span></h2>
+<p>FmPathEntry</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmPathEntry.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="FmPathEntry.html#FM-TYPE-PATH-ENTRY:CAPS" title="FM_TYPE_PATH_ENTRY">FM_TYPE_PATH_ENTRY</a>
+#define             <a class="link" href="FmPathEntry.html#FM-PATH-ENTRY:CAPS" title="FM_PATH_ENTRY()">FM_PATH_ENTRY</a>                       (obj)
+#define             <a class="link" href="FmPathEntry.html#FM-PATH-ENTRY-CLASS:CAPS" title="FM_PATH_ENTRY_CLASS()">FM_PATH_ENTRY_CLASS</a>                 (klass)
+#define             <a class="link" href="FmPathEntry.html#IS-FM-TYPE-PATH-ENTRY:CAPS" title="IS_FM_TYPE_PATH_ENTRY()">IS_FM_TYPE_PATH_ENTRY</a>               (obj)
+#define             <a class="link" href="FmPathEntry.html#IS-FM-TYPE-PATH-ENTRY-CLASS:CAPS" title="IS_FM_TYPE_PATH_ENTRY_CLASS()">IS_FM_TYPE_PATH_ENTRY_CLASS</a>         (klass)
+                    <a class="link" href="FmPathEntry.html#FmPathEntry-struct" title="FmPathEntry">FmPathEntry</a>;
+                    <a class="link" href="FmPathEntry.html#FmPathEntryClass" title="FmPathEntryClass">FmPathEntryClass</a>;
+<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmPathEntry.html#fm-path-entry-get-type" title="fm_path_entry_get_type ()">fm_path_entry_get_type</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="FmPathEntry.html#fm-path-entry-new" title="fm_path_entry_new ()">fm_path_entry_new</a>                   ();
+<span class="returnvalue">void</span>                <a class="link" href="FmPathEntry.html#fm-path-entry-set-model" title="fm_path_entry_set_model ()">fm_path_entry_set_model</a>             (<em class="parameter"><code><a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> *entry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmPathEntry.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkEntry.html">GtkEntry</a>
+                           +----FmPathEntry
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="FmPathEntry.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+FmPathEntry implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a>,  <a href="/usr/share/gtk-doc/html/gtk/GtkEditable.html">GtkEditable</a> and  <a href="/usr/share/gtk-doc/html/gtk/GtkCellEditable.html">GtkCellEditable</a>.</p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="FmPathEntry.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="FmPathEntry.html#FmPathEntry--highlight-completion-match" title='The "highlight-completion-match" property'>highlight-completion-match</a>" <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmPathEntry.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmPathEntry.details"></a><h2>Details</h2>
+<div class="refsect2" title="FM_TYPE_PATH_ENTRY">
+<a name="FM-TYPE-PATH-ENTRY:CAPS"></a><h3>FM_TYPE_PATH_ENTRY</h3>
+<pre class="programlisting">#define FM_TYPE_PATH_ENTRY (fm_path_entry_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_PATH_ENTRY()">
+<a name="FM-PATH-ENTRY:CAPS"></a><h3>FM_PATH_ENTRY()</h3>
+<pre class="programlisting">#define FM_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj), FM_TYPE_PATH_ENTRY, FmPathEntry))
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_PATH_ENTRY_CLASS()">
+<a name="FM-PATH-ENTRY-CLASS:CAPS"></a><h3>FM_PATH_ENTRY_CLASS()</h3>
+<pre class="programlisting">#define FM_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), FM_TYPE_PATH_ENTRY, FmPathEntryClass))
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_TYPE_PATH_ENTRY()">
+<a name="IS-FM-TYPE-PATH-ENTRY:CAPS"></a><h3>IS_FM_TYPE_PATH_ENTRY()</h3>
+<pre class="programlisting">#define IS_FM_TYPE_PATH_ENTRY(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), FM_TYPE_PATH_ENTRY))
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_TYPE_PATH_ENTRY_CLASS()">
+<a name="IS-FM-TYPE-PATH-ENTRY-CLASS:CAPS"></a><h3>IS_FM_TYPE_PATH_ENTRY_CLASS()</h3>
+<pre class="programlisting">#define IS_FM_TYPE_PATH_ENTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), FM_TYPE_PATH_ENTRY), FmPathEntry)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmPathEntry">
+<a name="FmPathEntry-struct"></a><h3>FmPathEntry</h3>
+<pre class="programlisting">typedef struct _FmPathEntry FmPathEntry;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmPathEntryClass">
+<a name="FmPathEntryClass"></a><h3>FmPathEntryClass</h3>
+<pre class="programlisting">typedef struct {
+  GtkEntryClass parent_class;
+} FmPathEntryClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_entry_get_type ()">
+<a name="fm-path-entry-get-type"></a><h3>fm_path_entry_get_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_path_entry_get_type              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_entry_new ()">
+<a name="fm-path-entry-new"></a><h3>fm_path_entry_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          fm_path_entry_new                   ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_entry_set_model ()">
+<a name="fm-path-entry-set-model"></a><h3>fm_path_entry_set_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_path_entry_set_model             (<em class="parameter"><code><a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> *entry</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="FmPathEntry.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "highlight-completion-match" property'>
+<a name="FmPathEntry--highlight-completion-match"></a><h3>The <code class="literal">"highlight-completion-match"</code> property</h3>
+<pre class="programlisting">  "highlight-completion-match" <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>Wheather to highlight the completion match.</p>
+<p>Default value: TRUE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-icon</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-path.html" title="fm-path">
+<link rel="next" href="FmNavHistory.html" title="FmNavHistory">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-path.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="FmNavHistory.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-icon.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-icon.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="fm-icon">
+<a name="libfm-fm-icon"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-icon.top_of_page"></a>fm-icon</span></h2>
+<p>fm-icon</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libfm-fm-icon.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon">FmIcon</a>;
+<a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="returnvalue">FmIcon</span></a>*             <a class="link" href="libfm-fm-icon.html#fm-icon-from-gicon" title="fm_icon_from_gicon ()">fm_icon_from_gicon</a>                  (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GIcon.html"><span class="type">GIcon</span></a> *gicon</code></em>);
+<a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="returnvalue">FmIcon</span></a>*             <a class="link" href="libfm-fm-icon.html#fm-icon-from-name" title="fm_icon_from_name ()">fm_icon_from_name</a>                   (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+<a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="returnvalue">FmIcon</span></a>*             <a class="link" href="libfm-fm-icon.html#fm-icon-ref" title="fm_icon_ref ()">fm_icon_ref</a>                         (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-icon.html#fm-icon-unref" title="fm_icon_unref ()">fm_icon_unref</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="libfm-fm-icon.html#fm-icon-get-user-data" title="fm_icon_get_user_data ()">fm_icon_get_user_data</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-icon.html#fm-icon-set-user-data" title="fm_icon_set_user_data ()">fm_icon_set_user_data</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-icon.html#fm-icon-set-user-data-destroy" title="fm_icon_set_user_data_destroy ()">fm_icon_set_user_data_destroy</a>       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> func</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-icon.html#fm-icon-unload-user-data-cache" title="fm_icon_unload_user_data_cache ()">fm_icon_unload_user_data_cache</a>      ();
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-icon.html#fm-icon-unload-cache" title="fm_icon_unload_cache ()">fm_icon_unload_cache</a>                ();
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libfm-fm-icon.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libfm-fm-icon.details"></a><h2>Details</h2>
+<div class="refsect2" title="FmIcon">
+<a name="FmIcon"></a><h3>FmIcon</h3>
+<pre class="programlisting">typedef struct {
+    guint n_ref;
+    GIcon* gicon;
+    /* FIXME: should we utilize g_object_set_qdata to
+              store those data in gicon object instead? */
+    gpointer user_data;
+} FmIcon;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_from_gicon ()">
+<a name="fm-icon-from-gicon"></a><h3>fm_icon_from_gicon ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="returnvalue">FmIcon</span></a>*             fm_icon_from_gicon                  (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GIcon.html"><span class="type">GIcon</span></a> *gicon</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_from_name ()">
+<a name="fm-icon-from-name"></a><h3>fm_icon_from_name ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="returnvalue">FmIcon</span></a>*             fm_icon_from_name                   (<em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_ref ()">
+<a name="fm-icon-ref"></a><h3>fm_icon_ref ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="returnvalue">FmIcon</span></a>*             fm_icon_ref                         (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_unref ()">
+<a name="fm-icon-unref"></a><h3>fm_icon_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_icon_unref                       (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_get_user_data ()">
+<a name="fm-icon-get-user-data"></a><h3>fm_icon_get_user_data ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            fm_icon_get_user_data               (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_set_user_data ()">
+<a name="fm-icon-set-user-data"></a><h3>fm_icon_set_user_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_icon_set_user_data               (<em class="parameter"><code><a class="link" href="libfm-fm-icon.html#FmIcon" title="FmIcon"><span class="type">FmIcon</span></a> *icon</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_set_user_data_destroy ()">
+<a name="fm-icon-set-user-data-destroy"></a><h3>fm_icon_set_user_data_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_icon_set_user_data_destroy       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> func</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_unload_user_data_cache ()">
+<a name="fm-icon-unload-user-data-cache"></a><h3>fm_icon_unload_user_data_cache ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_icon_unload_user_data_cache      ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_icon_unload_cache ()">
+<a name="fm-icon-unload-cache"></a><h3>fm_icon_unload_cache ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_icon_unload_cache                ();</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

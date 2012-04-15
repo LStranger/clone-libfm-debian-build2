@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmNavHistory</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-icon.html" title="fm-icon">
+<link rel="next" href="FmDummyMonitor.html" title="FmDummyMonitor">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-icon.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="FmDummyMonitor.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmNavHistory.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmNavHistory.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmNavHistory.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmNavHistory">
+<a name="FmNavHistory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmNavHistory.top_of_page"></a>FmNavHistory</span></h2>
+<p>FmNavHistory</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmNavHistory.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="FmNavHistory.html#FM-NAV-HISTORY-TYPE:CAPS" title="FM_NAV_HISTORY_TYPE">FM_NAV_HISTORY_TYPE</a>
+#define             <a class="link" href="FmNavHistory.html#FM-NAV-HISTORY:CAPS" title="FM_NAV_HISTORY()">FM_NAV_HISTORY</a>                      (obj)
+#define             <a class="link" href="FmNavHistory.html#FM-NAV-HISTORY-CLASS:CAPS" title="FM_NAV_HISTORY_CLASS()">FM_NAV_HISTORY_CLASS</a>                (klass)
+#define             <a class="link" href="FmNavHistory.html#IS-FM-NAV-HISTORY:CAPS" title="IS_FM_NAV_HISTORY()">IS_FM_NAV_HISTORY</a>                   (obj)
+#define             <a class="link" href="FmNavHistory.html#IS-FM-NAV-HISTORY-CLASS:CAPS" title="IS_FM_NAV_HISTORY_CLASS()">IS_FM_NAV_HISTORY_CLASS</a>             (klass)
+                    <a class="link" href="FmNavHistory.html#FmNavHistory-struct" title="FmNavHistory">FmNavHistory</a>;
+                    <a class="link" href="FmNavHistory.html#FmNavHistoryItem" title="FmNavHistoryItem">FmNavHistoryItem</a>;
+                    <a class="link" href="FmNavHistory.html#FmNavHistoryClass" title="FmNavHistoryClass">FmNavHistoryClass</a>;
+<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmNavHistory.html#fm-nav-history-get-type" title="fm_nav_history_get_type ()">fm_nav_history_get_type</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="returnvalue">FmNavHistory</span></a>*       <a class="link" href="FmNavHistory.html#fm-nav-history-new" title="fm_nav_history_new ()">fm_nav_history_new</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="FmNavHistory.html#fm-nav-history-list" title="fm_nav_history_list ()">fm_nav_history_list</a>                 (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);
+const <a class="link" href="FmNavHistory.html#FmNavHistoryItem" title="FmNavHistoryItem"><span class="returnvalue">FmNavHistoryItem</span></a>* <a class="link" href="FmNavHistory.html#fm-nav-history-get-cur" title="fm_nav_history_get_cur ()">fm_nav_history_get_cur</a>          (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="FmNavHistory.html#fm-nav-history-get-cur-link" title="fm_nav_history_get_cur_link ()">fm_nav_history_get_cur_link</a>         (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmNavHistory.html#fm-nav-history-get-can-back" title="fm_nav_history_get_can_back ()">fm_nav_history_get_can_back</a>         (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmNavHistory.html#fm-nav-history-back" title="fm_nav_history_back ()">fm_nav_history_back</a>                 (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmNavHistory.html#fm-nav-history-get-can-forward" title="fm_nav_history_get_can_forward ()">fm_nav_history_get_can_forward</a>      (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmNavHistory.html#fm-nav-history-forward" title="fm_nav_history_forward ()">fm_nav_history_forward</a>              (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmNavHistory.html#fm-nav-history-chdir" title="fm_nav_history_chdir ()">fm_nav_history_chdir</a>                (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmNavHistory.html#fm-nav-history-jump" title="fm_nav_history_jump ()">fm_nav_history_jump</a>                 (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *l</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmNavHistory.html#fm-nav-history-clear" title="fm_nav_history_clear ()">fm_nav_history_clear</a>                (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmNavHistory.html#fm-nav-history-set-max" title="fm_nav_history_set_max ()">fm_nav_history_set_max</a>              (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a> num</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmNavHistory.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----FmNavHistory
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmNavHistory.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmNavHistory.details"></a><h2>Details</h2>
+<div class="refsect2" title="FM_NAV_HISTORY_TYPE">
+<a name="FM-NAV-HISTORY-TYPE:CAPS"></a><h3>FM_NAV_HISTORY_TYPE</h3>
+<pre class="programlisting">#define FM_NAV_HISTORY_TYPE				(fm_nav_history_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_NAV_HISTORY()">
+<a name="FM-NAV-HISTORY:CAPS"></a><h3>FM_NAV_HISTORY()</h3>
+<pre class="programlisting">#define             FM_NAV_HISTORY(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_NAV_HISTORY_CLASS()">
+<a name="FM-NAV-HISTORY-CLASS:CAPS"></a><h3>FM_NAV_HISTORY_CLASS()</h3>
+<pre class="programlisting">#define             FM_NAV_HISTORY_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_NAV_HISTORY()">
+<a name="IS-FM-NAV-HISTORY:CAPS"></a><h3>IS_FM_NAV_HISTORY()</h3>
+<pre class="programlisting">#define             IS_FM_NAV_HISTORY(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_NAV_HISTORY_CLASS()">
+<a name="IS-FM-NAV-HISTORY-CLASS:CAPS"></a><h3>IS_FM_NAV_HISTORY_CLASS()</h3>
+<pre class="programlisting">#define             IS_FM_NAV_HISTORY_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmNavHistory">
+<a name="FmNavHistory-struct"></a><h3>FmNavHistory</h3>
+<pre class="programlisting">typedef struct _FmNavHistory FmNavHistory;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmNavHistoryItem">
+<a name="FmNavHistoryItem"></a><h3>FmNavHistoryItem</h3>
+<pre class="programlisting">typedef struct {
+    FmPath* path;
+    int scroll_pos;
+} FmNavHistoryItem;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmNavHistoryClass">
+<a name="FmNavHistoryClass"></a><h3>FmNavHistoryClass</h3>
+<pre class="programlisting">typedef struct {
+	GObjectClass parent_class;
+} FmNavHistoryClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_get_type ()">
+<a name="fm-nav-history-get-type"></a><h3>fm_nav_history_get_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_nav_history_get_type             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_new ()">
+<a name="fm-nav-history-new"></a><h3>fm_nav_history_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="returnvalue">FmNavHistory</span></a>*       fm_nav_history_new                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_list ()">
+<a name="fm-nav-history-list"></a><h3>fm_nav_history_list ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              fm_nav_history_list                 (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_get_cur ()">
+<a name="fm-nav-history-get-cur"></a><h3>fm_nav_history_get_cur ()</h3>
+<pre class="programlisting">const <a class="link" href="FmNavHistory.html#FmNavHistoryItem" title="FmNavHistoryItem"><span class="returnvalue">FmNavHistoryItem</span></a>* fm_nav_history_get_cur          (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_get_cur_link ()">
+<a name="fm-nav-history-get-cur-link"></a><h3>fm_nav_history_get_cur_link ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              fm_nav_history_get_cur_link         (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_get_can_back ()">
+<a name="fm-nav-history-get-can-back"></a><h3>fm_nav_history_get_can_back ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_nav_history_get_can_back         (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_back ()">
+<a name="fm-nav-history-back"></a><h3>fm_nav_history_back ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_nav_history_back                 (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_get_can_forward ()">
+<a name="fm-nav-history-get-can-forward"></a><h3>fm_nav_history_get_can_forward ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_nav_history_get_can_forward      (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_forward ()">
+<a name="fm-nav-history-forward"></a><h3>fm_nav_history_forward ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_nav_history_forward              (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_chdir ()">
+<a name="fm-nav-history-chdir"></a><h3>fm_nav_history_chdir ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_nav_history_chdir                (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_jump ()">
+<a name="fm-nav-history-jump"></a><h3>fm_nav_history_jump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_nav_history_jump                 (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *l</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> old_scroll_pos</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_clear ()">
+<a name="fm-nav-history-clear"></a><h3>fm_nav_history_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_nav_history_clear                (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_nav_history_set_max ()">
+<a name="fm-nav-history-set-max"></a><h3>fm_nav_history_set_max ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_nav_history_set_max              (<em class="parameter"><code><a class="link" href="FmNavHistory.html" title="FmNavHistory"><span class="type">FmNavHistory</span></a> *nh</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a> num</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

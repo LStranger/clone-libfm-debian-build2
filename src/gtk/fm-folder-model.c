@@ -256,14 +256,14 @@ FmFolderModel *fm_folder_model_new(FmFolder* dir, gboolean show_hidden)
     return model;
 }
 
-inline FmFolderItem* fm_folder_item_new(FmFileInfo* inf)
+static inline FmFolderItem* fm_folder_item_new(FmFileInfo* inf)
 {
     FmFolderItem* item = g_slice_new0(FmFolderItem);
     item->inf = fm_file_info_ref(inf);
     return item;
 }
 
-inline void fm_folder_item_free(FmFolderItem* item)
+static inline void fm_folder_item_free(FmFolderItem* item)
 {
     if( item->icon )
         g_object_unref(item->icon);
@@ -689,14 +689,24 @@ static gint fm_folder_model_compare(FmFolderItem* item1,
 _sort_by_name:
         key1 = fm_file_info_get_collate_key(file1);
         key2 = fm_file_info_get_collate_key(file2);
-        ret = g_ascii_strcasecmp(key1, key2);
+        /*
+        collate keys are already passed to g_utf8_casefold, no need to
+        use strcasecmp here (and g_utf8_collate_key returns a string of
+        which case cannot be ignored)
+        */
+        ret = g_strcmp0(key1, key2);
         break;
     }
     case COL_FILE_SIZE:
-        ret = file1->size - file2->size;
-        if(0 == ret)
+    {
+        /* to support files more than 2Gb */
+        goffset diff = file1->size - file2->size;
+        if(0 == diff)
             goto _sort_by_name;
+        else
+            ret = diff > 0 ? 1 : -1;
         break;
+    }
     case COL_FILE_MTIME:
         ret = file1->mtime - file2->mtime;
         if(0 == ret)

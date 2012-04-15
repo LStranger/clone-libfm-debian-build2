@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmCellRendererText</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-app-menu-view.html" title="fm-app-menu-view">
+<link rel="next" href="libfm-fm-icon-pixbuf.html" title="fm-icon-pixbuf">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-app-menu-view.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-icon-pixbuf.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmCellRendererText.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmCellRendererText.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmCellRendererText.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmCellRendererText">
+<a name="FmCellRendererText"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmCellRendererText.top_of_page"></a>FmCellRendererText</span></h2>
+<p>FmCellRendererText</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmCellRendererText.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="FmCellRendererText.html#FM-CELL-RENDERER-TEXT-TYPE:CAPS" title="FM_CELL_RENDERER_TEXT_TYPE">FM_CELL_RENDERER_TEXT_TYPE</a>
+#define             <a class="link" href="FmCellRendererText.html#FM-CELL-RENDERER-TEXT:CAPS" title="FM_CELL_RENDERER_TEXT()">FM_CELL_RENDERER_TEXT</a>               (obj)
+#define             <a class="link" href="FmCellRendererText.html#FM-CELL-RENDERER-TEXT-CLASS:CAPS" title="FM_CELL_RENDERER_TEXT_CLASS()">FM_CELL_RENDERER_TEXT_CLASS</a>         (klass)
+#define             <a class="link" href="FmCellRendererText.html#IS-FM-CELL-RENDERER-TEXT:CAPS" title="IS_FM_CELL_RENDERER_TEXT()">IS_FM_CELL_RENDERER_TEXT</a>            (obj)
+#define             <a class="link" href="FmCellRendererText.html#IS-FM-CELL-RENDERER-TEXT-CLASS:CAPS" title="IS_FM_CELL_RENDERER_TEXT_CLASS()">IS_FM_CELL_RENDERER_TEXT_CLASS</a>      (klass)
+                    <a class="link" href="FmCellRendererText.html#FmCellRendererText-struct" title="FmCellRendererText">FmCellRendererText</a>;
+                    <a class="link" href="FmCellRendererText.html#FmCellRendererTextClass" title="FmCellRendererTextClass">FmCellRendererTextClass</a>;
+<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmCellRendererText.html#fm-cell-renderer-text-get-type" title="fm_cell_renderer_text_get_type ()">fm_cell_renderer_text_get_type</a>      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkCellRenderer.html"><span class="returnvalue">GtkCellRenderer</span></a>*    <a class="link" href="FmCellRendererText.html#fm-cell-renderer-text-new" title="fm_cell_renderer_text_new ()">fm_cell_renderer_text_new</a>           (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmCellRendererText.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkCellRenderer.html">GtkCellRenderer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkCellRendererText.html">GtkCellRendererText</a>
+                           +----FmCellRendererText
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmCellRendererText.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmCellRendererText.details"></a><h2>Details</h2>
+<div class="refsect2" title="FM_CELL_RENDERER_TEXT_TYPE">
+<a name="FM-CELL-RENDERER-TEXT-TYPE:CAPS"></a><h3>FM_CELL_RENDERER_TEXT_TYPE</h3>
+<pre class="programlisting">#define FM_CELL_RENDERER_TEXT_TYPE				(fm_cell_renderer_text_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_CELL_RENDERER_TEXT()">
+<a name="FM-CELL-RENDERER-TEXT:CAPS"></a><h3>FM_CELL_RENDERER_TEXT()</h3>
+<pre class="programlisting">#define             FM_CELL_RENDERER_TEXT(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_CELL_RENDERER_TEXT_CLASS()">
+<a name="FM-CELL-RENDERER-TEXT-CLASS:CAPS"></a><h3>FM_CELL_RENDERER_TEXT_CLASS()</h3>
+<pre class="programlisting">#define             FM_CELL_RENDERER_TEXT_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_CELL_RENDERER_TEXT()">
+<a name="IS-FM-CELL-RENDERER-TEXT:CAPS"></a><h3>IS_FM_CELL_RENDERER_TEXT()</h3>
+<pre class="programlisting">#define             IS_FM_CELL_RENDERER_TEXT(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_CELL_RENDERER_TEXT_CLASS()">
+<a name="IS-FM-CELL-RENDERER-TEXT-CLASS:CAPS"></a><h3>IS_FM_CELL_RENDERER_TEXT_CLASS()</h3>
+<pre class="programlisting">#define             IS_FM_CELL_RENDERER_TEXT_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmCellRendererText">
+<a name="FmCellRendererText-struct"></a><h3>FmCellRendererText</h3>
+<pre class="programlisting">typedef struct _FmCellRendererText FmCellRendererText;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmCellRendererTextClass">
+<a name="FmCellRendererTextClass"></a><h3>FmCellRendererTextClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkCellRendererTextClass parent_class;
+} FmCellRendererTextClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_cell_renderer_text_get_type ()">
+<a name="fm-cell-renderer-text-get-type"></a><h3>fm_cell_renderer_text_get_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_cell_renderer_text_get_type      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_cell_renderer_text_new ()">
+<a name="fm-cell-renderer-text-new"></a><h3>fm_cell_renderer_text_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkCellRenderer.html"><span class="returnvalue">GtkCellRenderer</span></a>*    fm_cell_renderer_text_new           (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

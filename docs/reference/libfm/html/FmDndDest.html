@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmDndDest</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="FmDndSrc.html" title="FmDndSrc">
+<link rel="next" href="FmFolder.html" title="FmFolder">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="FmDndSrc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="FmFolder.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmDndDest.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmDndDest.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmDndDest.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmDndDest.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmDndDest">
+<a name="FmDndDest"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmDndDest.top_of_page"></a>FmDndDest</span></h2>
+<p>FmDndDest</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmDndDest.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="FmDndDest.html#FmDndDest-struct" title="FmDndDest">FmDndDest</a>;
+                    <a class="link" href="FmDndDest.html#FmDndDestClass" title="FmDndDestClass">FmDndDestClass</a>;
+<a class="link" href="FmDndDest.html" title="FmDndDest"><span class="returnvalue">FmDndDest</span></a>*          <a class="link" href="FmDndDest.html#fm-dnd-dest-new" title="fm_dnd_dest_new ()">fm_dnd_dest_new</a>                     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDndDest.html#fm-dnd-dest-set-widget" title="fm_dnd_dest_set_widget ()">fm_dnd_dest_set_widget</a>              (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);
+<a class="link" href="libfm-fm-list.html#FmList" title="FmList"><span class="returnvalue">FmList</span></a>*             <a class="link" href="FmDndDest.html#fm-dnd-dest-get-src-files" title="fm_dnd_dest_get_src_files ()">fm_dnd_dest_get_src_files</a>           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDndDest.html#fm-dnd-dest-set-dest-file" title="fm_dnd_dest_set_dest_file ()">fm_dnd_dest_set_dest_file</a>           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *dest_file</code></em>);
+<span class="returnvalue">FmFileInfo</span>*         <a class="link" href="FmDndDest.html#fm-dnd-dest-get-dest-file" title="fm_dnd_dest_get_dest_file ()">fm_dnd_dest_get_dest_file</a>           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="FmDndDest.html#fm-dnd-dest-get-dest-path" title="fm_dnd_dest_get_dest_path ()">fm_dnd_dest_get_dest_path</a>           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmDndDest.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----FmDndDest
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="FmDndDest.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="FmDndDest.html#FmDndDest-files-dropped" title='The "files-dropped" signal'>files-dropped</a>"                                  : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmDndDest.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmDndDest.details"></a><h2>Details</h2>
+<div class="refsect2" title="FmDndDest">
+<a name="FmDndDest-struct"></a><h3>FmDndDest</h3>
+<pre class="programlisting">typedef struct _FmDndDest FmDndDest;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmDndDestClass">
+<a name="FmDndDestClass"></a><h3>FmDndDestClass</h3>
+<pre class="programlisting">typedef struct {
+    GObjectClass parent_class;
+    gboolean (*files_dropped)(guint action, guint info_type, FmFileInfoList* files);
+} FmDndDestClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dnd_dest_new ()">
+<a name="fm-dnd-dest-new"></a><h3>fm_dnd_dest_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="returnvalue">FmDndDest</span></a>*          fm_dnd_dest_new                     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dnd_dest_set_widget ()">
+<a name="fm-dnd-dest-set-widget"></a><h3>fm_dnd_dest_set_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_dest_set_widget              (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dnd_dest_get_src_files ()">
+<a name="fm-dnd-dest-get-src-files"></a><h3>fm_dnd_dest_get_src_files ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-list.html#FmList" title="FmList"><span class="returnvalue">FmList</span></a>*             fm_dnd_dest_get_src_files           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dnd_dest_set_dest_file ()">
+<a name="fm-dnd-dest-set-dest-file"></a><h3>fm_dnd_dest_set_dest_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_dest_set_dest_file           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *dest_file</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dnd_dest_get_dest_file ()">
+<a name="fm-dnd-dest-get-dest-file"></a><h3>fm_dnd_dest_get_dest_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmFileInfo</span>*         fm_dnd_dest_get_dest_file           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dnd_dest_get_dest_path ()">
+<a name="fm-dnd-dest-get-dest-path"></a><h3>fm_dnd_dest_get_dest_path ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_dnd_dest_get_dest_path           (<em class="parameter"><code><a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *dd</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="FmDndDest.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "files-dropped" signal'>
+<a name="FmDndDest-files-dropped"></a><h3>The <code class="literal">"files-dropped"</code> signal</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            user_function                      (<a class="link" href="FmDndDest.html" title="FmDndDest"><span class="type">FmDndDest</span></a> *fmdnddest,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a>      arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a>      arg2,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>   arg3,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>   user_data)      : Run Last</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

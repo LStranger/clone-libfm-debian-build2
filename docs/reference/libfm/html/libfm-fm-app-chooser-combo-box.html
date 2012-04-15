@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-app-chooser-combo-box</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-progress-dlg.html" title="fm-progress-dlg">
+<link rel="next" href="FmConfig.html" title="FmConfig">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-progress-dlg.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="FmConfig.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-app-chooser-combo-box.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-app-chooser-combo-box.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="fm-app-chooser-combo-box">
+<a name="libfm-fm-app-chooser-combo-box"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-app-chooser-combo-box.top_of_page"></a>fm-app-chooser-combo-box</span></h2>
+<p>fm-app-chooser-combo-box</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libfm-fm-app-chooser-combo-box.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-setup" title="fm_app_chooser_combo_box_setup ()">fm_app_chooser_combo_box_setup</a>      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkComboBox.html"><span class="type">GtkComboBox</span></a> *combo</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *apps</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html"><span class="type">GAppInfo</span></a> *sel</code></em>);
+#define             <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-setup-for-mime-type" title="fm_app_chooser_combo_box_setup_for_mime_type()">fm_app_chooser_combo_box_setup_for_mime_type</a>(combo,
+                                                         mime_type)
+#define             <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-setup-custom" title="fm_app_chooser_combo_box_setup_custom()">fm_app_chooser_combo_box_setup_custom</a>(combo,
+                                                         apps,
+                                                         sel)
+<a href="/usr/share/gtk-doc/html/gio/GAppInfo.html"><span class="returnvalue">GAppInfo</span></a>*           <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-get-selected" title="fm_app_chooser_combo_box_get_selected ()">fm_app_chooser_combo_box_get_selected</a>
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkComboBox.html"><span class="type">GtkComboBox</span></a> *combo</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *is_sel_changed</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-get-custom-apps" title="fm_app_chooser_combo_box_get_custom_apps ()">fm_app_chooser_combo_box_get_custom_apps</a>
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkComboBox.html"><span class="type">GtkComboBox</span></a> *combo</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libfm-fm-app-chooser-combo-box.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libfm-fm-app-chooser-combo-box.details"></a><h2>Details</h2>
+<div class="refsect2" title="fm_app_chooser_combo_box_setup ()">
+<a name="fm-app-chooser-combo-box-setup"></a><h3>fm_app_chooser_combo_box_setup ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_app_chooser_combo_box_setup      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkComboBox.html"><span class="type">GtkComboBox</span></a> *combo</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *apps</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html"><span class="type">GAppInfo</span></a> *sel</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_app_chooser_combo_box_setup_for_mime_type()">
+<a name="fm-app-chooser-combo-box-setup-for-mime-type"></a><h3>fm_app_chooser_combo_box_setup_for_mime_type()</h3>
+<pre class="programlisting">#define             fm_app_chooser_combo_box_setup_for_mime_type(combo, mime_type)</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_app_chooser_combo_box_setup_custom()">
+<a name="fm-app-chooser-combo-box-setup-custom"></a><h3>fm_app_chooser_combo_box_setup_custom()</h3>
+<pre class="programlisting">#define             fm_app_chooser_combo_box_setup_custom(combo, apps, sel)</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_app_chooser_combo_box_get_selected ()">
+<a name="fm-app-chooser-combo-box-get-selected"></a><h3>fm_app_chooser_combo_box_get_selected ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html"><span class="returnvalue">GAppInfo</span></a>*           fm_app_chooser_combo_box_get_selected
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkComboBox.html"><span class="type">GtkComboBox</span></a> *combo</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *is_sel_changed</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_app_chooser_combo_box_get_custom_apps ()">
+<a name="fm-app-chooser-combo-box-get-custom-apps"></a><h3>fm_app_chooser_combo_box_get_custom_apps ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              fm_app_chooser_combo_box_get_custom_apps
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkComboBox.html"><span class="type">GtkComboBox</span></a> *combo</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

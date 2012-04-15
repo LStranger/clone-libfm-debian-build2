@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-path</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-list.html" title="fm-list">
+<link rel="next" href="libfm-fm-icon.html" title="fm-icon">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-list.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-icon.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-path.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-path.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="fm-path">
+<a name="libfm-fm-path"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-path.top_of_page"></a>fm-path</span></h2>
+<p>fm-path</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libfm-fm-path.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="libfm-fm-path.html#FM-PATH:CAPS" title="FM_PATH()">FM_PATH</a>                             (path)
+                    <a class="link" href="libfm-fm-path.html#FmPath" title="FmPath">FmPath</a>;
+typedef             <a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList">FmPathList</a>;
+#define             <a class="link" href="libfm-fm-path.html#fm-path-new" title="fm_path_new()">fm_path_new</a>                         (path)
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-new-child" title="fm_path_new_child ()">fm_path_new_child</a>                   (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *basename</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-new-child-len" title="fm_path_new_child_len ()">fm_path_new_child_len</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *basename</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> name_len</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-new-relative" title="fm_path_new_relative ()">fm_path_new_relative</a>                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *relative_path</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-new-for-gfile" title="fm_path_new_for_gfile ()">fm_path_new_for_gfile</a>               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="type">GFile</span></a> *gf</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-get-root" title="fm_path_get_root ()">fm_path_get_root</a>                    ();
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-get-home" title="fm_path_get_home ()">fm_path_get_home</a>                    ();
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-get-desktop" title="fm_path_get_desktop ()">fm_path_get_desktop</a>                 ();
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-get-trash" title="fm_path_get_trash ()">fm_path_get_trash</a>                   ();
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-get-apps-menu" title="fm_path_get_apps_menu ()">fm_path_get_apps_menu</a>               ();
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-ref" title="fm_path_ref ()">fm_path_ref</a>                         (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-path.html#fm-path-unref" title="fm_path_unref ()">fm_path_unref</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-path.html#fm-path-get-parent" title="fm_path_get_parent ()">fm_path_get_parent</a>                  (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+const <span class="returnvalue">char</span>*         <a class="link" href="libfm-fm-path.html#fm-path-get-basename" title="fm_path_get_basename ()">fm_path_get_basename</a>                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<span class="returnvalue">FmPathFlags</span>         <a class="link" href="libfm-fm-path.html#fm-path-get-flags" title="fm_path_get_flags ()">fm_path_get_flags</a>                   (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+#define             <a class="link" href="libfm-fm-path.html#fm-path-is-native" title="fm_path_is_native()">fm_path_is_native</a>                   (path)
+#define             <a class="link" href="libfm-fm-path.html#fm-path-is-trash" title="fm_path_is_trash()">fm_path_is_trash</a>                    (path)
+#define             <a class="link" href="libfm-fm-path.html#fm-path-is-trash-root" title="fm_path_is_trash_root()">fm_path_is_trash_root</a>               (path)
+#define             <a class="link" href="libfm-fm-path.html#fm-path-is-virtual" title="fm_path_is_virtual()">fm_path_is_virtual</a>                  (path)
+#define             <a class="link" href="libfm-fm-path.html#fm-path-is-local" title="fm_path_is_local()">fm_path_is_local</a>                    (path)
+#define             <a class="link" href="libfm-fm-path.html#fm-path-is-xdg-menu" title="fm_path_is_xdg_menu()">fm_path_is_xdg_menu</a>                 (path)
+<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-path.html#fm-path-to-str" title="fm_path_to_str ()">fm_path_to_str</a>                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-path.html#fm-path-to-uri" title="fm_path_to_uri ()">fm_path_to_uri</a>                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="returnvalue">GFile</span></a>*              <a class="link" href="libfm-fm-path.html#fm-path-to-gfile" title="fm_path_to_gfile ()">fm_path_to_gfile</a>                    (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-path.html#fm-path-display-name" title="fm_path_display_name ()">fm_path_display_name</a>                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> human_readable</code></em>);
+<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-path.html#fm-path-display-basename" title="fm_path_display_basename ()">fm_path_display_basename</a>            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="libfm-fm-path.html#fm-path-hash" title="fm_path_hash ()">fm_path_hash</a>                        (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-path.html#fm-path-equal" title="fm_path_equal ()">fm_path_equal</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *p1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *p2</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-path.html#fm-path-equal-str" title="fm_path_equal_str ()">fm_path_equal_str</a>                   (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         <a class="link" href="libfm-fm-path.html#fm-path-list-new" title="fm_path_list_new ()">fm_path_list_new</a>                    ();
+<a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         <a class="link" href="libfm-fm-path.html#fm-path-list-new-from-uri-list" title="fm_path_list_new_from_uri_list ()">fm_path_list_new_from_uri_list</a>      (<em class="parameter"><code>const <span class="type">char</span> *uri_list</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         <a class="link" href="libfm-fm-path.html#fm-path-list-new-from-uris" title="fm_path_list_new_from_uris ()">fm_path_list_new_from_uris</a>          (<em class="parameter"><code>const <span class="type">char</span> **uris</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         <a class="link" href="libfm-fm-path.html#fm-path-list-new-from-file-info-list" title="fm_path_list_new_from_file_info_list ()">fm_path_list_new_from_file_info_list</a>
+                                                        (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="FmList"><span class="type">FmList</span></a> *fis</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         <a class="link" href="libfm-fm-path.html#fm-path-list-new-from-file-info-glist" title="fm_path_list_new_from_file_info_glist ()">fm_path_list_new_from_file_info_glist</a>
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *fis</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         <a class="link" href="libfm-fm-path.html#fm-path-list-new-from-file-info-gslist" title="fm_path_list_new_from_file_info_gslist ()">fm_path_list_new_from_file_info_gslist</a>
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *fis</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-path.html#fm-list-is-path-list" title="fm_list_is_path_list ()">fm_list_is_path_list</a>                (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="FmList"><span class="type">FmList</span></a> *list</code></em>);
+<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-path.html#fm-path-list-to-uri-list" title="fm_path_list_to_uri_list ()">fm_path_list_to_uri_list</a>            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *pl</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-path.html#fm-path-list-write-uri-list" title="fm_path_list_write_uri_list ()">fm_path_list_write_uri_list</a>         (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *pl</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Strings.html#GString"><span class="type">GString</span></a> *buf</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libfm-fm-path.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libfm-fm-path.details"></a><h2>Details</h2>
+<div class="refsect2" title="FM_PATH()">
+<a name="FM-PATH:CAPS"></a><h3>FM_PATH()</h3>
+<pre class="programlisting">#define FM_PATH(path)   ((FmPath*)path)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmPath">
+<a name="FmPath"></a><h3>FmPath</h3>
+<pre class="programlisting">typedef struct {
+	gint n_ref;
+	FmPath* parent;
+	guchar flags; /* FmPathFlags flags : 8; */
+	char name[1];
+} FmPath;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmPathList">
+<a name="FmPathList"></a><h3>FmPathList</h3>
+<pre class="programlisting">typedef FmList FmPathList;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_new()">
+<a name="fm-path-new"></a><h3>fm_path_new()</h3>
+<pre class="programlisting">#define fm_path_new(path)   fm_path_new_for_str(path)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_new_child ()">
+<a name="fm-path-new-child"></a><h3>fm_path_new_child ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_new_child                   (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *basename</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>a parent path
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>basename</code></em> :</span></p></td>
+<td>basename of a direct child of <em class="parameter"><code>parent</code></em> directory in glib
+filename encoding. (can be non-UTF-8).
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly created FmPath for the path. You have to call
+<a class="link" href="libfm-fm-path.html#fm-path-unref" title="fm_path_unref ()"><code class="function">fm_path_unref()</code></a> when it's no longer needed.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_new_child_len ()">
+<a name="fm-path-new-child-len"></a><h3>fm_path_new_child_len ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_new_child_len               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *basename</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> name_len</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>a parent path
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>basename</code></em> :</span></p></td>
+<td>basename of a direct child of <em class="parameter"><code>parent</code></em> directory in glib
+filename encoding. (can be non-UTF-8).
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of basename
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly created FmPath for the path. You have to call
+<a class="link" href="libfm-fm-path.html#fm-path-unref" title="fm_path_unref ()"><code class="function">fm_path_unref()</code></a> when it's no longer needed.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_new_relative ()">
+<a name="fm-path-new-relative"></a><h3>fm_path_new_relative ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_new_relative                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *relative_path</code></em>);</pre>
+<p>
+For example, if <em class="parameter"><code>parent</code></em> is "http://wiki.lxde.org/" and <em class="parameter"><code>rel</code></em> is
+"zh/<code class="literal">E9</code>%A6<code class="literal">96</code>%E9<code class="literal">A0</code>%81", you have to unescape the relative path
+prior to passing it to <a class="link" href="libfm-fm-path.html#fm-path-new-relative" title="fm_path_new_relative ()"><code class="function">fm_path_new_relative()</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is NULL, this works the same as fm_path_new_for_str(<em class="parameter"><code>rel</code></em>)
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>a parent path
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rel</code></em> :</span></p></td>
+<td>a path relative to <em class="parameter"><code>parent</code></em> in glib filename encoding. (can be
+non-UTF-8). However this should not be a escaped ASCII string used in
+URI. If you're building a relative path for a URI, and the relative
+path is escaped, you have to unescape it first.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly created FmPath for the path. You have to call
+<a class="link" href="libfm-fm-path.html#fm-path-unref" title="fm_path_unref ()"><code class="function">fm_path_unref()</code></a> when it's no longer needed.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_new_for_gfile ()">
+<a name="fm-path-new-for-gfile"></a><h3>fm_path_new_for_gfile ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_new_for_gfile               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="type">GFile</span></a> *gf</code></em>);</pre>
+<p>
+This function converts a GFile object to FmPath.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gf</code></em> :</span></p></td>
+<td>a GFile object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly created FmPath for the path. You have to call
+<a class="link" href="libfm-fm-path.html#fm-path-unref" title="fm_path_unref ()"><code class="function">fm_path_unref()</code></a> when it's no longer needed.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_root ()">
+<a name="fm-path-get-root"></a><h3>fm_path_get_root ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_get_root                    ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_home ()">
+<a name="fm-path-get-home"></a><h3>fm_path_get_home ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_get_home                    ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_desktop ()">
+<a name="fm-path-get-desktop"></a><h3>fm_path_get_desktop ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_get_desktop                 ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_trash ()">
+<a name="fm-path-get-trash"></a><h3>fm_path_get_trash ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_get_trash                   ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_apps_menu ()">
+<a name="fm-path-get-apps-menu"></a><h3>fm_path_get_apps_menu ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_get_apps_menu               ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_ref ()">
+<a name="fm-path-ref"></a><h3>fm_path_ref ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_ref                         (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_unref ()">
+<a name="fm-path-unref"></a><h3>fm_path_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_path_unref                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_parent ()">
+<a name="fm-path-get-parent"></a><h3>fm_path_get_parent ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_path_get_parent                  (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_basename ()">
+<a name="fm-path-get-basename"></a><h3>fm_path_get_basename ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span>*         fm_path_get_basename                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_get_flags ()">
+<a name="fm-path-get-flags"></a><h3>fm_path_get_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmPathFlags</span>         fm_path_get_flags                   (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_is_native()">
+<a name="fm-path-is-native"></a><h3>fm_path_is_native()</h3>
+<pre class="programlisting">#define fm_path_is_native(path) (fm_path_get_flags(path)&amp;FM_PATH_IS_NATIVE)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_is_trash()">
+<a name="fm-path-is-trash"></a><h3>fm_path_is_trash()</h3>
+<pre class="programlisting">#define fm_path_is_trash(path) (fm_path_get_flags(path)&amp;FM_PATH_IS_TRASH)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_is_trash_root()">
+<a name="fm-path-is-trash-root"></a><h3>fm_path_is_trash_root()</h3>
+<pre class="programlisting">#define fm_path_is_trash_root(path) (path == fm_path_get_trash())
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_is_virtual()">
+<a name="fm-path-is-virtual"></a><h3>fm_path_is_virtual()</h3>
+<pre class="programlisting">#define fm_path_is_virtual(path) (fm_path_get_flags(path)&amp;FM_PATH_IS_VIRTUAL)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_is_local()">
+<a name="fm-path-is-local"></a><h3>fm_path_is_local()</h3>
+<pre class="programlisting">#define fm_path_is_local(path) (fm_path_get_flags(path)&amp;FM_PATH_IS_LOCAL)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_is_xdg_menu()">
+<a name="fm-path-is-xdg-menu"></a><h3>fm_path_is_xdg_menu()</h3>
+<pre class="programlisting">#define fm_path_is_xdg_menu(path) (fm_path_get_flags(path)&amp;FM_PATH_IS_XDG_MENU)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_to_str ()">
+<a name="fm-path-to-str"></a><h3>fm_path_to_str ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               fm_path_to_str                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_to_uri ()">
+<a name="fm-path-to-uri"></a><h3>fm_path_to_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               fm_path_to_uri                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_to_gfile ()">
+<a name="fm-path-to-gfile"></a><h3>fm_path_to_gfile ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="returnvalue">GFile</span></a>*              fm_path_to_gfile                    (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_display_name ()">
+<a name="fm-path-display-name"></a><h3>fm_path_display_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               fm_path_display_name                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> human_readable</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_display_basename ()">
+<a name="fm-path-display-basename"></a><h3>fm_path_display_basename ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               fm_path_display_basename            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_hash ()">
+<a name="fm-path-hash"></a><h3>fm_path_hash ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               fm_path_hash                        (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_equal ()">
+<a name="fm-path-equal"></a><h3>fm_path_equal ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_path_equal                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *p1</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *p2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_equal_str ()">
+<a name="fm-path-equal-str"></a><h3>fm_path_equal_str ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_path_equal_str                   (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> n</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_new ()">
+<a name="fm-path-list-new"></a><h3>fm_path_list_new ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         fm_path_list_new                    ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_new_from_uri_list ()">
+<a name="fm-path-list-new-from-uri-list"></a><h3>fm_path_list_new_from_uri_list ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         fm_path_list_new_from_uri_list      (<em class="parameter"><code>const <span class="type">char</span> *uri_list</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_new_from_uris ()">
+<a name="fm-path-list-new-from-uris"></a><h3>fm_path_list_new_from_uris ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         fm_path_list_new_from_uris          (<em class="parameter"><code>const <span class="type">char</span> **uris</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_new_from_file_info_list ()">
+<a name="fm-path-list-new-from-file-info-list"></a><h3>fm_path_list_new_from_file_info_list ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         fm_path_list_new_from_file_info_list
+                                                        (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="FmList"><span class="type">FmList</span></a> *fis</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_new_from_file_info_glist ()">
+<a name="fm-path-list-new-from-file-info-glist"></a><h3>fm_path_list_new_from_file_info_glist ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         fm_path_list_new_from_file_info_glist
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *fis</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_new_from_file_info_gslist ()">
+<a name="fm-path-list-new-from-file-info-gslist"></a><h3>fm_path_list_new_from_file_info_gslist ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         fm_path_list_new_from_file_info_gslist
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *fis</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_list_is_path_list ()">
+<a name="fm-list-is-path-list"></a><h3>fm_list_is_path_list ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_list_is_path_list                (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="FmList"><span class="type">FmList</span></a> *list</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_to_uri_list ()">
+<a name="fm-path-list-to-uri-list"></a><h3>fm_path_list_to_uri_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               fm_path_list_to_uri_list            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *pl</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_path_list_write_uri_list ()">
+<a name="fm-path-list-write-uri-list"></a><h3>fm_path_list_write_uri_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_path_list_write_uri_list         (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *pl</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Strings.html#GString"><span class="type">GString</span></a> *buf</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

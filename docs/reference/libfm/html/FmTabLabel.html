@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmTabLabel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-FmDirTreeModel.html" title="FmDirTreeModel">
+<link rel="next" href="FmDndSrc.html" title="FmDndSrc">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-FmDirTreeModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="FmDndSrc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmTabLabel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmTabLabel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmTabLabel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmTabLabel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmTabLabel">
+<a name="FmTabLabel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmTabLabel.top_of_page"></a>FmTabLabel</span></h2>
+<p>FmTabLabel</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmTabLabel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="FmTabLabel.html#FmTabLabel-struct" title="FmTabLabel">FmTabLabel</a>;
+                    <a class="link" href="FmTabLabel.html#FmTabLabelClass" title="FmTabLabelClass">FmTabLabelClass</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="FmTabLabel.html#fm-tab-label-new" title="fm_tab_label_new ()">fm_tab_label_new</a>                    (<em class="parameter"><code>const <span class="type">char</span> *text</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmTabLabel.html#fm-tab-label-set-text" title="fm_tab_label_set_text ()">fm_tab_label_set_text</a>               (<em class="parameter"><code><a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> *label</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *text</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmTabLabel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
+                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkEventBox.html">GtkEventBox</a>
+                                       +----FmTabLabel
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="FmTabLabel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+FmTabLabel implements
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmTabLabel.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmTabLabel.details"></a><h2>Details</h2>
+<div class="refsect2" title="FmTabLabel">
+<a name="FmTabLabel-struct"></a><h3>FmTabLabel</h3>
+<pre class="programlisting">typedef struct _FmTabLabel FmTabLabel;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmTabLabelClass">
+<a name="FmTabLabelClass"></a><h3>FmTabLabelClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkEventBoxClass parent_class;
+} FmTabLabelClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_tab_label_new ()">
+<a name="fm-tab-label-new"></a><h3>fm_tab_label_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          fm_tab_label_new                    (<em class="parameter"><code>const <span class="type">char</span> *text</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_tab_label_set_text ()">
+<a name="fm-tab-label-set-text"></a><h3>fm_tab_label_set_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_tab_label_set_text               (<em class="parameter"><code><a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> *label</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *text</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

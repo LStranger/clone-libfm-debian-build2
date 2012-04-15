@@ -5,18 +5,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-28 02:27+0800\n"
-"PO-Revision-Date: 2010-04-07 10:10+0200\n"
-"Last-Translator: Indalecio <ifreiria@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
+"PO-Revision-Date: 2010-09-03 18:36+0100\n"
+"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
+"X-Poedit-Language: Galician\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -262,7 +263,7 @@ msgstr "Liña de ordes:"
 msgid "File Associations"
 msgstr "Asociacións de ficheiros"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Aplicativos preferidos"
 
@@ -329,148 +330,156 @@ msgstr "Atallos"
 msgid "Mount Point"
 msgstr "Punto de montaxe"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Caldeiro do lixo"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "O meu computador"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Aplicativos"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Rede"
 
-#: ../src/gtk/fm-progress-dlg.c:145
+#: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
 "Size: %s\n"
 "Modified: %s"
 msgstr ""
+"Tipo: %s\n"
+"Tamaño: %s\n"
+"Modificado: %s\r\n"
+"\t"
 
-#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
+"Tipo: %s\n"
+"Modificado: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:302
+#: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
 msgstr "A operación de ficheiro cancelouse e hai algúns erros."
 
-#: ../src/gtk/fm-progress-dlg.c:304
+#: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: ../src/gtk/fm-progress-dlg.c:308
+#: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
 msgstr "A operación de ficheiro rematou, pero hai algúns erros."
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
 msgstr "Finalizado"
 
-#: ../src/gtk/fm-progress-dlg.c:328
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
+"Algúns ficheiros non poden enviarse ao cesto do lixo porque o subsistema de "
+"ficheiros non permite esta operación.\n"
+"Desexa eliminarlos no seu canto?"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:437
+#: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
 msgstr "Movendo ficheiros"
 
-#: ../src/gtk/fm-progress-dlg.c:440
+#: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
 msgstr "Copiando ficheiros"
 
-#: ../src/gtk/fm-progress-dlg.c:443
+#: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
 msgstr "Enviando ficheiros ao caldeiro do lixo"
 
-#: ../src/gtk/fm-progress-dlg.c:446
+#: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
 msgstr "Eliminando ficheiros"
 
-#: ../src/gtk/fm-progress-dlg.c:449
+#: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
 msgstr "Creando ligazóns simbólicas"
 
-#: ../src/gtk/fm-progress-dlg.c:452
+#: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
 msgstr "Cambiando atributos do ficheiro"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "byte"
+msgstr[1] "bytes"
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr "Introduza un nome de usuario ou unha id. numérica válida."
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr "Introduza un nome de grupo ou id. numérica válida."
 
-#: ../src/gtk/fm-file-properties.c:351
+#: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Desexa aplicar recursivamente estes cambios a todos os ficheiros e "
 "subcartafoles?"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "Ficheiros de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "Múltiples ficheiros"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Montar volume"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Desmontar volume"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíbel"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Renomear marcador"
 
-#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Quitar dos marcadores"
 
-#: ../src/gtk/fm-places-view.c:160
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Baleirar o caldeiro do lixo"
 
-#: ../src/gtk/fm-places-view.c:498
-msgid "Trash"
-msgstr "Caldeiro do lixo"
-
-#: ../src/gtk/fm-places-view.c:552
-msgid "Desktop"
-msgstr "Escritorio"
-
-#: ../src/gtk/fm-places-view.c:875
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Introduza un nome novo:"
 
@@ -502,15 +511,15 @@ msgstr "Extraer aquí"
 msgid "Extract To..."
 msgstr "Extraer a..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
-msgstr ""
+msgstr "_Restaurar"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
-msgstr ""
+msgstr "Restaura os ficheiros do cesto lixo cara a súa localización orixinal"
 
-#: ../src/gtk/fm-dnd-dest.c:449
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave fallou."
 
@@ -526,19 +535,19 @@ msgstr "Executar unha liña de ordes personalizada para abrir os ficheiros"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:522
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gtk/fm-folder-view.c:541
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Descrición"
 
-#: ../src/gtk/fm-folder-view.c:548
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gtk/fm-folder-view.c:554
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Modificado"
 
@@ -554,32 +563,54 @@ msgstr "Erro"
 msgid "Please select a folder"
 msgstr "Seleccione un cartafol"
 
-#: ../src/gtk/fm-gtk-utils.c:400
+#: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
 msgstr "Só o administrador ten o permiso para facer isto."
 
-#: ../src/gtk/fm-gtk-utils.c:475
+#: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Desexa mover os ficheiros seleccionados ao caldeiro do lixo?"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
 msgstr "Desexa eliminar os ficheiros seleccionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
 msgstr "Renomear ficheiro"
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
 msgstr "Introduza un nome novo:"
 
-#: ../src/gtk/fm-gtk-utils.c:564
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Está seguro que desexa baleirar o caldeiro do lixo?"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "O directorio especificado non é válido"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr "A orixe e o destino son o mesmo."
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr "Nón é posíbel mover un cartafol cara o seu subcartafol"
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr "Nón é posíbel copiar un cartafol dentro dun seu subcartafol"
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr "O destino é un subcartafol da orixe"
+
+#~ msgid "Trash"
+#~ msgstr "Caldeiro do lixo"
+
+#~ msgid "Desktop"
+#~ msgstr "Escritorio"

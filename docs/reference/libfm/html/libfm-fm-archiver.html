@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-archiver</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-file-info.html" title="fm-file-info">
+<link rel="next" href="libfm-fm-mime-type.html" title="fm-mime-type">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-file-info.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-mime-type.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-archiver.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-archiver.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="fm-archiver">
+<a name="libfm-fm-archiver"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-archiver.top_of_page"></a>fm-archiver</span></h2>
+<p>fm-archiver</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libfm-fm-archiver.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver">FmArchiver</a>;
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-archiver.html#fm-archiver-is-mime-type-supported" title="fm_archiver_is_mime_type_supported ()">fm_archiver_is_mime_type_supported</a>  (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *type</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-archiver.html#fm-archiver-create-archive" title="fm_archiver_create_archive ()">fm_archiver_create_archive</a>          (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-archiver.html#fm-archiver-extract-archives" title="fm_archiver_extract_archives ()">fm_archiver_extract_archives</a>        (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-archiver.html#fm-archiver-extract-archives-to" title="fm_archiver_extract_archives_to ()">fm_archiver_extract_archives_to</a>     (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);
+<a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="returnvalue">FmArchiver</span></a>*         <a class="link" href="libfm-fm-archiver.html#fm-archiver-get-default" title="fm_archiver_get_default ()">fm_archiver_get_default</a>             ();
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-archiver.html#fm-archiver-set-default" title="fm_archiver_set_default ()">fm_archiver_set_default</a>             (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="libfm-fm-archiver.html#fm-archiver-get-all" title="fm_archiver_get_all ()">fm_archiver_get_all</a>                 ();
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libfm-fm-archiver.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libfm-fm-archiver.details"></a><h2>Details</h2>
+<div class="refsect2" title="FmArchiver">
+<a name="FmArchiver"></a><h3>FmArchiver</h3>
+<pre class="programlisting">typedef struct {
+    char* program;
+    char* create_cmd;
+    char* extract_cmd;
+    char* extract_to_cmd;
+    char** mime_types;
+} FmArchiver;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_archiver_is_mime_type_supported ()">
+<a name="fm-archiver-is-mime-type-supported"></a><h3>fm_archiver_is_mime_type_supported ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_archiver_is_mime_type_supported  (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *type</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_archiver_create_archive ()">
+<a name="fm-archiver-create-archive"></a><h3>fm_archiver_create_archive ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_archiver_create_archive          (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_archiver_extract_archives ()">
+<a name="fm-archiver-extract-archives"></a><h3>fm_archiver_extract_archives ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_archiver_extract_archives        (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_archiver_extract_archives_to ()">
+<a name="fm-archiver-extract-archives-to"></a><h3>fm_archiver_extract_archives_to ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_archiver_extract_archives_to     (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_archiver_get_default ()">
+<a name="fm-archiver-get-default"></a><h3>fm_archiver_get_default ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="returnvalue">FmArchiver</span></a>*         fm_archiver_get_default             ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_archiver_set_default ()">
+<a name="fm-archiver-set-default"></a><h3>fm_archiver_set_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_archiver_set_default             (<em class="parameter"><code><a class="link" href="libfm-fm-archiver.html#FmArchiver" title="FmArchiver"><span class="type">FmArchiver</span></a> *archiver</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_archiver_get_all ()">
+<a name="fm-archiver-get-all"></a><h3>fm_archiver_get_all ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              fm_archiver_get_all                 ();</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-gtk-utils</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-file-menu.html" title="fm-file-menu">
+<link rel="next" href="FmPlacesView.html" title="FmPlacesView">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-file-menu.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="FmPlacesView.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-gtk-utils.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-gtk-utils.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="fm-gtk-utils">
+<a name="libfm-fm-gtk-utils"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-gtk-utils.top_of_page"></a>fm-gtk-utils</span></h2>
+<p>fm-gtk-utils</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libfm-fm-gtk-utils.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-show-error" title="fm_show_error ()">fm_show_error</a>                       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *msg</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-yes-no" title="fm_yes_no ()">fm_yes_no</a>                           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> default_yes</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-ok-cancel" title="fm_ok_cancel ()">fm_ok_cancel</a>                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> default_ok</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libfm-fm-gtk-utils.html#fm-ask" title="fm_ask ()">fm_ask</a>                              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libfm-fm-gtk-utils.html#fm-askv" title="fm_askv ()">fm_askv</a>                             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> **options</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="libfm-fm-gtk-utils.html#fm-ask-valist" title="fm_ask_valist ()">fm_ask_valist</a>                       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> options</code></em>);
+<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-gtk-utils.html#fm-get-user-input" title="fm_get_user_input ()">fm_get_user_input</a>                   (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *msg</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *default_text</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-gtk-utils.html#fm-get-user-input-path" title="fm_get_user_input_path ()">fm_get_user_input_path</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *msg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *default_path</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="libfm-fm-gtk-utils.html#fm-select-folder" title="fm_select_folder ()">fm_select_folder</a>                    (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-mount-path" title="fm_mount_path ()">fm_mount_path</a>                       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-mount-volume" title="fm_mount_volume ()">fm_mount_volume</a>                     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GVolume.html"><span class="type">GVolume</span></a> *vol</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-unmount-mount" title="fm_unmount_mount ()">fm_unmount_mount</a>                    (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GMount.html"><span class="type">GMount</span></a> *mount</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-unmount-volume" title="fm_unmount_volume ()">fm_unmount_volume</a>                   (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GVolume.html"><span class="type">GVolume</span></a> *vol</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-eject-mount" title="fm_eject_mount ()">fm_eject_mount</a>                      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GMount.html"><span class="type">GMount</span></a> *mount</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-eject-volume" title="fm_eject_volume ()">fm_eject_volume</a>                     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GVolume.html"><span class="type">GVolume</span></a> *vol</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-copy-files" title="fm_copy_files ()">fm_copy_files</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-move-files" title="fm_move_files ()">fm_move_files</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);
+#define             <a class="link" href="libfm-fm-gtk-utils.html#fm-copy-file" title="fm_copy_file()">fm_copy_file</a>                        (file,
+                                                         dest_dir)
+#define             <a class="link" href="libfm-fm-gtk-utils.html#fm-move-file" title="fm_move_file()">fm_move_file</a>                        (file,
+                                                         dest_dir)
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-move-or-copy-files-to" title="fm_move_or_copy_files_to ()">fm_move_or_copy_files_to</a>            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_move</code></em>);
+#define             <a class="link" href="libfm-fm-gtk-utils.html#fm-move-files-to" title="fm_move_files_to()">fm_move_files_to</a>                    (files)
+#define             <a class="link" href="libfm-fm-gtk-utils.html#fm-copy-files-to" title="fm_copy_files_to()">fm_copy_files_to</a>                    (files)
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-trash-files" title="fm_trash_files ()">fm_trash_files</a>                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-delete-files" title="fm_delete_files ()">fm_delete_files</a>                     (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-trash-or-delete-files" title="fm_trash_or_delete_files ()">fm_trash_or_delete_files</a>            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-untrash-files" title="fm_untrash_files ()">fm_untrash_files</a>                    (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-rename-file" title="fm_rename_file ()">fm_rename_file</a>                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-gtk-utils.html#fm-empty-trash" title="fm_empty_trash ()">fm_empty_trash</a>                      ();
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-launch-files-simple" title="fm_launch_files_simple ()">fm_launch_files_simple</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *file_infos</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-launch-file-simple" title="fm_launch_file_simple ()">fm_launch_file_simple</a>               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file_info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-launch-paths-simple" title="fm_launch_paths_simple ()">fm_launch_paths_simple</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *paths</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-gtk-utils.html#fm-launch-path-simple" title="fm_launch_path_simple ()">fm_launch_path_simple</a>               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libfm-fm-gtk-utils.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libfm-fm-gtk-utils.details"></a><h2>Details</h2>
+<div class="refsect2" title="fm_show_error ()">
+<a name="fm-show-error"></a><h3>fm_show_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_show_error                       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *msg</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_yes_no ()">
+<a name="fm-yes-no"></a><h3>fm_yes_no ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_yes_no                           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> default_yes</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_ok_cancel ()">
+<a name="fm-ok-cancel"></a><h3>fm_ok_cancel ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_ok_cancel                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> default_ok</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_ask ()">
+<a name="fm-ask"></a><h3>fm_ask ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 fm_ask                              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_askv ()">
+<a name="fm-askv"></a><h3>fm_askv ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 fm_askv                             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> **options</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_ask_valist ()">
+<a name="fm-ask-valist"></a><h3>fm_ask_valist ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 fm_ask_valist                       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> options</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_get_user_input ()">
+<a name="fm-get-user-input"></a><h3>fm_get_user_input ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span>*               fm_get_user_input                   (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *msg</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *default_text</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_get_user_input_path ()">
+<a name="fm-get-user-input-path"></a><h3>fm_get_user_input_path ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_get_user_input_path              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *title</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *msg</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *default_path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_select_folder ()">
+<a name="fm-select-folder"></a><h3>fm_select_folder ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_select_folder                    (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_mount_path ()">
+<a name="fm-mount-path"></a><h3>fm_mount_path ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_mount_path                       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_mount_volume ()">
+<a name="fm-mount-volume"></a><h3>fm_mount_volume ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_mount_volume                     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GVolume.html"><span class="type">GVolume</span></a> *vol</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_unmount_mount ()">
+<a name="fm-unmount-mount"></a><h3>fm_unmount_mount ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_unmount_mount                    (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GMount.html"><span class="type">GMount</span></a> *mount</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_unmount_volume ()">
+<a name="fm-unmount-volume"></a><h3>fm_unmount_volume ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_unmount_volume                   (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GVolume.html"><span class="type">GVolume</span></a> *vol</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_eject_mount ()">
+<a name="fm-eject-mount"></a><h3>fm_eject_mount ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_eject_mount                      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GMount.html"><span class="type">GMount</span></a> *mount</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_eject_volume ()">
+<a name="fm-eject-volume"></a><h3>fm_eject_volume ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_eject_volume                     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GVolume.html"><span class="type">GVolume</span></a> *vol</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> interactive</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_copy_files ()">
+<a name="fm-copy-files"></a><h3>fm_copy_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_copy_files                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_move_files ()">
+<a name="fm-move-files"></a><h3>fm_move_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_move_files                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_copy_file()">
+<a name="fm-copy-file"></a><h3>fm_copy_file()</h3>
+<pre class="programlisting">#define             fm_copy_file(file, dest_dir)</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_move_file()">
+<a name="fm-move-file"></a><h3>fm_move_file()</h3>
+<pre class="programlisting">#define             fm_move_file(file, dest_dir)</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_move_or_copy_files_to ()">
+<a name="fm-move-or-copy-files-to"></a><h3>fm_move_or_copy_files_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_move_or_copy_files_to            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_move</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_move_files_to()">
+<a name="fm-move-files-to"></a><h3>fm_move_files_to()</h3>
+<pre class="programlisting">#define fm_move_files_to(files)   fm_move_or_copy_files_to(files, TRUE)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_copy_files_to()">
+<a name="fm-copy-files-to"></a><h3>fm_copy_files_to()</h3>
+<pre class="programlisting">#define fm_copy_files_to(files)   fm_move_or_copy_files_to(files, FALSE)
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_trash_files ()">
+<a name="fm-trash-files"></a><h3>fm_trash_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_trash_files                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_delete_files ()">
+<a name="fm-delete-files"></a><h3>fm_delete_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_delete_files                     (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_trash_or_delete_files ()">
+<a name="fm-trash-or-delete-files"></a><h3>fm_trash_or_delete_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_trash_or_delete_files            (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_untrash_files ()">
+<a name="fm-untrash-files"></a><h3>fm_untrash_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_untrash_files                    (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_rename_file ()">
+<a name="fm-rename-file"></a><h3>fm_rename_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_rename_file                      (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *file</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_empty_trash ()">
+<a name="fm-empty-trash"></a><h3>fm_empty_trash ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_empty_trash                      ();</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_launch_files_simple ()">
+<a name="fm-launch-files-simple"></a><h3>fm_launch_files_simple ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_launch_files_simple              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *file_infos</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_launch_file_simple ()">
+<a name="fm-launch-file-simple"></a><h3>fm_launch_file_simple ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_launch_file_simple               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file_info</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_launch_paths_simple ()">
+<a name="fm-launch-paths-simple"></a><h3>fm_launch_paths_simple ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_launch_paths_simple              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *paths</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_launch_path_simple ()">
+<a name="fm-launch-path-simple"></a><h3>fm_launch_path_simple ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_launch_path_simple               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *parent</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html#GAppLaunchContext"><span class="type">GAppLaunchContext</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

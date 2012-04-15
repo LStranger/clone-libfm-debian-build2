@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-file-menu</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="FmFolderView.html" title="FmFolderView">
+<link rel="next" href="libfm-fm-gtk-utils.html" title="fm-gtk-utils">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="FmFolderView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-gtk-utils.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-file-menu.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-file-menu.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="fm-file-menu">
+<a name="libfm-fm-file-menu"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-file-menu.top_of_page"></a>fm-file-menu</span></h2>
+<p>fm-file-menu</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libfm-fm-file-menu.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu">FmFileMenu</a>;
+<a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="returnvalue">FmFileMenu</span></a>*         <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-new-for-file" title="fm_file_menu_new_for_file ()">fm_file_menu_new_for_file</a>           (<em class="parameter"><code><span class="type">FmFileInfo</span> *fi</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *cwd</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> auto_destroy</code></em>);
+<a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="returnvalue">FmFileMenu</span></a>*         <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-new-for-files" title="fm_file_menu_new_for_files ()">fm_file_menu_new_for_files</a>          (<em class="parameter"><code><span class="type">FmFileInfoList</span> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *cwd</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> auto_destroy</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-destroy" title="fm_file_menu_destroy ()">fm_file_menu_destroy</a>                (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-is-single-file-type" title="fm_file_menu_is_single_file_type ()">fm_file_menu_is_single_file_type</a>    (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkUIManager.html"><span class="returnvalue">GtkUIManager</span></a>*       <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-get-ui" title="fm_file_menu_get_ui ()">fm_file_menu_get_ui</a>                 (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkActionGroup.html"><span class="returnvalue">GtkActionGroup</span></a>*     <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-get-action-group" title="fm_file_menu_get_action_group ()">fm_file_menu_get_action_group</a>       (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkMenu.html"><span class="returnvalue">GtkMenu</span></a>*            <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-get-menu" title="fm_file_menu_get_menu ()">fm_file_menu_get_menu</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);
+<span class="returnvalue">FmFileInfoList</span>*     <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-get-file-info-list" title="fm_file_menu_get_file_info_list ()">fm_file_menu_get_file_info_list</a>     (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-file-menu.html#fm-file-menu-set-folder-func" title="fm_file_menu_set_folder_func ()">fm_file_menu_set_folder_func</a>        (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libfm-fm-file-menu.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libfm-fm-file-menu.details"></a><h2>Details</h2>
+<div class="refsect2" title="FmFileMenu">
+<a name="FmFileMenu"></a><h3>FmFileMenu</h3>
+<pre class="programlisting">typedef struct {
+    FmFileInfoList* file_infos;
+    gboolean same_type : 1;
+    gboolean same_fs : 1;
+    gboolean all_virtual : 1;
+    gboolean all_trash : 1;
+    gboolean auto_destroy : 1; // private
+    GtkUIManager* ui;
+    GtkActionGroup* act_grp;
+    GtkWidget* menu;
+
+    FmLaunchFolderFunc folder_func;
+    gpointer folder_func_data;
+
+    FmPath* cwd;
+} FmFileMenu;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_new_for_file ()">
+<a name="fm-file-menu-new-for-file"></a><h3>fm_file_menu_new_for_file ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="returnvalue">FmFileMenu</span></a>*         fm_file_menu_new_for_file           (<em class="parameter"><code><span class="type">FmFileInfo</span> *fi</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *cwd</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> auto_destroy</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_new_for_files ()">
+<a name="fm-file-menu-new-for-files"></a><h3>fm_file_menu_new_for_files ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="returnvalue">FmFileMenu</span></a>*         fm_file_menu_new_for_files          (<em class="parameter"><code><span class="type">FmFileInfoList</span> *files</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *cwd</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> auto_destroy</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_destroy ()">
+<a name="fm-file-menu-destroy"></a><h3>fm_file_menu_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_file_menu_destroy                (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_is_single_file_type ()">
+<a name="fm-file-menu-is-single-file-type"></a><h3>fm_file_menu_is_single_file_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_file_menu_is_single_file_type    (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_get_ui ()">
+<a name="fm-file-menu-get-ui"></a><h3>fm_file_menu_get_ui ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkUIManager.html"><span class="returnvalue">GtkUIManager</span></a>*       fm_file_menu_get_ui                 (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_get_action_group ()">
+<a name="fm-file-menu-get-action-group"></a><h3>fm_file_menu_get_action_group ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkActionGroup.html"><span class="returnvalue">GtkActionGroup</span></a>*     fm_file_menu_get_action_group       (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_get_menu ()">
+<a name="fm-file-menu-get-menu"></a><h3>fm_file_menu_get_menu ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkMenu.html"><span class="returnvalue">GtkMenu</span></a>*            fm_file_menu_get_menu               (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_get_file_info_list ()">
+<a name="fm-file-menu-get-file-info-list"></a><h3>fm_file_menu_get_file_info_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmFileInfoList</span>*     fm_file_menu_get_file_info_list     (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_file_menu_set_folder_func ()">
+<a name="fm-file-menu-set-folder-func"></a><h3>fm_file_menu_set_folder_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_file_menu_set_folder_func        (<em class="parameter"><code><a class="link" href="libfm-fm-file-menu.html#FmFileMenu" title="FmFileMenu"><span class="type">FmFileMenu</span></a> *menu</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()"><span class="type">FmLaunchFolderFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

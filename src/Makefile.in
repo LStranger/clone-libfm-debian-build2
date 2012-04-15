@@ -15,6 +15,8 @@
 
 @SET_MAKE@
 
+# GLIB - Library of useful C routines
+
 
 
 VPATH = @srcdir@
@@ -36,14 +38,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+DIST_COMMON = $(libfmgtkinclude_HEADERS) $(libfminclude_HEADERS) \
+	$(pkginclude_HEADERS) $(srcdir)/Makefile.am \
+	$(srcdir)/Makefile.in $(top_srcdir)/Makefile.decl
 bin_PROGRAMS = libfm-pref-apps$(EXEEXT) $(am__EXEEXT_1)
 @ENABLE_DEMO_TRUE@am__append_1 = libfm-demo
 pkglib_PROGRAMS = gnome-terminal$(EXEEXT)
 noinst_PROGRAMS = xml-purge$(EXEEXT)
 subdir = src
-DIST_COMMON = $(libfmgtkinclude_HEADERS) $(libfminclude_HEADERS) \
-	$(pkginclude_HEADERS) $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -89,7 +91,7 @@ am__objects_2 = libfm_gtk_la-exo-icon-view.lo \
 	$(am__objects_1)
 am__objects_3 = libfm_gtk_la-fm-gtk.lo $(am__objects_2) \
 	libfm_gtk_la-fm-folder-view.lo libfm_gtk_la-fm-folder-model.lo \
-	libfm_gtk_la-fm-places-view.lo \
+	libfm_gtk_la-fm-places-view.lo libfm_gtk_la-fm-places-model.lo \
 	libfm_gtk_la-fm-app-menu-view.lo \
 	libfm_gtk_la-fm-app-chooser-dlg.lo \
 	libfm_gtk_la-fm-app-chooser-combo-box.lo \
@@ -100,6 +102,7 @@ am__objects_3 = libfm_gtk_la-fm-gtk.lo $(am__objects_2) \
 	libfm_gtk_la-fm-cell-renderer-text.lo \
 	libfm_gtk_la-fm-cell-renderer-pixbuf.lo \
 	libfm_gtk_la-fm-dnd-src.lo libfm_gtk_la-fm-dnd-dest.lo \
+	libfm_gtk_la-fm-dnd-auto-scroll.lo \
 	libfm_gtk_la-fm-gtk-utils.lo libfm_gtk_la-fm-thumbnail.lo \
 	libfm_gtk_la-fm-tab-label.lo libfm_gtk_la-fm-gtk-marshal.lo \
 	$(am__objects_1)
@@ -109,7 +112,25 @@ libfm_gtk_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libfm_gtk_la_CFLAGS) \
 	$(CFLAGS) $(libfm_gtk_la_LDFLAGS) $(LDFLAGS) -o $@
 libfm_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+am__libfm_la_SOURCES_DIST = fm.c base/fm-config.c base/fm-list.c \
+	base/fm-path.c base/fm-folder.c base/fm-file-info.c \
+	base/fm-mime-type.c base/fm-utils.c base/fm-file-launcher.c \
+	base/fm-icon.c base/fm-bookmarks.c base/fm-nav-history.c \
+	base/fm-monitor.c base/fm-dummy-monitor.c base/fm-archiver.c \
+	base/fm-marshal.c job/fm-job.c job/fm-simple-job.c \
+	job/fm-dir-list-job.c job/fm-deep-count-job.c \
+	job/fm-file-ops-job.c job/fm-file-info-job.c \
+	job/fm-file-ops-job-xfer.c job/fm-file-ops-job-delete.c \
+	job/fm-file-ops-job-change-attr.c udisks/fm-udisks.c \
+	udisks/fm-udisks.h udisks/g-udisks-volume-monitor.c \
+	udisks/g-udisks-volume-monitor.h udisks/g-udisks-device.c \
+	udisks/g-udisks-device.h udisks/g-udisks-volume.c \
+	udisks/g-udisks-volume.h udisks/g-udisks-drive.c \
+	udisks/g-udisks-drive.h udisks/g-udisks-mount.c \
+	udisks/g-udisks-mount.h udisks/dbus-utils.c \
+	udisks/dbus-utils.h
 am__objects_4 = libfm_la-fm-config.lo libfm_la-fm-list.lo \
 	libfm_la-fm-path.lo libfm_la-fm-folder.lo \
 	libfm_la-fm-file-info.lo libfm_la-fm-mime-type.lo \
@@ -124,9 +145,16 @@ am__objects_5 = libfm_la-fm-job.lo libfm_la-fm-simple-job.lo \
 	libfm_la-fm-file-ops-job-xfer.lo \
 	libfm_la-fm-file-ops-job-delete.lo \
 	libfm_la-fm-file-ops-job-change-attr.lo $(am__objects_1)
-am__objects_6 = libfm_la-fm.lo $(am__objects_4) $(am__objects_5) \
-	$(am__objects_1)
-am_libfm_la_OBJECTS = $(am__objects_6) $(am__objects_1)
+@ENABLE_UDISKS_TRUE@am__objects_6 = libfm_la-fm-udisks.lo \
+@ENABLE_UDISKS_TRUE@	libfm_la-g-udisks-volume-monitor.lo \
+@ENABLE_UDISKS_TRUE@	libfm_la-g-udisks-device.lo \
+@ENABLE_UDISKS_TRUE@	libfm_la-g-udisks-volume.lo \
+@ENABLE_UDISKS_TRUE@	libfm_la-g-udisks-drive.lo \
+@ENABLE_UDISKS_TRUE@	libfm_la-g-udisks-mount.lo \
+@ENABLE_UDISKS_TRUE@	libfm_la-dbus-utils.lo $(am__objects_1)
+am__objects_7 = libfm_la-fm.lo $(am__objects_4) $(am__objects_5) \
+	$(am__objects_6) $(am__objects_1)
+am_libfm_la_OBJECTS = $(am__objects_7) $(am__objects_1)
 libfm_la_OBJECTS = $(am_libfm_la_OBJECTS)
 libfm_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(libfm_la_CFLAGS) $(CFLAGS) \
@@ -195,15 +223,53 @@ SOURCES = $(libfm_gtk_la_SOURCES) $(libfm_la_SOURCES) \
 	$(libgiofm_la_SOURCES) $(gnome_terminal_SOURCES) \
 	$(libfm_demo_SOURCES) $(libfm_pref_apps_SOURCES) \
 	$(xml_purge_SOURCES)
-DIST_SOURCES = $(libfm_gtk_la_SOURCES) $(libfm_la_SOURCES) \
+DIST_SOURCES = $(libfm_gtk_la_SOURCES) $(am__libfm_la_SOURCES_DIST) \
 	$(libgiofm_la_SOURCES) $(gnome_terminal_SOURCES) \
 	$(am__libfm_demo_SOURCES_DIST) $(libfm_pref_apps_SOURCES) \
 	$(xml_purge_SOURCES)
+RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
+	html-recursive info-recursive install-data-recursive \
+	install-dvi-recursive install-exec-recursive \
+	install-html-recursive install-info-recursive \
+	install-pdf-recursive install-ps-recursive install-recursive \
+	installcheck-recursive installdirs-recursive pdf-recursive \
+	ps-recursive uninstall-recursive
 HEADERS = $(libfmgtkinclude_HEADERS) $(libfminclude_HEADERS) \
 	$(pkginclude_HEADERS)
+RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
+  distclean-recursive maintainer-clean-recursive
+AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \
+	$(RECURSIVE_CLEAN_TARGETS:-recursive=) tags TAGS ctags CTAGS \
+	distdir
 ETAGS = etags
 CTAGS = ctags
+DIST_SUBDIRS = $(SUBDIRS)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+am__relativize = \
+  dir0=`pwd`; \
+  sed_first='s,^\([^/]*\)/.*$$,\1,'; \
+  sed_rest='s,^[^/]*/*,,'; \
+  sed_last='s,^.*/\([^/]*\)$$,\1,'; \
+  sed_butlast='s,/*[^/]*$$,,'; \
+  while test -n "$$dir1"; do \
+    first=`echo "$$dir1" | sed -e "$$sed_first"`; \
+    if test "$$first" != "."; then \
+      if test "$$first" = ".."; then \
+        dir2=`echo "$$dir0" | sed -e "$$sed_last"`/"$$dir2"; \
+        dir0=`echo "$$dir0" | sed -e "$$sed_butlast"`; \
+      else \
+        first2=`echo "$$dir2" | sed -e "$$sed_first"`; \
+        if test "$$first2" = "$$first"; then \
+          dir2=`echo "$$dir2" | sed -e "$$sed_rest"`; \
+        else \
+          dir2="../$$dir2"; \
+        fi; \
+        dir0="$$dir0"/"$$first"; \
+      fi; \
+    fi; \
+    dir1=`echo "$$dir1" | sed -e "$$sed_rest"`; \
+  done; \
+  reldir="$$dir2"
 ACLOCAL = @ACLOCAL@
 ALL_LINGUAS = @ALL_LINGUAS@
 AMTAR = @AMTAR@
@@ -221,6 +287,8 @@ CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DATADIRNAME = @DATADIRNAME@
+DBUS_CFLAGS = @DBUS_CFLAGS@
+DBUS_LIBS = @DBUS_LIBS@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DSYMUTIL = @DSYMUTIL@
@@ -241,8 +309,12 @@ GMODULE_LIBS = @GMODULE_LIBS@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
 GREP = @GREP@
+GTKDOC_CHECK = @GTKDOC_CHECK@
+GTKDOC_MKPDF = @GTKDOC_MKPDF@
+GTKDOC_REBASE = @GTKDOC_REBASE@
 GTK_CFLAGS = @GTK_CFLAGS@
 GTK_LIBS = @GTK_LIBS@
+HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -350,6 +422,19 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+
+#GTESTER = gtester 			# for non-GLIB packages
+GTESTER = gtester			# for the GLIB package
+GTESTER_REPORT = gtester-report	# for the GLIB package
+
+# initialize variables for unconditional += appending
+EXTRA_DIST = base/fm-marshal.list gtk/fm-gtk-marshal.list \
+	demo/main-win-ui.c udisks/gen-binding udisks/udisks.h \
+	udisks/udisks-device.h $(NULL)
+TEST_PROGS = 
+
+# current dir needs to be built before tests
+SUBDIRS = . tests
 NULL = 
 AM_CPPFLAGS = \
 	-I$(srcdir) \
@@ -362,6 +447,24 @@ AM_CPPFLAGS = \
 	-DPACKAGE_LIB_DIR=\""$(libdir)/libfm"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	$(NULL)
+
+@ENABLE_UDISKS_FALSE@udisks_SOURCES = 
+@ENABLE_UDISKS_TRUE@udisks_SOURCES = \
+@ENABLE_UDISKS_TRUE@	udisks/fm-udisks.c \
+@ENABLE_UDISKS_TRUE@	udisks/fm-udisks.h \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-volume-monitor.c \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-volume-monitor.h \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-device.c \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-device.h \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-volume.c \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-volume.h \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-drive.c \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-drive.h \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-mount.c \
+@ENABLE_UDISKS_TRUE@	udisks/g-udisks-mount.h \
+@ENABLE_UDISKS_TRUE@	udisks/dbus-utils.c \
+@ENABLE_UDISKS_TRUE@	udisks/dbus-utils.h \
+@ENABLE_UDISKS_TRUE@	$(NULL)
 
 base_SOURCES = \
 	base/fm-config.c \
@@ -397,6 +500,7 @@ libfm_SOURCES = \
 	fm.c \
 	$(base_SOURCES) \
 	$(job_SOURCES) \
+	$(udisks_SOURCES) \
 	$(NULL)
 
 exo_SOURCES = \
@@ -418,6 +522,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
+	gtk/fm-places-model.c \
 	gtk/fm-app-menu-view.c \
 	gtk/fm-app-chooser-dlg.c \
 	gtk/fm-app-chooser-combo-box.c \
@@ -431,6 +536,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-cell-renderer-pixbuf.c \
 	gtk/fm-dnd-src.c \
 	gtk/fm-dnd-dest.c \
+	gtk/fm-dnd-auto-scroll.c \
 	gtk/fm-gtk-utils.c \
 	gtk/fm-thumbnail.c \
 	gtk/fm-tab-label.c \
@@ -472,6 +578,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-folder-view.h \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
+	gtk/fm-places-model.h \
 	gtk/fm-app-menu-view.h \
 	gtk/fm-app-chooser-dlg.h \
 	gtk/fm-app-chooser-combo-box.h \
@@ -485,6 +592,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-cell-renderer-pixbuf.h \
 	gtk/fm-dnd-src.h \
 	gtk/fm-dnd-dest.h \
+	gtk/fm-dnd-auto-scroll.h \
 	gtk/fm-gtk-utils.h \
 	gtk/fm-thumbnail.h \
 	gtk/fm-tab-label.h \
@@ -504,12 +612,14 @@ libfm_la_SOURCES = \
 libfm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
+	$(DBUS_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(MENU_CACHE_LIBS) \
+	$(DBUS_LIBS) \
 	$(INTLLIBS) \
 	$(NULL)
 
@@ -618,12 +728,6 @@ BUILT_SOURCES = \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-EXTRA_DIST = \
-	base/fm-marshal.list \
-	gtk/fm-gtk-marshal.list \
-	demo/main-win-ui.c \
-	$(NULL)
-
 CLEANFILES = \
 	base/fm-marshal.h \
 	base/fm-marshal.c \
@@ -648,11 +752,11 @@ xml_purge_SOURCES = xml-purge.c
 xml_purge_CFLAGS = $(GIO_CFLAGS)
 xml_purge_LDADD = $(GIO_LIBS)
 all: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) all-am
+	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
 .SUFFIXES: .c .lo .o .obj
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/Makefile.decl $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -878,6 +982,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-cell-renderer-pixbuf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-cell-renderer-text.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-clipboard.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-dnd-auto-scroll.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-dnd-dest.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-dnd-src.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-file-menu.Plo@am__quote@
@@ -889,10 +994,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-gtk.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-icon-pixbuf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-path-entry.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-places-model.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-places-view.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-progress-dlg.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-tab-label.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-thumbnail.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-dbus-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-archiver.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-bookmarks.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-config.Plo@am__quote@
@@ -916,8 +1023,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-nav-history.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-path.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-simple-job.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-udisks.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-g-udisks-device.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-g-udisks-drive.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-g-udisks-mount.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-g-udisks-volume-monitor.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-g-udisks-volume.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_pref_apps-libfm-pref-apps.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgiofm_la-fm-app-lookup.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgiofm_la-module.Plo@am__quote@
@@ -1006,6 +1119,13 @@ libfm_gtk_la-fm-places-view.lo: gtk/fm-places-view.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gtk/fm-places-view.c' object='libfm_gtk_la-fm-places-view.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -c -o libfm_gtk_la-fm-places-view.lo `test -f 'gtk/fm-places-view.c' || echo '$(srcdir)/'`gtk/fm-places-view.c
+
+libfm_gtk_la-fm-places-model.lo: gtk/fm-places-model.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -MT libfm_gtk_la-fm-places-model.lo -MD -MP -MF $(DEPDIR)/libfm_gtk_la-fm-places-model.Tpo -c -o libfm_gtk_la-fm-places-model.lo `test -f 'gtk/fm-places-model.c' || echo '$(srcdir)/'`gtk/fm-places-model.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_gtk_la-fm-places-model.Tpo $(DEPDIR)/libfm_gtk_la-fm-places-model.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gtk/fm-places-model.c' object='libfm_gtk_la-fm-places-model.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -c -o libfm_gtk_la-fm-places-model.lo `test -f 'gtk/fm-places-model.c' || echo '$(srcdir)/'`gtk/fm-places-model.c
 
 libfm_gtk_la-fm-app-menu-view.lo: gtk/fm-app-menu-view.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -MT libfm_gtk_la-fm-app-menu-view.lo -MD -MP -MF $(DEPDIR)/libfm_gtk_la-fm-app-menu-view.Tpo -c -o libfm_gtk_la-fm-app-menu-view.lo `test -f 'gtk/fm-app-menu-view.c' || echo '$(srcdir)/'`gtk/fm-app-menu-view.c
@@ -1097,6 +1217,13 @@ libfm_gtk_la-fm-dnd-dest.lo: gtk/fm-dnd-dest.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gtk/fm-dnd-dest.c' object='libfm_gtk_la-fm-dnd-dest.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -c -o libfm_gtk_la-fm-dnd-dest.lo `test -f 'gtk/fm-dnd-dest.c' || echo '$(srcdir)/'`gtk/fm-dnd-dest.c
+
+libfm_gtk_la-fm-dnd-auto-scroll.lo: gtk/fm-dnd-auto-scroll.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -MT libfm_gtk_la-fm-dnd-auto-scroll.lo -MD -MP -MF $(DEPDIR)/libfm_gtk_la-fm-dnd-auto-scroll.Tpo -c -o libfm_gtk_la-fm-dnd-auto-scroll.lo `test -f 'gtk/fm-dnd-auto-scroll.c' || echo '$(srcdir)/'`gtk/fm-dnd-auto-scroll.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_gtk_la-fm-dnd-auto-scroll.Tpo $(DEPDIR)/libfm_gtk_la-fm-dnd-auto-scroll.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gtk/fm-dnd-auto-scroll.c' object='libfm_gtk_la-fm-dnd-auto-scroll.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -c -o libfm_gtk_la-fm-dnd-auto-scroll.lo `test -f 'gtk/fm-dnd-auto-scroll.c' || echo '$(srcdir)/'`gtk/fm-dnd-auto-scroll.c
 
 libfm_gtk_la-fm-gtk-utils.lo: gtk/fm-gtk-utils.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -MT libfm_gtk_la-fm-gtk-utils.lo -MD -MP -MF $(DEPDIR)/libfm_gtk_la-fm-gtk-utils.Tpo -c -o libfm_gtk_la-fm-gtk-utils.lo `test -f 'gtk/fm-gtk-utils.c' || echo '$(srcdir)/'`gtk/fm-gtk-utils.c
@@ -1301,6 +1428,55 @@ libfm_la-fm-file-ops-job-change-attr.lo: job/fm-file-ops-job-change-attr.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-fm-file-ops-job-change-attr.lo `test -f 'job/fm-file-ops-job-change-attr.c' || echo '$(srcdir)/'`job/fm-file-ops-job-change-attr.c
 
+libfm_la-fm-udisks.lo: udisks/fm-udisks.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-fm-udisks.lo -MD -MP -MF $(DEPDIR)/libfm_la-fm-udisks.Tpo -c -o libfm_la-fm-udisks.lo `test -f 'udisks/fm-udisks.c' || echo '$(srcdir)/'`udisks/fm-udisks.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-fm-udisks.Tpo $(DEPDIR)/libfm_la-fm-udisks.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='udisks/fm-udisks.c' object='libfm_la-fm-udisks.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-fm-udisks.lo `test -f 'udisks/fm-udisks.c' || echo '$(srcdir)/'`udisks/fm-udisks.c
+
+libfm_la-g-udisks-volume-monitor.lo: udisks/g-udisks-volume-monitor.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-g-udisks-volume-monitor.lo -MD -MP -MF $(DEPDIR)/libfm_la-g-udisks-volume-monitor.Tpo -c -o libfm_la-g-udisks-volume-monitor.lo `test -f 'udisks/g-udisks-volume-monitor.c' || echo '$(srcdir)/'`udisks/g-udisks-volume-monitor.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-g-udisks-volume-monitor.Tpo $(DEPDIR)/libfm_la-g-udisks-volume-monitor.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='udisks/g-udisks-volume-monitor.c' object='libfm_la-g-udisks-volume-monitor.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-g-udisks-volume-monitor.lo `test -f 'udisks/g-udisks-volume-monitor.c' || echo '$(srcdir)/'`udisks/g-udisks-volume-monitor.c
+
+libfm_la-g-udisks-device.lo: udisks/g-udisks-device.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-g-udisks-device.lo -MD -MP -MF $(DEPDIR)/libfm_la-g-udisks-device.Tpo -c -o libfm_la-g-udisks-device.lo `test -f 'udisks/g-udisks-device.c' || echo '$(srcdir)/'`udisks/g-udisks-device.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-g-udisks-device.Tpo $(DEPDIR)/libfm_la-g-udisks-device.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='udisks/g-udisks-device.c' object='libfm_la-g-udisks-device.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-g-udisks-device.lo `test -f 'udisks/g-udisks-device.c' || echo '$(srcdir)/'`udisks/g-udisks-device.c
+
+libfm_la-g-udisks-volume.lo: udisks/g-udisks-volume.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-g-udisks-volume.lo -MD -MP -MF $(DEPDIR)/libfm_la-g-udisks-volume.Tpo -c -o libfm_la-g-udisks-volume.lo `test -f 'udisks/g-udisks-volume.c' || echo '$(srcdir)/'`udisks/g-udisks-volume.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-g-udisks-volume.Tpo $(DEPDIR)/libfm_la-g-udisks-volume.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='udisks/g-udisks-volume.c' object='libfm_la-g-udisks-volume.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-g-udisks-volume.lo `test -f 'udisks/g-udisks-volume.c' || echo '$(srcdir)/'`udisks/g-udisks-volume.c
+
+libfm_la-g-udisks-drive.lo: udisks/g-udisks-drive.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-g-udisks-drive.lo -MD -MP -MF $(DEPDIR)/libfm_la-g-udisks-drive.Tpo -c -o libfm_la-g-udisks-drive.lo `test -f 'udisks/g-udisks-drive.c' || echo '$(srcdir)/'`udisks/g-udisks-drive.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-g-udisks-drive.Tpo $(DEPDIR)/libfm_la-g-udisks-drive.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='udisks/g-udisks-drive.c' object='libfm_la-g-udisks-drive.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-g-udisks-drive.lo `test -f 'udisks/g-udisks-drive.c' || echo '$(srcdir)/'`udisks/g-udisks-drive.c
+
+libfm_la-g-udisks-mount.lo: udisks/g-udisks-mount.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-g-udisks-mount.lo -MD -MP -MF $(DEPDIR)/libfm_la-g-udisks-mount.Tpo -c -o libfm_la-g-udisks-mount.lo `test -f 'udisks/g-udisks-mount.c' || echo '$(srcdir)/'`udisks/g-udisks-mount.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-g-udisks-mount.Tpo $(DEPDIR)/libfm_la-g-udisks-mount.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='udisks/g-udisks-mount.c' object='libfm_la-g-udisks-mount.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-g-udisks-mount.lo `test -f 'udisks/g-udisks-mount.c' || echo '$(srcdir)/'`udisks/g-udisks-mount.c
+
+libfm_la-dbus-utils.lo: udisks/dbus-utils.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-dbus-utils.lo -MD -MP -MF $(DEPDIR)/libfm_la-dbus-utils.Tpo -c -o libfm_la-dbus-utils.lo `test -f 'udisks/dbus-utils.c' || echo '$(srcdir)/'`udisks/dbus-utils.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-dbus-utils.Tpo $(DEPDIR)/libfm_la-dbus-utils.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='udisks/dbus-utils.c' object='libfm_la-dbus-utils.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-dbus-utils.lo `test -f 'udisks/dbus-utils.c' || echo '$(srcdir)/'`udisks/dbus-utils.c
+
 libgiofm_la-module.lo: gio/module.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgiofm_la_CFLAGS) $(CFLAGS) -MT libgiofm_la-module.lo -MD -MP -MF $(DEPDIR)/libgiofm_la-module.Tpo -c -o libgiofm_la-module.lo `test -f 'gio/module.c' || echo '$(srcdir)/'`gio/module.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libgiofm_la-module.Tpo $(DEPDIR)/libgiofm_la-module.Plo
@@ -1451,6 +1627,76 @@ uninstall-pkgincludeHEADERS:
 	echo " ( cd '$(DESTDIR)$(pkgincludedir)' && rm -f" $$files ")"; \
 	cd "$(DESTDIR)$(pkgincludedir)" && rm -f $$files
 
+# This directory's subdirectories are mostly independent; you can cd
+# into them and run `make' without going through this Makefile.
+# To change the values of `make' variables: instead of editing Makefiles,
+# (1) if the variable is set in `config.status', edit `config.status'
+#     (which will cause the Makefiles to be regenerated when you run `make');
+# (2) otherwise, pass the desired values on the `make' command line.
+$(RECURSIVE_TARGETS):
+	@fail= failcom='exit 1'; \
+	for f in x $$MAKEFLAGS; do \
+	  case $$f in \
+	    *=* | --[!k]*);; \
+	    *k*) failcom='fail=yes';; \
+	  esac; \
+	done; \
+	dot_seen=no; \
+	target=`echo $@ | sed s/-recursive//`; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    dot_seen=yes; \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done; \
+	if test "$$dot_seen" = "no"; then \
+	  $(MAKE) $(AM_MAKEFLAGS) "$$target-am" || exit 1; \
+	fi; test -z "$$fail"
+
+$(RECURSIVE_CLEAN_TARGETS):
+	@fail= failcom='exit 1'; \
+	for f in x $$MAKEFLAGS; do \
+	  case $$f in \
+	    *=* | --[!k]*);; \
+	    *k*) failcom='fail=yes';; \
+	  esac; \
+	done; \
+	dot_seen=no; \
+	case "$@" in \
+	  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \
+	  *) list='$(SUBDIRS)' ;; \
+	esac; \
+	rev=''; for subdir in $$list; do \
+	  if test "$$subdir" = "."; then :; else \
+	    rev="$$subdir $$rev"; \
+	  fi; \
+	done; \
+	rev="$$rev ."; \
+	target=`echo $@ | sed s/-recursive//`; \
+	for subdir in $$rev; do \
+	  echo "Making $$target in $$subdir"; \
+	  if test "$$subdir" = "."; then \
+	    local_target="$$target-am"; \
+	  else \
+	    local_target="$$target"; \
+	  fi; \
+	  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \
+	  || eval $$failcom; \
+	done && test -z "$$fail"
+tags-recursive:
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  test "$$subdir" = . || ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) tags); \
+	done
+ctags-recursive:
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  test "$$subdir" = . || ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) ctags); \
+	done
+
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
@@ -1461,10 +1707,23 @@ ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	mkid -fID $$unique
 tags: TAGS
 
-TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	set x; \
 	here=`pwd`; \
+	if ($(ETAGS) --etags-include --version) >/dev/null 2>&1; then \
+	  include_option=--etags-include; \
+	  empty_fix=.; \
+	else \
+	  include_option=--include; \
+	  empty_fix=; \
+	fi; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test ! -f $$subdir/TAGS || \
+	      set "$$@" "$$include_option=$$here/$$subdir/TAGS"; \
+	  fi; \
+	done; \
 	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
@@ -1483,7 +1742,7 @@ TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 	  fi; \
 	fi
 ctags: CTAGS
-CTAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
+CTAGS: ctags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 		$(TAGS_FILES) $(LISP)
 	list='$(SOURCES) $(HEADERS)  $(LISP) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
@@ -1533,26 +1792,56 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
+	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test -d "$(distdir)/$$subdir" \
+	    || $(MKDIR_P) "$(distdir)/$$subdir" \
+	    || exit 1; \
+	  fi; \
+	done
+	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
+	    $(am__relativize); \
+	    new_distdir=$$reldir; \
+	    dir1=$$subdir; dir2="$(top_distdir)"; \
+	    $(am__relativize); \
+	    new_top_distdir=$$reldir; \
+	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
+	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
+	    ($(am__cd) $$subdir && \
+	      $(MAKE) $(AM_MAKEFLAGS) \
+	        top_distdir="$$new_top_distdir" \
+	        distdir="$$new_distdir" \
+		am__remove_distdir=: \
+		am__skip_length_check=: \
+		am__skip_mode_fix=: \
+	        distdir) \
+	      || exit 1; \
+	  fi; \
+	done
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) check-local
 check: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) check-am
+	$(MAKE) $(AM_MAKEFLAGS) check-recursive
 all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(HEADERS)
 install-binPROGRAMS: install-libLTLIBRARIES
 
-installdirs:
+installdirs: installdirs-recursive
+installdirs-am:
 	for dir in "$(DESTDIR)$(giomodulesdir)" "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(pkglibdir)" "$(DESTDIR)$(libfmgtkincludedir)" "$(DESTDIR)$(libfmincludedir)" "$(DESTDIR)$(pkgincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) install-am
-install-exec: install-exec-am
-install-data: install-data-am
-uninstall: uninstall-am
+	$(MAKE) $(AM_MAKEFLAGS) install-recursive
+install-exec: install-exec-recursive
+install-data: install-data-recursive
+uninstall: uninstall-recursive
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
-installcheck: installcheck-am
+installcheck: installcheck-recursive
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
 	  install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
@@ -1571,27 +1860,27 @@ maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
-clean: clean-am
+clean: clean-recursive
 
 clean-am: clean-binPROGRAMS clean-generic clean-giomodulesLTLIBRARIES \
 	clean-libLTLIBRARIES clean-libtool clean-noinstPROGRAMS \
 	clean-pkglibPROGRAMS mostlyclean-am
 
-distclean: distclean-am
+distclean: distclean-recursive
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
 
-dvi: dvi-am
+dvi: dvi-recursive
 
 dvi-am:
 
-html: html-am
+html: html-recursive
 
 html-am:
 
-info: info-am
+info: info-recursive
 
 info-am:
 
@@ -1599,48 +1888,48 @@ install-data-am: install-giomodulesLTLIBRARIES \
 	install-libfmgtkincludeHEADERS install-libfmincludeHEADERS \
 	install-pkgincludeHEADERS
 
-install-dvi: install-dvi-am
+install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
 install-exec-am: install-binPROGRAMS install-libLTLIBRARIES \
 	install-pkglibPROGRAMS
 
-install-html: install-html-am
+install-html: install-html-recursive
 
 install-html-am:
 
-install-info: install-info-am
+install-info: install-info-recursive
 
 install-info-am:
 
 install-man:
 
-install-pdf: install-pdf-am
+install-pdf: install-pdf-recursive
 
 install-pdf-am:
 
-install-ps: install-ps-am
+install-ps: install-ps-recursive
 
 install-ps-am:
 
 installcheck-am:
 
-maintainer-clean: maintainer-clean-am
+maintainer-clean: maintainer-clean-recursive
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
-mostlyclean: mostlyclean-am
+mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-pdf: pdf-am
+pdf: pdf-recursive
 
 pdf-am:
 
-ps: ps-am
+ps: ps-recursive
 
 ps-am:
 
@@ -1649,12 +1938,15 @@ uninstall-am: uninstall-binPROGRAMS uninstall-giomodulesLTLIBRARIES \
 	uninstall-libfmincludeHEADERS uninstall-pkgincludeHEADERS \
 	uninstall-pkglibPROGRAMS
 
-.MAKE: all check install install-am install-strip
+.MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) all check \
+	check-am ctags-recursive install install-am install-strip \
+	tags-recursive
 
-.PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
+.PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
+	all all-am check check-am check-local clean clean-binPROGRAMS \
 	clean-generic clean-giomodulesLTLIBRARIES clean-libLTLIBRARIES \
 	clean-libtool clean-noinstPROGRAMS clean-pkglibPROGRAMS ctags \
-	distclean distclean-compile distclean-generic \
+	ctags-recursive distclean distclean-compile distclean-generic \
 	distclean-libtool distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-binPROGRAMS \
 	install-data install-data-am install-dvi install-dvi-am \
@@ -1664,14 +1956,96 @@ uninstall-am: uninstall-binPROGRAMS uninstall-giomodulesLTLIBRARIES \
 	install-libfmincludeHEADERS install-man install-pdf \
 	install-pdf-am install-pkgincludeHEADERS \
 	install-pkglibPROGRAMS install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am uninstall-binPROGRAMS \
-	uninstall-giomodulesLTLIBRARIES uninstall-libLTLIBRARIES \
-	uninstall-libfmgtkincludeHEADERS uninstall-libfmincludeHEADERS \
-	uninstall-pkgincludeHEADERS uninstall-pkglibPROGRAMS
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
+	uninstall-binPROGRAMS uninstall-giomodulesLTLIBRARIES \
+	uninstall-libLTLIBRARIES uninstall-libfmgtkincludeHEADERS \
+	uninstall-libfmincludeHEADERS uninstall-pkgincludeHEADERS \
+	uninstall-pkglibPROGRAMS
 
+
+### testing rules
+
+# test: run all tests in cwd and subdirs
+test: test-nonrecursive
+# if OS_UNIX
+	@ for subdir in $(SUBDIRS) . ; do \
+	    test "$$subdir" = "." -o "$$subdir" = "po" || \
+	    ( cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $@ ) || exit $? ; \
+	  done
+# endif
+
+# test-nonrecursive: run tests only in cwd
+test-nonrecursive: ${TEST_PROGS}
+# if OS_UNIX
+	@test -z "${TEST_PROGS}" || MALLOC_CHECK_=2 MALLOC_PERTURB_=$$(($${RANDOM:-256} % 256)) ${GTESTER} --verbose ${TEST_PROGS}
+# endif
+
+# test-report: run tests in subdirs and generate report
+# perf-report: run tests in subdirs with -m perf and generate report
+# full-report: like test-report: with -m perf and -m slow
+test-report perf-report full-report:	${TEST_PROGS}
+	@test -z "${TEST_PROGS}" || { \
+	  case $@ in \
+	  test-report) test_options="-k";; \
+	  perf-report) test_options="-k -m=perf";; \
+	  full-report) test_options="-k -m=perf -m=slow";; \
+	  esac ; \
+	  if test -z "$$GTESTER_LOGDIR" ; then	\
+	    ${GTESTER} --verbose $$test_options -o test-report.xml ${TEST_PROGS} ; \
+	  elif test -n "${TEST_PROGS}" ; then \
+	    ${GTESTER} --verbose $$test_options -o `mktemp "$$GTESTER_LOGDIR/log-XXXXXX"` ${TEST_PROGS} ; \
+	  fi ; \
+	}
+	@ ignore_logdir=true ; \
+	  if test -z "$$GTESTER_LOGDIR" ; then \
+	    GTESTER_LOGDIR=`mktemp -d "\`pwd\`/.testlogs-XXXXXX"`; export GTESTER_LOGDIR ; \
+	    ignore_logdir=false ; \
+	  fi ; \
+	  for subdir in $(SUBDIRS) . ; do \
+	    test "$$subdir" = "." -o "$$subdir" = "po" || \
+	    ( cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) $@ ) || exit $? ; \
+	  done ; \
+	  $$ignore_logdir || { \
+	    echo '<?xml version="1.0"?>'            > $@.xml ; \
+	    echo '<report-collection>'             >> $@.xml ; \
+	    echo '<info>'                          >> $@.xml ; \
+	    echo '  <package>$(PACKAGE)</package>' >> $@.xml ; \
+	    echo '  <version>$(VERSION)</version>' >> $@.xml ; \
+	    echo '</info>'                         >> $@.xml ; \
+	    for lf in `ls -L "$$GTESTER_LOGDIR"/.` ; do \
+	      sed '1,1s/^<?xml\b[^>?]*?>//' <"$$GTESTER_LOGDIR"/"$$lf" >> $@.xml ; \
+	    done ; \
+	    echo >> $@.xml ; \
+	    echo '</report-collection>' >> $@.xml ; \
+	    rm -rf "$$GTESTER_LOGDIR"/ ; \
+	    ${GTESTER_REPORT} --version 2>/dev/null 1>&2 ; test "$$?" != 0 || ${GTESTER_REPORT} $@.xml >$@.html ; \
+	  }
+.PHONY: test test-report perf-report full-report test-nonrecursive
+
+.PHONY: lcov genlcov lcov-clean
+# use recursive makes in order to ignore errors during check
+lcov:
+	-$(MAKE) $(AM_MAKEFLAGS) -k check
+	$(MAKE) $(AM_MAKEFLAGS) genlcov
+
+# we have to massage the lcov.info file slightly to hide the effect of libtool
+# placing the objects files in the .libs/ directory separate from the *.c
+# we also have to delete tests/.libs/libmoduletestplugin_*.gcda
+genlcov:
+	rm -f $(top_builddir)/tests/.libs/libmoduletestplugin_*.gcda
+	$(LTP) --directory $(top_builddir) --capture --output-file glib-lcov.info --test-name GLIB_PERF --no-checksum --compat-libtool
+	LANG=C $(LTP_GENHTML) --prefix $(top_builddir) --output-directory glib-lcov --title "GLib Code Coverage" --legend --show-details glib-lcov.info
+
+lcov-clean:
+	-$(LTP) --directory $(top_builddir) -z
+	-rm -rf glib-lcov.info glib-lcov
+	-find -name '*.gcda' -print | xargs rm
+
+# run tests in cwd as part of make check
+check-local: test-nonrecursive
 	$(NULL)
 
 # GObject marshallers

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-clipboard</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="FmPlacesView.html" title="FmPlacesView">
+<link rel="next" href="libfm-fm-app-chooser-dlg.html" title="fm-app-chooser-dlg">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="FmPlacesView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-app-chooser-dlg.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-clipboard.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-clipboard.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" title="fm-clipboard">
+<a name="libfm-fm-clipboard"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-clipboard.top_of_page"></a>fm-clipboard</span></h2>
+<p>fm-clipboard</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="libfm-fm-clipboard.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="libfm-fm-clipboard.html#fm-clipboard-cut-files" title="fm_clipboard_cut_files()">fm_clipboard_cut_files</a>              (src_widget,
+                                                         files)
+#define             <a class="link" href="libfm-fm-clipboard.html#fm-clipboard-copy-files" title="fm_clipboard_copy_files()">fm_clipboard_copy_files</a>             (src_widget,
+                                                         files)
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-clipboard.html#fm-clipboard-cut-or-copy-files" title="fm_clipboard_cut_or_copy_files ()">fm_clipboard_cut_or_copy_files</a>      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *src_widget</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> _is_cut</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-clipboard.html#fm-clipboard-paste-files" title="fm_clipboard_paste_files ()">fm_clipboard_paste_files</a>            (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *dest_widget</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="libfm-fm-clipboard.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="libfm-fm-clipboard.details"></a><h2>Details</h2>
+<div class="refsect2" title="fm_clipboard_cut_files()">
+<a name="fm-clipboard-cut-files"></a><h3>fm_clipboard_cut_files()</h3>
+<pre class="programlisting">#define             fm_clipboard_cut_files(src_widget, files)</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_clipboard_copy_files()">
+<a name="fm-clipboard-copy-files"></a><h3>fm_clipboard_copy_files()</h3>
+<pre class="programlisting">#define             fm_clipboard_copy_files(src_widget, files)</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_clipboard_cut_or_copy_files ()">
+<a name="fm-clipboard-cut-or-copy-files"></a><h3>fm_clipboard_cut_or_copy_files ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_clipboard_cut_or_copy_files      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *src_widget</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> _is_cut</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_clipboard_paste_files ()">
+<a name="fm-clipboard-paste-files"></a><h3>fm_clipboard_paste_files ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_clipboard_paste_files            (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *dest_widget</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *dest_dir</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmPlacesView</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-gtk-utils.html" title="fm-gtk-utils">
+<link rel="next" href="libfm-fm-clipboard.html" title="fm-clipboard">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-gtk-utils.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-clipboard.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmPlacesView.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmPlacesView.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmPlacesView.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmPlacesView.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#FmPlacesView.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmPlacesView">
+<a name="FmPlacesView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmPlacesView.top_of_page"></a>FmPlacesView</span></h2>
+<p>FmPlacesView</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmPlacesView.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="FmPlacesView.html#FM-PLACES-VIEW-TYPE:CAPS" title="FM_PLACES_VIEW_TYPE">FM_PLACES_VIEW_TYPE</a>
+#define             <a class="link" href="FmPlacesView.html#FM-PLACES-VIEW:CAPS" title="FM_PLACES_VIEW()">FM_PLACES_VIEW</a>                      (obj)
+#define             <a class="link" href="FmPlacesView.html#FM-PLACES-VIEW-CLASS:CAPS" title="FM_PLACES_VIEW_CLASS()">FM_PLACES_VIEW_CLASS</a>                (klass)
+#define             <a class="link" href="FmPlacesView.html#IS-FM-PLACES-VIEW:CAPS" title="IS_FM_PLACES_VIEW()">IS_FM_PLACES_VIEW</a>                   (obj)
+#define             <a class="link" href="FmPlacesView.html#IS-FM-PLACES-VIEW-CLASS:CAPS" title="IS_FM_PLACES_VIEW_CLASS()">IS_FM_PLACES_VIEW_CLASS</a>             (klass)
+                    <a class="link" href="FmPlacesView.html#FmPlacesView-struct" title="FmPlacesView">FmPlacesView</a>;
+                    <a class="link" href="FmPlacesView.html#FmPlacesViewClass" title="FmPlacesViewClass">FmPlacesViewClass</a>;
+<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmPlacesView.html#fm-places-view-get-type" title="fm_places_view_get_type ()">fm_places_view_get_type</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="FmPlacesView.html#fm-places-view-new" title="fm_places_view_new ()">fm_places_view_new</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmPlacesView.html#fm-places-select" title="fm_places_select ()">fm_places_select</a>                    (<em class="parameter"><code><a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *pv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmPlacesView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html">GtkTreeView</a>
+                                 +----FmPlacesView
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="FmPlacesView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+FmPlacesView implements
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="FmPlacesView.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="FmPlacesView.html#FmPlacesView-chdir" title='The "chdir" signal'>chdir</a>"                                          : Run Last
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmPlacesView.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmPlacesView.details"></a><h2>Details</h2>
+<div class="refsect2" title="FM_PLACES_VIEW_TYPE">
+<a name="FM-PLACES-VIEW-TYPE:CAPS"></a><h3>FM_PLACES_VIEW_TYPE</h3>
+<pre class="programlisting">#define FM_PLACES_VIEW_TYPE				(fm_places_view_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_PLACES_VIEW()">
+<a name="FM-PLACES-VIEW:CAPS"></a><h3>FM_PLACES_VIEW()</h3>
+<pre class="programlisting">#define             FM_PLACES_VIEW(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_PLACES_VIEW_CLASS()">
+<a name="FM-PLACES-VIEW-CLASS:CAPS"></a><h3>FM_PLACES_VIEW_CLASS()</h3>
+<pre class="programlisting">#define             FM_PLACES_VIEW_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_PLACES_VIEW()">
+<a name="IS-FM-PLACES-VIEW:CAPS"></a><h3>IS_FM_PLACES_VIEW()</h3>
+<pre class="programlisting">#define             IS_FM_PLACES_VIEW(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_PLACES_VIEW_CLASS()">
+<a name="IS-FM-PLACES-VIEW-CLASS:CAPS"></a><h3>IS_FM_PLACES_VIEW_CLASS()</h3>
+<pre class="programlisting">#define             IS_FM_PLACES_VIEW_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmPlacesView">
+<a name="FmPlacesView-struct"></a><h3>FmPlacesView</h3>
+<pre class="programlisting">typedef struct _FmPlacesView FmPlacesView;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmPlacesViewClass">
+<a name="FmPlacesViewClass"></a><h3>FmPlacesViewClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkTreeViewClass parent_class;
+    void (*chdir)(guint button, FmPath* path);
+} FmPlacesViewClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_places_view_get_type ()">
+<a name="fm-places-view-get-type"></a><h3>fm_places_view_get_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_places_view_get_type             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_places_view_new ()">
+<a name="fm-places-view-new"></a><h3>fm_places_view_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          fm_places_view_new                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_places_select ()">
+<a name="fm-places-select"></a><h3>fm_places_select ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_places_select                    (<em class="parameter"><code><a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *pv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="FmPlacesView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "chdir" signal'>
+<a name="FmPlacesView-chdir"></a><h3>The <code class="literal">"chdir"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *fmplacesview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a>         arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg2,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run Last</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

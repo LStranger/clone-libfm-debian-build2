@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmFolderView</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="libfm-fm-file-properties.html" title="fm-file-properties">
+<link rel="next" href="libfm-fm-file-menu.html" title="fm-file-menu">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm-file-properties.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-file-menu.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmFolderView.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmFolderView.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmFolderView.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmFolderView.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#FmFolderView.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmFolderView">
+<a name="FmFolderView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmFolderView.top_of_page"></a>FmFolderView</span></h2>
+<p>FmFolderView</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmFolderView.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="FmFolderView.html#FM-FOLDER-VIEW-TYPE:CAPS" title="FM_FOLDER_VIEW_TYPE">FM_FOLDER_VIEW_TYPE</a>
+#define             <a class="link" href="FmFolderView.html#FM-FOLDER-VIEW:CAPS" title="FM_FOLDER_VIEW()">FM_FOLDER_VIEW</a>                      (obj)
+#define             <a class="link" href="FmFolderView.html#FM-FOLDER-VIEW-CLASS:CAPS" title="FM_FOLDER_VIEW_CLASS()">FM_FOLDER_VIEW_CLASS</a>                (klass)
+#define             <a class="link" href="FmFolderView.html#IS-FM-FOLDER-VIEW:CAPS" title="IS_FM_FOLDER_VIEW()">IS_FM_FOLDER_VIEW</a>                   (obj)
+#define             <a class="link" href="FmFolderView.html#IS-FM-FOLDER-VIEW-CLASS:CAPS" title="IS_FM_FOLDER_VIEW_CLASS()">IS_FM_FOLDER_VIEW_CLASS</a>             (klass)
+                    <a class="link" href="FmFolderView.html#FmFolderView-struct" title="FmFolderView">FmFolderView</a>;
+                    <a class="link" href="FmFolderView.html#FmFolderViewClass" title="FmFolderViewClass">FmFolderViewClass</a>;
+<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmFolderView.html#fm-folder-view-get-type" title="fm_folder_view_get_type ()">fm_folder_view_get_type</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="FmFolderView.html#fm-folder-view-new" title="fm_folder_view_new ()">fm_folder_view_new</a>                  (<em class="parameter"><code><span class="type">FmFolderViewMode</span> mode</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-set-mode" title="fm_folder_view_set_mode ()">fm_folder_view_set_mode</a>             (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmFolderViewMode</span> mode</code></em>);
+<span class="returnvalue">FmFolderViewMode</span>    <a class="link" href="FmFolderView.html#fm-folder-view-get-mode" title="fm_folder_view_get_mode ()">fm_folder_view_get_mode</a>             (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-set-selection-mode" title="fm_folder_view_set_selection_mode ()">fm_folder_view_set_selection_mode</a>   (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSelectionMode"><span class="type">GtkSelectionMode</span></a> mode</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSelectionMode"><span class="returnvalue">GtkSelectionMode</span></a>    <a class="link" href="FmFolderView.html#fm-folder-view-get-selection-mode" title="fm_folder_view_get_selection_mode ()">fm_folder_view_get_selection_mode</a>   (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-sort" title="fm_folder_view_sort ()">fm_folder_view_sort</a>                 (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSortType"><span class="type">GtkSortType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> by</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSortType"><span class="returnvalue">GtkSortType</span></a>         <a class="link" href="FmFolderView.html#fm-folder-view-get-sort-type" title="fm_folder_view_get_sort_type ()">fm_folder_view_get_sort_type</a>        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="FmFolderView.html#fm-folder-view-get-sort-by" title="fm_folder_view_get_sort_by ()">fm_folder_view_get_sort_by</a>          (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-set-show-hidden" title="fm_folder_view_set_show_hidden ()">fm_folder_view_set_show_hidden</a>      (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmFolderView.html#fm-folder-view-get-show-hidden" title="fm_folder_view_get_show_hidden ()">fm_folder_view_get_show_hidden</a>      (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmFolderView.html#fm-folder-view-chdir" title="fm_folder_view_chdir ()">fm_folder_view_chdir</a>                (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmFolderView.html#fm-folder-view-chdir-by-name" title="fm_folder_view_chdir_by_name ()">fm_folder_view_chdir_by_name</a>        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path_str</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             <a class="link" href="FmFolderView.html#fm-folder-view-get-cwd" title="fm_folder_view_get_cwd ()">fm_folder_view_get_cwd</a>              (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">FmFileInfo</span>*         <a class="link" href="FmFolderView.html#fm-folder-view-get-cwd-info" title="fm_folder_view_get_cwd_info ()">fm_folder_view_get_cwd_info</a>         (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">FmFileInfoList</span>*     <a class="link" href="FmFolderView.html#fm-folder-view-get-selected-files" title="fm_folder_view_get_selected_files ()">fm_folder_view_get_selected_files</a>   (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         <a class="link" href="FmFolderView.html#fm-folder-view-get-selected-file-paths" title="fm_folder_view_get_selected_file_paths ()">fm_folder_view_get_selected_file_paths</a>
+                                                        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-select-all" title="fm_folder_view_select_all ()">fm_folder_view_select_all</a>           (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-select-invert" title="fm_folder_view_select_invert ()">fm_folder_view_select_invert</a>        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-select-file-path" title="fm_folder_view_select_file_path ()">fm_folder_view_select_file_path</a>     (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-select-file-paths" title="fm_folder_view_select_file_paths ()">fm_folder_view_select_file_paths</a>    (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderView.html#fm-folder-view-custom-select" title="fm_folder_view_custom_select ()">fm_folder_view_custom_select</a>        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GFunc"><span class="type">GFunc</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmFolderView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
+                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkScrolledWindow.html">GtkScrolledWindow</a>
+                                       +----FmFolderView
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="FmFolderView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+FmFolderView implements
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="FmFolderView.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="FmFolderView.html#FmFolderView-chdir" title='The "chdir" signal'>chdir</a>"                                          : Run First
+  "<a class="link" href="FmFolderView.html#FmFolderView-clicked" title='The "clicked" signal'>clicked</a>"                                        : Run First
+  "<a class="link" href="FmFolderView.html#FmFolderView-loaded" title='The "loaded" signal'>loaded</a>"                                         : Run First
+  "<a class="link" href="FmFolderView.html#FmFolderView-sel-changed" title='The "sel-changed" signal'>sel-changed</a>"                                    : Run First
+  "<a class="link" href="FmFolderView.html#FmFolderView-sort-changed" title='The "sort-changed" signal'>sort-changed</a>"                                   : Run First
+  "<a class="link" href="FmFolderView.html#FmFolderView-status" title='The "status" signal'>status</a>"                                         : Run First
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmFolderView.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmFolderView.details"></a><h2>Details</h2>
+<div class="refsect2" title="FM_FOLDER_VIEW_TYPE">
+<a name="FM-FOLDER-VIEW-TYPE:CAPS"></a><h3>FM_FOLDER_VIEW_TYPE</h3>
+<pre class="programlisting">#define FM_FOLDER_VIEW_TYPE				(fm_folder_view_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_FOLDER_VIEW()">
+<a name="FM-FOLDER-VIEW:CAPS"></a><h3>FM_FOLDER_VIEW()</h3>
+<pre class="programlisting">#define             FM_FOLDER_VIEW(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FM_FOLDER_VIEW_CLASS()">
+<a name="FM-FOLDER-VIEW-CLASS:CAPS"></a><h3>FM_FOLDER_VIEW_CLASS()</h3>
+<pre class="programlisting">#define             FM_FOLDER_VIEW_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_FOLDER_VIEW()">
+<a name="IS-FM-FOLDER-VIEW:CAPS"></a><h3>IS_FM_FOLDER_VIEW()</h3>
+<pre class="programlisting">#define             IS_FM_FOLDER_VIEW(obj)</pre>
+</div>
+<hr>
+<div class="refsect2" title="IS_FM_FOLDER_VIEW_CLASS()">
+<a name="IS-FM-FOLDER-VIEW-CLASS:CAPS"></a><h3>IS_FM_FOLDER_VIEW_CLASS()</h3>
+<pre class="programlisting">#define             IS_FM_FOLDER_VIEW_CLASS(klass)</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmFolderView">
+<a name="FmFolderView-struct"></a><h3>FmFolderView</h3>
+<pre class="programlisting">typedef struct _FmFolderView FmFolderView;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmFolderViewClass">
+<a name="FmFolderViewClass"></a><h3>FmFolderViewClass</h3>
+<pre class="programlisting">typedef struct {
+	GtkScrolledWindowClass parent_class;
+	void (*chdir)(FmFolderView* fv, FmPath* dir_path);
+	void (*loaded)(FmFolderView* fv, FmPath* dir_path);
+	void (*status)(FmFolderView* fv, const char* msg);
+	void (*clicked)(FmFolderView* fv, FmFolderViewClickType type, FmFileInfo* file);
+    void (*sel_changed)(FmFolderView* fv, FmFileInfoList* sels);
+    void (*sort_changed)(FmFolderView* fv);
+} FmFolderViewClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_type ()">
+<a name="fm-folder-view-get-type"></a><h3>fm_folder_view_get_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_folder_view_get_type             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_new ()">
+<a name="fm-folder-view-new"></a><h3>fm_folder_view_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          fm_folder_view_new                  (<em class="parameter"><code><span class="type">FmFolderViewMode</span> mode</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_set_mode ()">
+<a name="fm-folder-view-set-mode"></a><h3>fm_folder_view_set_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_set_mode             (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmFolderViewMode</span> mode</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_mode ()">
+<a name="fm-folder-view-get-mode"></a><h3>fm_folder_view_get_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmFolderViewMode</span>    fm_folder_view_get_mode             (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_set_selection_mode ()">
+<a name="fm-folder-view-set-selection-mode"></a><h3>fm_folder_view_set_selection_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_set_selection_mode   (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSelectionMode"><span class="type">GtkSelectionMode</span></a> mode</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_selection_mode ()">
+<a name="fm-folder-view-get-selection-mode"></a><h3>fm_folder_view_get_selection_mode ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSelectionMode"><span class="returnvalue">GtkSelectionMode</span></a>    fm_folder_view_get_selection_mode   (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_sort ()">
+<a name="fm-folder-view-sort"></a><h3>fm_folder_view_sort ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_sort                 (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSortType"><span class="type">GtkSortType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> by</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_sort_type ()">
+<a name="fm-folder-view-get-sort-type"></a><h3>fm_folder_view_get_sort_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/gtk-Standard-Enumerations.html#GtkSortType"><span class="returnvalue">GtkSortType</span></a>         fm_folder_view_get_sort_type        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_sort_by ()">
+<a name="fm-folder-view-get-sort-by"></a><h3>fm_folder_view_get_sort_by ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 fm_folder_view_get_sort_by          (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_set_show_hidden ()">
+<a name="fm-folder-view-set-show-hidden"></a><h3>fm_folder_view_set_show_hidden ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_set_show_hidden      (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_show_hidden ()">
+<a name="fm-folder-view-get-show-hidden"></a><h3>fm_folder_view_get_show_hidden ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_folder_view_get_show_hidden      (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_chdir ()">
+<a name="fm-folder-view-chdir"></a><h3>fm_folder_view_chdir ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_folder_view_chdir                (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_chdir_by_name ()">
+<a name="fm-folder-view-chdir-by-name"></a><h3>fm_folder_view_chdir_by_name ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_folder_view_chdir_by_name        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path_str</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_cwd ()">
+<a name="fm-folder-view-get-cwd"></a><h3>fm_folder_view_get_cwd ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="returnvalue">FmPath</span></a>*             fm_folder_view_get_cwd              (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_cwd_info ()">
+<a name="fm-folder-view-get-cwd-info"></a><h3>fm_folder_view_get_cwd_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmFileInfo</span>*         fm_folder_view_get_cwd_info         (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_selected_files ()">
+<a name="fm-folder-view-get-selected-files"></a><h3>fm_folder_view_get_selected_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmFileInfoList</span>*     fm_folder_view_get_selected_files   (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_get_selected_file_paths ()">
+<a name="fm-folder-view-get-selected-file-paths"></a><h3>fm_folder_view_get_selected_file_paths ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="returnvalue">FmPathList</span></a>*         fm_folder_view_get_selected_file_paths
+                                                        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_select_all ()">
+<a name="fm-folder-view-select-all"></a><h3>fm_folder_view_select_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_select_all           (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_select_invert ()">
+<a name="fm-folder-view-select-invert"></a><h3>fm_folder_view_select_invert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_select_invert        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_select_file_path ()">
+<a name="fm-folder-view-select-file-path"></a><h3>fm_folder_view_select_file_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_select_file_path     (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_select_file_paths ()">
+<a name="fm-folder-view-select-file-paths"></a><h3>fm_folder_view_select_file_paths ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_select_file_paths    (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_folder_view_custom_select ()">
+<a name="fm-folder-view-custom-select"></a><h3>fm_folder_view_custom_select ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_view_custom_select        (<em class="parameter"><code><a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fv</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GFunc"><span class="type">GFunc</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="FmFolderView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "chdir" signal'>
+<a name="FmFolderView-chdir"></a><h3>The <code class="literal">"chdir"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fmfolderview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run First</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "clicked" signal'>
+<a name="FmFolderView-clicked"></a><h3>The <code class="literal">"clicked"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fmfolderview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a>         arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg2,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run First</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "loaded" signal'>
+<a name="FmFolderView-loaded"></a><h3>The <code class="literal">"loaded"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fmfolderview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run First</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "sel-changed" signal'>
+<a name="FmFolderView-sel-changed"></a><h3>The <code class="literal">"sel-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fmfolderview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run First</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "sort-changed" signal'>
+<a name="FmFolderView-sort-changed"></a><h3>The <code class="literal">"sort-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fmfolderview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run First</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "status" signal'>
+<a name="FmFolderView-status"></a><h3>The <code class="literal">"status"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolderView.html" title="FmFolderView"><span class="type">FmFolderView</span></a> *fmfolderview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run First</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

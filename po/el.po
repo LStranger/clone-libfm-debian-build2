@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-28 02:27+0800\n"
+"POT-Creation-Date: 2010-10-04 02:06+0800\n"
 "PO-Revision-Date: 2010-04-25 02:24+0200\n"
 "Last-Translator: <edhunter@sidux.com>\n"
 "Language-Team: Greek\n"
@@ -261,7 +261,7 @@ msgstr "Γραμμή εντολών:"
 msgid "File Associations"
 msgstr "Συσχετίσεις αρχείων"
 
-#: ../data/ui/preferred-apps.glade.h:6
+#: ../data/ui/preferred-apps.glade.h:6 ../data/libfm-pref-apps.desktop.in.h:1
 msgid "Preferred Applications"
 msgstr "Προτιμώμενες εφαρμογές"
 
@@ -330,27 +330,27 @@ msgstr "Συντομεύσεις"
 msgid "Mount Point"
 msgstr "Σημείο προσάρτησης"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:729
 msgid "Trash Can"
 msgstr "Κάδος απορριμάτων"
 
-#: ../src/base/fm-path.c:438
+#: ../src/base/fm-path.c:731
 msgid "My Computer"
 msgstr "Ο υπολογιστής μου"
 
-#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:739
 msgid "Applications"
 msgstr "Εφαρμογές"
 
-#: ../src/base/fm-path.c:449
+#: ../src/base/fm-path.c:742
 msgid "Network"
 msgstr "Δίκτυο"
 
-#: ../src/gtk/fm-progress-dlg.c:145
+#: ../src/gtk/fm-progress-dlg.c:150
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -361,7 +361,7 @@ msgstr ""
 "Μέγεθος: %s\n"
 "Τροποποιήθηκε: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -370,23 +370,23 @@ msgstr ""
 "Τύπος: %s\n"
 "Τροποποιήθηκε: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:302
+#: ../src/gtk/fm-progress-dlg.c:309
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Η λειτουργία ακυρώθηκε και υπάρχουν κάποια σφάλματα."
 
-#: ../src/gtk/fm-progress-dlg.c:304
+#: ../src/gtk/fm-progress-dlg.c:311
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
-#: ../src/gtk/fm-progress-dlg.c:308
+#: ../src/gtk/fm-progress-dlg.c:315
 msgid "The file operation is finished, but there are some errors."
 msgstr "Η λειτουργία ολοκληρώθηκε, αλλά υπάρχουν κάποια σφάλματα."
 
-#: ../src/gtk/fm-progress-dlg.c:310
+#: ../src/gtk/fm-progress-dlg.c:317
 msgid "Finished"
 msgstr "Ολοκληρώθηκε"
 
-#: ../src/gtk/fm-progress-dlg.c:328
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -396,89 +396,88 @@ msgstr ""
 "αρχείων δεν υποστηρίζει αυτή τη λειτουργία.\n"
 "Αντί αυτού, θέλετε να διαγράψετε οριστικά τα αρχεία;"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:429
 msgid ", "
 msgstr " ,"
 
-#: ../src/gtk/fm-progress-dlg.c:437
+#: ../src/gtk/fm-progress-dlg.c:444
 msgid "Moving files"
 msgstr "Μετακίνηση αρχείων"
 
-#: ../src/gtk/fm-progress-dlg.c:440
+#: ../src/gtk/fm-progress-dlg.c:447
 msgid "Copying files"
 msgstr "Αντιγραφή αρχείων"
 
-#: ../src/gtk/fm-progress-dlg.c:443
+#: ../src/gtk/fm-progress-dlg.c:450
 msgid "Trashing files"
 msgstr "Μετακίνηση στον κάδο απορριμάτων"
 
-#: ../src/gtk/fm-progress-dlg.c:446
+#: ../src/gtk/fm-progress-dlg.c:453
 msgid "Deleting files"
 msgstr "Διαγραφή αρχείων"
 
-#: ../src/gtk/fm-progress-dlg.c:449
+#: ../src/gtk/fm-progress-dlg.c:456
 msgid "Creating symlinks"
 msgstr "Δημιουργία συμβολικών συνδέσμων"
 
-#: ../src/gtk/fm-progress-dlg.c:452
+#: ../src/gtk/fm-progress-dlg.c:459
 msgid "Changing file attributes"
 msgstr "Αλλαγή χαρακτηριστικών αρχείου"
 
-#: ../src/gtk/fm-file-properties.c:171
+#: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "byte"
+msgstr[1] "bytes"
+
+#: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
 msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα χρήστη ή αριθμό id."
 
-#: ../src/gtk/fm-file-properties.c:203
+#: ../src/gtk/fm-file-properties.c:208
 msgid "Please enter a valid group name or numeric id."
 msgstr "Παρακαλώ εισάγετε ένα έγκυρο όνομα ομάδας ή αριθμό id."
 
-#: ../src/gtk/fm-file-properties.c:351
+#: ../src/gtk/fm-file-properties.c:356
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Να εφαρμοστούν αναδρομικά οι αλλαγές σε όλα τα αρχεία και υπό-φακέλους;"
 
-#: ../src/gtk/fm-file-properties.c:625
+#: ../src/gtk/fm-file-properties.c:630
 msgid "Files of different types"
 msgstr "Αρχεία διαφορετικών τύπων"
 
-#: ../src/gtk/fm-file-properties.c:653
+#: ../src/gtk/fm-file-properties.c:663
 msgid "Multiple Files"
 msgstr "Πολλαπλά αρχείων"
 
-#: ../src/gtk/fm-places-view.c:132
+#: ../src/gtk/fm-places-view.c:81
 msgid "Mount Volume"
 msgstr "Προσάρτηση τόμου"
 
-#: ../src/gtk/fm-places-view.c:133
+#: ../src/gtk/fm-places-view.c:82
 msgid "Unmount Volume"
 msgstr "Αποπροσάρτηση τόμου"
 
-#: ../src/gtk/fm-places-view.c:134
+#: ../src/gtk/fm-places-view.c:83
 msgid "Eject Removable Media"
 msgstr "Εξαγωγή αφαιρούμενου μέσου"
 
-#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
 msgid "Rename Bookmark Item"
 msgstr "Μετονομασία αντικειμένου σελιδοδείκτη"
 
-#: ../src/gtk/fm-places-view.c:148
+#: ../src/gtk/fm-places-view.c:97
 msgid "Remove from Bookmark"
 msgstr "Αφαίρεση από τους σελιδοδείκτες"
 
-#: ../src/gtk/fm-places-view.c:160
+#: ../src/gtk/fm-places-view.c:109
 msgid "Empty Trash"
 msgstr "Άδειασμα απορριμμάτων"
 
-#: ../src/gtk/fm-places-view.c:498
-msgid "Trash"
-msgstr "Απορρίματα"
-
-#: ../src/gtk/fm-places-view.c:552
-msgid "Desktop"
-msgstr "Επιφάνεια εργασίας"
-
-#: ../src/gtk/fm-places-view.c:875
+#: ../src/gtk/fm-places-view.c:658
 msgid "Enter a new name:"
 msgstr "Πληκτρολογήστε ένα νέο όνομα:"
 
@@ -510,15 +509,15 @@ msgstr "Αποσυμπίεση εδώ"
 msgid "Extract To..."
 msgstr "Αποσυμπίεση στο..."
 
-#: ../src/gtk/fm-file-menu.c:244
+#: ../src/gtk/fm-file-menu.c:250
 msgid "_Restore"
 msgstr "_Επαναφορά"
 
-#: ../src/gtk/fm-file-menu.c:245
+#: ../src/gtk/fm-file-menu.c:251
 msgid "Restore trashed files to original paths"
 msgstr "Επαναφορά των διαγραφέντων αρχείων στους αρχικούς τους καταλόγους"
 
-#: ../src/gtk/fm-dnd-dest.c:449
+#: ../src/gtk/fm-dnd-dest.c:447
 msgid "XDirectSave failed."
 msgstr "XDirectSave απέτυχε."
 
@@ -534,19 +533,19 @@ msgstr "Εκτέλεση προσαρμοσμένης εντολής για το
 msgid "Customize"
 msgstr "Προσαρμογή"
 
-#: ../src/gtk/fm-folder-view.c:522
+#: ../src/gtk/fm-folder-view.c:610
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../src/gtk/fm-folder-view.c:541
+#: ../src/gtk/fm-folder-view.c:629
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../src/gtk/fm-folder-view.c:548
+#: ../src/gtk/fm-folder-view.c:636
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: ../src/gtk/fm-folder-view.c:554
+#: ../src/gtk/fm-folder-view.c:642
 msgid "Modified"
 msgstr "Τροποποιήθηκε"
 
@@ -562,32 +561,54 @@ msgstr "Σφάλμα"
 msgid "Please select a folder"
 msgstr "Παρακαλώ επιλέξτε ένα φάκελο"
 
-#: ../src/gtk/fm-gtk-utils.c:400
+#: ../src/gtk/fm-gtk-utils.c:403
 msgid "Only system administrators have the permission to do this."
 msgstr "Μόνο ο διαχειριστής του συστήματος έχει δικαίωμα να το κάνει."
 
-#: ../src/gtk/fm-gtk-utils.c:475
+#: ../src/gtk/fm-gtk-utils.c:482
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Θέλετε να μετακινήσετε τα επιλεγμένα αρχεία στον κάδο απορριμάτων;"
 
-#: ../src/gtk/fm-gtk-utils.c:496
+#: ../src/gtk/fm-gtk-utils.c:503
 msgid "Do you want to delete the selected files?"
 msgstr "Θέλετε να διαγράψετε τα επιλεγμένα αρχεία;"
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Rename File"
 msgstr "Μετονομασία αρχείου"
 
-#: ../src/gtk/fm-gtk-utils.c:542
+#: ../src/gtk/fm-gtk-utils.c:549
 msgid "Please enter a new name:"
 msgstr "Παρακαλώ εισάγετε ένα νέο όνομα:"
 
-#: ../src/gtk/fm-gtk-utils.c:564
+#: ../src/gtk/fm-gtk-utils.c:571
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Είστε σίγουροι ότι θέλετε να αδειάσει ο κάδος απορριμάτων;"
 
-#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
-#: ../src/job/fm-dir-list-job.c:325
+#: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
+#: ../src/job/fm-dir-list-job.c:337
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Ο συγκεκριμένος κατάλογος δεν είναι έγκυρος"
+
+#: ../src/job/fm-file-ops-job-xfer.c:53
+msgid "Source and destination are the same."
+msgstr "Η πηγή και ο προορισμός είναι ίδια."
+
+#: ../src/job/fm-file-ops-job-xfer.c:60
+msgid "Cannot move a folder into its sub folder"
+msgstr "Δε γίνεται η μετακίνηση ενός φακέλου σε υποφάκελό του"
+
+#: ../src/job/fm-file-ops-job-xfer.c:62
+msgid "Cannot copy a folder into its sub folder"
+msgstr "Δε γίνεται η αντιγραφή ενός φακέλου σε υποφάκελό του"
+
+#: ../src/job/fm-file-ops-job-xfer.c:64
+msgid "Destination is a sub folder of source"
+msgstr "Ο προορισμός είναι υποφάκελος της πηγής"
+
+#~ msgid "Trash"
+#~ msgstr "Απορρίματα"
+
+#~ msgid "Desktop"
+#~ msgstr "Επιφάνεια εργασίας"

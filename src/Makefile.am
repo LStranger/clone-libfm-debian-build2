@@ -1,3 +1,8 @@
+include $(top_srcdir)/Makefile.decl
+
+# current dir needs to be built before tests
+SUBDIRS=. tests
+
 NULL=
 
 AM_CPPFLAGS = \
@@ -11,6 +16,27 @@ AM_CPPFLAGS = \
 	-DPACKAGE_LIB_DIR=\""$(libdir)/libfm"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	$(NULL)
+
+if ENABLE_UDISKS
+udisks_SOURCES= \
+	udisks/fm-udisks.c \
+	udisks/fm-udisks.h \
+	udisks/g-udisks-volume-monitor.c \
+	udisks/g-udisks-volume-monitor.h \
+	udisks/g-udisks-device.c \
+	udisks/g-udisks-device.h \
+	udisks/g-udisks-volume.c \
+	udisks/g-udisks-volume.h \
+	udisks/g-udisks-drive.c \
+	udisks/g-udisks-drive.h \
+	udisks/g-udisks-mount.c \
+	udisks/g-udisks-mount.h \
+	udisks/dbus-utils.c \
+	udisks/dbus-utils.h \
+	$(NULL)
+else
+udisks_SOURCES=
+endif
 
 base_SOURCES = \
 	base/fm-config.c \
@@ -46,6 +72,7 @@ libfm_SOURCES = \
 	fm.c \
 	$(base_SOURCES) \
 	$(job_SOURCES) \
+	$(udisks_SOURCES) \
 	$(NULL)
 
 exo_SOURCES = \
@@ -67,6 +94,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
+	gtk/fm-places-model.c \
 	gtk/fm-app-menu-view.c \
 	gtk/fm-app-chooser-dlg.c \
 	gtk/fm-app-chooser-combo-box.c \
@@ -80,6 +108,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-cell-renderer-pixbuf.c \
 	gtk/fm-dnd-src.c \
 	gtk/fm-dnd-dest.c \
+	gtk/fm-dnd-auto-scroll.c \
 	gtk/fm-gtk-utils.c \
 	gtk/fm-thumbnail.c \
 	gtk/fm-tab-label.c \
@@ -121,6 +150,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-folder-view.h \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
+	gtk/fm-places-model.h \
 	gtk/fm-app-menu-view.h \
 	gtk/fm-app-chooser-dlg.h \
 	gtk/fm-app-chooser-combo-box.h \
@@ -134,6 +164,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-cell-renderer-pixbuf.h \
 	gtk/fm-dnd-src.h \
 	gtk/fm-dnd-dest.h \
+	gtk/fm-dnd-auto-scroll.h \
 	gtk/fm-gtk-utils.h \
 	gtk/fm-thumbnail.h \
 	gtk/fm-tab-label.h \
@@ -153,12 +184,14 @@ libfm_la_SOURCES = \
 libfm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
+	$(DBUS_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(MENU_CACHE_LIBS) \
+	$(DBUS_LIBS) \
 	$(INTLLIBS) \
 	$(NULL)
 
@@ -290,10 +323,13 @@ BUILT_SOURCES= \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-EXTRA_DIST = \
+EXTRA_DIST += \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
 	demo/main-win-ui.c \
+	udisks/gen-binding \
+	udisks/udisks.h \
+	udisks/udisks-device.h \
 	$(NULL)
 
 CLEANFILES = \

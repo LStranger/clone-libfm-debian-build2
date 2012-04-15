@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmDirListJob</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="libfm Reference Manual">
+<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="prev" href="ch01.html" title="[Insert title here]">
+<link rel="next" href="FmJob.html" title="FmJob">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libfm Reference Manual</th>
+<td><a accesskey="n" href="FmJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmDirListJob.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmDirListJob.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmDirListJob.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry" title="FmDirListJob">
+<a name="FmDirListJob"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmDirListJob.top_of_page"></a>FmDirListJob</span></h2>
+<p>FmDirListJob</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="FmDirListJob.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="FmDirListJob.html#FmDirListJob-struct" title="FmDirListJob">FmDirListJob</a>;
+                    <a class="link" href="FmDirListJob.html#FmDirListJobClass" title="FmDirListJobClass">FmDirListJobClass</a>;
+<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              <a class="link" href="FmDirListJob.html#fm-dir-list-job-new" title="fm_dir_list_job_new ()">fm_dir_list_job_new</a>                 (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> dir_only</code></em>);
+<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              <a class="link" href="FmDirListJob.html#fm-dir-list-job-new-for-gfile" title="fm_dir_list_job_new_for_gfile ()">fm_dir_list_job_new_for_gfile</a>       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="type">GFile</span></a> *gf</code></em>);
+<span class="returnvalue">FmFileInfoList</span>*     <a class="link" href="FmDirListJob.html#fm-dir-dist-job-get-files" title="fm_dir_dist_job_get_files ()">fm_dir_dist_job_get_files</a>           (<em class="parameter"><code><a class="link" href="FmDirListJob.html" title="FmDirListJob"><span class="type">FmDirListJob</span></a> *job</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="FmDirListJob.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="FmJob.html" title="FmJob">FmJob</a>
+         +----FmDirListJob
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="FmDirListJob.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="FmDirListJob.details"></a><h2>Details</h2>
+<div class="refsect2" title="FmDirListJob">
+<a name="FmDirListJob-struct"></a><h3>FmDirListJob</h3>
+<pre class="programlisting">typedef struct _FmDirListJob FmDirListJob;</pre>
+</div>
+<hr>
+<div class="refsect2" title="FmDirListJobClass">
+<a name="FmDirListJobClass"></a><h3>FmDirListJobClass</h3>
+<pre class="programlisting">typedef struct {
+	FmJobClass parent_class;
+} FmDirListJobClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dir_list_job_new ()">
+<a name="fm-dir-list-job-new"></a><h3>fm_dir_list_job_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              fm_dir_list_job_new                 (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> dir_only</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dir_list_job_new_for_gfile ()">
+<a name="fm-dir-list-job-new-for-gfile"></a><h3>fm_dir_list_job_new_for_gfile ()</h3>
+<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              fm_dir_list_job_new_for_gfile       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="type">GFile</span></a> *gf</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="fm_dir_dist_job_get_files ()">
+<a name="fm-dir-dist-job-get-files"></a><h3>fm_dir_dist_job_get_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmFileInfoList</span>*     fm_dir_dist_job_get_files           (<em class="parameter"><code><a class="link" href="FmDirListJob.html" title="FmDirListJob"><span class="type">FmDirListJob</span></a> *job</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

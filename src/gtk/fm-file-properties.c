@@ -112,11 +112,16 @@ static gboolean on_timeout(FmFilePropData* data)
 
     if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
+        char* str;
         fm_file_size_to_str(size_str, dc->total_size, TRUE);
-        gtk_label_set_text(GTK_LABEL(data->total_size), size_str);
+        str = g_strdup_printf("%s (%'llu %s)", size_str, dc->total_size, ngettext("byte", "bytes", dc->total_size));
+        gtk_label_set_text(GTK_LABEL(data->total_size), str);
+        g_free(str);
 
         fm_file_size_to_str(size_str, dc->total_block_size, TRUE);
-        gtk_label_set_text(GTK_LABEL(data->size_on_disk), size_str);
+        str = g_strdup_printf("%s (%'llu %s)", size_str, dc->total_block_size, ngettext("byte", "bytes", dc->total_block_size));
+        gtk_label_set_text(GTK_LABEL(data->size_on_disk), str);
+        g_free(str);
     }
     gdk_threads_leave();
     return TRUE;
@@ -636,10 +641,15 @@ static void update_ui(FmFilePropData* data)
     {
         char buf[128];
         FmPath* parent = fm_path_get_parent(fm_file_info_get_path(data->fi));
-        char* parent_str = fm_path_display_name(parent, TRUE);
+        char* parent_str = parent ? fm_path_display_name(parent, TRUE) : NULL;
         gtk_entry_set_text(GTK_ENTRY(data->name), fm_file_info_get_disp_name(data->fi));
-        gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
-        g_free(parent_str);
+        if(parent_str)
+        {
+            gtk_label_set_text(GTK_LABEL(data->dir), parent_str);
+            g_free(parent_str);
+        }
+        else
+            gtk_label_set_text(GTK_LABEL(data->dir), "");
         gtk_label_set_text(GTK_LABEL(data->mtime), fm_file_info_get_disp_mtime(data->fi));
 
         /* FIXME: need to encapsulate this in an libfm API. */

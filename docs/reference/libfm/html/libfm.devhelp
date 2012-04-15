@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="libfm Reference Manual" link="index.html" author="" name="libfm">
+  <chapters>
+    <sub name="[Insert title here]" link="ch01.html">
+      <sub name="FmDirListJob" link="FmDirListJob.html"/>
+      <sub name="FmJob" link="FmJob.html"/>
+      <sub name="FmSimpleJob" link="FmSimpleJob.html"/>
+      <sub name="FmFolderModel" link="FmFolderModel.html"/>
+      <sub name="FmCellRendererPixbuf" link="FmCellRendererPixbuf.html"/>
+      <sub name="FmDirTreeModel" link="libfm-FmDirTreeModel.html"/>
+      <sub name="FmTabLabel" link="FmTabLabel.html"/>
+      <sub name="FmDndSrc" link="FmDndSrc.html"/>
+      <sub name="FmDndDest" link="FmDndDest.html"/>
+      <sub name="FmFolder" link="FmFolder.html"/>
+      <sub name="fm-gtk" link="libfm-fm-gtk.html"/>
+      <sub name="fm" link="libfm-fm.html"/>
+      <sub name="FmFileInfoJob" link="FmFileInfoJob.html"/>
+      <sub name="FmDeepCountJob" link="FmDeepCountJob.html"/>
+      <sub name="FmFileOpsJob" link="FmFileOpsJob.html"/>
+      <sub name="fm-thumbnail" link="libfm-fm-thumbnail.html"/>
+      <sub name="FmPathEntry" link="FmPathEntry.html"/>
+      <sub name="fm-file-properties" link="libfm-fm-file-properties.html"/>
+      <sub name="FmFolderView" link="FmFolderView.html"/>
+      <sub name="fm-file-menu" link="libfm-fm-file-menu.html"/>
+      <sub name="fm-gtk-utils" link="libfm-fm-gtk-utils.html"/>
+      <sub name="FmPlacesView" link="FmPlacesView.html"/>
+      <sub name="fm-clipboard" link="libfm-fm-clipboard.html"/>
+      <sub name="fm-app-chooser-dlg" link="libfm-fm-app-chooser-dlg.html"/>
+      <sub name="fm-app-menu-view" link="libfm-fm-app-menu-view.html"/>
+      <sub name="FmCellRendererText" link="FmCellRendererText.html"/>
+      <sub name="fm-icon-pixbuf" link="libfm-fm-icon-pixbuf.html"/>
+      <sub name="fm-progress-dlg" link="libfm-fm-progress-dlg.html"/>
+      <sub name="fm-app-chooser-combo-box" link="libfm-fm-app-chooser-combo-box.html"/>
+      <sub name="FmConfig" link="FmConfig.html"/>
+      <sub name="fm-file-launcher" link="libfm-fm-file-launcher.html"/>
+      <sub name="FmBookmarks" link="FmBookmarks.html"/>
+      <sub name="fm-monitor" link="libfm-fm-monitor.html"/>
+      <sub name="fm-list" link="libfm-fm-list.html"/>
+      <sub name="fm-path" link="libfm-fm-path.html"/>
+      <sub name="fm-icon" link="libfm-fm-icon.html"/>
+      <sub name="FmNavHistory" link="FmNavHistory.html"/>
+      <sub name="FmDummyMonitor" link="FmDummyMonitor.html"/>
+      <sub name="fm-utils" link="libfm-fm-utils.html"/>
+      <sub name="fm-file-info" link="libfm-fm-file-info.html"/>
+      <sub name="fm-archiver" link="libfm-fm-archiver.html"/>
+      <sub name="fm-mime-type" link="libfm-fm-mime-type.html"/>
+    </sub>
+    <sub name="Object Hierarchy" link="object-tree.html"/>
+    <sub name="API Index" link="api-index-full.html"/>
+  </chapters>
+  <functions>
+    <function name="FmDirListJob" link="FmDirListJob.html#FmDirListJob-struct"/>
+    <function name="FmDirListJobClass" link="FmDirListJob.html#FmDirListJobClass"/>
+    <function name="fm_dir_list_job_new ()" link="FmDirListJob.html#fm-dir-list-job-new"/>
+    <function name="fm_dir_list_job_new_for_gfile ()" link="FmDirListJob.html#fm-dir-list-job-new-for-gfile"/>
+    <function name="fm_dir_dist_job_get_files ()" link="FmDirListJob.html#fm-dir-dist-job-get-files"/>
+    <function name="FmJob" link="FmJob.html#FmJob-struct"/>
+    <function name="FmJobClass" link="FmJob.html#FmJobClass"/>
+    <function name="FmJobCallMainThreadFunc ()" link="FmJob.html#FmJobCallMainThreadFunc"/>
+    <function name="fm_job_is_cancelled ()" link="FmJob.html#fm-job-is-cancelled"/>
+    <function name="fm_job_is_running ()" link="FmJob.html#fm-job-is-running"/>
+    <function name="fm_job_run_async ()" link="FmJob.html#fm-job-run-async"/>
+    <function name="fm_job_run_sync ()" link="FmJob.html#fm-job-run-sync"/>
+    <function name="fm_job_run_sync_with_mainloop ()" link="FmJob.html#fm-job-run-sync-with-mainloop"/>
+    <function name="fm_job_cancel ()" link="FmJob.html#fm-job-cancel"/>
+    <function name="fm_job_call_main_thread ()" link="FmJob.html#fm-job-call-main-thread"/>
+    <function name="fm_job_init_cancellable ()" link="FmJob.html#fm-job-init-cancellable"/>
+    <function name="fm_job_get_cancellable ()" link="FmJob.html#fm-job-get-cancellable"/>
+    <function name="fm_job_set_cancellable ()" link="FmJob.html#fm-job-set-cancellable"/>
+    <function name="fm_job_finish ()" link="FmJob.html#fm-job-finish"/>
+    <function name="fm_job_emit_finished ()" link="FmJob.html#fm-job-emit-finished"/>
+    <function name="fm_job_emit_cancelled ()" link="FmJob.html#fm-job-emit-cancelled"/>
+    <function name="fm_job_emit_error ()" link="FmJob.html#fm-job-emit-error"/>
+    <function name="fm_job_ask ()" link="FmJob.html#fm-job-ask"/>
+    <function name="fm_job_askv ()" link="FmJob.html#fm-job-askv"/>
+    <function name="fm_job_ask_valist ()" link="FmJob.html#fm-job-ask-valist"/>
+    <function name="The &quot;ask&quot; signal" link="FmJob.html#FmJob-ask"/>
+    <function name="The &quot;cancelled&quot; signal" link="FmJob.html#FmJob-cancelled"/>
+    <function name="The &quot;error&quot; signal" link="FmJob.html#FmJob-error"/>
+    <function name="The &quot;finished&quot; signal" link="FmJob.html#FmJob-finished"/>
+    <function name="FmSimpleJob" link="FmSimpleJob.html#FmSimpleJob-struct"/>
+    <function name="FmSimpleJobClass" link="FmSimpleJob.html#FmSimpleJobClass"/>
+    <function name="FmSimpleJobFunc ()" link="FmSimpleJob.html#FmSimpleJobFunc"/>
+    <function name="fm_simple_job_new ()" link="FmSimpleJob.html#fm-simple-job-new"/>
+    <function name="FmFolderModel" link="FmFolderModel.html#FmFolderModel-struct"/>
+    <function name="FmFolderModelClass" link="FmFolderModel.html#FmFolderModelClass"/>
+    <function name="fm_folder_model_new ()" link="FmFolderModel.html#fm-folder-model-new"/>
+    <function name="fm_folder_model_set_folder ()" link="FmFolderModel.html#fm-folder-model-set-folder"/>
+    <function name="fm_folder_model_get_is_loading ()" link="FmFolderModel.html#fm-folder-model-get-is-loading"/>
+    <function name="fm_folder_model_get_show_hidden ()" link="FmFolderModel.html#fm-folder-model-get-show-hidden"/>
+    <function name="fm_folder_model_set_show_hidden ()" link="FmFolderModel.html#fm-folder-model-set-show-hidden"/>
+    <function name="fm_folder_model_file_created ()" link="FmFolderModel.html#fm-folder-model-file-created"/>
+    <function name="fm_folder_model_file_deleted ()" link="FmFolderModel.html#fm-folder-model-file-deleted"/>
+    <function name="fm_folder_model_file_changed ()" link="FmFolderModel.html#fm-folder-model-file-changed"/>
+    <function name="fm_folder_model_get_common_suffix_for_prefix ()" link="FmFolderModel.html#fm-folder-model-get-common-suffix-for-prefix"/>
+    <function name="fm_folder_model_find_iter_by_filename ()" link="FmFolderModel.html#fm-folder-model-find-iter-by-filename"/>
+    <function name="fm_folder_model_set_icon_size ()" link="FmFolderModel.html#fm-folder-model-set-icon-size"/>
+    <function name="fm_folder_model_get_icon_size ()" link="FmFolderModel.html#fm-folder-model-get-icon-size"/>
+    <function name="The &quot;loaded&quot; signal" link="FmFolderModel.html#FmFolderModel-loaded"/>
+    <function name="FmCellRendererPixbuf" link="FmCellRendererPixbuf.html#FmCellRendererPixbuf-struct"/>
+    <function name="FmCellRendererPixbufClass" link="FmCellRendererPixbuf.html#FmCellRendererPixbufClass"/>
+    <function name="fm_cell_renderer_pixbuf_new ()" link="FmCellRendererPixbuf.html#fm-cell-renderer-pixbuf-new"/>
+    <function name="fm_cell_renderer_pixbuf_set_fixed_size ()" link="FmCellRendererPixbuf.html#fm-cell-renderer-pixbuf-set-fixed-size"/>
+    <function name="The &quot;info&quot; property" link="FmCellRendererPixbuf.html#FmCellRendererPixbuf--info"/>
+    <function name="FmDirTreeModel" link="libfm-FmDirTreeModel.html#FmDirTreeModel"/>
+    <function name="FmDirTreeModelClass" link="libfm-FmDirTreeModel.html#FmDirTreeModelClass"/>
+    <function name="fm_dir_tree_model_new ()" link="libfm-FmDirTreeModel.html#fm-dir-tree-model-new"/>
+    <function name="fm_dir_tree_model_add_root ()" link="libfm-FmDirTreeModel.html#fm-dir-tree-model-add-root"/>
+    <function name="fm_dir_tree_model_expand_row ()" link="libfm-FmDirTreeModel.html#fm-dir-tree-model-expand-row"/>
+    <function name="fm_dir_tree_model_collapse_row ()" link="libfm-FmDirTreeModel.html#fm-dir-tree-model-collapse-row"/>
+    <function name="fm_dir_tree_model_set_icon_size ()" link="libfm-FmDirTreeModel.html#fm-dir-tree-model-set-icon-size"/>
+    <function name="fm_dir_tree_get_icon_size ()" link="libfm-FmDirTreeModel.html#fm-dir-tree-get-icon-size"/>
+    <function name="FmTabLabel" link="FmTabLabel.html#FmTabLabel-struct"/>
+    <function name="FmTabLabelClass" link="FmTabLabel.html#FmTabLabelClass"/>
+    <function name="fm_tab_label_new ()" link="FmTabLabel.html#fm-tab-label-new"/>
+    <function name="fm_tab_label_set_text ()" link="FmTabLabel.html#fm-tab-label-set-text"/>
+    <function name="FmDndSrc" link="FmDndSrc.html#FmDndSrc-struct"/>
+    <function name="FmDndSrcClass" link="FmDndSrc.html#FmDndSrcClass"/>
+    <function name="fm_dnd_src_new ()" link="FmDndSrc.html#fm-dnd-src-new"/>
+    <function name="fm_dnd_src_set_widget ()" link="FmDndSrc.html#fm-dnd-src-set-widget"/>
+    <function name="fm_dnd_src_get_files ()" link="FmDndSrc.html#fm-dnd-src-get-files"/>
+    <function name="fm_dnd_src_set_files ()" link="FmDndSrc.html#fm-dnd-src-set-files"/>
+    <function name="fm_dnd_src_set_file ()" link="FmDndSrc.html#fm-dnd-src-set-file"/>
+    <function name="The &quot;data-get&quot; signal" link="FmDndSrc.html#FmDndSrc-data-get"/>
+    <function name="FmDndDest" link="FmDndDest.html#FmDndDest-struct"/>
+    <function name="FmDndDestClass" link="FmDndDest.html#FmDndDestClass"/>
+    <function name="fm_dnd_dest_new ()" link="FmDndDest.html#fm-dnd-dest-new"/>
+    <function name="fm_dnd_dest_set_widget ()" link="FmDndDest.html#fm-dnd-dest-set-widget"/>
+    <function name="fm_dnd_dest_get_src_files ()" link="FmDndDest.html#fm-dnd-dest-get-src-files"/>
+    <function name="fm_dnd_dest_set_dest_file ()" link="FmDndDest.html#fm-dnd-dest-set-dest-file"/>
+    <function name="fm_dnd_dest_get_dest_file ()" link="FmDndDest.html#fm-dnd-dest-get-dest-file"/>
+    <function name="fm_dnd_dest_get_dest_path ()" link="FmDndDest.html#fm-dnd-dest-get-dest-path"/>
+    <function name="The &quot;files-dropped&quot; signal" link="FmDndDest.html#FmDndDest-files-dropped"/>
+    <function name="FmFolder" link="FmFolder.html#FmFolder-struct"/>
+    <function name="FmFolderClass" link="FmFolder.html#FmFolderClass"/>
+    <function name="fm_folder_get ()" link="FmFolder.html#fm-folder-get"/>
+    <function name="fm_folder_get_for_gfile ()" link="FmFolder.html#fm-folder-get-for-gfile"/>
+    <function name="fm_folder_get_for_path ()" link="FmFolder.html#fm-folder-get-for-path"/>
+    <function name="fm_folder_get_for_path_name ()" link="FmFolder.html#fm-folder-get-for-path-name"/>
+    <function name="fm_folder_get_for_uri ()" link="FmFolder.html#fm-folder-get-for-uri"/>
+    <function name="fm_folder_get_files ()" link="FmFolder.html#fm-folder-get-files"/>
+    <function name="fm_folder_get_file_by_name ()" link="FmFolder.html#fm-folder-get-file-by-name"/>
+    <function name="fm_folder_get_is_loading ()" link="FmFolder.html#fm-folder-get-is-loading"/>
+    <function name="fm_folder_reload ()" link="FmFolder.html#fm-folder-reload"/>
+    <function name="The &quot;error&quot; signal" link="FmFolder.html#FmFolder-error"/>
+    <function name="The &quot;files-added&quot; signal" link="FmFolder.html#FmFolder-files-added"/>
+    <function name="The &quot;files-changed&quot; signal" link="FmFolder.html#FmFolder-files-changed"/>
+    <function name="The &quot;files-removed&quot; signal" link="FmFolder.html#FmFolder-files-removed"/>
+    <function name="The &quot;loaded&quot; signal" link="FmFolder.html#FmFolder-loaded"/>
+    <function name="The &quot;unmount&quot; signal" link="FmFolder.html#FmFolder-unmount"/>
+    <function name="fm_gtk_init ()" link="libfm-fm-gtk.html#fm-gtk-init"/>
+    <function name="fm_gtk_finalize ()" link="libfm-fm-gtk.html#fm-gtk-finalize"/>
+    <function name="fm_qdata_id" link="libfm-fm.html#fm-qdata-id"/>
+    <function name="fm_init ()" link="libfm-fm.html#fm-init"/>
+    <function name="fm_finalize ()" link="libfm-fm.html#fm-finalize"/>
+    <function name="FM_TYPE_FILE_INFO_JOB" link="FmFileInfoJob.html#FM-TYPE-FILE-INFO-JOB:CAPS"/>
+    <function name="FM_FILE_INFO_JOB()" link="FmFileInfoJob.html#FM-FILE-INFO-JOB:CAPS"/>
+    <function name="FM_FILE_INFO_JOB_CLASS()" link="FmFileInfoJob.html#FM-FILE-INFO-JOB-CLASS:CAPS"/>
+    <function name="IS_FM_FILE_INFO_JOB()" link="FmFileInfoJob.html#IS-FM-FILE-INFO-JOB:CAPS"/>
+    <function name="IS_FM_FILE_INFO_JOB_CLASS()" link="FmFileInfoJob.html#IS-FM-FILE-INFO-JOB-CLASS:CAPS"/>
+    <function name="FmFileInfoJob" link="FmFileInfoJob.html#FmFileInfoJob-struct"/>
+    <function name="FmFileInfoJobClass" link="FmFileInfoJob.html#FmFileInfoJobClass"/>
+    <function name="fm_file_info_job_get_type ()" link="FmFileInfoJob.html#fm-file-info-job-get-type"/>
+    <function name="fm_file_info_job_new ()" link="FmFileInfoJob.html#fm-file-info-job-new"/>
+    <function name="fm_file_info_job_add ()" link="FmFileInfoJob.html#fm-file-info-job-add"/>
+    <function name="fm_file_info_job_add_gfile ()" link="FmFileInfoJob.html#fm-file-info-job-add-gfile"/>
+    <function name="fm_file_info_job_get_current ()" link="FmFileInfoJob.html#fm-file-info-job-get-current"/>
+    <function name="FM_DEEP_COUNT_JOB_TYPE" link="FmDeepCountJob.html#FM-DEEP-COUNT-JOB-TYPE:CAPS"/>
+    <function name="FM_DEEP_COUNT_JOB()" link="FmDeepCountJob.html#FM-DEEP-COUNT-JOB:CAPS"/>
+    <function name="FM_DEEP_COUNT_JOB_CLASS()" link="FmDeepCountJob.html#FM-DEEP-COUNT-JOB-CLASS:CAPS"/>
+    <function name="IS_FM_DEEP_COUNT_JOB()" link="FmDeepCountJob.html#IS-FM-DEEP-COUNT-JOB:CAPS"/>
+    <function name="IS_FM_DEEP_COUNT_JOB_CLASS()" link="FmDeepCountJob.html#IS-FM-DEEP-COUNT-JOB-CLASS:CAPS"/>
+    <function name="FmDeepCountJob" link="FmDeepCountJob.html#FmDeepCountJob-struct"/>
+    <function name="FmDeepCountJobClass" link="FmDeepCountJob.html#FmDeepCountJobClass"/>
+    <function name="fm_deep_count_job_get_type ()" link="FmDeepCountJob.html#fm-deep-count-job-get-type"/>
+    <function name="fm_deep_count_job_new ()" link="FmDeepCountJob.html#fm-deep-count-job-new"/>
+    <function name="fm_deep_count_job_set_dest ()" link="FmDeepCountJob.html#fm-deep-count-job-set-dest"/>
+    <function name="FM_FILE_OPS_JOB_TYPE" link="FmFileOpsJob.html#FM-FILE-OPS-JOB-TYPE:CAPS"/>
+    <function name="FM_FILE_OPS_JOB()" link="FmFileOpsJob.html#FM-FILE-OPS-JOB:CAPS"/>
+    <function name="FM_FILE_OPS_JOB_CLASS()" link="FmFileOpsJob.html#FM-FILE-OPS-JOB-CLASS:CAPS"/>
+    <function name="IS_FM_FILE_OPS_JOB()" link="FmFileOpsJob.html#IS-FM-FILE-OPS-JOB:CAPS"/>
+    <function name="IS_FM_FILE_OPS_JOB_CLASS()" link="FmFileOpsJob.html#IS-FM-FILE-OPS-JOB-CLASS:CAPS"/>
+    <function name="FmFileOpsJob" link="FmFileOpsJob.html#FmFileOpsJob-struct"/>
+    <function name="FmFileOpsJobClass" link="FmFileOpsJob.html#FmFileOpsJobClass"/>
+    <function name="fm_file_ops_job_get_type ()" link="FmFileOpsJob.html#fm-file-ops-job-get-type"/>
+    <function name="fm_file_ops_job_new ()" link="FmFileOpsJob.html#fm-file-ops-job-new"/>
+    <function name="fm_file_ops_job_set_dest ()" link="FmFileOpsJob.html#fm-file-ops-job-set-dest"/>
+    <function name="fm_file_ops_job_get_dest ()" link="FmFileOpsJob.html#fm-file-ops-job-get-dest"/>
+    <function name="fm_file_ops_job_set_recursive ()" link="FmFileOpsJob.html#fm-file-ops-job-set-recursive"/>
+    <function name="fm_file_ops_job_set_chmod ()" link="FmFileOpsJob.html#fm-file-ops-job-set-chmod"/>
+    <function name="fm_file_ops_job_set_chown ()" link="FmFileOpsJob.html#fm-file-ops-job-set-chown"/>
+    <function name="fm_file_ops_job_emit_prepared ()" link="FmFileOpsJob.html#fm-file-ops-job-emit-prepared"/>
+    <function name="fm_file_ops_job_emit_cur_file ()" link="FmFileOpsJob.html#fm-file-ops-job-emit-cur-file"/>
+    <function name="fm_file_ops_job_emit_percent ()" link="FmFileOpsJob.html#fm-file-ops-job-emit-percent"/>
+    <function name="fm_file_ops_job_ask_rename ()" link="FmFileOpsJob.html#fm-file-ops-job-ask-rename"/>
+    <function name="The &quot;ask-rename&quot; signal" link="FmFileOpsJob.html#FmFileOpsJob-ask-rename"/>
+    <function name="The &quot;cur-file&quot; signal" link="FmFileOpsJob.html#FmFileOpsJob-cur-file"/>
+    <function name="The &quot;percent&quot; signal" link="FmFileOpsJob.html#FmFileOpsJob-percent"/>
+    <function name="The &quot;prepared&quot; signal" link="FmFileOpsJob.html#FmFileOpsJob-prepared"/>
+    <function name="FmThumbnailRequest" link="libfm-fm-thumbnail.html#FmThumbnailRequest"/>
+    <function name="FmThumbnailReadyCallback ()" link="libfm-fm-thumbnail.html#FmThumbnailReadyCallback"/>
+    <function name="fm_thumbnail_request ()" link="libfm-fm-thumbnail.html#fm-thumbnail-request"/>
+    <function name="fm_thumbnail_request_cancel ()" link="libfm-fm-thumbnail.html#fm-thumbnail-request-cancel"/>
+    <function name="fm_thumbnail_request_get_pixbuf ()" link="libfm-fm-thumbnail.html#fm-thumbnail-request-get-pixbuf"/>
+    <function name="fm_thumbnail_request_get_file_info ()" link="libfm-fm-thumbnail.html#fm-thumbnail-request-get-file-info"/>
+    <function name="fm_thumbnail_request_get_size ()" link="libfm-fm-thumbnail.html#fm-thumbnail-request-get-size"/>
+    <function name="FM_TYPE_PATH_ENTRY" link="FmPathEntry.html#FM-TYPE-PATH-ENTRY:CAPS"/>
+    <function name="FM_PATH_ENTRY()" link="FmPathEntry.html#FM-PATH-ENTRY:CAPS"/>
+    <function name="FM_PATH_ENTRY_CLASS()" link="FmPathEntry.html#FM-PATH-ENTRY-CLASS:CAPS"/>
+    <function name="IS_FM_TYPE_PATH_ENTRY()" link="FmPathEntry.html#IS-FM-TYPE-PATH-ENTRY:CAPS"/>
+    <function name="IS_FM_TYPE_PATH_ENTRY_CLASS()" link="FmPathEntry.html#IS-FM-TYPE-PATH-ENTRY-CLASS:CAPS"/>
+    <function name="FmPathEntry" link="FmPathEntry.html#FmPathEntry-struct"/>
+    <function name="FmPathEntryClass" link="FmPathEntry.html#FmPathEntryClass"/>
+    <function name="fm_path_entry_get_type ()" link="FmPathEntry.html#fm-path-entry-get-type"/>
+    <function name="fm_path_entry_new ()" link="FmPathEntry.html#fm-path-entry-new"/>
+    <function name="fm_path_entry_set_model ()" link="FmPathEntry.html#fm-path-entry-set-model"/>
+    <function name="The &quot;highlight-completion-match&quot; property" link="FmPathEntry.html#FmPathEntry--highlight-completion-match"/>
+    <function name="fm_file_properties_widget_new ()" link="libfm-fm-file-properties.html#fm-file-properties-widget-new"/>
+    <function name="fm_show_file_properties ()" link="libfm-fm-file-properties.html#fm-show-file-properties"/>
+    <function name="FM_FOLDER_VIEW_TYPE" link="FmFolderView.html#FM-FOLDER-VIEW-TYPE:CAPS"/>
+    <function name="FM_FOLDER_VIEW()" link="FmFolderView.html#FM-FOLDER-VIEW:CAPS"/>
+    <function name="FM_FOLDER_VIEW_CLASS()" link="FmFolderView.html#FM-FOLDER-VIEW-CLASS:CAPS"/>
+    <function name="IS_FM_FOLDER_VIEW()" link="FmFolderView.html#IS-FM-FOLDER-VIEW:CAPS"/>
+    <function name="IS_FM_FOLDER_VIEW_CLASS()" link="FmFolderView.html#IS-FM-FOLDER-VIEW-CLASS:CAPS"/>
+    <function name="FmFolderView" link="FmFolderView.html#FmFolderView-struct"/>
+    <function name="FmFolderViewClass" link="FmFolderView.html#FmFolderViewClass"/>
+    <function name="fm_folder_view_get_type ()" link="FmFolderView.html#fm-folder-view-get-type"/>
+    <function name="fm_folder_view_new ()" link="FmFolderView.html#fm-folder-view-new"/>
+    <function name="fm_folder_view_set_mode ()" link="FmFolderView.html#fm-folder-view-set-mode"/>
+    <function name="fm_folder_view_get_mode ()" link="FmFolderView.html#fm-folder-view-get-mode"/>
+    <function name="fm_folder_view_set_selection_mode ()" link="FmFolderView.html#fm-folder-view-set-selection-mode"/>
+    <function name="fm_folder_view_get_selection_mode ()" link="FmFolderView.html#fm-folder-view-get-selection-mode"/>
+    <function name="fm_folder_view_sort ()" link="FmFolderView.html#fm-folder-view-sort"/>
+    <function name="fm_folder_view_get_sort_type ()" link="FmFolderView.html#fm-folder-view-get-sort-type"/>
+    <function name="fm_folder_view_get_sort_by ()" link="FmFolderView.html#fm-folder-view-get-sort-by"/>
+    <function name="fm_folder_view_set_show_hidden ()" link="FmFolderView.html#fm-folder-view-set-show-hidden"/>
+    <function name="fm_folder_view_get_show_hidden ()" link="FmFolderView.html#fm-folder-view-get-show-hidden"/>
+    <function name="fm_folder_view_chdir ()" link="FmFolderView.html#fm-folder-view-chdir"/>
+    <function name="fm_folder_view_chdir_by_name ()" link="FmFolderView.html#fm-folder-view-chdir-by-name"/>
+    <function name="fm_folder_view_get_cwd ()" link="FmFolderView.html#fm-folder-view-get-cwd"/>
+    <function name="fm_folder_view_get_cwd_info ()" link="FmFolderView.html#fm-folder-view-get-cwd-info"/>
+    <function name="fm_folder_view_get_selected_files ()" link="FmFolderView.html#fm-folder-view-get-selected-files"/>
+    <function name="fm_folder_view_get_selected_file_paths ()" link="FmFolderView.html#fm-folder-view-get-selected-file-paths"/>
+    <function name="fm_folder_view_select_all ()" link="FmFolderView.html#fm-folder-view-select-all"/>
+    <function name="fm_folder_view_select_invert ()" link="FmFolderView.html#fm-folder-view-select-invert"/>
+    <function name="fm_folder_view_select_file_path ()" link="FmFolderView.html#fm-folder-view-select-file-path"/>
+    <function name="fm_folder_view_select_file_paths ()" link="FmFolderView.html#fm-folder-view-select-file-paths"/>
+    <function name="fm_folder_view_custom_select ()" link="FmFolderView.html#fm-folder-view-custom-select"/>
+    <function name="The &quot;chdir&quot; signal" link="FmFolderView.html#FmFolderView-chdir"/>
+    <function name="The &quot;clicked&quot; signal" link="FmFolderView.html#FmFolderView-clicked"/>
+    <function name="The &quot;loaded&quot; signal" link="FmFolderView.html#FmFolderView-loaded"/>
+    <function name="The &quot;sel-changed&quot; signal" link="FmFolderView.html#FmFolderView-sel-changed"/>
+    <function name="The &quot;sort-changed&quot; signal" link="FmFolderView.html#FmFolderView-sort-changed"/>
+    <function name="The &quot;status&quot; signal" link="FmFolderView.html#FmFolderView-status"/>
+    <function name="FmFileMenu" link="libfm-fm-file-menu.html#FmFileMenu"/>
+    <function name="fm_file_menu_new_for_file ()" link="libfm-fm-file-menu.html#fm-file-menu-new-for-file"/>
+    <function name="fm_file_menu_new_for_files ()" link="libfm-fm-file-menu.html#fm-file-menu-new-for-files"/>
+    <function name="fm_file_menu_destroy ()" link="libfm-fm-file-menu.html#fm-file-menu-destroy"/>
+    <function name="fm_file_menu_is_single_file_type ()" link="libfm-fm-file-menu.html#fm-file-menu-is-single-file-type"/>
+    <function name="fm_file_menu_get_ui ()" link="libfm-fm-file-menu.html#fm-file-menu-get-ui"/>
+    <function name="fm_file_menu_get_action_group ()" link="libfm-fm-file-menu.html#fm-file-menu-get-action-group"/>
+    <function name="fm_file_menu_get_menu ()" link="libfm-fm-file-menu.html#fm-file-menu-get-menu"/>
+    <function name="fm_file_menu_get_file_info_list ()" link="libfm-fm-file-menu.html#fm-file-menu-get-file-info-list"/>
+    <function name="fm_file_menu_set_folder_func ()" link="libfm-fm-file-menu.html#fm-file-menu-set-folder-func"/>
+    <function name="fm_show_error ()" link="libfm-fm-gtk-utils.html#fm-show-error"/>
+    <function name="fm_yes_no ()" link="libfm-fm-gtk-utils.html#fm-yes-no"/>
+    <function name="fm_ok_cancel ()" link="libfm-fm-gtk-utils.html#fm-ok-cancel"/>
+    <function name="fm_ask ()" link="libfm-fm-gtk-utils.html#fm-ask"/>
+    <function name="fm_askv ()" link="libfm-fm-gtk-utils.html#fm-askv"/>
+    <function name="fm_ask_valist ()" link="libfm-fm-gtk-utils.html#fm-ask-valist"/>
+    <function name="fm_get_user_input ()" link="libfm-fm-gtk-utils.html#fm-get-user-input"/>
+    <function name="fm_get_user_input_path ()" link="libfm-fm-gtk-utils.html#fm-get-user-input-path"/>
+    <function name="fm_select_folder ()" link="libfm-fm-gtk-utils.html#fm-select-folder"/>
+    <function name="fm_mount_path ()" link="libfm-fm-gtk-utils.html#fm-mount-path"/>
+    <function name="fm_mount_volume ()" link="libfm-fm-gtk-utils.html#fm-mount-volume"/>
+    <function name="fm_unmount_mount ()" link="libfm-fm-gtk-utils.html#fm-unmount-mount"/>
+    <function name="fm_unmount_volume ()" link="libfm-fm-gtk-utils.html#fm-unmount-volume"/>
+    <function name="fm_eject_mount ()" link="libfm-fm-gtk-utils.html#fm-eject-mount"/>
+    <function name="fm_eject_volume ()" link="libfm-fm-gtk-utils.html#fm-eject-volume"/>
+    <function name="fm_copy_files ()" link="libfm-fm-gtk-utils.html#fm-copy-files"/>
+    <function name="fm_move_files ()" link="libfm-fm-gtk-utils.html#fm-move-files"/>
+    <function name="fm_copy_file()" link="libfm-fm-gtk-utils.html#fm-copy-file"/>
+    <function name="fm_move_file()" link="libfm-fm-gtk-utils.html#fm-move-file"/>
+    <function name="fm_move_or_copy_files_to ()" link="libfm-fm-gtk-utils.html#fm-move-or-copy-files-to"/>
+    <function name="fm_move_files_to()" link="libfm-fm-gtk-utils.html#fm-move-files-to"/>
+    <function name="fm_copy_files_to()" link="libfm-fm-gtk-utils.html#fm-copy-files-to"/>
+    <function name="fm_trash_files ()" link="libfm-fm-gtk-utils.html#fm-trash-files"/>
+    <function name="fm_delete_files ()" link="libfm-fm-gtk-utils.html#fm-delete-files"/>
+    <function name="fm_trash_or_delete_files ()" link="libfm-fm-gtk-utils.html#fm-trash-or-delete-files"/>
+    <function name="fm_untrash_files ()" link="libfm-fm-gtk-utils.html#fm-untrash-files"/>
+    <function name="fm_rename_file ()" link="libfm-fm-gtk-utils.html#fm-rename-file"/>
+    <function name="fm_empty_trash ()" link="libfm-fm-gtk-utils.html#fm-empty-trash"/>
+    <function name="fm_launch_files_simple ()" link="libfm-fm-gtk-utils.html#fm-launch-files-simple"/>
+    <function name="fm_launch_file_simple ()" link="libfm-fm-gtk-utils.html#fm-launch-file-simple"/>
+    <function name="fm_launch_paths_simple ()" link="libfm-fm-gtk-utils.html#fm-launch-paths-simple"/>
+    <function name="fm_launch_path_simple ()" link="libfm-fm-gtk-utils.html#fm-launch-path-simple"/>
+    <function name="FM_PLACES_VIEW_TYPE" link="FmPlacesView.html#FM-PLACES-VIEW-TYPE:CAPS"/>
+    <function name="FM_PLACES_VIEW()" link="FmPlacesView.html#FM-PLACES-VIEW:CAPS"/>
+    <function name="FM_PLACES_VIEW_CLASS()" link="FmPlacesView.html#FM-PLACES-VIEW-CLASS:CAPS"/>
+    <function name="IS_FM_PLACES_VIEW()" link="FmPlacesView.html#IS-FM-PLACES-VIEW:CAPS"/>
+    <function name="IS_FM_PLACES_VIEW_CLASS()" link="FmPlacesView.html#IS-FM-PLACES-VIEW-CLASS:CAPS"/>
+    <function name="FmPlacesView" link="FmPlacesView.html#FmPlacesView-struct"/>
+    <function name="FmPlacesViewClass" link="FmPlacesView.html#FmPlacesViewClass"/>
+    <function name="fm_places_view_get_type ()" link="FmPlacesView.html#fm-places-view-get-type"/>
+    <function name="fm_places_view_new ()" link="FmPlacesView.html#fm-places-view-new"/>
+    <function name="fm_places_select ()" link="FmPlacesView.html#fm-places-select"/>
+    <function name="The &quot;chdir&quot; signal" link="FmPlacesView.html#FmPlacesView-chdir"/>
+    <function name="fm_clipboard_cut_files()" link="libfm-fm-clipboard.html#fm-clipboard-cut-files"/>
+    <function name="fm_clipboard_copy_files()" link="libfm-fm-clipboard.html#fm-clipboard-copy-files"/>
+    <function name="fm_clipboard_cut_or_copy_files ()" link="libfm-fm-clipboard.html#fm-clipboard-cut-or-copy-files"/>
+    <function name="fm_clipboard_paste_files ()" link="libfm-fm-clipboard.html#fm-clipboard-paste-files"/>
+    <function name="fm_app_chooser_dlg_new ()" link="libfm-fm-app-chooser-dlg.html#fm-app-chooser-dlg-new"/>
+    <function name="fm_app_chooser_dlg_get_selected_app ()" link="libfm-fm-app-chooser-dlg.html#fm-app-chooser-dlg-get-selected-app"/>
+    <function name="fm_choose_app_for_mime_type ()" link="libfm-fm-app-chooser-dlg.html#fm-choose-app-for-mime-type"/>
+    <function name="fm_app_menu_view_new ()" link="libfm-fm-app-menu-view.html#fm-app-menu-view-new"/>
+    <function name="fm_app_menu_view_get_selected_app ()" link="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app"/>
+    <function name="fm_app_menu_view_get_selected_app_desktop_id ()" link="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app-desktop-id"/>
+    <function name="fm_app_menu_view_get_selected_app_desktop_file ()" link="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app-desktop-file"/>
+    <function name="fm_app_menu_view_is_app_selected ()" link="libfm-fm-app-menu-view.html#fm-app-menu-view-is-app-selected"/>
+    <function name="fm_app_menu_view_is_item_app ()" link="libfm-fm-app-menu-view.html#fm-app-menu-view-is-item-app"/>
+    <function name="FM_CELL_RENDERER_TEXT_TYPE" link="FmCellRendererText.html#FM-CELL-RENDERER-TEXT-TYPE:CAPS"/>
+    <function name="FM_CELL_RENDERER_TEXT()" link="FmCellRendererText.html#FM-CELL-RENDERER-TEXT:CAPS"/>
+    <function name="FM_CELL_RENDERER_TEXT_CLASS()" link="FmCellRendererText.html#FM-CELL-RENDERER-TEXT-CLASS:CAPS"/>
+    <function name="IS_FM_CELL_RENDERER_TEXT()" link="FmCellRendererText.html#IS-FM-CELL-RENDERER-TEXT:CAPS"/>
+    <function name="IS_FM_CELL_RENDERER_TEXT_CLASS()" link="FmCellRendererText.html#IS-FM-CELL-RENDERER-TEXT-CLASS:CAPS"/>
+    <function name="FmCellRendererText" link="FmCellRendererText.html#FmCellRendererText-struct"/>
+    <function name="FmCellRendererTextClass" link="FmCellRendererText.html#FmCellRendererTextClass"/>
+    <function name="fm_cell_renderer_text_get_type ()" link="FmCellRendererText.html#fm-cell-renderer-text-get-type"/>
+    <function name="fm_cell_renderer_text_new ()" link="FmCellRendererText.html#fm-cell-renderer-text-new"/>
+    <function name="fm_icon_get_pixbuf ()" link="libfm-fm-icon-pixbuf.html#fm-icon-get-pixbuf"/>
+    <function name="FmProgressDisplay" link="libfm-fm-progress-dlg.html#FmProgressDisplay"/>
+    <function name="fm_file_ops_job_run_with_progress ()" link="libfm-fm-progress-dlg.html#fm-file-ops-job-run-with-progress"/>
+    <function name="fm_app_chooser_combo_box_setup ()" link="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-setup"/>
+    <function name="fm_app_chooser_combo_box_setup_for_mime_type()" link="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-setup-for-mime-type"/>
+    <function name="fm_app_chooser_combo_box_setup_custom()" link="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-setup-custom"/>
+    <function name="fm_app_chooser_combo_box_get_selected ()" link="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-get-selected"/>
+    <function name="fm_app_chooser_combo_box_get_custom_apps ()" link="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-get-custom-apps"/>
+    <function name="FM_CONFIG_TYPE" link="FmConfig.html#FM-CONFIG-TYPE:CAPS"/>
+    <function name="FM_CONFIG()" link="FmConfig.html#FM-CONFIG:CAPS"/>
+    <function name="FM_CONFIG_CLASS()" link="FmConfig.html#FM-CONFIG-CLASS:CAPS"/>
+    <function name="IS_FM_CONFIG()" link="FmConfig.html#IS-FM-CONFIG:CAPS"/>
+    <function name="IS_FM_CONFIG_CLASS()" link="FmConfig.html#IS-FM-CONFIG-CLASS:CAPS"/>
+    <function name="FmConfig" link="FmConfig.html#FmConfig-struct"/>
+    <function name="FmConfigClass" link="FmConfig.html#FmConfigClass"/>
+    <function name="FM_CONFIG_DEFAULT_SINGLE_CLICK" link="FmConfig.html#FM-CONFIG-DEFAULT-SINGLE-CLICK:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_USE_TRASH" link="FmConfig.html#FM-CONFIG-DEFAULT-USE-TRASH:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_CONFIRM_DEL" link="FmConfig.html#FM-CONFIG-DEFAULT-CONFIRM-DEL:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_BIG_ICON_SIZE" link="FmConfig.html#FM-CONFIG-DEFAULT-BIG-ICON-SIZE:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_SMALL_ICON_SIZE" link="FmConfig.html#FM-CONFIG-DEFAULT-SMALL-ICON-SIZE:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_PANE_ICON_SIZE" link="FmConfig.html#FM-CONFIG-DEFAULT-PANE-ICON-SIZE:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_THUMBNAIL_SIZE" link="FmConfig.html#FM-CONFIG-DEFAULT-THUMBNAIL-SIZE:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_SHOW_THUMBNAIL" link="FmConfig.html#FM-CONFIG-DEFAULT-SHOW-THUMBNAIL:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL" link="FmConfig.html#FM-CONFIG-DEFAULT-THUMBNAIL-LOCAL:CAPS"/>
+    <function name="FM_CONFIG_DEFAULT_THUMBNAIL_MAX" link="FmConfig.html#FM-CONFIG-DEFAULT-THUMBNAIL-MAX:CAPS"/>
+    <function name="fm_config" link="FmConfig.html#fm-config"/>
+    <function name="fm_config_get_type ()" link="FmConfig.html#fm-config-get-type"/>
+    <function name="fm_config_new ()" link="FmConfig.html#fm-config-new"/>
+    <function name="fm_config_load_from_file ()" link="FmConfig.html#fm-config-load-from-file"/>
+    <function name="fm_config_load_from_key_file ()" link="FmConfig.html#fm-config-load-from-key-file"/>
+    <function name="fm_config_save ()" link="FmConfig.html#fm-config-save"/>
+    <function name="fm_config_emit_changed ()" link="FmConfig.html#fm-config-emit-changed"/>
+    <function name="The &quot;changed&quot; signal" link="FmConfig.html#FmConfig-changed"/>
+    <function name="FmLaunchFolderFunc ()" link="libfm-fm-file-launcher.html#FmLaunchFolderFunc"/>
+    <function name="FmFileLauncher" link="libfm-fm-file-launcher.html#FmFileLauncher"/>
+    <function name="fm_launch_files ()" link="libfm-fm-file-launcher.html#fm-launch-files"/>
+    <function name="fm_launch_paths ()" link="libfm-fm-file-launcher.html#fm-launch-paths"/>
+    <function name="fm_launch_desktop_entry ()" link="libfm-fm-file-launcher.html#fm-launch-desktop-entry"/>
+    <function name="FM_BOOKMARKS_TYPE" link="FmBookmarks.html#FM-BOOKMARKS-TYPE:CAPS"/>
+    <function name="FM_BOOKMARKS()" link="FmBookmarks.html#FM-BOOKMARKS:CAPS"/>
+    <function name="FM_BOOKMARKS_CLASS()" link="FmBookmarks.html#FM-BOOKMARKS-CLASS:CAPS"/>
+    <function name="IS_FM_BOOKMARKS()" link="FmBookmarks.html#IS-FM-BOOKMARKS:CAPS"/>
+    <function name="IS_FM_BOOKMARKS_CLASS()" link="FmBookmarks.html#IS-FM-BOOKMARKS-CLASS:CAPS"/>
+    <function name="FmBookmarks" link="FmBookmarks.html#FmBookmarks-struct"/>
+    <function name="FmBookmarksClass" link="FmBookmarks.html#FmBookmarksClass"/>
+    <function name="FmBookmarkItem" link="FmBookmarks.html#FmBookmarkItem"/>
+    <function name="fm_bookmarks_get_type ()" link="FmBookmarks.html#fm-bookmarks-get-type"/>
+    <function name="fm_bookmarks_get ()" link="FmBookmarks.html#fm-bookmarks-get"/>
+    <function name="fm_bookmarks_append()" link="FmBookmarks.html#fm-bookmarks-append"/>
+    <function name="fm_bookmarks_insert ()" link="FmBookmarks.html#fm-bookmarks-insert"/>
+    <function name="fm_bookmarks_remove ()" link="FmBookmarks.html#fm-bookmarks-remove"/>
+    <function name="fm_bookmarks_rename ()" link="FmBookmarks.html#fm-bookmarks-rename"/>
+    <function name="fm_bookmarks_list_all ()" link="FmBookmarks.html#fm-bookmarks-list-all"/>
+    <function name="The &quot;changed&quot; signal" link="FmBookmarks.html#FmBookmarks-changed"/>
+    <function name="fm_monitor_directory ()" link="libfm-fm-monitor.html#fm-monitor-directory"/>
+    <function name="fm_monitor_lookup_monitor ()" link="libfm-fm-monitor.html#fm-monitor-lookup-monitor"/>
+    <function name="fm_monitor_lookup_dummy_monitor ()" link="libfm-fm-monitor.html#fm-monitor-lookup-dummy-monitor"/>
+    <function name="FmList" link="libfm-fm-list.html#FmList"/>
+    <function name="FmListFuncs" link="libfm-fm-list.html#FmListFuncs"/>
+    <function name="fm_list_new ()" link="libfm-fm-list.html#fm-list-new"/>
+    <function name="fm_list_ref ()" link="libfm-fm-list.html#fm-list-ref"/>
+    <function name="fm_list_unref ()" link="libfm-fm-list.html#fm-list-unref"/>
+    <function name="FM_LIST()" link="libfm-fm-list.html#FM-LIST:CAPS"/>
+    <function name="fm_list_clear ()" link="libfm-fm-list.html#fm-list-clear"/>
+    <function name="fm_list_is_empty()" link="libfm-fm-list.html#fm-list-is-empty"/>
+    <function name="fm_list_get_length()" link="libfm-fm-list.html#fm-list-get-length"/>
+    <function name="fm_list_reverse()" link="libfm-fm-list.html#fm-list-reverse"/>
+    <function name="fm_list_foreach()" link="libfm-fm-list.html#fm-list-foreach"/>
+    <function name="fm_list_find()" link="libfm-fm-list.html#fm-list-find"/>
+    <function name="fm_list_find_custom()" link="libfm-fm-list.html#fm-list-find-custom"/>
+    <function name="fm_list_sort()" link="libfm-fm-list.html#fm-list-sort"/>
+    <function name="fm_list_push_head()" link="libfm-fm-list.html#fm-list-push-head"/>
+    <function name="fm_list_push_tail()" link="libfm-fm-list.html#fm-list-push-tail"/>
+    <function name="fm_list_push_nth()" link="libfm-fm-list.html#fm-list-push-nth"/>
+    <function name="fm_list_push_head_noref()" link="libfm-fm-list.html#fm-list-push-head-noref"/>
+    <function name="fm_list_push_tail_noref()" link="libfm-fm-list.html#fm-list-push-tail-noref"/>
+    <function name="fm_list_push_nth_noref()" link="libfm-fm-list.html#fm-list-push-nth-noref"/>
+    <function name="fm_list_pop_head()" link="libfm-fm-list.html#fm-list-pop-head"/>
+    <function name="fm_list_pop_tail()" link="libfm-fm-list.html#fm-list-pop-tail"/>
+    <function name="fm_list_pop_nth()" link="libfm-fm-list.html#fm-list-pop-nth"/>
+    <function name="fm_list_peek_head()" link="libfm-fm-list.html#fm-list-peek-head"/>
+    <function name="fm_list_peek_tail()" link="libfm-fm-list.html#fm-list-peek-tail"/>
+    <function name="fm_list_peek_nth()" link="libfm-fm-list.html#fm-list-peek-nth"/>
+    <function name="fm_list_index()" link="libfm-fm-list.html#fm-list-index"/>
+    <function name="fm_list_remove ()" link="libfm-fm-list.html#fm-list-remove"/>
+    <function name="fm_list_remove_all ()" link="libfm-fm-list.html#fm-list-remove-all"/>
+    <function name="fm_list_insert_before()" link="libfm-fm-list.html#fm-list-insert-before"/>
+    <function name="fm_list_insert_after()" link="libfm-fm-list.html#fm-list-insert-after"/>
+    <function name="fm_list_insert_sorted()" link="libfm-fm-list.html#fm-list-insert-sorted"/>
+    <function name="fm_list_insert_before_noref()" link="libfm-fm-list.html#fm-list-insert-before-noref"/>
+    <function name="fm_list_insert_after_noref()" link="libfm-fm-list.html#fm-list-insert-after-noref"/>
+    <function name="fm_list_insert_sorted_noref()" link="libfm-fm-list.html#fm-list-insert-sorted-noref"/>
+    <function name="fm_list_push_head_link()" link="libfm-fm-list.html#fm-list-push-head-link"/>
+    <function name="fm_list_push_tail_link()" link="libfm-fm-list.html#fm-list-push-tail-link"/>
+    <function name="fm_list_push_nth_link()" link="libfm-fm-list.html#fm-list-push-nth-link"/>
+    <function name="fm_list_pop_head_link()" link="libfm-fm-list.html#fm-list-pop-head-link"/>
+    <function name="fm_list_pop_tail_link()" link="libfm-fm-list.html#fm-list-pop-tail-link"/>
+    <function name="fm_list_pop_nth_link()" link="libfm-fm-list.html#fm-list-pop-nth-link"/>
+    <function name="fm_list_peek_head_link()" link="libfm-fm-list.html#fm-list-peek-head-link"/>
+    <function name="fm_list_peek_tail_link()" link="libfm-fm-list.html#fm-list-peek-tail-link"/>
+    <function name="fm_list_peek_nth_link()" link="libfm-fm-list.html#fm-list-peek-nth-link"/>
+    <function name="fm_list_link_index()" link="libfm-fm-list.html#fm-list-link-index"/>
+    <function name="fm_list_unlink()" link="libfm-fm-list.html#fm-list-unlink"/>
+    <function name="fm_list_delete_link_nounref()" link="libfm-fm-list.html#fm-list-delete-link-nounref"/>
+    <function name="fm_list_delete_link ()" link="libfm-fm-list.html#fm-list-delete-link"/>
+    <function name="FM_PATH()" link="libfm-fm-path.html#FM-PATH:CAPS"/>
+    <function name="FmPath" link="libfm-fm-path.html#FmPath"/>
+    <function name="FmPathList" link="libfm-fm-path.html#FmPathList"/>
+    <function name="fm_path_new()" link="libfm-fm-path.html#fm-path-new"/>
+    <function name="fm_path_new_child ()" link="libfm-fm-path.html#fm-path-new-child"/>
+    <function name="fm_path_new_child_len ()" link="libfm-fm-path.html#fm-path-new-child-len"/>
+    <function name="fm_path_new_relative ()" link="libfm-fm-path.html#fm-path-new-relative"/>
+    <function name="fm_path_new_for_gfile ()" link="libfm-fm-path.html#fm-path-new-for-gfile"/>
+    <function name="fm_path_get_root ()" link="libfm-fm-path.html#fm-path-get-root"/>
+    <function name="fm_path_get_home ()" link="libfm-fm-path.html#fm-path-get-home"/>
+    <function name="fm_path_get_desktop ()" link="libfm-fm-path.html#fm-path-get-desktop"/>
+    <function name="fm_path_get_trash ()" link="libfm-fm-path.html#fm-path-get-trash"/>
+    <function name="fm_path_get_apps_menu ()" link="libfm-fm-path.html#fm-path-get-apps-menu"/>
+    <function name="fm_path_ref ()" link="libfm-fm-path.html#fm-path-ref"/>
+    <function name="fm_path_unref ()" link="libfm-fm-path.html#fm-path-unref"/>
+    <function name="fm_path_get_parent ()" link="libfm-fm-path.html#fm-path-get-parent"/>
+    <function name="fm_path_get_basename ()" link="libfm-fm-path.html#fm-path-get-basename"/>
+    <function name="fm_path_get_flags ()" link="libfm-fm-path.html#fm-path-get-flags"/>
+    <function name="fm_path_is_native()" link="libfm-fm-path.html#fm-path-is-native"/>
+    <function name="fm_path_is_trash()" link="libfm-fm-path.html#fm-path-is-trash"/>
+    <function name="fm_path_is_trash_root()" link="libfm-fm-path.html#fm-path-is-trash-root"/>
+    <function name="fm_path_is_virtual()" link="libfm-fm-path.html#fm-path-is-virtual"/>
+    <function name="fm_path_is_local()" link="libfm-fm-path.html#fm-path-is-local"/>
+    <function name="fm_path_is_xdg_menu()" link="libfm-fm-path.html#fm-path-is-xdg-menu"/>
+    <function name="fm_path_to_str ()" link="libfm-fm-path.html#fm-path-to-str"/>
+    <function name="fm_path_to_uri ()" link="libfm-fm-path.html#fm-path-to-uri"/>
+    <function name="fm_path_to_gfile ()" link="libfm-fm-path.html#fm-path-to-gfile"/>
+    <function name="fm_path_display_name ()" link="libfm-fm-path.html#fm-path-display-name"/>
+    <function name="fm_path_display_basename ()" link="libfm-fm-path.html#fm-path-display-basename"/>
+    <function name="fm_path_hash ()" link="libfm-fm-path.html#fm-path-hash"/>
+    <function name="fm_path_equal ()" link="libfm-fm-path.html#fm-path-equal"/>
+    <function name="fm_path_equal_str ()" link="libfm-fm-path.html#fm-path-equal-str"/>
+    <function name="fm_path_list_new ()" link="libfm-fm-path.html#fm-path-list-new"/>
+    <function name="fm_path_list_new_from_uri_list ()" link="libfm-fm-path.html#fm-path-list-new-from-uri-list"/>
+    <function name="fm_path_list_new_from_uris ()" link="libfm-fm-path.html#fm-path-list-new-from-uris"/>
+    <function name="fm_path_list_new_from_file_info_list ()" link="libfm-fm-path.html#fm-path-list-new-from-file-info-list"/>
+    <function name="fm_path_list_new_from_file_info_glist ()" link="libfm-fm-path.html#fm-path-list-new-from-file-info-glist"/>
+    <function name="fm_path_list_new_from_file_info_gslist ()" link="libfm-fm-path.html#fm-path-list-new-from-file-info-gslist"/>
+    <function name="fm_list_is_path_list ()" link="libfm-fm-path.html#fm-list-is-path-list"/>
+    <function name="fm_path_list_to_uri_list ()" link="libfm-fm-path.html#fm-path-list-to-uri-list"/>
+    <function name="fm_path_list_write_uri_list ()" link="libfm-fm-path.html#fm-path-list-write-uri-list"/>
+    <function name="FmIcon" link="libfm-fm-icon.html#FmIcon"/>
+    <function name="fm_icon_from_gicon ()" link="libfm-fm-icon.html#fm-icon-from-gicon"/>
+    <function name="fm_icon_from_name ()" link="libfm-fm-icon.html#fm-icon-from-name"/>
+    <function name="fm_icon_ref ()" link="libfm-fm-icon.html#fm-icon-ref"/>
+    <function name="fm_icon_unref ()" link="libfm-fm-icon.html#fm-icon-unref"/>
+    <function name="fm_icon_get_user_data ()" link="libfm-fm-icon.html#fm-icon-get-user-data"/>
+    <function name="fm_icon_set_user_data ()" link="libfm-fm-icon.html#fm-icon-set-user-data"/>
+    <function name="fm_icon_set_user_data_destroy ()" link="libfm-fm-icon.html#fm-icon-set-user-data-destroy"/>
+    <function name="fm_icon_unload_user_data_cache ()" link="libfm-fm-icon.html#fm-icon-unload-user-data-cache"/>
+    <function name="fm_icon_unload_cache ()" link="libfm-fm-icon.html#fm-icon-unload-cache"/>
+    <function name="FM_NAV_HISTORY_TYPE" link="FmNavHistory.html#FM-NAV-HISTORY-TYPE:CAPS"/>
+    <function name="FM_NAV_HISTORY()" link="FmNavHistory.html#FM-NAV-HISTORY:CAPS"/>
+    <function name="FM_NAV_HISTORY_CLASS()" link="FmNavHistory.html#FM-NAV-HISTORY-CLASS:CAPS"/>
+    <function name="IS_FM_NAV_HISTORY()" link="FmNavHistory.html#IS-FM-NAV-HISTORY:CAPS"/>
+    <function name="IS_FM_NAV_HISTORY_CLASS()" link="FmNavHistory.html#IS-FM-NAV-HISTORY-CLASS:CAPS"/>
+    <function name="FmNavHistory" link="FmNavHistory.html#FmNavHistory-struct"/>
+    <function name="FmNavHistoryItem" link="FmNavHistory.html#FmNavHistoryItem"/>
+    <function name="FmNavHistoryClass" link="FmNavHistory.html#FmNavHistoryClass"/>
+    <function name="fm_nav_history_get_type ()" link="FmNavHistory.html#fm-nav-history-get-type"/>
+    <function name="fm_nav_history_new ()" link="FmNavHistory.html#fm-nav-history-new"/>
+    <function name="fm_nav_history_list ()" link="FmNavHistory.html#fm-nav-history-list"/>
+    <function name="fm_nav_history_get_cur ()" link="FmNavHistory.html#fm-nav-history-get-cur"/>
+    <function name="fm_nav_history_get_cur_link ()" link="FmNavHistory.html#fm-nav-history-get-cur-link"/>
+    <function name="fm_nav_history_get_can_back ()" link="FmNavHistory.html#fm-nav-history-get-can-back"/>
+    <function name="fm_nav_history_back ()" link="FmNavHistory.html#fm-nav-history-back"/>
+    <function name="fm_nav_history_get_can_forward ()" link="FmNavHistory.html#fm-nav-history-get-can-forward"/>
+    <function name="fm_nav_history_forward ()" link="FmNavHistory.html#fm-nav-history-forward"/>
+    <function name="fm_nav_history_chdir ()" link="FmNavHistory.html#fm-nav-history-chdir"/>
+    <function name="fm_nav_history_jump ()" link="FmNavHistory.html#fm-nav-history-jump"/>
+    <function name="fm_nav_history_clear ()" link="FmNavHistory.html#fm-nav-history-clear"/>
+    <function name="fm_nav_history_set_max ()" link="FmNavHistory.html#fm-nav-history-set-max"/>
+    <function name="FM_DUMMY_MONITOR_TYPE" link="FmDummyMonitor.html#FM-DUMMY-MONITOR-TYPE:CAPS"/>
+    <function name="FM_DUMMY_MONITOR()" link="FmDummyMonitor.html#FM-DUMMY-MONITOR:CAPS"/>
+    <function name="FM_DUMMY_MONITOR_CLASS()" link="FmDummyMonitor.html#FM-DUMMY-MONITOR-CLASS:CAPS"/>
+    <function name="IS_FM_DUMMY_MONITOR()" link="FmDummyMonitor.html#IS-FM-DUMMY-MONITOR:CAPS"/>
+    <function name="IS_FM_DUMMY_MONITOR_CLASS()" link="FmDummyMonitor.html#IS-FM-DUMMY-MONITOR-CLASS:CAPS"/>
+    <function name="FmDummyMonitor" link="FmDummyMonitor.html#FmDummyMonitor-struct"/>
+    <function name="FmDummyMonitorClass" link="FmDummyMonitor.html#FmDummyMonitorClass"/>
+    <function name="fm_dummy_monitor_get_type ()" link="FmDummyMonitor.html#fm-dummy-monitor-get-type"/>
+    <function name="fm_dummy_monitor_new ()" link="FmDummyMonitor.html#fm-dummy-monitor-new"/>
+    <function name="fm_file_size_to_str ()" link="libfm-fm-utils.html#fm-file-size-to-str"/>
+    <function name="fm_key_file_get_int ()" link="libfm-fm-utils.html#fm-key-file-get-int"/>
+    <function name="fm_key_file_get_bool ()" link="libfm-fm-utils.html#fm-key-file-get-bool"/>
+    <function name="fm_canonicalize_filename ()" link="libfm-fm-utils.html#fm-canonicalize-filename"/>
+    <function name="fm_file_info_new ()" link="libfm-fm-file-info.html#fm-file-info-new"/>
+    <function name="fm_file_info_new_from_gfileinfo ()" link="libfm-fm-file-info.html#fm-file-info-new-from-gfileinfo"/>
+    <function name="fm_file_info_set_from_gfileinfo ()" link="libfm-fm-file-info.html#fm-file-info-set-from-gfileinfo"/>
+    <function name="fm_file_info_ref ()" link="libfm-fm-file-info.html#fm-file-info-ref"/>
+    <function name="fm_file_info_unref ()" link="libfm-fm-file-info.html#fm-file-info-unref"/>
+    <function name="fm_file_info_copy ()" link="libfm-fm-file-info.html#fm-file-info-copy"/>
+    <function name="fm_file_info_get_path ()" link="libfm-fm-file-info.html#fm-file-info-get-path"/>
+    <function name="fm_file_info_get_name ()" link="libfm-fm-file-info.html#fm-file-info-get-name"/>
+    <function name="fm_file_info_get_disp_name ()" link="libfm-fm-file-info.html#fm-file-info-get-disp-name"/>
+    <function name="fm_file_info_set_disp_name ()" link="libfm-fm-file-info.html#fm-file-info-set-disp-name"/>
+    <function name="fm_file_info_get_size ()" link="libfm-fm-file-info.html#fm-file-info-get-size"/>
+    <function name="fm_file_info_get_disp_size ()" link="libfm-fm-file-info.html#fm-file-info-get-disp-size"/>
+    <function name="fm_file_info_get_blocks ()" link="libfm-fm-file-info.html#fm-file-info-get-blocks"/>
+    <function name="fm_file_info_get_mode ()" link="libfm-fm-file-info.html#fm-file-info-get-mode"/>
+    <function name="fm_file_info_is_dir ()" link="libfm-fm-file-info.html#fm-file-info-is-dir"/>
+    <function name="fm_file_info_get_mime_type ()" link="libfm-fm-file-info.html#fm-file-info-get-mime-type"/>
+    <function name="fm_file_info_is_symlink ()" link="libfm-fm-file-info.html#fm-file-info-is-symlink"/>
+    <function name="fm_file_info_is_shortcut ()" link="libfm-fm-file-info.html#fm-file-info-is-shortcut"/>
+    <function name="fm_file_info_is_mountable ()" link="libfm-fm-file-info.html#fm-file-info-is-mountable"/>
+    <function name="fm_file_info_is_image ()" link="libfm-fm-file-info.html#fm-file-info-is-image"/>
+    <function name="fm_file_info_is_desktop_entry ()" link="libfm-fm-file-info.html#fm-file-info-is-desktop-entry"/>
+    <function name="fm_file_info_is_unknown_type ()" link="libfm-fm-file-info.html#fm-file-info-is-unknown-type"/>
+    <function name="fm_file_info_is_executable_type ()" link="libfm-fm-file-info.html#fm-file-info-is-executable-type"/>
+    <function name="fm_file_info_get_target ()" link="libfm-fm-file-info.html#fm-file-info-get-target"/>
+    <function name="fm_file_info_get_collate_key ()" link="libfm-fm-file-info.html#fm-file-info-get-collate-key"/>
+    <function name="fm_file_info_get_desc ()" link="libfm-fm-file-info.html#fm-file-info-get-desc"/>
+    <function name="fm_file_info_get_disp_mtime ()" link="libfm-fm-file-info.html#fm-file-info-get-disp-mtime"/>
+    <function name="fm_file_info_get_mtime ()" link="libfm-fm-file-info.html#fm-file-info-get-mtime"/>
+    <function name="fm_file_info_get_atime ()" link="libfm-fm-file-info.html#fm-file-info-get-atime"/>
+    <function name="fm_file_info_can_thumbnail ()" link="libfm-fm-file-info.html#fm-file-info-can-thumbnail"/>
+    <function name="fm_file_info_list_new ()" link="libfm-fm-file-info.html#fm-file-info-list-new"/>
+    <function name="fm_file_info_list_new_from_glist ()" link="libfm-fm-file-info.html#fm-file-info-list-new-from-glist"/>
+    <function name="fm_list_is_file_info_list ()" link="libfm-fm-file-info.html#fm-list-is-file-info-list"/>
+    <function name="fm_file_info_list_is_same_type ()" link="libfm-fm-file-info.html#fm-file-info-list-is-same-type"/>
+    <function name="fm_file_info_list_is_same_fs ()" link="libfm-fm-file-info.html#fm-file-info-list-is-same-fs"/>
+    <function name="FM_FILE_INFO()" link="libfm-fm-file-info.html#FM-FILE-INFO:CAPS"/>
+    <function name="FmArchiver" link="libfm-fm-archiver.html#FmArchiver"/>
+    <function name="fm_archiver_is_mime_type_supported ()" link="libfm-fm-archiver.html#fm-archiver-is-mime-type-supported"/>
+    <function name="fm_archiver_create_archive ()" link="libfm-fm-archiver.html#fm-archiver-create-archive"/>
+    <function name="fm_archiver_extract_archives ()" link="libfm-fm-archiver.html#fm-archiver-extract-archives"/>
+    <function name="fm_archiver_extract_archives_to ()" link="libfm-fm-archiver.html#fm-archiver-extract-archives-to"/>
+    <function name="fm_archiver_get_default ()" link="libfm-fm-archiver.html#fm-archiver-get-default"/>
+    <function name="fm_archiver_set_default ()" link="libfm-fm-archiver.html#fm-archiver-set-default"/>
+    <function name="fm_archiver_get_all ()" link="libfm-fm-archiver.html#fm-archiver-get-all"/>
+    <function name="FmMimeType" link="libfm-fm-mime-type.html#FmMimeType"/>
+    <function name="fm_mime_type_init ()" link="libfm-fm-mime-type.html#fm-mime-type-init"/>
+    <function name="fm_mime_type_finalize ()" link="libfm-fm-mime-type.html#fm-mime-type-finalize"/>
+    <function name="fm_mime_type_get_for_file_name ()" link="libfm-fm-mime-type.html#fm-mime-type-get-for-file-name"/>
+    <function name="fm_mime_type_get_for_native_file ()" link="libfm-fm-mime-type.html#fm-mime-type-get-for-native-file"/>
+    <function name="fm_mime_type_get_for_type ()" link="libfm-fm-mime-type.html#fm-mime-type-get-for-type"/>
+    <function name="fm_mime_type_new ()" link="libfm-fm-mime-type.html#fm-mime-type-new"/>
+    <function name="fm_mime_type_ref ()" link="libfm-fm-mime-type.html#fm-mime-type-ref"/>
+    <function name="fm_mime_type_unref ()" link="libfm-fm-mime-type.html#fm-mime-type-unref"/>
+    <function name="fm_mime_type_get_icon ()" link="libfm-fm-mime-type.html#fm-mime-type-get-icon"/>
+    <function name="fm_mime_type_get_type ()" link="libfm-fm-mime-type.html#fm-mime-type-get-type"/>
+    <function name="fm_mime_type_get_desc ()" link="libfm-fm-mime-type.html#fm-mime-type-get-desc"/>
+    <function name="fm_mime_type_get_actions ()" link="libfm-fm-mime-type.html#fm-mime-type-get-actions"/>
+    <function name="fm_mime_type_get_default_action ()" link="libfm-fm-mime-type.html#fm-mime-type-get-default-action"/>
+    <function name="fm_mime_type_set_default_action ()" link="libfm-fm-mime-type.html#fm-mime-type-set-default-action"/>
+    <function name="fm_mime_type_add_action ()" link="libfm-fm-mime-type.html#fm-mime-type-add-action"/>
+    <function name="fm_mime_type_get_all_known_apps ()" link="libfm-fm-mime-type.html#fm-mime-type-get-all-known-apps"/>
+    <function name="fm_mime_type_join_actions ()" link="libfm-fm-mime-type.html#fm-mime-type-join-actions"/>
+    <function name="fm_mime_type_add_reload_cb ()" link="libfm-fm-mime-type.html#fm-mime-type-add-reload-cb"/>
+    <function name="fm_mime_type_remove_reload_cb ()" link="libfm-fm-mime-type.html#fm-mime-type-remove-reload-cb"/>
+  </functions>
+</book>
