@@ -29,7 +29,7 @@ DISTRO = "$(shell lsb_release -si)"
 	dh $@
 
 override_dh_auto_configure:
-	/usr/bin/autoreconf -fiv
+	#/usr/bin/autoreconf -fiv
 	dh_auto_configure -- --enable-udisks
 
 override_dh_install:
