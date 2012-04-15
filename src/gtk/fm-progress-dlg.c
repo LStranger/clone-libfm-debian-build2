@@ -120,8 +120,13 @@ static void on_cur_file(FmFileOpsJob* job, const char* cur_file, FmProgressDispl
 static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSeverity severity, FmProgressDisplay* data)
 {
     GtkTextIter it;
-    if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_CANCELLED)
-        return;
+    if(err->domain == G_IO_ERROR)
+    {
+        if(err->code == G_IO_ERROR_CANCELLED)
+            return FM_JOB_ABORT;
+        else if(err->code == G_IO_ERROR_FAILED_HANDLED)
+            return FM_JOB_CONTINUE;
+    }
 
     if(data->timer)
         g_timer_stop(data->timer);
@@ -239,7 +244,9 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_label_set_text(GTK_LABEL(dest_fi), tmp);
     g_free(tmp);
 
-    gtk_entry_set_text(GTK_ENTRY(filename), dest->disp_name);
+    tmp = g_filename_display_name(dest->path->name);
+    gtk_entry_set_text(GTK_ENTRY(filename), tmp);
+    g_free(tmp);
     g_object_set_data(G_OBJECT(filename), "old_name", dest->disp_name);
     g_signal_connect(filename, "changed", on_filename_changed, gtk_builder_get_object(builder, "rename"));
 

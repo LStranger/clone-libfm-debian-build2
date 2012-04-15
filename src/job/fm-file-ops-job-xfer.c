@@ -95,12 +95,16 @@ _retry_query_src_info:
                 {
                     g_error_free(err);
                     err = NULL;
+
+                    g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
                     if(new_dest)
                     {
                         g_object_unref(new_dest);
                         new_dest = NULL;
                     }
                     opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                    g_object_unref(dest);
+
                     switch(opt)
                     {
                     case FM_FILE_OP_RENAME:
@@ -108,6 +112,10 @@ _retry_query_src_info:
                         goto _retry_mkdir;
                         break;
                     case FM_FILE_OP_SKIP:
+                        /* when a dir is skipped, we need to know its total size to calculate correct progress */
+                        job->finished += size;
+                        fm_file_ops_job_emit_percent(job);
+                        job->skip_dir_content = TRUE;
                         ret = FALSE;
                         break;
                     case FM_FILE_OP_OVERWRITE:
@@ -115,12 +123,6 @@ _retry_query_src_info:
                     case FM_FILE_OP_CANCEL:
                         fm_job_cancel(FM_JOB(job));
                         ret = FALSE;
-                        break;
-                    }
-                    if( opt == FM_FILE_OP_SKIP )
-                    {
-                        job->finished += size;
-                        fm_file_ops_job_emit_percent(job);
                         break;
                     }
                 }
@@ -176,27 +178,36 @@ _retry_query_src_info:
                         inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(fmjob), &err);
                         if( inf )
                         {
-                            gboolean ret;
-                            GFileMonitor* old_dest_mon = job->dest_folder_mon;
-                            GFile* sub = g_file_get_child(src, g_file_info_get_name(inf));
-                            GFile* sub_dest = g_file_get_child(dest, g_file_info_get_name(inf));
-
-                            if(g_file_is_native(dest))
-                                job->dest_folder_mon = NULL;
-                            else
-                                job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest);
-
-                            ret = _fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
-                            g_object_unref(sub);
-                            g_object_unref(sub_dest);
-
-                            if(job->dest_folder_mon)
-                                g_object_unref(job->dest_folder_mon);
-                            job->dest_folder_mon = old_dest_mon;
-
-                            if( G_UNLIKELY(!ret) )
+                            /* don't overwrite dir content, only calculate progress. */
+                            if(G_UNLIKELY(job->skip_dir_content))
                             {
-                                /* FIXME: error handling */
+                                job->finished += g_file_info_get_size(inf);
+                                fm_file_ops_job_emit_percent(job);
+                            }
+                            else
+                            {
+                                gboolean ret2;
+                                GFileMonitor* old_dest_mon = job->dest_folder_mon;
+                                GFile* sub = g_file_get_child(src, g_file_info_get_name(inf));
+                                GFile* sub_dest = g_file_get_child(dest, g_file_info_get_name(inf));
+
+                                if(g_file_is_native(dest))
+                                    job->dest_folder_mon = NULL;
+                                else
+                                    job->dest_folder_mon = fm_monitor_lookup_dummy_monitor(dest);
+
+                                ret2 = _fm_file_ops_job_copy_file(job, sub, inf, sub_dest);
+                                g_object_unref(sub);
+                                g_object_unref(sub_dest);
+
+                                if(job->dest_folder_mon)
+                                    g_object_unref(job->dest_folder_mon);
+                                job->dest_folder_mon = old_dest_mon;
+
+                                if( G_UNLIKELY(!ret) )
+                                {
+                                    /* FIXME: error handling */
+                                }
                             }
                             g_object_unref(inf);
                         }
@@ -229,6 +240,7 @@ _retry_query_src_info:
                         goto _retry_enum_children;
                 }
             }
+            job->skip_dir_content = FALSE;
 		}
 		break;
 
@@ -280,12 +292,15 @@ _retry_query_src_info:
             {
                 g_error_free(err);
                 err = NULL;
+
+                g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
                 if(new_dest)
                 {
                     g_object_unref(new_dest);
                     new_dest = NULL;
                 }
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                g_object_unref(dest);
                 switch(opt)
                 {
                 case FM_FILE_OP_RENAME:
@@ -387,12 +402,15 @@ _retry_query_src_info:
             flags &= ~G_FILE_COPY_OVERWRITE;
             if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_EXISTS)
             {
+                g_object_ref(dest); /*if dest == new_dest, it will become invalid when we unref new_dest */
                 if(new_dest)
                 {
                     g_object_unref(new_dest);
                     new_dest = NULL;
                 }
                 opt = fm_file_ops_job_ask_rename(job, src, NULL, dest, &new_dest);
+                g_object_unref(dest);
+
                 g_error_free(err);
                 err = NULL;
 
@@ -404,7 +422,61 @@ _retry_query_src_info:
                     break;
                 case FM_FILE_OP_OVERWRITE:
                     flags |= G_FILE_COPY_OVERWRITE;
-                    goto _retry_move;
+                    if(g_file_info_get_file_type(inf) == G_FILE_TYPE_DIRECTORY) /* merge dirs */
+                    {
+                        GFileEnumerator* enu = g_file_enumerate_children(src, query, G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
+                                                                        fm_job_get_cancellable(job), &err);
+                        if(enu)
+                        {
+                            GFileInfo* child_inf;
+                            while(!fm_job_is_cancelled(job))
+                            {
+                                child_inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(job), &err);
+                                if(child_inf)
+                                {
+                                    GFile* child = g_file_get_child(src, g_file_info_get_name(child_inf));
+                                    GFile* child_dest = g_file_get_child(dest, g_file_info_get_name(child_inf));
+                                    _fm_file_ops_job_move_file(job, child, child_inf, child_dest);
+                                    g_object_unref(child);
+                                    g_object_unref(child_dest);
+                                    g_object_unref(child_inf);
+                                }
+                                else
+                                {
+                                    if(err) /* error */
+                                    {
+                                        FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                                        g_error_free(err);
+                                        err = NULL;
+                                    }
+                                    else /* EOF */
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            g_object_unref(enu);
+                        }
+                        else
+                        {
+                            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                            g_error_free(err);
+                            err = NULL;
+                            /* if(act == FM_JOB_RETRY)
+                                goto _retry_move; */
+                        }
+
+                        /* remove source dir after its content is merged with destination dir */
+                        if(!g_file_delete(src, fm_job_get_cancellable(job), &err))
+                        {
+                            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
+                            g_error_free(err);
+                            err = NULL;
+                            /* FIXME: should this be recoverable? */
+                        }
+                    }
+                    else /* the destination is a file, just overwrite it. */
+                        goto _retry_move;
                     break;
                 case FM_FILE_OP_CANCEL:
                     fm_job_cancel(FM_JOB(job));
