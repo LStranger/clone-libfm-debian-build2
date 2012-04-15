@@ -1,3 +1,11 @@
+libfm (0.1.17-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Only include debug symbols for the libraries in libfm1-dbg, so it doesn't
+    clash with old versions (closes: #658216)
+
+ -- Julien Cristau <jcristau@debian.org>  Sat, 18 Feb 2012 18:55:45 +0100
+
 libfm (0.1.17-1) unstable; urgency=low
 
   [ Andrew Lee (李健秋) ]

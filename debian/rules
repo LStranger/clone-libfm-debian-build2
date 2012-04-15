@@ -45,7 +45,8 @@ ifeq ($(DISTRO),"Ubuntu")
 endif
 
 override_dh_strip:
-	dh_strip --dbg-package=libfm1-dbg
+	dh_strip -plibfm1 -plibfm-gtk1 --dbg-package=libfm1-dbg
+	dh_strip -Nlibfm1 -Nlibfm-gtk1
 
 override_dh_auto_test:
 	#Don't do anything, tests didn't pass for now
