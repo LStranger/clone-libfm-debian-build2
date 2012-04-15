@@ -15,7 +15,8 @@ Build-Depends: cdbs,
                libmenu-cache1-dev,
                intltool,
                libdbus-glib-1-dev,
-               lsb-release
+               lsb-release,
+               gtk-doc-tools
 Standards-Version: 3.9.1
 Homepage: http://pcmanfm.sourceforge.net/
 Vcs-Git: git://git.debian.org/git/collab-maint/libfm.git

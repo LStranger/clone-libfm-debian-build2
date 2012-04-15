@@ -1,10 +1,22 @@
+libfm (0.1.14-2) unstable; urgency=low
+
+  [ Julien Lavergne ]
+  * debian/control:
+   - Build-depends on gtk-doc-tools for the documentation.
+  * debian/*.symbols:
+   - Add symbols files.
+  * debian/patches/02-libfm-0.1.14-API-changes.patch:
+   - Re-add missing symbols lost in 0.1.14 version. (Closes: #600387)
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Wed, 03 Nov 2010 23:22:00 +0800
+
 libfm (0.1.14-1) unstable; urgency=low
 
   * Imported Upstream version 0.1.14
   * Drop previous upstream git sync
   * Install libfm documents into libfm-dev
 
- -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 15 Oct 2010 16:29:00 +0800
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 15 Oct 2010 15:54:45 +0800
 
 libfm (0.1.12+git20100830-1) experimental; urgency=low
 
