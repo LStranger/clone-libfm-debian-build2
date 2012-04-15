@@ -26,14 +26,15 @@
 #include <glib/gi18n.h>
 
 #include "main-win.h"
-#include "fm-places-view.h"
 #include "fm-folder-view.h"
 #include "fm-folder-model.h"
 #include "fm-path-entry.h"
 #include "fm-file-menu.h"
 #include "fm-clipboard.h"
 #include "fm-gtk-utils.h"
+#include "fm-gtk-file-launcher.h"
 #include "fm-file-properties.h"
+#include "fm-side-pane.h"
 
 static void fm_main_win_finalize              (GObject *object);
 G_DEFINE_TYPE(FmMainWin, fm_main_win, GTK_TYPE_WINDOW);
@@ -74,8 +75,13 @@ static void on_about(GtkAction* act, FmMainWin* win);
 
 static void on_location(GtkAction* act, FmMainWin* win);
 
+static void on_side_pane_chdir(FmSidePane* sp, guint button, FmPath* path, FmMainWin* win);
+
 static void on_create_new(GtkAction* action, FmMainWin* win);
 static void on_prop(GtkAction* action, FmMainWin* win);
+
+static void update_statusbar(FmMainWin* win);
+static void on_folder_fs_info(FmFolder* folder, FmMainWin* win);
 
 #include "main-win-ui.c" /* ui xml definitions and actions */
 
@@ -89,9 +95,30 @@ static void fm_main_win_class_init(FmMainWinClass *klass)
     fm_main_win_parent_class = (GtkWindowClass*)g_type_class_peek(GTK_TYPE_WINDOW);
 }
 
-static void on_entry_activate(GtkEntry* entry, FmMainWin* self)
+static void on_entry_activate(GtkEntry* entry, FmMainWin* win)
 {
-    fm_folder_view_chdir_by_name(FM_FOLDER_VIEW(self->folder_view), gtk_entry_get_text(entry));
+    FmPath* path = fm_path_entry_get_path(FM_PATH_ENTRY(entry));
+    fm_main_win_chdir_without_history(win, path);
+}
+
+static void update_statusbar(FmMainWin* win)
+{
+    char* msg;
+    FmFolderModel* model = fm_folder_view_get_model(win->folder_view);
+    FmFolder* folder = fm_folder_view_get_folder(win->folder_view);
+    if(model && folder)
+    {
+        int total_files = fm_list_get_length(folder->files);
+        int shown_files = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(model), NULL);
+
+        /* FIXME: do not access data members. */
+        msg = g_strdup_printf("%d files are listed (%d hidden).", shown_files, (total_files - shown_files) );
+        gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx);
+        gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx, msg);
+        g_free(msg);
+
+        fm_folder_query_filesystem_info(folder);
+    }
 }
 
 static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data)
@@ -99,11 +126,15 @@ static void on_view_loaded( FmFolderView* view, FmPath* path, gpointer user_data
     const FmNavHistoryItem* item;
     FmMainWin* win = (FmMainWin*)user_data;
     FmPathEntry* entry = FM_PATH_ENTRY(win->location);
-    fm_path_entry_set_model( entry, path, view->model );
+
+    fm_path_entry_set_path( entry, path );
 
     /* scroll to recorded position */
     item = fm_nav_history_get_cur(win->nav_history);
     gtk_adjustment_set_value( gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(view)), item->scroll_pos);
+
+    /* update status bar */
+    update_statusbar(win);
 }
 
 static gboolean open_folder_func(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err)
@@ -134,7 +165,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
         }
         else if(fi->target) /* FIXME: use accessor functions. */
         {
-			/* FIXME: use FmPath here. */
+            /* FIXME: use FmPath here. */
             fm_main_win_chdir_by_name( win, fi->target);
         }
         else
@@ -148,7 +179,7 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
             FmFileMenu* menu;
             GtkMenu* popup;
             FmFileInfoList* files = fm_folder_view_get_selected_files(fv);
-            menu = fm_file_menu_new_for_files(files, fm_folder_view_get_cwd(fv), TRUE);
+            menu = fm_file_menu_new_for_files(GTK_WINDOW(win), files, fm_folder_view_get_cwd(fv), TRUE);
             fm_file_menu_set_folder_func(menu, open_folder_func, win);
             fm_list_unref(files);
 
@@ -177,8 +208,8 @@ static void on_file_clicked(FmFolderView* fv, FmFolderViewClickType type, FmFile
 
 static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* win)
 {
-	/* popup previous message if there is any */
-	gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx2);
+    /* popup previous message if there is any */
+    gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx2);
     if(files)
     {
         char* msg;
@@ -206,12 +237,6 @@ static void on_sel_changed(FmFolderView* fv, FmFileInfoList* files, FmMainWin* w
         gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx2, msg);
         g_free(msg);
     }
-}
-
-static void on_status(FmFolderView* fv, const char* msg, FmMainWin* win)
-{
-    gtk_statusbar_pop(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx);
-    gtk_statusbar_push(GTK_STATUSBAR(win->statusbar), win->statusbar_ctx, msg);
 }
 
 static void on_bookmark(GtkMenuItem* mi, FmMainWin* win)
@@ -310,118 +335,127 @@ static void on_show_history_menu(GtkMenuToolButton* btn, FmMainWin* win)
     gtk_widget_show_all( GTK_WIDGET(menu) );
 }
 
-static void on_places_chdir(FmPlacesView* view, guint button, FmPath* path, FmMainWin* win)
+static void on_side_pane_chdir(FmSidePane* sp, guint button, FmPath* path, FmMainWin* win)
 {
+//    g_signal_handlers_block_by_func(win->dirtree_view, on_dirtree_chdir, win);
     fm_main_win_chdir(win, path);
+//    g_signal_handlers_unblock_by_func(win->dirtree_view, on_dirtree_chdir, win);
 }
 
-static void fm_main_win_init(FmMainWin *self)
+static void fm_main_win_init(FmMainWin *win)
 {
     GtkWidget *vbox, *menubar, *toolitem, *next_btn, *scroll;
     GtkUIManager* ui;
     GtkActionGroup* act_grp;
     GtkAction* act;
     GtkAccelGroup* accel_grp;
+    GtkShadowType shadow_type;
 
     ++n_wins;
 
     vbox = gtk_vbox_new(FALSE, 0);
 
-    self->hpaned = gtk_hpaned_new();
-    gtk_paned_set_position(GTK_PANED(self->hpaned), 150);
+    win->hpaned = gtk_hpaned_new();
+    gtk_paned_set_position(GTK_PANED(win->hpaned), 150);
 
     /* places left pane */
-    self->places_view = fm_places_view_new();
-    scroll = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-    gtk_container_add(GTK_CONTAINER(scroll), self->places_view);
-    gtk_paned_add1(GTK_PANED(self->hpaned), scroll);
+    win->left_pane = fm_side_pane_new();
+    fm_side_pane_set_mode(win->left_pane, FM_SP_PLACES);
+    gtk_paned_add1(GTK_PANED(win->hpaned), win->left_pane);
 
     /* folder view */
-    self->folder_view = fm_folder_view_new( FM_FV_ICON_VIEW );
-    fm_folder_view_set_show_hidden(FM_FOLDER_VIEW(self->folder_view), FALSE);
-    fm_folder_view_sort(FM_FOLDER_VIEW(self->folder_view), GTK_SORT_ASCENDING, COL_FILE_NAME);
-    fm_folder_view_set_selection_mode(FM_FOLDER_VIEW(self->folder_view), GTK_SELECTION_MULTIPLE);
-    g_signal_connect(self->folder_view, "clicked", on_file_clicked, self);
-    g_signal_connect(self->folder_view, "status", on_status, self);
-    g_signal_connect(self->folder_view, "sel-changed", on_sel_changed, self);
+    win->folder_view = fm_folder_view_new( FM_FV_ICON_VIEW );
+    fm_folder_view_set_show_hidden(FM_FOLDER_VIEW(win->folder_view), FALSE);
+    fm_folder_view_sort(FM_FOLDER_VIEW(win->folder_view), GTK_SORT_ASCENDING, COL_FILE_NAME);
+    fm_folder_view_set_selection_mode(FM_FOLDER_VIEW(win->folder_view), GTK_SELECTION_MULTIPLE);
+    g_signal_connect(win->folder_view, "clicked", on_file_clicked, win);
+    g_signal_connect(win->folder_view, "loaded", on_view_loaded, win);
+    g_signal_connect(win->folder_view, "sel-changed", on_sel_changed, win);
 
-    gtk_paned_add2(GTK_PANED(self->hpaned), self->folder_view);
+    gtk_paned_add2(GTK_PANED(win->hpaned), win->folder_view);
 
     /* link places view with folder view. */
-    g_signal_connect(self->places_view, "chdir", G_CALLBACK(on_places_chdir), self);
+    g_signal_connect(win->left_pane, "chdir", G_CALLBACK(on_side_pane_chdir), win);
 
     /* create menu bar and toolbar */
     ui = gtk_ui_manager_new();
     act_grp = gtk_action_group_new("Main");
-    gtk_action_group_add_actions(act_grp, main_win_actions, G_N_ELEMENTS(main_win_actions), self);
-    gtk_action_group_add_toggle_actions(act_grp, main_win_toggle_actions, G_N_ELEMENTS(main_win_toggle_actions), self);
-    gtk_action_group_add_radio_actions(act_grp, main_win_mode_actions, G_N_ELEMENTS(main_win_mode_actions), FM_FV_ICON_VIEW, on_change_mode, self);
-    gtk_action_group_add_radio_actions(act_grp, main_win_sort_type_actions, G_N_ELEMENTS(main_win_sort_type_actions), GTK_SORT_ASCENDING, on_sort_type, self);
-    gtk_action_group_add_radio_actions(act_grp, main_win_sort_by_actions, G_N_ELEMENTS(main_win_sort_by_actions), 0, on_sort_by, self);
+    gtk_action_group_add_actions(act_grp, main_win_actions, G_N_ELEMENTS(main_win_actions), win);
+    gtk_action_group_add_toggle_actions(act_grp, main_win_toggle_actions, G_N_ELEMENTS(main_win_toggle_actions), win);
+    gtk_action_group_add_radio_actions(act_grp, main_win_mode_actions, G_N_ELEMENTS(main_win_mode_actions), FM_FV_ICON_VIEW, on_change_mode, win);
+    gtk_action_group_add_radio_actions(act_grp, main_win_sort_type_actions, G_N_ELEMENTS(main_win_sort_type_actions), GTK_SORT_ASCENDING, on_sort_type, win);
+    gtk_action_group_add_radio_actions(act_grp, main_win_sort_by_actions, G_N_ELEMENTS(main_win_sort_by_actions), 0, on_sort_by, win);
 
     accel_grp = gtk_ui_manager_get_accel_group(ui);
-    gtk_window_add_accel_group(GTK_WINDOW(self), accel_grp);
+    gtk_window_add_accel_group(GTK_WINDOW(win), accel_grp);
 
     gtk_ui_manager_insert_action_group(ui, act_grp, 0);
     gtk_ui_manager_add_ui_from_string(ui, main_menu_xml, -1, NULL);
 
     menubar = gtk_ui_manager_get_widget(ui, "/menubar");
 
-    self->toolbar = gtk_ui_manager_get_widget(ui, "/toolbar");
+    win->toolbar = gtk_ui_manager_get_widget(ui, "/toolbar");
     /* FIXME: should make these optional */
-    gtk_toolbar_set_icon_size(GTK_TOOLBAR(self->toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
-    gtk_toolbar_set_style(GTK_TOOLBAR(self->toolbar), GTK_TOOLBAR_ICONS);
+    gtk_toolbar_set_icon_size(GTK_TOOLBAR(win->toolbar), GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_toolbar_set_style(GTK_TOOLBAR(win->toolbar), GTK_TOOLBAR_ICONS);
 
     /* create 'Next' button manually and add a popup menu to it */
     toolitem = g_object_new(GTK_TYPE_MENU_TOOL_BUTTON, NULL);
-    gtk_toolbar_insert(GTK_TOOLBAR(self->toolbar), toolitem, 2);
+    gtk_toolbar_insert(GTK_TOOLBAR(win->toolbar), toolitem, 2);
     gtk_widget_show(GTK_WIDGET(toolitem));
     act = gtk_ui_manager_get_action(ui, "/menubar/GoMenu/Next");
     gtk_activatable_set_related_action(GTK_ACTIVATABLE(toolitem), act);
 
     /* set up history menu */
-    self->nav_history = fm_nav_history_new();
-    self->history_menu = gtk_menu_new();
-    gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(toolitem), self->history_menu);
-    g_signal_connect(toolitem, "show-menu", G_CALLBACK(on_show_history_menu), self);
+    win->nav_history = fm_nav_history_new();
+    win->history_menu = gtk_menu_new();
+    gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(toolitem), win->history_menu);
+    g_signal_connect(toolitem, "show-menu", G_CALLBACK(on_show_history_menu), win);
 
-    self->popup = gtk_ui_manager_get_widget(ui, "/popup");
+    win->popup = gtk_ui_manager_get_widget(ui, "/popup");
+    gtk_menu_attach_to_widget(GTK_MENU(win->popup), GTK_WIDGET(win), NULL);
 
     gtk_box_pack_start( (GtkBox*)vbox, menubar, FALSE, TRUE, 0 );
-    gtk_box_pack_start( (GtkBox*)vbox, self->toolbar, FALSE, TRUE, 0 );
+    gtk_box_pack_start( (GtkBox*)vbox, win->toolbar, FALSE, TRUE, 0 );
 
     /* load bookmarks menu */
-    load_bookmarks(self, ui);
+    load_bookmarks(win, ui);
 
     /* the location bar */
-    self->location = fm_path_entry_new();
-    g_signal_connect(self->location, "activate", on_entry_activate, self);
-    g_signal_connect(self->folder_view, "loaded", G_CALLBACK(on_view_loaded), (gpointer) self);
+    win->location = fm_path_entry_new();
+    g_signal_connect(win->location, "activate", on_entry_activate, win);
 
     toolitem = gtk_tool_item_new();
-    gtk_container_add( GTK_CONTAINER(toolitem), self->location );
+    gtk_container_add( GTK_CONTAINER(toolitem), win->location );
     gtk_tool_item_set_expand(GTK_TOOL_ITEM(toolitem), TRUE);
-    gtk_toolbar_insert((GtkToolbar*)self->toolbar, toolitem, gtk_toolbar_get_n_items(GTK_TOOLBAR(self->toolbar)) - 1 );
+    gtk_toolbar_insert((GtkToolbar*)win->toolbar, toolitem, gtk_toolbar_get_n_items(GTK_TOOLBAR(win->toolbar)) - 1 );
 
-    gtk_box_pack_start( (GtkBox*)vbox, self->hpaned, TRUE, TRUE, 0 );
+    gtk_box_pack_start( (GtkBox*)vbox, win->hpaned, TRUE, TRUE, 0 );
 
     /* status bar */
-    self->statusbar = gtk_statusbar_new();
-    gtk_box_pack_start( (GtkBox*)vbox, self->statusbar, FALSE, TRUE, 0 );
-    self->statusbar_ctx = gtk_statusbar_get_context_id(GTK_STATUSBAR(self->statusbar), "status");
-    self->statusbar_ctx2 = gtk_statusbar_get_context_id(GTK_STATUSBAR(self->statusbar), "status2");
+    win->statusbar = gtk_statusbar_new();
+    /* status bar column showing volume free space */
+    gtk_widget_style_get(win->statusbar, "shadow-type", &shadow_type, NULL);
+    win->vol_status = gtk_frame_new(NULL);
+    gtk_frame_set_shadow_type(GTK_FRAME(win->vol_status), shadow_type);
+    gtk_box_pack_start(GTK_BOX(win->statusbar), win->vol_status, FALSE, TRUE, 0);
+    gtk_container_add(GTK_CONTAINER(win->vol_status), gtk_label_new(NULL));
+
+    gtk_box_pack_start( (GtkBox*)vbox, win->statusbar, FALSE, TRUE, 0 );
+    win->statusbar_ctx = gtk_statusbar_get_context_id(GTK_STATUSBAR(win->statusbar), "status");
+    win->statusbar_ctx2 = gtk_statusbar_get_context_id(GTK_STATUSBAR(win->statusbar), "status2");
+
 
     g_object_unref(act_grp);
-    self->ui = ui;
+    win->ui = ui;
 
-    gtk_container_add( (GtkContainer*)self, vbox );
+    gtk_container_add( (GtkContainer*)win, vbox );
     gtk_widget_show_all(vbox);
 
-    fm_folder_view_set_show_hidden(FM_FOLDER_VIEW(self->folder_view), FALSE);
-    fm_main_win_chdir(self, fm_path_get_home());
+    fm_folder_view_set_show_hidden(FM_FOLDER_VIEW(win->folder_view), FALSE);
+    fm_main_win_chdir(win, fm_path_get_home());
 
-    gtk_widget_grab_focus(self->folder_view);
+    gtk_widget_grab_focus(win->folder_view);
 }
 
 
@@ -433,18 +467,25 @@ GtkWidget* fm_main_win_new(void)
 
 static void fm_main_win_finalize(GObject *object)
 {
-    FmMainWin *self;
+    FmMainWin *win;
+    FmFolder* folder;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(IS_FM_MAIN_WIN(object));
 
     --n_wins;
 
-    self = FM_MAIN_WIN(object);
+    win = FM_MAIN_WIN(object);
 
-    g_object_unref(self->nav_history);
-    g_object_unref(self->ui);
-    g_object_unref(self->bookmarks);
+    g_object_unref(win->nav_history);
+    g_object_unref(win->ui);
+    g_object_unref(win->bookmarks);
+
+    if(win->folder)
+    {
+        g_signal_handlers_disconnect_by_func(win->folder, on_folder_fs_info, win);
+        g_object_unref(win->folder);
+    }
 
     if (G_OBJECT_CLASS(fm_main_win_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_main_win_parent_class)->finalize)(object);
@@ -469,6 +510,7 @@ void on_show_hidden(GtkToggleAction* act, FmMainWin* win)
 {
     gboolean active = gtk_toggle_action_get_active(act);
     fm_folder_view_set_show_hidden( FM_FOLDER_VIEW(win->folder_view), active );
+    update_statusbar(win);
 }
 
 void on_change_mode(GtkRadioAction* act, GtkRadioAction *cur, FmMainWin* win)
@@ -597,16 +639,52 @@ void fm_main_win_chdir_by_name(FmMainWin* win, const char* path_str)
     FmPath* path;
     char* tmp;
     path = fm_path_new_for_str(path_str);
-    fm_folder_view_chdir(FM_FOLDER_VIEW(win->folder_view), path);
+    fm_main_win_chdir_without_history(win, path);
     tmp = fm_path_display_name(path, FALSE);
     gtk_entry_set_text(GTK_ENTRY(win->location), tmp);
     g_free(tmp);
     fm_path_unref(path);
 }
 
+static void on_folder_fs_info(FmFolder* folder, FmMainWin* win)
+{
+    guint64 free, total;
+    if(fm_folder_get_filesystem_info(folder, &total, &free))
+    {
+        char total_str[ 64 ];
+        char free_str[ 64 ];
+        char buf[128];
+
+        fm_file_size_to_str(free_str, free, TRUE);
+        fm_file_size_to_str(total_str, total, TRUE);
+        g_snprintf( buf, G_N_ELEMENTS(buf),
+                    "Free space: %s (Total: %s)", free_str, total_str );
+        gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(win->vol_status))), buf);
+        gtk_widget_show(win->vol_status);
+    }
+    else
+    {
+        gtk_widget_hide(win->vol_status);
+    }
+}
+
 void fm_main_win_chdir_without_history(FmMainWin* win, FmPath* path)
 {
-    fm_folder_view_chdir(FM_FOLDER_VIEW(win->folder_view), path);
+    FmFolderView* fv = FM_FOLDER_VIEW(win->folder_view);
+    if(win->folder)
+    {
+        g_signal_handlers_disconnect_by_func(win->folder, on_folder_fs_info, win);
+        g_object_unref(win->folder);
+    }
+
+    fm_folder_view_chdir(fv, path);
+    fm_side_pane_chdir(FM_SIDE_PANE(win->left_pane), path);
+
+    win->folder = fm_folder_view_get_folder(fv);
+    g_object_ref(win->folder);
+    g_signal_connect(win->folder, "fs-info", G_CALLBACK(on_folder_fs_info), win);
+
+    update_statusbar(win);
     /* fm_nav_history_set_cur(); */
 }
 
@@ -660,7 +738,7 @@ void on_copy_to(GtkAction* act, FmMainWin* win)
     FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     if(files)
     {
-        fm_copy_files_to(files);
+        fm_copy_files_to(win, files);
         fm_list_unref(files);
     }
 }
@@ -670,7 +748,7 @@ void on_move_to(GtkAction* act, FmMainWin* win)
     FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     if(files)
     {
-        fm_move_files_to(files);
+        fm_move_files_to(win, files);
         fm_list_unref(files);
     }
 }
@@ -692,7 +770,7 @@ void on_paste(GtkAction* act, FmMainWin* win)
 void on_del(GtkAction* act, FmMainWin* win)
 {
     FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
-    fm_trash_or_delete_files(files);
+    fm_trash_or_delete_files(GTK_WINDOW(win), files);
     fm_list_unref(files);
 }
 
@@ -701,7 +779,7 @@ void on_rename(GtkAction* act, FmMainWin* win)
     FmPathList* files = fm_folder_view_get_selected_file_paths(FM_FOLDER_VIEW(win->folder_view));
     if( !fm_list_is_empty(files) )
     {
-        fm_rename_file(fm_list_peek_head(files));
+        fm_rename_file(GTK_WINDOW(win), fm_list_peek_head(files));
         /* FIXME: is it ok to only rename the first selected file here. */
     }
     fm_list_unref(files);
@@ -729,7 +807,7 @@ void on_prop(GtkAction* action, FmMainWin* win)
     FmFileInfo* fi = FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
     FmFileInfoList* files = fm_file_info_list_new();
     fm_list_push_tail(files, fi);
-    fm_show_file_properties(files);
+    fm_show_file_properties(GTK_WINDOW(win), files);
     fm_list_unref(files);
 }
 
@@ -762,7 +840,7 @@ _retry:
                 err = NULL;
                 goto _retry;
             }
-            fm_show_error(GTK_WINDOW(win), err->message);
+            fm_show_error(GTK_WINDOW(win), NULL, err->message);
             g_error_free(err);
         }
 
@@ -796,7 +874,7 @@ _retry:
                 err = NULL;
                 goto _retry;
             }
-            fm_show_error(GTK_WINDOW(win), err->message);
+            fm_show_error(GTK_WINDOW(win), NULL, err->message);
             g_error_free(err);
         }
 

@@ -54,7 +54,7 @@ static void on_remove_bm(GtkAction* act, gpointer user_data);
 static void on_rename_bm(GtkAction* act, gpointer user_data);
 static void on_empty_trash(GtkAction* act, gpointer user_data);
 
-static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
+static gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
                                        int info_type, FmFileInfoList* files, FmPlacesView* view);
 
 static void on_trash_changed(GFileMonitor *monitor, GFile *gf, GFile *other, GFileMonitorEvent evt, gpointer user_data);
@@ -131,8 +131,6 @@ static void fm_places_view_finalize(GObject *object)
     g_return_if_fail(IS_FM_PLACES_VIEW(object));
 
     self = FM_PLACES_VIEW(object);
-    if(self->dest_row)
-        gtk_tree_path_free(self->dest_row);
 
     G_OBJECT_CLASS(fm_places_view_parent_class)->finalize(object);
 }
@@ -163,7 +161,7 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
     if(*tp)
     {
         /* if the drop site is below the separator (in the bookmark area) */
-        if(fm_places_model_path_is_bookmark(model, *tp))
+        if(fm_places_model_path_is_bookmark(FM_PLACES_MODEL(model), *tp))
         {
             /* we cannot drop into a item */
             if(*pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE ||
@@ -174,7 +172,7 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
         }
         else /* the drop site is above the separator (in the places area containing volumes) */
         {
-            const GtkTreePath* sep = fm_places_model_get_separator_path(model);
+            const GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
             /* set drop site at the first bookmark item */
             gtk_tree_path_get_indices(*tp)[0] = gtk_tree_path_get_indices(sep)[0] + 1;
             *pos = GTK_TREE_VIEW_DROP_BEFORE;
@@ -184,11 +182,11 @@ static gboolean get_bookmark_drag_dest(FmPlacesView* view, GtkTreePath** tp, Gtk
     else
     {
         /* drop at end of the bookmarks list instead */
-        *tp = gtk_tree_path_new_from_indices(gtk_tree_model_iter_n_children(model, NULL) - 1, -1);
+        *tp = gtk_tree_path_new_from_indices(gtk_tree_model_iter_n_children(GTK_TREE_MODEL(model), NULL) - 1, -1);
         *pos = GTK_TREE_VIEW_DROP_AFTER;
         ret = TRUE;
     }
-    g_debug("path: %s", gtk_tree_path_to_string(*tp));
+    /* g_debug("path: %s", gtk_tree_path_to_string(*tp)); */
     return ret;
 }
 
@@ -219,22 +217,26 @@ static gboolean on_drag_motion (GtkWidget *dest_widget,
     /* try FmDndDest */
     else if(fm_dnd_dest_is_target_supported(view->dnd_dest, target))
     {
+        /* query default action (this may trigger drag-data-received signal)
+         * FIXME: this is a dirty and bad API design definitely requires refactor. */
+        action = fm_dnd_dest_get_default_action(view->dnd_dest, drag_context, target);
+
         /* the user is dragging files. get FmFileInfo of drop site. */
         if(pos == GTK_TREE_VIEW_DROP_INTO_OR_BEFORE || pos == GTK_TREE_VIEW_DROP_INTO_OR_AFTER) /* drag into items */
         {
             FmPlaceItem* item = NULL;
             GtkTreeIter it;
             /* FIXME: handle adding bookmarks with Dnd */
-            if(tp && gtk_tree_model_get_iter(model, &it, tp))
-                gtk_tree_model_get(model, &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+            if(tp && gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
+                gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
 
             fm_dnd_dest_set_dest_file(view->dnd_dest, item && item->fi ? item->fi : NULL);
-            action = fm_dnd_dest_get_default_action(view->dnd_dest, drag_context, target);
             ret = action != 0;
         }
         else /* drop between items, create bookmark items for dragged files */
         {
-            if( (!tp || fm_places_model_path_is_bookmark(model, tp))
+            fm_dnd_dest_set_dest_file(view->dnd_dest, NULL);
+            if( (!tp || fm_places_model_path_is_bookmark(FM_PLACES_MODEL(model), tp))
                && get_bookmark_drag_dest(view, &tp, &pos)) /* tp is after separator */
             {
                 action = GDK_ACTION_LINK;
@@ -265,7 +267,7 @@ static gboolean on_drag_leave ( GtkWidget *dest_widget,
 {
     FmPlacesView* view = FM_PLACES_VIEW(dest_widget);
     gtk_tree_view_set_drag_dest_row(GTK_TREE_VIEW(view), NULL, 0);
-    g_debug("drag_leave");
+    /* g_debug("drag_leave"); */
     fm_dnd_dest_drag_leave(view->dnd_dest, drag_context, time);
     return FALSE;
 }
@@ -287,7 +289,7 @@ static gboolean on_drag_drop ( GtkWidget *dest_widget,
     else
     {
         /* try FmDndDest */
-        ret = fm_dnd_dest_drag_drop(view->dnd_dest, drag_context, target, time);
+        ret = fm_dnd_dest_drag_drop(view->dnd_dest, drag_context, target, x, y, time);
         if(!ret)
             gtk_drag_finish(drag_context, FALSE, FALSE, time);
     }
@@ -302,7 +304,7 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
     GtkTreePath* dest_tp = NULL;
     GtkTreeViewDropPosition pos;
 
-    gtk_tree_view_get_dest_row_at_pos(view, x, y, &dest_tp, &pos);
+    gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(view), x, y, &dest_tp, &pos);
     switch(info)
     {
     case FM_DND_DEST_TARGET_BOOOKMARK:
@@ -319,7 +321,7 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                 else
                 {
                     /* don't do anything if this is not a bookmark item */
-                    if(!fm_places_model_path_is_bookmark(model, src_tp))
+                    if(!fm_places_model_path_is_bookmark(FM_PLACES_MODEL(model), src_tp))
                         ret = FALSE;
                 }
                 if(ret)
@@ -328,16 +330,16 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
                     FmPlaceItem* item = NULL;
                     ret = FALSE;
                     /* get the source bookmark item */
-                    if(gtk_tree_model_get_iter(model, &src_it, src_tp))
-                        gtk_tree_model_get(model, &src_it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+                    if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &src_it, src_tp))
+                        gtk_tree_model_get(GTK_TREE_MODEL(model), &src_it, FM_PLACES_MODEL_COL_INFO, &item, -1);
                     if(item)
                     {
                         /* move it to destination position */
-                        if(gtk_tree_model_get_iter(model, &dest_it, dest_tp))
+                        if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &dest_it, dest_tp))
                         {
                             int new_pos, sep_pos;
                             /* get index of the separator */
-                            const GtkTreePath* sep_tp = fm_places_model_get_separator_path(model);
+                            const GtkTreePath* sep_tp = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
                             sep_pos = gtk_tree_path_get_indices(sep_tp)[0];
 
                             if(pos == GTK_TREE_VIEW_DROP_BEFORE)
@@ -365,7 +367,6 @@ static void on_drag_data_received ( GtkWidget *dest_widget,
         gtk_tree_path_free(dest_tp);
 }
 
-
 static void fm_places_view_init(FmPlacesView *self)
 {
     GtkTreeViewColumn* col;
@@ -377,7 +378,7 @@ static void fm_places_view_init(FmPlacesView *self)
     if(G_UNLIKELY(!model))
     {
         model = fm_places_model_new();
-        g_object_add_weak_pointer(model, &model);
+        g_object_add_weak_pointer(G_OBJECT(model), &model);
     }
     else
         g_object_ref(model);
@@ -400,8 +401,17 @@ static void fm_places_view_init(FmPlacesView *self)
 
     renderer = gtk_cell_renderer_text_new();
     gtk_tree_view_column_pack_start( col, renderer, TRUE );
+    g_object_set(renderer, "ellipsize", PANGO_ELLIPSIZE_END, NULL);
     gtk_tree_view_column_set_attributes( col, renderer,
                                          "text", FM_PLACES_MODEL_COL_LABEL, NULL );
+
+    renderer = gtk_cell_renderer_pixbuf_new();
+    self->mount_indicator_renderer = renderer;
+    gtk_tree_view_column_pack_start( col, renderer, FALSE );
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(col), renderer,
+                                       fm_places_model_mount_indicator_cell_data_func,
+                                       NULL, NULL);
+
     gtk_tree_view_append_column ( GTK_TREE_VIEW(self), col );
 
     gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(self), GDK_BUTTON1_MASK,
@@ -480,12 +490,20 @@ void activate_row(FmPlacesView* view, guint button, GtkTreePath* tree_path)
 
 void on_row_activated(GtkTreeView* view, GtkTreePath* tree_path, GtkTreeViewColumn *col)
 {
-    activate_row(view, 1, tree_path);
+    activate_row(FM_PLACES_VIEW(view), 1, tree_path);
 }
 
-void fm_places_select(FmPlacesView* pv, FmPath* path)
+void fm_places_chdir(FmPlacesView* pv, FmPath* path)
 {
-
+    GtkTreeIter it;
+    GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(pv));
+    GtkTreeSelection* ts = gtk_tree_view_get_selection(GTK_TREE_VIEW(pv));
+    if(fm_places_model_find_path(model, &it, path))
+    {
+        gtk_tree_selection_select_iter(ts, &it);
+    }
+    else
+        gtk_tree_selection_unselect_all(ts);
 }
 
 gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
@@ -497,10 +515,50 @@ gboolean on_button_release(GtkWidget* widget, GdkEventButton* evt)
         {
             GtkTreePath* tp;
             GtkTreeViewColumn* col;
-            if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL))
+            int cell_x;
+            if(gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, &cell_x, NULL))
             {
+                /* check if we release the button on the row we previously clicked. */
                 if(gtk_tree_path_compare(tp, view->clicked_row) == 0)
+                {
+                    /* check if we click on the "eject" icon. */
+                    int start, cell_w;
+                    gtk_tree_view_column_cell_get_position(col, view->mount_indicator_renderer,
+                                                           &start, &cell_w);
+                    if(cell_x > start && cell_x < (start + cell_w)) /* click on eject icon */
+                    {
+                        GtkTreeIter it;
+                        /* do eject if needed */
+                        if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp))
+                        {
+                            FmPlaceItem* item;
+                            gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
+                            if(item && item->vol_mounted)
+                            {
+                                GtkWidget* toplevel = gtk_widget_get_toplevel(view);
+                                /* eject the volume */
+                                if(g_volume_can_eject(item->vol))
+                                    fm_eject_volume(toplevel, item->vol, TRUE);
+                                else /* not ejectable, do unmount */
+                                {
+                                    GMount* mnt = g_volume_get_mount(item->vol);
+                                    if(mnt)
+                                    {
+                                        fm_unmount_mount(toplevel, mnt, TRUE);
+                                        g_object_unref(mnt);
+                                    }
+                                }
+                                gtk_tree_path_free(tp);
+
+                                gtk_tree_path_free(view->clicked_row);
+                                view->clicked_row = NULL;
+                                return TRUE;
+                            }
+                        }
+                    }
+                    /* activate the clicked row. */
                     gtk_tree_view_row_activated(GTK_TREE_VIEW(view), view->clicked_row, col);
+                }
                 gtk_tree_path_free(tp);
             }
         }
@@ -582,6 +640,7 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
     GtkTreePath* tp;
     GtkTreeViewColumn* col;
     gboolean ret = GTK_WIDGET_CLASS(fm_places_view_parent_class)->button_press_event(widget, evt);
+    int cell_x;
 
     gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(view), evt->x, evt->y, &tp, &col, NULL, NULL);
     view->clicked_row = tp;
@@ -598,14 +657,17 @@ gboolean on_button_press(GtkWidget* widget, GdkEventButton* evt)
             {
                 GtkTreeIter it;
                 if(gtk_tree_model_get_iter(GTK_TREE_MODEL(model), &it, tp)
-                    && !fm_places_model_iter_is_separator(model, &it) )
+                    && !fm_places_model_iter_is_separator(FM_PLACES_MODEL(model), &it) )
                 {
                     FmPlaceItem* item;
                     GtkWidget* menu;
                     gtk_tree_model_get(GTK_TREE_MODEL(model), &it, FM_PLACES_MODEL_COL_INFO, &item, -1);
                     menu = place_item_get_menu(item);
                     if(menu)
+                    {
+                        gtk_menu_attach_to_widget(GTK_MENU(menu), widget, NULL);
                         gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 3, evt->time);
+                    }
                 }
             }
             break;
@@ -641,6 +703,7 @@ void on_umount(GtkAction* act, gpointer user_data)
 void on_eject(GtkAction* act, gpointer user_data)
 {
     FmPlaceItem* item = (FmPlaceItem*)user_data;
+    /* FIXME: get the toplevel window here */
     fm_eject_volume(NULL, item->vol, TRUE);
 }
 
@@ -668,10 +731,15 @@ void on_rename_bm(GtkAction* act, gpointer user_data)
 
 void on_empty_trash(GtkAction* act, gpointer user_data)
 {
-    fm_empty_trash();
+    /* FIXME: This is very dirty, but it's inevitable. :-( */
+    GSList* proxies = gtk_action_get_proxies(act);
+    GtkWidget* menu_item = proxies->data ? GTK_WIDGET(proxies->data) : NULL;
+    GtkWidget* menu = gtk_widget_get_parent(menu_item);
+    GtkWidget* view = gtk_menu_get_attach_widget(GTK_MENU(menu));
+    fm_empty_trash(view ? GTK_WINDOW(gtk_widget_get_toplevel(view)) : NULL);
 }
 
-gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
+gboolean on_dnd_dest_files_dropped(FmDndDest* dd, int x, int y, GdkDragAction action,
                                int info_type, FmFileInfoList* files, FmPlacesView* view)
 {
     FmPath* dest;
@@ -681,15 +749,17 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
     dest = fm_dnd_dest_get_dest_path(dd);
     /* g_debug("action= %d, %d files-dropped!, info_type: %d", action, fm_list_get_length(files), info_type); */
 
-    if(!dest && action == GDK_ACTION_LINK) /* add bookmarks */
+    if(!dest && action == GDK_ACTION_LINK && fm_list_is_file_info_list(files)) /* add bookmarks */
     {
-        GtkTreePath* tp = view->dest_row;
-        if(tp)
-        {
-            const GtkTreePath* sep = fm_places_model_get_separator_path(model);
-            int idx = gtk_tree_path_get_indices(tp)[0] - gtk_tree_path_get_indices(sep)[0];
+        GtkTreePath* tp;
+        GtkTreeViewDropPosition pos;
+        gtk_tree_view_get_dest_row_at_pos((GtkTreeView*)view, x, y, &tp, &pos);
 
-            if(view->dest_pos == GTK_TREE_VIEW_DROP_BEFORE)
+        if(get_bookmark_drag_dest(view, &tp, &pos))
+        {
+            const GtkTreePath* sep = fm_places_model_get_separator_path(FM_PLACES_MODEL(model));
+            int idx = gtk_tree_path_get_indices(tp)[0] - gtk_tree_path_get_indices(sep)[0];
+            if(pos == GTK_TREE_VIEW_DROP_BEFORE)
                 --idx;
             for( l=fm_list_peek_head_link(files); l; l=l->next, ++idx )
             {
@@ -699,15 +769,11 @@ gboolean on_dnd_dest_files_dropped(FmDndDest* dd, GdkDragAction action,
                     item = fm_bookmarks_insert( FM_PLACES_MODEL(model)->bookmarks, fi->path, fi->disp_name, idx);
                 /* we don't need to add item to places view. Later the bookmarks will be reloaded. */
             }
+            gtk_tree_path_free(tp);
         }
         ret = TRUE;
     }
 
-    if(view->dest_row)
-    {
-        gtk_tree_path_free(view->dest_row);
-        view->dest_row = NULL;
-    }
     return ret;
 }
 

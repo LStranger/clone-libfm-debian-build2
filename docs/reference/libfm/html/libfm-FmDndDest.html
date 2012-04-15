@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmDndDest</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
+<link rel="prev" href="FmDndSrc.html" title="FmDndSrc">
+<link rel="next" href="FmFolder.html" title="FmFolder">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="FmDndSrc.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Libfm Reference Manual</th>
+<td><a accesskey="n" href="FmFolder.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-FmDndDest.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-FmDndDest.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="libfm-FmDndDest"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-FmDndDest.top_of_page"></a>FmDndDest</span></h2>
+<p>FmDndDest</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libfm-FmDndDest.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="libfm-FmDndDest.html#FmDndDestClass" title="struct FmDndDestClass">FmDndDestClass</a>;
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-drag-data-received" title="fm_dnd_dest_drag_data_received ()">fm_dnd_dest_drag_data_received</a>      (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkSelectionData</span> *sel_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> info</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> time</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-drag-drop" title="fm_dnd_dest_drag_drop ()">fm_dnd_dest_drag_drop</a>               (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> time</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-drag-leave" title="fm_dnd_dest_drag_leave ()">fm_dnd_dest_drag_leave</a>              (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> time</code></em>);
+<span class="returnvalue">GdkAtom</span>             <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-find-target" title="fm_dnd_dest_find_target ()">fm_dnd_dest_find_target</a>             (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>);
+<span class="returnvalue">GdkDragAction</span>       <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-get-default-action" title="fm_dnd_dest_get_default_action ()">fm_dnd_dest_get_default_action</a>      (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkTarget</span> target</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-get-dest-file" title="fm_dnd_dest_get_dest_file ()">fm_dnd_dest_get_dest_file</a>           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-get-dest-path" title="fm_dnd_dest_get_dest_path ()">fm_dnd_dest_get_dest_path</a>           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>);
+<a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="returnvalue">FmList</span></a> *            <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-get-src-files" title="fm_dnd_dest_get_src_files ()">fm_dnd_dest_get_src_files</a>           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-is-target-supported" title="fm_dnd_dest_is_target_supported ()">fm_dnd_dest_is_target_supported</a>     (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>);
+<span class="returnvalue">FmDndDest</span> *         <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-new" title="fm_dnd_dest_new ()">fm_dnd_dest_new</a>                     (<em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-set-dest-file" title="fm_dnd_dest_set_dest_file ()">fm_dnd_dest_set_dest_file</a>           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *dest_file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-FmDndDest.html#fm-dnd-dest-set-widget" title="fm_dnd_dest_set_widget ()">fm_dnd_dest_set_widget</a>              (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);
+#define             <a class="link" href="libfm-FmDndDest.html#fm-drag-context-has-target" title="fm_drag_context_has_target()">fm_drag_context_has_target</a>          (ctx,
+                                                         target)
+#define             <a class="link" href="libfm-FmDndDest.html#fm-drag-context-has-target-name" title="fm_drag_context_has_target_name()">fm_drag_context_has_target_name</a>     (ctx,
+                                                         name)
+</pre>
+</div>
+<div class="refsect1">
+<a name="libfm-FmDndDest.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libfm-FmDndDest.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="FmDndDestClass"></a><h3>struct FmDndDestClass</h3>
+<pre class="programlisting">struct FmDndDestClass {
+    GObjectClass parent_class;
+    gboolean (*files_dropped)(FmDndDest* dd, int x, int y, guint action, guint info_type, FmFileInfoList* files);
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-drag-data-received"></a><h3>fm_dnd_dest_drag_data_received ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_dnd_dest_drag_data_received      (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkSelectionData</span> *sel_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> info</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> time</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-drag-drop"></a><h3>fm_dnd_dest_drag_drop ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_dnd_dest_drag_drop               (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> time</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-drag-leave"></a><h3>fm_dnd_dest_drag_leave ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_dest_drag_leave              (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> time</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-find-target"></a><h3>fm_dnd_dest_find_target ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkAtom</span>             fm_dnd_dest_find_target             (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-get-default-action"></a><h3>fm_dnd_dest_get_default_action ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkDragAction</span>       fm_dnd_dest_get_default_action      (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkDragContext</span> *drag_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkTarget</span> target</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the default action to take for the dragged files.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-get-dest-file"></a><h3>fm_dnd_dest_get_dest_file ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_dnd_dest_get_dest_file           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-get-dest-path"></a><h3>fm_dnd_dest_get_dest_path ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            fm_dnd_dest_get_dest_path           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-get-src-files"></a><h3>fm_dnd_dest_get_src_files ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="returnvalue">FmList</span></a> *            fm_dnd_dest_get_src_files           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-is-target-supported"></a><h3>fm_dnd_dest_is_target_supported ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_dnd_dest_is_target_supported     (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-new"></a><h3>fm_dnd_dest_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmDndDest</span> *         fm_dnd_dest_new                     (<em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-set-dest-file"></a><h3>fm_dnd_dest_set_dest_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_dest_set_dest_file           (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *dest_file</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-dest-set-widget"></a><h3>fm_dnd_dest_set_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_dest_set_widget              (<em class="parameter"><code><span class="type">FmDndDest</span> *dd</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-drag-context-has-target"></a><h3>fm_drag_context_has_target()</h3>
+<pre class="programlisting">#define             fm_drag_context_has_target(ctx, target)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-drag-context-has-target-name"></a><h3>fm_drag_context_has_target_name()</h3>
+<pre class="programlisting">#define             fm_drag_context_has_target_name(ctx, name)</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-app-menu-view</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="libfm-fm-app-chooser-dlg.html" title="fm-app-chooser-dlg">
 <link rel="next" href="FmCellRendererText.html" title="FmCellRendererText">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="libfm-fm-app-chooser-dlg.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="FmCellRendererText.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -26,7 +26,7 @@
                   <a href="#libfm-fm-app-menu-view.description" class="shortcut">Description</a>
 </td></tr>
 </table>
-<div class="refentry" title="fm-app-menu-view">
+<div class="refentry">
 <a name="libfm-fm-app-menu-view"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -35,60 +35,60 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="libfm-fm-app-menu-view.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-new" title="fm_app_menu_view_new ()">fm_app_menu_view_new</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a href="/usr/share/gtk-doc/html/gio/GAppInfo.html"><span class="returnvalue">GAppInfo</span></a>*           <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app" title="fm_app_menu_view_get_selected_app ()">fm_app_menu_view_get_selected_app</a>   (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);
-<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app-desktop-id" title="fm_app_menu_view_get_selected_app_desktop_id ()">fm_app_menu_view_get_selected_app_desktop_id</a>
-                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);
-<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app-desktop-file" title="fm_app_menu_view_get_selected_app_desktop_file ()">fm_app_menu_view_get_selected_app_desktop_file</a>
-                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-is-app-selected" title="fm_app_menu_view_is_app_selected ()">fm_app_menu_view_is_app_selected</a>    (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-is-item-app" title="fm_app_menu_view_is_item_app ()">fm_app_menu_view_is_item_app</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeIter"><span class="type">GtkTreeIter</span></a> *it</code></em>);
+<pre class="synopsis"><span class="returnvalue">GAppInfo</span> *          <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app" title="fm_app_menu_view_get_selected_app ()">fm_app_menu_view_get_selected_app</a>   (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app-desktop-file" title="fm_app_menu_view_get_selected_app_desktop_file ()">fm_app_menu_view_get_selected_app_desktop_file</a>
+                                                        (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-get-selected-app-desktop-id" title="fm_app_menu_view_get_selected_app_desktop_id ()">fm_app_menu_view_get_selected_app_desktop_id</a>
+                                                        (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-is-app-selected" title="fm_app_menu_view_is_app_selected ()">fm_app_menu_view_is_app_selected</a>    (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-is-item-app" title="fm_app_menu_view_is_item_app ()">fm_app_menu_view_is_item_app</a>        (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);
+<span class="returnvalue">GtkWidget</span> *         <a class="link" href="libfm-fm-app-menu-view.html#fm-app-menu-view-new" title="fm_app_menu_view_new ()">fm_app_menu_view_new</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="libfm-fm-app-menu-view.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="libfm-fm-app-menu-view.details"></a><h2>Details</h2>
-<div class="refsect2" title="fm_app_menu_view_new ()">
-<a name="fm-app-menu-view-new"></a><h3>fm_app_menu_view_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          fm_app_menu_view_new                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_app_menu_view_get_selected_app ()">
+<div class="refsect2">
 <a name="fm-app-menu-view-get-selected-app"></a><h3>fm_app_menu_view_get_selected_app ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gio/GAppInfo.html"><span class="returnvalue">GAppInfo</span></a>*           fm_app_menu_view_get_selected_app   (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">GAppInfo</span> *          fm_app_menu_view_get_selected_app   (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_app_menu_view_get_selected_app_desktop_id ()">
-<a name="fm-app-menu-view-get-selected-app-desktop-id"></a><h3>fm_app_menu_view_get_selected_app_desktop_id ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span>*               fm_app_menu_view_get_selected_app_desktop_id
-                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_app_menu_view_get_selected_app_desktop_file ()">
+<div class="refsect2">
 <a name="fm-app-menu-view-get-selected-app-desktop-file"></a><h3>fm_app_menu_view_get_selected_app_desktop_file ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span>*               fm_app_menu_view_get_selected_app_desktop_file
-                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">char</span> *              fm_app_menu_view_get_selected_app_desktop_file
+                                                        (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_app_menu_view_is_app_selected ()">
+<div class="refsect2">
+<a name="fm-app-menu-view-get-selected-app-desktop-id"></a><h3>fm_app_menu_view_get_selected_app_desktop_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              fm_app_menu_view_get_selected_app_desktop_id
+                                                        (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-app-menu-view-is-app-selected"></a><h3>fm_app_menu_view_is_app_selected ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_app_menu_view_is_app_selected    (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_app_menu_view_is_app_selected    (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_app_menu_view_is_item_app ()">
+<div class="refsect2">
 <a name="fm-app-menu-view-is-item-app"></a><h3>fm_app_menu_view_is_item_app ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_app_menu_view_is_item_app        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeView.html"><span class="type">GtkTreeView</span></a> *view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeIter"><span class="type">GtkTreeIter</span></a> *it</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_app_menu_view_is_item_app        (<em class="parameter"><code><span class="type">GtkTreeView</span> *view</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-app-menu-view-new"></a><h3>fm_app_menu_view_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         fm_app_menu_view_new                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

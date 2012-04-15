@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmDirTreeModel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
+<link rel="prev" href="FmCellRendererPixbuf.html" title="FmCellRendererPixbuf">
+<link rel="next" href="FmTabLabel.html" title="FmTabLabel">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="FmCellRendererPixbuf.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Libfm Reference Manual</th>
+<td><a accesskey="n" href="FmTabLabel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmDirTreeModel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmDirTreeModel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmDirTreeModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmDirTreeModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="FmDirTreeModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmDirTreeModel.top_of_page"></a>FmDirTreeModel</span></h2>
+<p>FmDirTreeModel</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="FmDirTreeModel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="FmDirTreeModel.html#FmDirTreeModel-struct" title="struct FmDirTreeModel">FmDirTreeModel</a>;
+struct              <a class="link" href="FmDirTreeModel.html#FmDirTreeModelClass" title="struct FmDirTreeModelClass">FmDirTreeModelClass</a>;
+<span class="returnvalue">guint</span>               <a class="link" href="FmDirTreeModel.html#fm-dir-tree-get-icon-size" title="fm_dir_tree_get_icon_size ()">fm_dir_tree_get_icon_size</a>           (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-add-root" title="fm_dir_tree_model_add_root ()">fm_dir_tree_model_add_root</a>          (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *root</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-collapse-row" title="fm_dir_tree_model_collapse_row ()">fm_dir_tree_model_collapse_row</a>      (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-expand-row" title="fm_dir_tree_model_expand_row ()">fm_dir_tree_model_expand_row</a>        (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-get-show-hidden" title="fm_dir_tree_model_get_show_hidden ()">fm_dir_tree_model_get_show_hidden</a>   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);
+<a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="returnvalue">FmDirTreeModel</span></a> *    <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-new" title="fm_dir_tree_model_new ()">fm_dir_tree_model_new</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-set-icon-size" title="fm_dir_tree_model_set_icon_size ()">fm_dir_tree_model_set_icon_size</a>     (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> icon_size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-set-show-hidden" title="fm_dir_tree_model_set_show_hidden ()">fm_dir_tree_model_set_show_hidden</a>   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----FmDirTreeModel
+</pre>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+FmDirTreeModel implements
+ GtkTreeModel.</p>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeModel.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeModel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="FmDirTreeModel-struct"></a><h3>struct FmDirTreeModel</h3>
+<pre class="programlisting">struct FmDirTreeModel;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmDirTreeModelClass"></a><h3>struct FmDirTreeModelClass</h3>
+<pre class="programlisting">struct FmDirTreeModelClass {
+    GObjectClass parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-get-icon-size"></a><h3>fm_dir_tree_get_icon_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               fm_dir_tree_get_icon_size           (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-add-root"></a><h3>fm_dir_tree_model_add_root ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_add_root          (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *root</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-collapse-row"></a><h3>fm_dir_tree_model_collapse_row ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_collapse_row      (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-expand-row"></a><h3>fm_dir_tree_model_expand_row ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_expand_row        (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-get-show-hidden"></a><h3>fm_dir_tree_model_get_show_hidden ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_dir_tree_model_get_show_hidden   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-new"></a><h3>fm_dir_tree_model_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="returnvalue">FmDirTreeModel</span></a> *    fm_dir_tree_model_new               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-set-icon-size"></a><h3>fm_dir_tree_model_set_icon_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_set_icon_size     (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> icon_size</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-set-show-hidden"></a><h3>fm_dir_tree_model_set_show_hidden ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_set_show_hidden   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

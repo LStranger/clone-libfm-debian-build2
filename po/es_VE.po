@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 02:06+0800\n"
+"POT-Creation-Date: 2011-08-09 21:06+0200\n"
 "PO-Revision-Date: 2010-02-09 11:50-0500\n"
 "Last-Translator: Hugo Florentino <sysadmin@cips.cu>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -339,49 +340,59 @@ msgstr ""
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "El navegador web preferido se utilizará para abrir los hipervínculos."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../data/ui/exec-file.glade.h:1
+#, fuzzy
+msgid "Execute File"
+msgstr "Múltiples archivos"
+
+#: ../data/ui/exec-file.glade.h:2
+#, fuzzy
+msgid "Execute in _Terminal"
+msgstr "Ejecutar en el emulador de terminal"
+
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, fuzzy, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u byte"
 msgstr[1] "%u bytes"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 #, fuzzy
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 #, fuzzy
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 #, fuzzy
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 #, fuzzy
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 #, fuzzy
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 #, fuzzy
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 #, fuzzy
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 #, fuzzy
 msgid "TiB"
 msgstr "TiB"
@@ -406,7 +417,7 @@ msgstr "Papelera"
 msgid "My Computer"
 msgstr "Mi PC"
 
-#: ../src/base/fm-path.c:739
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 #, fuzzy
 msgid "Applications"
 msgstr "Aplicaciones"
@@ -416,12 +427,12 @@ msgstr "Aplicaciones"
 msgid "Network"
 msgstr "Red"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:151
 #, fuzzy
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -429,71 +440,71 @@ msgid ""
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
 "Modified: %s"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:312
 #, fuzzy
 msgid "The file operation is cancelled and there are some errors."
 msgstr "La operación de archivos se ha cancelado y hay algunos errores."
 
-#: ../src/gtk/fm-progress-dlg.c:311
+#: ../src/gtk/fm-progress-dlg.c:314
 #, fuzzy
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:318
 #, fuzzy
 msgid "The file operation is finished, but there are some errors."
 msgstr "La operación sobre archivos ha finalizado, pero hay algunos errores."
 
-#: ../src/gtk/fm-progress-dlg.c:317
+#: ../src/gtk/fm-progress-dlg.c:320
 #, fuzzy
 msgid "Finished"
 msgstr "Finalizado"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
 "Do you want to delete them instead?"
 msgstr ""
 
-#: ../src/gtk/fm-progress-dlg.c:429
+#: ../src/gtk/fm-progress-dlg.c:433
 #, fuzzy
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:444
+#: ../src/gtk/fm-progress-dlg.c:448
 #, fuzzy
 msgid "Moving files"
 msgstr "Moviendo archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:447
+#: ../src/gtk/fm-progress-dlg.c:451
 #, fuzzy
 msgid "Copying files"
 msgstr "Copiando archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:450
+#: ../src/gtk/fm-progress-dlg.c:454
 #, fuzzy
 msgid "Trashing files"
 msgstr "Enviando archivos a la papelera"
 
-#: ../src/gtk/fm-progress-dlg.c:453
+#: ../src/gtk/fm-progress-dlg.c:457
 #, fuzzy
 msgid "Deleting files"
 msgstr "Eliminando archivos"
 
-#: ../src/gtk/fm-progress-dlg.c:456
+#: ../src/gtk/fm-progress-dlg.c:460
 #, fuzzy
 msgid "Creating symlinks"
 msgstr "Creando enlaces simbólicos"
 
-#: ../src/gtk/fm-progress-dlg.c:459
+#: ../src/gtk/fm-progress-dlg.c:463
 #, fuzzy
 msgid "Changing file attributes"
 msgstr "Cambiando atributos de archivo"
@@ -528,7 +539,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Archivos de tipos diferentes"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 #, fuzzy
 msgid "Multiple Files"
 msgstr "Múltiples archivos"
@@ -549,7 +560,7 @@ msgid "Eject Removable Media"
 msgstr "Expulsar medio extraíble"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 #, fuzzy
 msgid "Rename Bookmark Item"
 msgstr "Renombrar marcador"
@@ -564,55 +575,67 @@ msgstr "Quitar de los marcadores"
 msgid "Empty Trash"
 msgstr "Vaciar papelera"
 
-#: ../src/gtk/fm-places-view.c:658
+#: ../src/gtk/fm-places-view.c:721
 #, fuzzy
 msgid "Enter a new name:"
 msgstr "Introduzca un nuevo nombre:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 #, fuzzy
 msgid "Open With..."
 msgstr "Abrir con..."
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:92
 #, fuzzy
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:93
 #, fuzzy
 msgid "Create Symlink"
 msgstr "Crear enlace simbólico"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:94
 #, fuzzy
 msgid "Send To"
 msgstr "Enviar a"
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:95
 #, fuzzy
 msgid "Compress..."
 msgstr "Comprimir..."
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:96
 #, fuzzy
 msgid "Extract Here"
 msgstr "Extraer aquí"
 
-#: ../src/gtk/fm-file-menu.c:95
+#: ../src/gtk/fm-file-menu.c:97
 #, fuzzy
 msgid "Extract To..."
 msgstr "Estraer a..."
 
-#: ../src/gtk/fm-file-menu.c:250
+#: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
 msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:251
+#: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
 msgstr ""
 
-#: ../src/gtk/fm-dnd-dest.c:447
+#: ../src/gtk/fm-dnd-dest.c:387
 #, fuzzy
 msgid "XDirectSave failed."
 msgstr "XDirectSave ha fallado."
@@ -632,22 +655,22 @@ msgstr "Ejecutar una línea de comandos personalizada para abrir los archivos"
 msgid "Customize"
 msgstr "Personalizar"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:588
 #, fuzzy
 msgid "Name"
 msgstr "Nombre"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:607
 #, fuzzy
 msgid "Description"
 msgstr "Descripción"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:614
 #, fuzzy
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:620
 #, fuzzy
 msgid "Modified"
 msgstr "Modificado"
@@ -662,40 +685,70 @@ msgstr "Aplicaciones instaladas"
 msgid "Error"
 msgstr "Error"
 
-#: ../src/gtk/fm-gtk-utils.c:254
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "Descripción"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 #, fuzzy
 msgid "Please select a folder"
 msgstr "Por favor, seleccione una carpeta"
 
-#: ../src/gtk/fm-gtk-utils.c:403
+#: ../src/gtk/fm-gtk-utils.c:452
 #, fuzzy
 msgid "Only system administrators have the permission to do this."
 msgstr "Sólo el administrador del sistema tiene el permiso para hacer esto."
 
-#: ../src/gtk/fm-gtk-utils.c:482
+#: ../src/gtk/fm-gtk-utils.c:531
 #, fuzzy
 msgid "Do you want to move the selected files to trash can?"
 msgstr "¿Desea mover los archivos seleccionados a la papelera?"
 
-#: ../src/gtk/fm-gtk-utils.c:503
+#: ../src/gtk/fm-gtk-utils.c:552
 #, fuzzy
 msgid "Do you want to delete the selected files?"
 msgstr "¿Desea eliminar los archivos seleccionados?"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 #, fuzzy
 msgid "Rename File"
 msgstr "Renombrar archivo"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 #, fuzzy
 msgid "Please enter a new name:"
 msgstr "Por favor, introduzca un nuevo nombre:"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:620
 #, fuzzy
 msgid "Are you sure you want to empty the trash can?"
 msgstr "¿Está seguro que desea vaciar la papelera?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:115
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:122
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "Preparando..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -719,13 +772,176 @@ msgstr ""
 msgid "Destination is a sub folder of source"
 msgstr ""
 
+#: ../src/gtk/fm-places-model.c:451
 #, fuzzy
-#~ msgid "Trash"
-#~ msgstr "Papelera"
+msgid "Trash"
+msgstr "Papelera"
 
+#: ../src/gtk/fm-places-model.c:509
 #, fuzzy
-#~ msgid "Desktop"
-#~ msgstr "Escritorio"
+msgid "Desktop"
+msgstr "Escritorio"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:41
+msgid "Blank CD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "Blank DVD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "DVD-RAM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "Blank DVD-RAM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "DVD+R DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "Blank DVD+R DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "DVD+RW DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "Blank DVD+RW DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blu-Ray Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blank Blu-Ray Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blu-Ray R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blank Blu-Ray R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blu-Ray RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blank Blu-Ray RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "HD DVD Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "Blank HD DVD Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "HD DVD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "Blank HD DVD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "HD DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "Blank HD DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "MO Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "Blank MO Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "MRW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "Blank MRW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "MRW/W Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "Blank MRW/W Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:299
+msgid "Blank Optical Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr ""
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "No es un directorio válido"

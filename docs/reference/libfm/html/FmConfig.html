@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmConfig</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="libfm-fm-app-chooser-combo-box.html" title="fm-app-chooser-combo-box">
 <link rel="next" href="libfm-fm-file-launcher.html" title="fm-file-launcher">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="libfm-fm-app-chooser-combo-box.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="libfm-fm-file-launcher.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -30,7 +30,7 @@
                   <a href="#FmConfig.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmConfig">
+<div class="refentry">
 <a name="FmConfig"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,207 +39,177 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmConfig.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">#define             <a class="link" href="FmConfig.html#FM-CONFIG-TYPE:CAPS" title="FM_CONFIG_TYPE">FM_CONFIG_TYPE</a>
-#define             <a class="link" href="FmConfig.html#FM-CONFIG:CAPS" title="FM_CONFIG()">FM_CONFIG</a>                           (obj)
-#define             <a class="link" href="FmConfig.html#FM-CONFIG-CLASS:CAPS" title="FM_CONFIG_CLASS()">FM_CONFIG_CLASS</a>                     (klass)
-#define             <a class="link" href="FmConfig.html#IS-FM-CONFIG:CAPS" title="IS_FM_CONFIG()">IS_FM_CONFIG</a>                        (obj)
-#define             <a class="link" href="FmConfig.html#IS-FM-CONFIG-CLASS:CAPS" title="IS_FM_CONFIG_CLASS()">IS_FM_CONFIG_CLASS</a>                  (klass)
-                    <a class="link" href="FmConfig.html#FmConfig-struct" title="FmConfig">FmConfig</a>;
-                    <a class="link" href="FmConfig.html#FmConfigClass" title="FmConfigClass">FmConfigClass</a>;
-#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-SINGLE-CLICK:CAPS" title="FM_CONFIG_DEFAULT_SINGLE_CLICK">FM_CONFIG_DEFAULT_SINGLE_CLICK</a>
-#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-USE-TRASH:CAPS" title="FM_CONFIG_DEFAULT_USE_TRASH">FM_CONFIG_DEFAULT_USE_TRASH</a>
+<pre class="synopsis">#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-BIG-ICON-SIZE:CAPS" title="FM_CONFIG_DEFAULT_BIG_ICON_SIZE">FM_CONFIG_DEFAULT_BIG_ICON_SIZE</a>
 #define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-CONFIRM-DEL:CAPS" title="FM_CONFIG_DEFAULT_CONFIRM_DEL">FM_CONFIG_DEFAULT_CONFIRM_DEL</a>
-#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-BIG-ICON-SIZE:CAPS" title="FM_CONFIG_DEFAULT_BIG_ICON_SIZE">FM_CONFIG_DEFAULT_BIG_ICON_SIZE</a>
-#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-SMALL-ICON-SIZE:CAPS" title="FM_CONFIG_DEFAULT_SMALL_ICON_SIZE">FM_CONFIG_DEFAULT_SMALL_ICON_SIZE</a>
 #define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-PANE-ICON-SIZE:CAPS" title="FM_CONFIG_DEFAULT_PANE_ICON_SIZE">FM_CONFIG_DEFAULT_PANE_ICON_SIZE</a>
-#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-THUMBNAIL-SIZE:CAPS" title="FM_CONFIG_DEFAULT_THUMBNAIL_SIZE">FM_CONFIG_DEFAULT_THUMBNAIL_SIZE</a>
 #define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-SHOW-THUMBNAIL:CAPS" title="FM_CONFIG_DEFAULT_SHOW_THUMBNAIL">FM_CONFIG_DEFAULT_SHOW_THUMBNAIL</a>
+#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-SINGLE-CLICK:CAPS" title="FM_CONFIG_DEFAULT_SINGLE_CLICK">FM_CONFIG_DEFAULT_SINGLE_CLICK</a>
+#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-SMALL-ICON-SIZE:CAPS" title="FM_CONFIG_DEFAULT_SMALL_ICON_SIZE">FM_CONFIG_DEFAULT_SMALL_ICON_SIZE</a>
 #define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-THUMBNAIL-LOCAL:CAPS" title="FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL">FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL</a>
 #define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-THUMBNAIL-MAX:CAPS" title="FM_CONFIG_DEFAULT_THUMBNAIL_MAX">FM_CONFIG_DEFAULT_THUMBNAIL_MAX</a>
-extern              FmConfig* <a class="link" href="FmConfig.html#fm-config" title="fm_config">fm_config</a>;
-<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmConfig.html#fm-config-get-type" title="fm_config_get_type ()">fm_config_get_type</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a class="link" href="FmConfig.html" title="FmConfig"><span class="returnvalue">FmConfig</span></a>*           <a class="link" href="FmConfig.html#fm-config-new" title="fm_config_new ()">fm_config_new</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
+#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-THUMBNAIL-SIZE:CAPS" title="FM_CONFIG_DEFAULT_THUMBNAIL_SIZE">FM_CONFIG_DEFAULT_THUMBNAIL_SIZE</a>
+#define             <a class="link" href="FmConfig.html#FM-CONFIG-DEFAULT-USE-TRASH:CAPS" title="FM_CONFIG_DEFAULT_USE_TRASH">FM_CONFIG_DEFAULT_USE_TRASH</a>
+#define             <a class="link" href="FmConfig.html#FM-CONFIG-TYPE:CAPS" title="FM_CONFIG_TYPE">FM_CONFIG_TYPE</a>
+struct              <a class="link" href="FmConfig.html#FmConfig-struct" title="struct FmConfig">FmConfig</a>;
+struct              <a class="link" href="FmConfig.html#FmConfigClass" title="struct FmConfigClass">FmConfigClass</a>;
+extern FmConfig*    <a class="link" href="FmConfig.html#fm-config" title="fm_config">fm_config</a>;
+<span class="returnvalue">void</span>                <a class="link" href="FmConfig.html#fm-config-emit-changed" title="fm_config_emit_changed ()">fm_config_emit_changed</a>              (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *changed_key</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmConfig.html#fm-config-load-from-file" title="fm_config_load_from_file ()">fm_config_load_from_file</a>            (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmConfig.html#fm-config-load-from-key-file" title="fm_config_load_from_key_file ()">fm_config_load_from_key_file</a>        (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *kf</code></em>);
+                                                         <em class="parameter"><code><span class="type">GKeyFile</span> *kf</code></em>);
+<a class="link" href="FmConfig.html" title="FmConfig"><span class="returnvalue">FmConfig</span></a> *          <a class="link" href="FmConfig.html#fm-config-new" title="fm_config_new ()">fm_config_new</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmConfig.html#fm-config-save" title="fm_config_save ()">fm_config_save</a>                      (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmConfig.html#fm-config-emit-changed" title="fm_config_emit_changed ()">fm_config_emit_changed</a>              (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *changed_key</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmConfig.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----FmConfig
 </pre>
 </div>
-<div class="refsect1" title="Signals">
+<div class="refsect1">
 <a name="FmConfig.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="FmConfig.html#FmConfig-changed" title='The "changed" signal'>changed</a>"                                        : Run First / Has Details
+  "<a class="link" href="FmConfig.html#FmConfig-changed" title='The "changed" signal'>changed</a>"                                        : <code class="literal">Has Details</code>
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmConfig.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmConfig.details"></a><h2>Details</h2>
-<div class="refsect2" title="FM_CONFIG_TYPE">
-<a name="FM-CONFIG-TYPE:CAPS"></a><h3>FM_CONFIG_TYPE</h3>
-<pre class="programlisting">#define FM_CONFIG_TYPE              (fm_config_get_type())
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_CONFIG()">
-<a name="FM-CONFIG:CAPS"></a><h3>FM_CONFIG()</h3>
-<pre class="programlisting">#define             FM_CONFIG(obj)</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_CONFIG_CLASS()">
-<a name="FM-CONFIG-CLASS:CAPS"></a><h3>FM_CONFIG_CLASS()</h3>
-<pre class="programlisting">#define             FM_CONFIG_CLASS(klass)</pre>
-</div>
-<hr>
-<div class="refsect2" title="IS_FM_CONFIG()">
-<a name="IS-FM-CONFIG:CAPS"></a><h3>IS_FM_CONFIG()</h3>
-<pre class="programlisting">#define             IS_FM_CONFIG(obj)</pre>
-</div>
-<hr>
-<div class="refsect2" title="IS_FM_CONFIG_CLASS()">
-<a name="IS-FM-CONFIG-CLASS:CAPS"></a><h3>IS_FM_CONFIG_CLASS()</h3>
-<pre class="programlisting">#define             IS_FM_CONFIG_CLASS(klass)</pre>
-</div>
-<hr>
-<div class="refsect2" title="FmConfig">
-<a name="FmConfig-struct"></a><h3>FmConfig</h3>
-<pre class="programlisting">typedef struct _FmConfig FmConfig;</pre>
-</div>
-<hr>
-<div class="refsect2" title="FmConfigClass">
-<a name="FmConfigClass"></a><h3>FmConfigClass</h3>
-<pre class="programlisting">typedef struct {
-    GObjectClass parent_class;
-    void (*changed)(FmConfig* cfg);
-} FmConfigClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_SINGLE_CLICK">
-<a name="FM-CONFIG-DEFAULT-SINGLE-CLICK:CAPS"></a><h3>FM_CONFIG_DEFAULT_SINGLE_CLICK</h3>
-<pre class="programlisting">#define     FM_CONFIG_DEFAULT_SINGLE_CLICK      FALSE
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_USE_TRASH">
-<a name="FM-CONFIG-DEFAULT-USE-TRASH:CAPS"></a><h3>FM_CONFIG_DEFAULT_USE_TRASH</h3>
-<pre class="programlisting">#define     FM_CONFIG_DEFAULT_USE_TRASH         TRUE
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_CONFIRM_DEL">
-<a name="FM-CONFIG-DEFAULT-CONFIRM-DEL:CAPS"></a><h3>FM_CONFIG_DEFAULT_CONFIRM_DEL</h3>
-<pre class="programlisting">#define     FM_CONFIG_DEFAULT_CONFIRM_DEL       TRUE
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_BIG_ICON_SIZE">
+<div class="refsect2">
 <a name="FM-CONFIG-DEFAULT-BIG-ICON-SIZE:CAPS"></a><h3>FM_CONFIG_DEFAULT_BIG_ICON_SIZE</h3>
 <pre class="programlisting">#define     FM_CONFIG_DEFAULT_BIG_ICON_SIZE     48
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_SMALL_ICON_SIZE">
-<a name="FM-CONFIG-DEFAULT-SMALL-ICON-SIZE:CAPS"></a><h3>FM_CONFIG_DEFAULT_SMALL_ICON_SIZE</h3>
-<pre class="programlisting">#define     FM_CONFIG_DEFAULT_SMALL_ICON_SIZE   16
+<div class="refsect2">
+<a name="FM-CONFIG-DEFAULT-CONFIRM-DEL:CAPS"></a><h3>FM_CONFIG_DEFAULT_CONFIRM_DEL</h3>
+<pre class="programlisting">#define     FM_CONFIG_DEFAULT_CONFIRM_DEL       TRUE
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_PANE_ICON_SIZE">
+<div class="refsect2">
 <a name="FM-CONFIG-DEFAULT-PANE-ICON-SIZE:CAPS"></a><h3>FM_CONFIG_DEFAULT_PANE_ICON_SIZE</h3>
 <pre class="programlisting">#define     FM_CONFIG_DEFAULT_PANE_ICON_SIZE    16
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_THUMBNAIL_SIZE">
-<a name="FM-CONFIG-DEFAULT-THUMBNAIL-SIZE:CAPS"></a><h3>FM_CONFIG_DEFAULT_THUMBNAIL_SIZE</h3>
-<pre class="programlisting">#define     FM_CONFIG_DEFAULT_THUMBNAIL_SIZE    128
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_SHOW_THUMBNAIL">
+<div class="refsect2">
 <a name="FM-CONFIG-DEFAULT-SHOW-THUMBNAIL:CAPS"></a><h3>FM_CONFIG_DEFAULT_SHOW_THUMBNAIL</h3>
 <pre class="programlisting">#define     FM_CONFIG_DEFAULT_SHOW_THUMBNAIL    TRUE
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL">
+<div class="refsect2">
+<a name="FM-CONFIG-DEFAULT-SINGLE-CLICK:CAPS"></a><h3>FM_CONFIG_DEFAULT_SINGLE_CLICK</h3>
+<pre class="programlisting">#define     FM_CONFIG_DEFAULT_SINGLE_CLICK      FALSE
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FM-CONFIG-DEFAULT-SMALL-ICON-SIZE:CAPS"></a><h3>FM_CONFIG_DEFAULT_SMALL_ICON_SIZE</h3>
+<pre class="programlisting">#define     FM_CONFIG_DEFAULT_SMALL_ICON_SIZE   16
+</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="FM-CONFIG-DEFAULT-THUMBNAIL-LOCAL:CAPS"></a><h3>FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL</h3>
 <pre class="programlisting">#define     FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL   TRUE
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_CONFIG_DEFAULT_THUMBNAIL_MAX">
+<div class="refsect2">
 <a name="FM-CONFIG-DEFAULT-THUMBNAIL-MAX:CAPS"></a><h3>FM_CONFIG_DEFAULT_THUMBNAIL_MAX</h3>
 <pre class="programlisting">#define     FM_CONFIG_DEFAULT_THUMBNAIL_MAX     2048
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_config">
+<div class="refsect2">
+<a name="FM-CONFIG-DEFAULT-THUMBNAIL-SIZE:CAPS"></a><h3>FM_CONFIG_DEFAULT_THUMBNAIL_SIZE</h3>
+<pre class="programlisting">#define     FM_CONFIG_DEFAULT_THUMBNAIL_SIZE    128
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FM-CONFIG-DEFAULT-USE-TRASH:CAPS"></a><h3>FM_CONFIG_DEFAULT_USE_TRASH</h3>
+<pre class="programlisting">#define     FM_CONFIG_DEFAULT_USE_TRASH         TRUE
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FM-CONFIG-TYPE:CAPS"></a><h3>FM_CONFIG_TYPE</h3>
+<pre class="programlisting">#define FM_CONFIG_TYPE              (fm_config_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmConfig-struct"></a><h3>struct FmConfig</h3>
+<pre class="programlisting">struct FmConfig;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmConfigClass"></a><h3>struct FmConfigClass</h3>
+<pre class="programlisting">struct FmConfigClass {
+    GObjectClass parent_class;
+    void (*changed)(FmConfig* cfg);
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-config"></a><h3>fm_config</h3>
 <pre class="programlisting">extern FmConfig* fm_config;
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_config_get_type ()">
-<a name="fm-config-get-type"></a><h3>fm_config_get_type ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_config_get_type                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="refsect2">
+<a name="fm-config-emit-changed"></a><h3>fm_config_emit_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_config_emit_changed              (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *changed_key</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_config_new ()">
-<a name="fm-config-new"></a><h3>fm_config_new ()</h3>
-<pre class="programlisting"><a class="link" href="FmConfig.html" title="FmConfig"><span class="returnvalue">FmConfig</span></a>*           fm_config_new                       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_config_load_from_file ()">
+<div class="refsect2">
 <a name="fm-config-load-from-file"></a><h3>fm_config_load_from_file ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_config_load_from_file            (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_config_load_from_key_file ()">
+<div class="refsect2">
 <a name="fm-config-load-from-key-file"></a><h3>fm_config_load_from_key_file ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_config_load_from_key_file        (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *kf</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">GKeyFile</span> *kf</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_config_save ()">
+<div class="refsect2">
+<a name="fm-config-new"></a><h3>fm_config_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmConfig.html" title="FmConfig"><span class="returnvalue">FmConfig</span></a> *          fm_config_new                       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-config-save"></a><h3>fm_config_save ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_config_save                      (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
 </div>
-<hr>
-<div class="refsect2" title="fm_config_emit_changed ()">
-<a name="fm-config-emit-changed"></a><h3>fm_config_emit_changed ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_config_emit_changed              (<em class="parameter"><code><a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *cfg</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *changed_key</code></em>);</pre>
 </div>
-</div>
-<div class="refsect1" title="Signal Details">
+<div class="refsect1">
 <a name="FmConfig.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" title='The "changed" signal'>
+<div class="refsect2">
 <a name="FmConfig-changed"></a><h3>The <code class="literal">"changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmConfig.html" title="FmConfig"><span class="type">FmConfig</span></a> *fmconfig,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run First / Has Details</pre>
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Has Details</code></pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

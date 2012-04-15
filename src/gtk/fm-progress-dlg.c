@@ -38,6 +38,7 @@ enum
 
 struct _FmProgressDisplay
 {
+    GtkWidget* parent;
     GtkWidget* dlg;
     FmFileOpsJob* job;
 
@@ -102,7 +103,7 @@ static void on_percent(FmFileOpsJob* job, guint percent, FmProgressDisplay* data
                     }
                 }
                 g_snprintf(time_str, 32, "%02d:%02d:%02d", hrs, mins, secs);
-                gtk_label_set_text(data->remaining_time, time_str);
+                gtk_label_set_text(GTK_LABEL(data->remaining_time), time_str);
             }
         }
     }
@@ -162,7 +163,7 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
 static gint on_ask(FmFileOpsJob* job, const char* question, const char** options, FmProgressDisplay* data)
 {
     ensure_dlg(data);
-    return fm_askv(GTK_WINDOW(data->dlg), question, options);
+    return fm_askv(GTK_WINDOW(data->dlg), NULL, question, options);
 }
 
 static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
@@ -173,7 +174,7 @@ static void on_filename_changed(GtkEditable* entry, GtkWidget* rename)
     gtk_widget_set_sensitive(rename, can_rename);
     if(can_rename)
     {
-        GtkDialog* dlg = GTK_DIALOG(gtk_widget_get_toplevel(entry));
+        GtkDialog* dlg = GTK_DIALOG(gtk_widget_get_toplevel(GTK_WIDGET(entry)));
         gtk_dialog_set_default_response(dlg, gtk_dialog_get_response_for_widget(dlg, rename));
     }
 }
@@ -285,12 +286,14 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 
 static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
 {
+    GtkWidget* parent;
     if(data->update_timeout)
     {
         g_source_remove(data->update_timeout);
         data->update_timeout = 0;
     }
 
+    parent = data->parent;
     if(data->dlg)
     {
         /* errors happened */
@@ -301,10 +304,10 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
             gtk_dialog_set_response_sensitive(GTK_DIALOG(data->dlg), GTK_RESPONSE_CANCEL, FALSE);
             gtk_dialog_add_button(GTK_DIALOG(data->dlg), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
 
-            gtk_image_set_from_stock(data->icon, GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
+            gtk_image_set_from_stock(GTK_IMAGE(data->icon), GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
 
             gtk_widget_show(data->msg);
-            if(fm_job_is_cancelled(data->job))
+            if(fm_job_is_cancelled(FM_JOB(data->job)))
             {
                 gtk_label_set_text(GTK_LABEL(data->msg), _("The file operation is cancelled and there are some errors."));
                 gtk_window_set_title(GTK_WINDOW(data->dlg),
@@ -328,16 +331,17 @@ static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
      * FIXME: need to refactor this to use a more elegant way later. */
     if(job->type == FM_FILE_OP_TRASH)
     {
-        FmPathList* unsupported = (FmPathList*)g_object_get_data(job, "trash-unsupported");
+        FmPathList* unsupported = (FmPathList*)g_object_get_data(G_OBJECT(job), "trash-unsupported");
         /* some files cannot be trashed because underlying filesystems don't support it. */
         if(unsupported) /* delete them instead */
         {
-            if(fm_yes_no(NULL, _("Some files cannot be moved to trash can because "
+            if(fm_yes_no(GTK_WINDOW(parent), NULL,
+                        _("Some files cannot be moved to trash can because "
                         "the underlying file systems don't support this operation.\n"
                         "Do you want to delete them instead?"), TRUE))
             {
                 FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, unsupported);
-                fm_file_ops_job_run_with_progress(job);
+                fm_file_ops_job_run_with_progress(GTK_WINDOW(data->parent), job);
             }
         }
     }
@@ -433,29 +437,29 @@ static gboolean on_show_dlg(FmProgressDisplay* data)
         }
         if(l)
             g_string_append(str, "...");
-        gtk_label_set_text(data->src, str->str);
+        gtk_label_set_text(GTK_LABEL(data->src), str->str);
         g_string_free(str, TRUE);
     }
 
     /* FIXME: use accessor functions instead */
     switch(data->job->type)
     {
-	case FM_FILE_OP_MOVE:
+    case FM_FILE_OP_MOVE:
         title = _("Moving files");
         break;
-	case FM_FILE_OP_COPY:
+    case FM_FILE_OP_COPY:
         title = _("Copying files");
         break;
-	case FM_FILE_OP_TRASH:
+    case FM_FILE_OP_TRASH:
         title = _("Trashing files");
         break;
-	case FM_FILE_OP_DELETE:
+    case FM_FILE_OP_DELETE:
         title = _("Deleting files");
         break;
     case FM_FILE_OP_LINK:
         title = _("Creating symlinks");
         break;
-	case FM_FILE_OP_CHANGE_ATTR:
+    case FM_FILE_OP_CHANGE_ATTR:
         title = _("Changing file attributes");
         break;
     }
@@ -500,14 +504,28 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
     data->timer = g_timer_new();
 }
 
+/* This should be called from main thread. Since other parts accessing
+ * data->parent are all run in main thread, this theoratically shouldn't
+ * cause racing condition. */
+static void on_parent_destroy(GtkWidget* parent, gpointer user_data)
+{
+    /* parent window is destroyed */
+    FmProgressDisplay* data = (FmProgressDisplay*)user_data;
+    data->parent = NULL;
+    g_signal_handlers_disconnect_by_func(parent, on_parent_destroy, data);
+    g_object_unref(parent);
+}
+
 /* Run the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
  */
-FmProgressDisplay* fm_file_ops_job_run_with_progress(FmFileOpsJob* job)
+FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job)
 {
     FmProgressDisplay* data = g_slice_new0(FmProgressDisplay);
     data->job = (FmFileOpsJob*)g_object_ref(job);
+    data->parent = g_object_ref(parent);
+    g_signal_connect(parent, "destroy", G_CALLBACK(on_parent_destroy), data);
     data->delay_timeout = g_timeout_add(SHOW_DLG_DELAY, (GSourceFunc)on_show_dlg, data);
 
     g_signal_connect(job, "ask", G_CALLBACK(on_ask), data);
@@ -519,7 +537,7 @@ FmProgressDisplay* fm_file_ops_job_run_with_progress(FmFileOpsJob* job)
     g_signal_connect(job, "finished", G_CALLBACK(on_finished), data);
     g_signal_connect(job, "cancelled", G_CALLBACK(on_cancelled), data);
 
-	fm_job_run_async(job);
+    fm_job_run_async(FM_JOB(job));
 
     return data;
 }
@@ -541,6 +559,12 @@ void fm_progress_display_destroy(FmProgressDisplay* data)
 
         if(data->timer)
             g_timer_destroy(data->timer);
+    }
+
+    if(data->parent)
+    {
+        g_signal_handlers_disconnect_by_func(data->parent, on_parent_destroy, data);
+        g_object_unref(data->parent);
     }
 
     g_free(data->cur_file);

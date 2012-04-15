@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-progress-dlg</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="libfm-fm-icon-pixbuf.html" title="fm-icon-pixbuf">
 <link rel="next" href="libfm-fm-app-chooser-combo-box.html" title="fm-app-chooser-combo-box">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="libfm-fm-icon-pixbuf.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="libfm-fm-app-chooser-combo-box.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -26,7 +26,7 @@
                   <a href="#libfm-fm-progress-dlg.description" class="shortcut">Description</a>
 </td></tr>
 </table>
-<div class="refentry" title="fm-progress-dlg">
+<div class="refentry">
 <a name="libfm-fm-progress-dlg"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -35,30 +35,32 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="libfm-fm-progress-dlg.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="libfm-fm-progress-dlg.html#FmProgressDisplay" title="FmProgressDisplay">FmProgressDisplay</a>;
-<a class="link" href="libfm-fm-progress-dlg.html#FmProgressDisplay" title="FmProgressDisplay"><span class="returnvalue">FmProgressDisplay</span></a>*  <a class="link" href="libfm-fm-progress-dlg.html#fm-file-ops-job-run-with-progress" title="fm_file_ops_job_run_with_progress ()">fm_file_ops_job_run_with_progress</a>   (<em class="parameter"><code><a class="link" href="FmFileOpsJob.html" title="FmFileOpsJob"><span class="type">FmFileOpsJob</span></a> *job</code></em>);
+<a class="link" href="libfm-fm-progress-dlg.html#FmProgressDisplay" title="FmProgressDisplay"><span class="returnvalue">FmProgressDisplay</span></a> * <a class="link" href="libfm-fm-progress-dlg.html#fm-file-ops-job-run-with-progress" title="fm_file_ops_job_run_with_progress ()">fm_file_ops_job_run_with_progress</a>   (<em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmFileOpsJob.html" title="FmFileOpsJob"><span class="type">FmFileOpsJob</span></a> *job</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="libfm-fm-progress-dlg.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="libfm-fm-progress-dlg.details"></a><h2>Details</h2>
-<div class="refsect2" title="FmProgressDisplay">
+<div class="refsect2">
 <a name="FmProgressDisplay"></a><h3>FmProgressDisplay</h3>
 <pre class="programlisting">typedef struct _FmProgressDisplay FmProgressDisplay;</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_file_ops_job_run_with_progress ()">
+<div class="refsect2">
 <a name="fm-file-ops-job-run-with-progress"></a><h3>fm_file_ops_job_run_with_progress ()</h3>
-<pre class="programlisting"><a class="link" href="libfm-fm-progress-dlg.html#FmProgressDisplay" title="FmProgressDisplay"><span class="returnvalue">FmProgressDisplay</span></a>*  fm_file_ops_job_run_with_progress   (<em class="parameter"><code><a class="link" href="FmFileOpsJob.html" title="FmFileOpsJob"><span class="type">FmFileOpsJob</span></a> *job</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="libfm-fm-progress-dlg.html#FmProgressDisplay" title="FmProgressDisplay"><span class="returnvalue">FmProgressDisplay</span></a> * fm_file_ops_job_run_with_progress   (<em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmFileOpsJob.html" title="FmFileOpsJob"><span class="type">FmFileOpsJob</span></a> *job</code></em>);</pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

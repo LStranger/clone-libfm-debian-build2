@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmBookmarks</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="libfm-fm-file-launcher.html" title="fm-file-launcher">
 <link rel="next" href="libfm-fm-monitor.html" title="fm-monitor">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="libfm-fm-file-launcher.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="libfm-fm-monitor.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -30,7 +30,7 @@
                   <a href="#FmBookmarks.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmBookmarks">
+<div class="refentry">
 <a name="FmBookmarks"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,153 +39,133 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmBookmarks.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">#define             <a class="link" href="FmBookmarks.html#FM-BOOKMARKS-TYPE:CAPS" title="FM_BOOKMARKS_TYPE">FM_BOOKMARKS_TYPE</a>
-#define             <a class="link" href="FmBookmarks.html#FM-BOOKMARKS:CAPS" title="FM_BOOKMARKS()">FM_BOOKMARKS</a>                        (obj)
-#define             <a class="link" href="FmBookmarks.html#FM-BOOKMARKS-CLASS:CAPS" title="FM_BOOKMARKS_CLASS()">FM_BOOKMARKS_CLASS</a>                  (klass)
-#define             <a class="link" href="FmBookmarks.html#IS-FM-BOOKMARKS:CAPS" title="IS_FM_BOOKMARKS()">IS_FM_BOOKMARKS</a>                     (obj)
-#define             <a class="link" href="FmBookmarks.html#IS-FM-BOOKMARKS-CLASS:CAPS" title="IS_FM_BOOKMARKS_CLASS()">IS_FM_BOOKMARKS_CLASS</a>               (klass)
-                    <a class="link" href="FmBookmarks.html#FmBookmarks-struct" title="FmBookmarks">FmBookmarks</a>;
-                    <a class="link" href="FmBookmarks.html#FmBookmarksClass" title="FmBookmarksClass">FmBookmarksClass</a>;
-                    <a class="link" href="FmBookmarks.html#FmBookmarkItem" title="FmBookmarkItem">FmBookmarkItem</a>;
-<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmBookmarks.html#fm-bookmarks-get-type" title="fm_bookmarks_get_type ()">fm_bookmarks_get_type</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="returnvalue">FmBookmarks</span></a>*        <a class="link" href="FmBookmarks.html#fm-bookmarks-get" title="fm_bookmarks_get ()">fm_bookmarks_get</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+struct              <a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem">FmBookmarkItem</a>;
+struct              <a class="link" href="FmBookmarks.html#FmBookmarks-struct" title="struct FmBookmarks">FmBookmarks</a>;
+struct              <a class="link" href="FmBookmarks.html#FmBookmarksClass" title="struct FmBookmarksClass">FmBookmarksClass</a>;
 #define             <a class="link" href="FmBookmarks.html#fm-bookmarks-append" title="fm_bookmarks_append()">fm_bookmarks_append</a>                 (bookmarks,
                                                          path,
                                                          name)
-<a class="link" href="FmBookmarks.html#FmBookmarkItem" title="FmBookmarkItem"><span class="returnvalue">FmBookmarkItem</span></a>*     <a class="link" href="FmBookmarks.html#fm-bookmarks-insert" title="fm_bookmarks_insert ()">fm_bookmarks_insert</a>                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+<a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="returnvalue">FmBookmarks</span></a> *       <a class="link" href="FmBookmarks.html#fm-bookmarks-get" title="fm_bookmarks_get ()">fm_bookmarks_get</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="returnvalue">FmBookmarkItem</span></a> *    <a class="link" href="FmBookmarks.html#fm-bookmarks-insert" title="fm_bookmarks_insert ()">fm_bookmarks_insert</a>                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> pos</code></em>);
+<span class="returnvalue">GList</span> *             <a class="link" href="FmBookmarks.html#fm-bookmarks-list-all" title="fm_bookmarks_list_all ()">fm_bookmarks_list_all</a>               (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmBookmarks.html#fm-bookmarks-remove" title="fm_bookmarks_remove ()">fm_bookmarks_remove</a>                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmBookmarks.html#fm-bookmarks-rename" title="fm_bookmarks_rename ()">fm_bookmarks_rename</a>                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *new_name</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="FmBookmarks.html#fm-bookmarks-list-all" title="fm_bookmarks_list_all ()">fm_bookmarks_list_all</a>               (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmBookmarks.html#fm-bookmarks-reorder" title="fm_bookmarks_reorder ()">fm_bookmarks_reorder</a>                (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> pos</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmBookmarks.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----FmBookmarks
 </pre>
 </div>
-<div class="refsect1" title="Signals">
+<div class="refsect1">
 <a name="FmBookmarks.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="FmBookmarks.html#FmBookmarks-changed" title='The "changed" signal'>changed</a>"                                        : Run First
+  "<a class="link" href="FmBookmarks.html#FmBookmarks-changed" title='The "changed" signal'>changed</a>"                                        : <code class="literal">Run First</code>
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmBookmarks.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmBookmarks.details"></a><h2>Details</h2>
-<div class="refsect2" title="FM_BOOKMARKS_TYPE">
+<div class="refsect2">
 <a name="FM-BOOKMARKS-TYPE:CAPS"></a><h3>FM_BOOKMARKS_TYPE</h3>
 <pre class="programlisting">#define FM_BOOKMARKS_TYPE               (fm_bookmarks_get_type())
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_BOOKMARKS()">
-<a name="FM-BOOKMARKS:CAPS"></a><h3>FM_BOOKMARKS()</h3>
-<pre class="programlisting">#define             FM_BOOKMARKS(obj)</pre>
-</div>
-<hr>
-<div class="refsect2" title="FM_BOOKMARKS_CLASS()">
-<a name="FM-BOOKMARKS-CLASS:CAPS"></a><h3>FM_BOOKMARKS_CLASS()</h3>
-<pre class="programlisting">#define             FM_BOOKMARKS_CLASS(klass)</pre>
-</div>
-<hr>
-<div class="refsect2" title="IS_FM_BOOKMARKS()">
-<a name="IS-FM-BOOKMARKS:CAPS"></a><h3>IS_FM_BOOKMARKS()</h3>
-<pre class="programlisting">#define             IS_FM_BOOKMARKS(obj)</pre>
-</div>
-<hr>
-<div class="refsect2" title="IS_FM_BOOKMARKS_CLASS()">
-<a name="IS-FM-BOOKMARKS-CLASS:CAPS"></a><h3>IS_FM_BOOKMARKS_CLASS()</h3>
-<pre class="programlisting">#define             IS_FM_BOOKMARKS_CLASS(klass)</pre>
-</div>
-<hr>
-<div class="refsect2" title="FmBookmarks">
-<a name="FmBookmarks-struct"></a><h3>FmBookmarks</h3>
-<pre class="programlisting">typedef struct _FmBookmarks FmBookmarks;</pre>
-</div>
-<hr>
-<div class="refsect2" title="FmBookmarksClass">
-<a name="FmBookmarksClass"></a><h3>FmBookmarksClass</h3>
-<pre class="programlisting">typedef struct {
-    GObjectClass parent_class;
-    void (*changed)();
-} FmBookmarksClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="FmBookmarkItem">
-<a name="FmBookmarkItem"></a><h3>FmBookmarkItem</h3>
-<pre class="programlisting">typedef struct {
+<div class="refsect2">
+<a name="FmBookmarkItem"></a><h3>struct FmBookmarkItem</h3>
+<pre class="programlisting">struct FmBookmarkItem {
     char* name;
     FmPath* path;
-} FmBookmarkItem;
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_bookmarks_get_type ()">
-<a name="fm-bookmarks-get-type"></a><h3>fm_bookmarks_get_type ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_bookmarks_get_type               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="refsect2">
+<a name="FmBookmarks-struct"></a><h3>struct FmBookmarks</h3>
+<pre class="programlisting">struct FmBookmarks;</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_bookmarks_get ()">
-<a name="fm-bookmarks-get"></a><h3>fm_bookmarks_get ()</h3>
-<pre class="programlisting"><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="returnvalue">FmBookmarks</span></a>*        fm_bookmarks_get                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="refsect2">
+<a name="FmBookmarksClass"></a><h3>struct FmBookmarksClass</h3>
+<pre class="programlisting">struct FmBookmarksClass {
+    GObjectClass parent_class;
+    void (*changed)();
+};
+</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_bookmarks_append()">
+<div class="refsect2">
 <a name="fm-bookmarks-append"></a><h3>fm_bookmarks_append()</h3>
 <pre class="programlisting">#define fm_bookmarks_append(bookmarks, path, name)  fm_bookmarks_insert(bookmarks, path, name, -1)
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_bookmarks_insert ()">
+<div class="refsect2">
+<a name="fm-bookmarks-get"></a><h3>fm_bookmarks_get ()</h3>
+<pre class="programlisting"><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="returnvalue">FmBookmarks</span></a> *       fm_bookmarks_get                    (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-bookmarks-insert"></a><h3>fm_bookmarks_insert ()</h3>
-<pre class="programlisting"><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="FmBookmarkItem"><span class="returnvalue">FmBookmarkItem</span></a>*     fm_bookmarks_insert                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>,
+<pre class="programlisting"><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="returnvalue">FmBookmarkItem</span></a> *    fm_bookmarks_insert                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> pos</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_bookmarks_remove ()">
-<a name="fm-bookmarks-remove"></a><h3>fm_bookmarks_remove ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_bookmarks_remove                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-bookmarks-list-all"></a><h3>fm_bookmarks_list_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *             fm_bookmarks_list_all               (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_bookmarks_rename ()">
+<div class="refsect2">
+<a name="fm-bookmarks-remove"></a><h3>fm_bookmarks_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_bookmarks_remove                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-bookmarks-rename"></a><h3>fm_bookmarks_rename ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_bookmarks_rename                 (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *new_name</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_bookmarks_list_all ()">
-<a name="fm-bookmarks-list-all"></a><h3>fm_bookmarks_list_all ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              fm_bookmarks_list_all               (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-bookmarks-reorder"></a><h3>fm_bookmarks_reorder ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_bookmarks_reorder                (<em class="parameter"><code><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *bookmarks</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="type">FmBookmarkItem</span></a> *item</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> pos</code></em>);</pre>
 </div>
 </div>
-<div class="refsect1" title="Signal Details">
+<div class="refsect1">
 <a name="FmBookmarks.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" title='The "changed" signal'>
+<div class="refsect2">
 <a name="FmBookmarks-changed"></a><h3>The <code class="literal">"changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="type">FmBookmarks</span></a> *fmbookmarks,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)        : Run First</pre>
+                                                        <span class="type">gpointer</span>     user_data)        : <code class="literal">Run First</code></pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

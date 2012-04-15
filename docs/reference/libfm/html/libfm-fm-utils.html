@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-utils</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="FmDummyMonitor.html" title="FmDummyMonitor">
 <link rel="next" href="libfm-fm-file-info.html" title="fm-file-info">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="FmDummyMonitor.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="libfm-fm-file-info.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -26,7 +26,7 @@
                   <a href="#libfm-fm-utils.description" class="shortcut">Description</a>
 </td></tr>
 </table>
-<div class="refentry" title="fm-utils">
+<div class="refentry">
 <a name="libfm-fm-utils"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -35,60 +35,70 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="libfm-fm-utils.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-utils.html#fm-file-size-to-str" title="fm_file_size_to_str ()">fm_file_size_to_str</a>                 (<em class="parameter"><code><span class="type">char</span> *buf</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#goffset"><span class="type">goffset</span></a> size</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> si_prefix</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-utils.html#fm-key-file-get-int" title="fm_key_file_get_int ()">fm_key_file_get_int</a>                 (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *kf</code></em>,
+<pre class="synopsis"><span class="returnvalue">char</span> *              <a class="link" href="libfm-fm-utils.html#fm-canonicalize-filename" title="fm_canonicalize_filename ()">fm_canonicalize_filename</a>            (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *cwd</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="libfm-fm-utils.html#fm-file-size-to-str" title="fm_file_size_to_str ()">fm_file_size_to_str</a>                 (<em class="parameter"><code><span class="type">char</span> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">goffset</span> size</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> si_prefix</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-fm-utils.html#fm-key-file-get-bool" title="fm_key_file_get_bool ()">fm_key_file_get_bool</a>                (<em class="parameter"><code><span class="type">GKeyFile</span> *kf</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *grp</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> *val</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-fm-utils.html#fm-key-file-get-int" title="fm_key_file_get_int ()">fm_key_file_get_int</a>                 (<em class="parameter"><code><span class="type">GKeyFile</span> *kf</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *grp</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> *val</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libfm-fm-utils.html#fm-key-file-get-bool" title="fm_key_file_get_bool ()">fm_key_file_get_bool</a>                (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *kf</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *grp</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *val</code></em>);
-<span class="returnvalue">char</span>*               <a class="link" href="libfm-fm-utils.html#fm-canonicalize-filename" title="fm_canonicalize_filename ()">fm_canonicalize_filename</a>            (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *cwd</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="libfm-fm-utils.html#fm-str-replace" title="fm_str_replace ()">fm_str_replace</a>                      (<em class="parameter"><code><span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *old</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *new</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="libfm-fm-utils.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="libfm-fm-utils.details"></a><h2>Details</h2>
-<div class="refsect2" title="fm_file_size_to_str ()">
-<a name="fm-file-size-to-str"></a><h3>fm_file_size_to_str ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span>*               fm_file_size_to_str                 (<em class="parameter"><code><span class="type">char</span> *buf</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#goffset"><span class="type">goffset</span></a> size</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> si_prefix</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-canonicalize-filename"></a><h3>fm_canonicalize_filename ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              fm_canonicalize_filename            (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *cwd</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_key_file_get_int ()">
+<div class="refsect2">
+<a name="fm-file-size-to-str"></a><h3>fm_file_size_to_str ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              fm_file_size_to_str                 (<em class="parameter"><code><span class="type">char</span> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">goffset</span> size</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> si_prefix</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-key-file-get-bool"></a><h3>fm_key_file_get_bool ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_key_file_get_bool                (<em class="parameter"><code><span class="type">GKeyFile</span> *kf</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *grp</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> *val</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-key-file-get-int"></a><h3>fm_key_file_get_int ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_key_file_get_int                 (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *kf</code></em>,
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_key_file_get_int                 (<em class="parameter"><code><span class="type">GKeyFile</span> *kf</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *grp</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> *val</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_key_file_get_bool ()">
-<a name="fm-key-file-get-bool"></a><h3>fm_key_file_get_bool ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_key_file_get_bool                (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Key-value-file-parser.html#GKeyFile"><span class="type">GKeyFile</span></a> *kf</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *grp</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *val</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_canonicalize_filename ()">
-<a name="fm-canonicalize-filename"></a><h3>fm_canonicalize_filename ()</h3>
-<pre class="programlisting"><span class="returnvalue">char</span>*               fm_canonicalize_filename            (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *cwd</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-str-replace"></a><h3>fm_str_replace ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              fm_str_replace                      (<em class="parameter"><code><span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *old</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *new</code></em>);</pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

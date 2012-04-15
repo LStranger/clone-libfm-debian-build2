@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmJob</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="FmDirListJob.html" title="FmDirListJob">
 <link rel="next" href="FmSimpleJob.html" title="FmSimpleJob">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="FmDirListJob.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="FmSimpleJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -30,7 +30,7 @@
                   <a href="#FmJob.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmJob">
+<div class="refentry">
 <a name="FmJob"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,46 +39,46 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmJob.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">                    <a class="link" href="FmJob.html#FmJob-struct" title="FmJob">FmJob</a>;
-                    <a class="link" href="FmJob.html#FmJobClass" title="FmJobClass">FmJobClass</a>;
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            (<a class="link" href="FmJob.html#FmJobCallMainThreadFunc" title="FmJobCallMainThreadFunc ()">*FmJobCallMainThreadFunc</a>)          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmJob.html#fm-job-is-cancelled" title="fm_job_is_cancelled ()">fm_job_is_cancelled</a>                 (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmJob.html#fm-job-is-running" title="fm_job_is_running ()">fm_job_is_running</a>                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmJob.html#fm-job-run-async" title="fm_job_run_async ()">fm_job_run_async</a>                    (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmJob.html#fm-job-run-sync" title="fm_job_run_sync ()">fm_job_run_sync</a>                     (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmJob.html#fm-job-run-sync-with-mainloop" title="fm_job_run_sync_with_mainloop ()">fm_job_run_sync_with_mainloop</a>       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-cancel" title="fm_job_cancel ()">fm_job_cancel</a>                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="FmJob.html#fm-job-call-main-thread" title="fm_job_call_main_thread ()">fm_job_call_main_thread</a>             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="FmJob.html#FmJobCallMainThreadFunc" title="FmJobCallMainThreadFunc ()"><span class="type">FmJobCallMainThreadFunc</span></a> func</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-init-cancellable" title="fm_job_init_cancellable ()">fm_job_init_cancellable</a>             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<a href="/usr/share/gtk-doc/html/gio/GCancellable.html"><span class="returnvalue">GCancellable</span></a>*       <a class="link" href="FmJob.html#fm-job-get-cancellable" title="fm_job_get_cancellable ()">fm_job_get_cancellable</a>              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-set-cancellable" title="fm_job_set_cancellable ()">fm_job_set_cancellable</a>              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-finish" title="fm_job_finish ()">fm_job_finish</a>                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-emit-finished" title="fm_job_emit_finished ()">fm_job_emit_finished</a>                (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-emit-cancelled" title="fm_job_emit_cancelled ()">fm_job_emit_cancelled</a>               (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
-<span class="returnvalue">FmJobErrorAction</span>    <a class="link" href="FmJob.html#fm-job-emit-error" title="fm_job_emit_error ()">fm_job_emit_error</a>                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *err</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmJobErrorSeverity</span> severity</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="FmJob.html#fm-job-ask" title="fm_job_ask ()">fm_job_ask</a>                          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+<pre class="synopsis">struct              <a class="link" href="FmJob.html#FmJob-struct" title="struct FmJob">FmJob</a>;
+<span class="returnvalue">gpointer</span>            (<a class="link" href="FmJob.html#FmJobCallMainThreadFunc" title="FmJobCallMainThreadFunc ()">*FmJobCallMainThreadFunc</a>)          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
+struct              <a class="link" href="FmJob.html#FmJobClass" title="struct FmJobClass">FmJobClass</a>;
+<span class="returnvalue">gint</span>                <a class="link" href="FmJob.html#fm-job-ask" title="fm_job_ask ()">fm_job_ask</a>                          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="FmJob.html#fm-job-askv" title="fm_job_askv ()">fm_job_askv</a>                         (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> **options</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="FmJob.html#fm-job-ask-valist" title="fm_job_ask_valist ()">fm_job_ask_valist</a>                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+<span class="returnvalue">gint</span>                <a class="link" href="FmJob.html#fm-job-ask-valist" title="fm_job_ask_valist ()">fm_job_ask_valist</a>                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
                                                          <em class="parameter"><code><span class="type">va_list</span> options</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="FmJob.html#fm-job-askv" title="fm_job_askv ()">fm_job_askv</a>                         (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> **options</code></em>);
+<span class="returnvalue">gpointer</span>            <a class="link" href="FmJob.html#fm-job-call-main-thread" title="fm_job_call_main_thread ()">fm_job_call_main_thread</a>             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmJob.html#FmJobCallMainThreadFunc" title="FmJobCallMainThreadFunc ()"><span class="type">FmJobCallMainThreadFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-cancel" title="fm_job_cancel ()">fm_job_cancel</a>                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-emit-cancelled" title="fm_job_emit_cancelled ()">fm_job_emit_cancelled</a>               (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">FmJobErrorAction</span>    <a class="link" href="FmJob.html#fm-job-emit-error" title="fm_job_emit_error ()">fm_job_emit_error</a>                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> *err</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmJobErrorSeverity</span> severity</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-emit-finished" title="fm_job_emit_finished ()">fm_job_emit_finished</a>                (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-finish" title="fm_job_finish ()">fm_job_finish</a>                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">GCancellable</span> *      <a class="link" href="FmJob.html#fm-job-get-cancellable" title="fm_job_get_cancellable ()">fm_job_get_cancellable</a>              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-init-cancellable" title="fm_job_init_cancellable ()">fm_job_init_cancellable</a>             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmJob.html#fm-job-is-cancelled" title="fm_job_is_cancelled ()">fm_job_is_cancelled</a>                 (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmJob.html#fm-job-is-running" title="fm_job_is_running ()">fm_job_is_running</a>                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmJob.html#fm-job-run-async" title="fm_job_run_async ()">fm_job_run_async</a>                    (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmJob.html#fm-job-run-sync" title="fm_job_run_sync ()">fm_job_run_sync</a>                     (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmJob.html#fm-job-run-sync-with-mainloop" title="fm_job_run_sync_with_mainloop ()">fm_job_run_sync_with_mainloop</a>       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmJob.html#fm-job-set-cancellable" title="fm_job_set_cancellable ()">fm_job_set_cancellable</a>              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><span class="type">GCancellable</span> *cancellable</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmJob.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----FmJob
          +----<a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob">FmDeepCountJob</a>
          +----<a class="link" href="FmDirListJob.html" title="FmDirListJob">FmDirListJob</a>
@@ -87,28 +87,34 @@
          +----<a class="link" href="FmSimpleJob.html" title="FmSimpleJob">FmSimpleJob</a>
 </pre>
 </div>
-<div class="refsect1" title="Signals">
+<div class="refsect1">
 <a name="FmJob.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="FmJob.html#FmJob-ask" title='The "ask" signal'>ask</a>"                                            : Run Last
-  "<a class="link" href="FmJob.html#FmJob-cancelled" title='The "cancelled" signal'>cancelled</a>"                                      : Run First
-  "<a class="link" href="FmJob.html#FmJob-error" title='The "error" signal'>error</a>"                                          : Run Last
-  "<a class="link" href="FmJob.html#FmJob-finished" title='The "finished" signal'>finished</a>"                                       : Run First
+  "<a class="link" href="FmJob.html#FmJob-ask" title='The "ask" signal'>ask</a>"                                            : <code class="literal">Run Last</code>
+  "<a class="link" href="FmJob.html#FmJob-cancelled" title='The "cancelled" signal'>cancelled</a>"                                      : <code class="literal">Run First</code>
+  "<a class="link" href="FmJob.html#FmJob-error" title='The "error" signal'>error</a>"                                          : <code class="literal">Run Last</code>
+  "<a class="link" href="FmJob.html#FmJob-finished" title='The "finished" signal'>finished</a>"                                       : <code class="literal">Run First</code>
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmJob.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmJob.details"></a><h2>Details</h2>
-<div class="refsect2" title="FmJob">
-<a name="FmJob-struct"></a><h3>FmJob</h3>
-<pre class="programlisting">typedef struct _FmJob FmJob;</pre>
+<div class="refsect2">
+<a name="FmJob-struct"></a><h3>struct FmJob</h3>
+<pre class="programlisting">struct FmJob;</pre>
 </div>
 <hr>
-<div class="refsect2" title="FmJobClass">
-<a name="FmJobClass"></a><h3>FmJobClass</h3>
-<pre class="programlisting">typedef struct {
+<div class="refsect2">
+<a name="FmJobCallMainThreadFunc"></a><h3>FmJobCallMainThreadFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>            (*FmJobCallMainThreadFunc)          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmJobClass"></a><h3>struct FmJobClass</h3>
+<pre class="programlisting">struct FmJobClass {
 	GObjectClass parent_class;
 
 	void (*finished)(FmJob* job);
@@ -119,145 +125,139 @@
 	gboolean (*run_async)(FmJob* job);
 	gboolean (*run)(FmJob* job);
 	void (*cancel)(FmJob* job);
-} FmJobClass;
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FmJobCallMainThreadFunc ()">
-<a name="FmJobCallMainThreadFunc"></a><h3>FmJobCallMainThreadFunc ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            (*FmJobCallMainThreadFunc)          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_is_cancelled ()">
-<a name="fm-job-is-cancelled"></a><h3>fm_job_is_cancelled ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_job_is_cancelled                 (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_is_running ()">
-<a name="fm-job-is-running"></a><h3>fm_job_is_running ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_job_is_running                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_run_async ()">
-<a name="fm-job-run-async"></a><h3>fm_job_run_async ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_job_run_async                    (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_run_sync ()">
-<a name="fm-job-run-sync"></a><h3>fm_job_run_sync ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_job_run_sync                     (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_run_sync_with_mainloop ()">
-<a name="fm-job-run-sync-with-mainloop"></a><h3>fm_job_run_sync_with_mainloop ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_job_run_sync_with_mainloop       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_cancel ()">
-<a name="fm-job-cancel"></a><h3>fm_job_cancel ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_cancel                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_call_main_thread ()">
-<a name="fm-job-call-main-thread"></a><h3>fm_job_call_main_thread ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            fm_job_call_main_thread             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="FmJob.html#FmJobCallMainThreadFunc" title="FmJobCallMainThreadFunc ()"><span class="type">FmJobCallMainThreadFunc</span></a> func</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_init_cancellable ()">
-<a name="fm-job-init-cancellable"></a><h3>fm_job_init_cancellable ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_init_cancellable             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_get_cancellable ()">
-<a name="fm-job-get-cancellable"></a><h3>fm_job_get_cancellable ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gio/GCancellable.html"><span class="returnvalue">GCancellable</span></a>*       fm_job_get_cancellable              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_set_cancellable ()">
-<a name="fm-job-set-cancellable"></a><h3>fm_job_set_cancellable ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_set_cancellable              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_finish ()">
-<a name="fm-job-finish"></a><h3>fm_job_finish ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_finish                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_emit_finished ()">
-<a name="fm-job-emit-finished"></a><h3>fm_job_emit_finished ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_emit_finished                (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_emit_cancelled ()">
-<a name="fm-job-emit-cancelled"></a><h3>fm_job_emit_cancelled ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_emit_cancelled               (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_emit_error ()">
-<a name="fm-job-emit-error"></a><h3>fm_job_emit_error ()</h3>
-<pre class="programlisting"><span class="returnvalue">FmJobErrorAction</span>    fm_job_emit_error                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *err</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmJobErrorSeverity</span> severity</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_job_ask ()">
+<div class="refsect2">
 <a name="fm-job-ask"></a><h3>fm_job_ask ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                fm_job_ask                          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+<pre class="programlisting"><span class="returnvalue">gint</span>                fm_job_ask                          (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
                                                          <em class="parameter"><code>...</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_job_askv ()">
+<div class="refsect2">
+<a name="fm-job-ask-valist"></a><h3>fm_job_ask_valist ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                fm_job_ask_valist                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> options</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-job-askv"></a><h3>fm_job_askv ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                fm_job_askv                         (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+<pre class="programlisting"><span class="returnvalue">gint</span>                fm_job_askv                         (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> **options</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_job_ask_valist ()">
-<a name="fm-job-ask-valist"></a><h3>fm_job_ask_valist ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                fm_job_ask_valist                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *question</code></em>,
-                                                         <em class="parameter"><code><span class="type">va_list</span> options</code></em>);</pre>
-</div>
-</div>
-<div class="refsect1" title="Signal Details">
-<a name="FmJob.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" title='The "ask" signal'>
-<a name="FmJob-ask"></a><h3>The <code class="literal">"ask"</code> signal</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                user_function                      (<a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a>   *fmjob,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> arg2,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run Last</pre>
+<div class="refsect2">
+<a name="fm-job-call-main-thread"></a><h3>fm_job_call_main_thread ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>            fm_job_call_main_thread             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmJob.html#FmJobCallMainThreadFunc" title="FmJobCallMainThreadFunc ()"><span class="type">FmJobCallMainThreadFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title='The "cancelled" signal'>
+<div class="refsect2">
+<a name="fm-job-cancel"></a><h3>fm_job_cancel ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_cancel                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-emit-cancelled"></a><h3>fm_job_emit_cancelled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_emit_cancelled               (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-emit-error"></a><h3>fm_job_emit_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">FmJobErrorAction</span>    fm_job_emit_error                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> *err</code></em>,
+                                                         <em class="parameter"><code><span class="type">FmJobErrorSeverity</span> severity</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-emit-finished"></a><h3>fm_job_emit_finished ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_emit_finished                (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-finish"></a><h3>fm_job_finish ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_finish                       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-get-cancellable"></a><h3>fm_job_get_cancellable ()</h3>
+<pre class="programlisting"><span class="returnvalue">GCancellable</span> *      fm_job_get_cancellable              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-init-cancellable"></a><h3>fm_job_init_cancellable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_init_cancellable             (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-is-cancelled"></a><h3>fm_job_is_cancelled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_job_is_cancelled                 (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-is-running"></a><h3>fm_job_is_running ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_job_is_running                   (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-run-async"></a><h3>fm_job_run_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_job_run_async                    (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-run-sync"></a><h3>fm_job_run_sync ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_job_run_sync                     (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-run-sync-with-mainloop"></a><h3>fm_job_run_sync_with_mainloop ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_job_run_sync_with_mainloop       (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-job-set-cancellable"></a><h3>fm_job_set_cancellable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_job_set_cancellable              (<em class="parameter"><code><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> *job</code></em>,
+                                                         <em class="parameter"><code><span class="type">GCancellable</span> *cancellable</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="FmJob.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="FmJob-ask"></a><h3>The <code class="literal">"ask"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                user_function                      (<a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a>   *fmjob,
+                                                        <span class="type">gpointer</span> arg1,
+                                                        <span class="type">gpointer</span> arg2,
+                                                        <span class="type">gpointer</span> user_data)      : <code class="literal">Run Last</code></pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="FmJob-cancelled"></a><h3>The <code class="literal">"cancelled"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a>   *fmjob,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span> user_data)      : <code class="literal">Run First</code></pre>
 </div>
 <hr>
-<div class="refsect2" title='The "error" signal'>
+<div class="refsect2">
 <a name="FmJob-error"></a><h3>The <code class="literal">"error"</code> signal</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                user_function                      (<a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a>   *fmjob,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>     arg2,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run Last</pre>
+<pre class="programlisting"><span class="returnvalue">gint</span>                user_function                      (<a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a>   *fmjob,
+                                                        <span class="type">gpointer</span> arg1,
+                                                        <span class="type">gint</span>     arg2,
+                                                        <span class="type">gpointer</span> user_data)      : <code class="literal">Run Last</code></pre>
 </div>
 <hr>
-<div class="refsect2" title='The "finished" signal'>
+<div class="refsect2">
 <a name="FmJob-finished"></a><h3>The <code class="literal">"finished"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a>   *fmjob,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span> user_data)      : <code class="literal">Run First</code></pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

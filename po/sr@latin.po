@@ -8,15 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 02:06+0800\n"
-"PO-Revision-Date: 2010-06-07 12:24+0100\n"
-"Last-Translator: Jay Alexander Fleming <tito.nehru.naser@gmail.com>\n"
+"POT-Creation-Date: 2011-08-09 21:06+0200\n"
+"PO-Revision-Date: 2010-11-02 01:34+0100\n"
+"Last-Translator: Jay A. Fleming <tito.nehru.naser@gmail.com>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Serbian\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -49,7 +50,7 @@ msgstr "Izaberite program"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr "Prila naredba"
+msgstr "Koristi proizvoljnu naredbu"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
@@ -61,11 +62,11 @@ msgstr "Postojeći programi"
 
 #: ../data/ui/app-chooser.glade.h:13
 msgid "Set selected application as default action of this file type"
-msgstr "Označite odabrani program kao podrazumevan za ovaj tip datoteka"
+msgstr "Uvek otvori ovaj tip datoteka ovim programom"
 
 #: ../data/ui/app-chooser.glade.h:14
 msgid "_Browse"
-msgstr "Pre_traži"
+msgstr "_Razgledaj"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid ""
@@ -79,7 +80,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Primeni ovo podešavaǌe na sve postojeće datoteke"
+msgstr "Primeni ovo podešavanje na sve postojeće datoteke"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -179,7 +180,7 @@ msgstr "Nijedan"
 
 #: ../data/ui/file-prop.glade.h:19
 msgid "Operations that all other users can do"
-msgstr "Radǌe koje su dozvoǉene ostalim korisnicima"
+msgstr "Radnje koje su dozvoljene ostalim korisnicima"
 
 #: ../data/ui/file-prop.glade.h:20
 msgid "Operations that the owner of the file can do"
@@ -281,42 +282,51 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
 "Za otvaranje internet adresa koristiće se podrazumevani Pregledač veba."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
-#, fuzzy, c-format
+#: ../data/ui/exec-file.glade.h:1
+msgid "Execute File"
+msgstr "Pokreni datoteku"
+
+#: ../data/ui/exec-file.glade.h:2
+msgid "Execute in _Terminal"
+msgstr "Pokreni u emulatoru _terminala"
+
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
+#, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bajt"
-msgstr[1] "%u bajtova"
+msgstr[1] "%u bajta"
+msgstr[2] "%u bajta"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -336,7 +346,7 @@ msgstr "Nepotrebno"
 msgid "My Computer"
 msgstr "Računar"
 
-#: ../src/base/fm-path.c:739
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Programi"
 
@@ -344,11 +354,11 @@ msgstr "Programi"
 msgid "Network"
 msgstr "Mreža"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -359,7 +369,7 @@ msgstr ""
 "Veličina: %s\n"
 "Izmenjeno: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -368,23 +378,23 @@ msgstr ""
 "Vrsta: %s\n"
 "Izmenjeno: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Radnja nad datotekom je poništena. Dogodile su se neke greške."
 
-#: ../src/gtk/fm-progress-dlg.c:311
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "Poništeno"
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "Radnja nad datotekom je završena, ali su se dogodile i neke greške."
 
-#: ../src/gtk/fm-progress-dlg.c:317
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "Završeno"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -394,40 +404,40 @@ msgstr ""
 "datoteka ne podržava\n"
 " ovu operaciju. Želite li da ih trajno uklonite?"
 
-#: ../src/gtk/fm-progress-dlg.c:429
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:444
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "Premeštanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:447
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "Umnožavanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:450
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "Premeštanje u Nepotrebno"
 
-#: ../src/gtk/fm-progress-dlg.c:453
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "Brisanje datoteka"
 
-#: ../src/gtk/fm-progress-dlg.c:456
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "Pravljenje mekih veza"
 
-#: ../src/gtk/fm-progress-dlg.c:459
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "Izmena osobina datoteke"
 
 #: ../src/gtk/fm-file-properties.c:117 ../src/gtk/fm-file-properties.c:122
-#, fuzzy
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "%u bajt"
-msgstr[1] "%u bajtova"
+msgstr[1] "%u bajta"
+msgstr[2] "%u bajta"
 
 #: ../src/gtk/fm-file-properties.c:176
 msgid "Please enter a valid user name or numeric id."
@@ -448,7 +458,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Datoteke različitih vrsta"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Višestruke datoteke"
 
@@ -465,7 +475,7 @@ msgid "Eject Removable Media"
 msgstr "Izbaci prenosivi medij"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Preimenuj obeleživač"
 
@@ -477,47 +487,59 @@ msgstr "Ukloni obeleživač"
 msgid "Empty Trash"
 msgstr "Obriši datoteke iz Nepotrebno"
 
-#: ../src/gtk/fm-places-view.c:658
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Unesite novo ime:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "Otvori pomoću..."
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
 msgstr "Napravi meku vezu"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
 msgstr "Pošalji..."
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
 msgstr "Napravi arhivu..."
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
 msgstr "Raspakuj ovde"
 
-#: ../src/gtk/fm-file-menu.c:95
+#: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
 msgstr "Raspakuj..."
 
-#: ../src/gtk/fm-file-menu.c:250
+#: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
 msgstr "Po_vrati"
 
-#: ../src/gtk/fm-file-menu.c:251
+#: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
 msgstr "Vrati datoteke iz Nepotrebno na originalne lokacije"
 
-#: ../src/gtk/fm-dnd-dest.c:447
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave nije uspelo."
 
@@ -533,19 +555,19 @@ msgstr "Pokreni proizvoljnu naredbu za otvaranje datoteka"
 msgid "Customize"
 msgstr "Prilagodi"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Ime"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Veličina"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Izmenjeno"
 
@@ -557,33 +579,67 @@ msgstr "Dostupni programi"
 msgid "Error"
 msgstr "Greška"
 
-#: ../src/gtk/fm-gtk-utils.c:254
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "Opis"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "Izaberite direktorijum"
 
-#: ../src/gtk/fm-gtk-utils.c:403
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "Ovu radnju može izvršiti samo administrator sistema."
 
-#: ../src/gtk/fm-gtk-utils.c:482
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
-msgstr "Želite li da premestite odabrane datoteke u Nepotrebno?"
+msgstr "Želite li da premestite izabrane datoteke u Nepotrebno?"
 
-#: ../src/gtk/fm-gtk-utils.c:503
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
-msgstr "Želite li da obrišete odabrane datoteke?"
+msgstr "Želite li da obrišete izabrane datoteke?"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "Preimenuj datoteku"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "Unesite novo ime: "
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Jeste li sigurni da želite da obrišete datoteke iz Nepotrebno?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:115
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+"Datoteka „%s“ je označena kao izvršna skripta.\n"
+"Šta želite da uradite sa njom?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:122
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr ""
+"Datoteka „%s“ je označena kao program.\n"
+"Želite li da je pokrenete?"
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "Priprema..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -597,18 +653,205 @@ msgstr "Izvor i odredište su isti."
 
 #: ../src/job/fm-file-ops-job-xfer.c:60
 msgid "Cannot move a folder into its sub folder"
-msgstr "Ne može se premeštati direktorijum u ǌegov poddirektorijum"
+msgstr "Ne može se premeštati direktorijum u njegov poddirektorijum"
 
 #: ../src/job/fm-file-ops-job-xfer.c:62
 msgid "Cannot copy a folder into its sub folder"
-msgstr "Ne može se umnožavati direktorijum u ǌegov poddirektorijum"
+msgstr "Ne može se umnožavati direktorijum u njegov poddirektorijum"
 
 #: ../src/job/fm-file-ops-job-xfer.c:64
 msgid "Destination is a sub folder of source"
 msgstr "Odredište je poddirektorijum izvora"
 
-#~ msgid "Trash"
-#~ msgstr "Nepotrebno"
+#: ../src/gtk/fm-places-model.c:451
+msgid "Trash"
+msgstr "Nepotrebno"
 
-#~ msgid "Desktop"
-#~ msgstr "Radna površ"
+#: ../src/gtk/fm-places-model.c:509
+msgid "Desktop"
+msgstr "Radna površ"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr "Običan disk"
+
+#: ../src/udisks/g-udisks-device.c:41
+msgid "Blank CD-ROM Disc"
+msgstr "Prazan jednom-upisiv disk"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr "Jednom-upisiv disk"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr "Prazan jednom-upisiv disk"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr "Piši-briši disk"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr "Prazan piši-briši disk"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr "Jednom upisivi DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "Blank DVD-ROM Disc"
+msgstr "Prazan jednom-upisivi DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr "Piši-briši DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr "Prazan piši-briši DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:47
+#, fuzzy
+msgid "DVD-RAM Disc"
+msgstr "Memorijski - DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:47
+#, fuzzy
+msgid "Blank DVD-RAM Disc"
+msgstr "Prazan - DVD memorijski disk"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr "Jednom upisivi + DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr "Prazan jednom-upisivi + DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr "Piši-briši + DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr "Prazan piši-briši + DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
+msgid "DVD+R DL Disc"
+msgstr "Jednom upisivi + DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
+msgid "Blank DVD+R DL Disc"
+msgstr "Prazan jednom upisivi + DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
+msgid "DVD+RW DL Disc"
+msgstr "Piši+briši DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
+msgid "Blank DVD+RW DL Disc"
+msgstr "Prazan piši+briši DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
+msgid "Blu-Ray Disc"
+msgstr "Jednom-upisiv disk"
+
+#: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
+msgid "Blank Blu-Ray Disc"
+msgstr "Prazan jednom-upisiv disk"
+
+#: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
+msgid "Blu-Ray R Disc"
+msgstr "Jednom upisivi - DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
+msgid "Blank Blu-Ray R Disc"
+msgstr "Prazan jednom upisivi - DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
+msgid "Blu-Ray RW Disc"
+msgstr "Piši-briši DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
+msgid "Blank Blu-Ray RW Disc"
+msgstr "Prazan piši-briši disk"
+
+#: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
+msgid "HD DVD Disc"
+msgstr "Jednom upisivi - DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
+msgid "Blank HD DVD Disc"
+msgstr "Prazan jednom upisivi - DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
+msgid "HD DVD-R Disc"
+msgstr "Jednom upisivi - DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
+msgid "Blank HD DVD-R Disc"
+msgstr "Prazan jednom upisivi - DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
+msgid "HD DVD-RW Disc"
+msgstr "Piši-briši DVD disk"
+
+#: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
+msgid "Blank HD DVD-RW Disc"
+msgstr "Prazan piši-briši disk"
+
+#: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
+msgid "MO Disc"
+msgstr "CD disk"
+
+#: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
+msgid "Blank MO Disc"
+msgstr "Prazan disk"
+
+#: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
+msgid "MRW Disc"
+msgstr "Piši-briši CD disk"
+
+#: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
+msgid "Blank MRW Disc"
+msgstr "Prazan piši-briši CD disk"
+
+#: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
+msgid "MRW/W Disc"
+msgstr "Piši-briši CD disk"
+
+#: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
+msgid "Blank MRW/W Disc"
+msgstr "Prazan piši-briši CD disk"
+
+#: ../src/udisks/g-udisks-device.c:299
+msgid "Blank Optical Disc"
+msgstr "Prazan optički disk"
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr "Optički disk"

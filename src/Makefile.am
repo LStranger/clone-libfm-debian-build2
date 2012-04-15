@@ -1,4 +1,5 @@
-include $(top_srcdir)/Makefile.decl
+# for use in libtool -version-info
+ABI_VERSION=1:0:0
 
 # current dir needs to be built before tests
 SUBDIRS=. tests
@@ -15,6 +16,17 @@ AM_CPPFLAGS = \
 	-DPACKAGE_UI_DIR=\""$(datadir)/libfm/ui"\" \
 	-DPACKAGE_LIB_DIR=\""$(libdir)/libfm"\" \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
+	$(NULL)
+
+glib_compat_SOURCES= \
+	glib-compat.c \
+	glib-compat.h \
+	$(NULL)
+
+gtk_compat_SOURCES= \
+	$(glib_compat_SOURCES) \
+	gtk-compat.c \
+	gtk-compat.h \
 	$(NULL)
 
 if ENABLE_UDISKS
@@ -53,6 +65,7 @@ base_SOURCES = \
 	base/fm-monitor.c \
 	base/fm-dummy-monitor.c \
 	base/fm-archiver.c \
+	base/fm-app-info.c \
 	base/fm-marshal.c \
 	$(NULL)
 
@@ -70,6 +83,7 @@ job_SOURCES = \
 
 libfm_SOURCES = \
 	fm.c \
+	$(glib_compat_SOURCES) \
 	$(base_SOURCES) \
 	$(job_SOURCES) \
 	$(udisks_SOURCES) \
@@ -90,11 +104,15 @@ exo_SOURCES = \
 
 libfm_gtk_SOURCES = \
 	fm-gtk.c \
+	$(gtk_compat_SOURCES) \
 	$(exo_SOURCES) \
 	gtk/fm-folder-view.c \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
 	gtk/fm-places-model.c \
+	gtk/fm-dir-tree-view.c \
+	gtk/fm-dir-tree-model.c \
+	gtk/fm-side-pane.c \
 	gtk/fm-app-menu-view.c \
 	gtk/fm-app-chooser-dlg.c \
 	gtk/fm-app-chooser-combo-box.c \
@@ -110,8 +128,10 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-dest.c \
 	gtk/fm-dnd-auto-scroll.c \
 	gtk/fm-gtk-utils.c \
+	gtk/fm-gtk-file-launcher.c \
 	gtk/fm-thumbnail.c \
 	gtk/fm-tab-label.c \
+	gtk/fm-path-bar.c \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
@@ -132,6 +152,7 @@ libfminclude_HEADERS = \
 	base/fm-monitor.h \
 	base/fm-dummy-monitor.h \
 	base/fm-archiver.h \
+	base/fm-app-info.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -151,6 +172,9 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
 	gtk/fm-places-model.h \
+	gtk/fm-dir-tree-view.h \
+	gtk/fm-dir-tree-model.h \
+	gtk/fm-side-pane.h \
 	gtk/fm-app-menu-view.h \
 	gtk/fm-app-chooser-dlg.h \
 	gtk/fm-app-chooser-combo-box.h \
@@ -166,8 +190,10 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-dnd-dest.h \
 	gtk/fm-dnd-auto-scroll.h \
 	gtk/fm-gtk-utils.h \
+	gtk/fm-gtk-file-launcher.h \
 	gtk/fm-thumbnail.h \
 	gtk/fm-tab-label.h \
+	gtk/fm-path-bar.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
@@ -198,6 +224,7 @@ libfm_la_LIBADD = \
 libfm_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
+	-version-info $(ABI_VERSION) \
 	$(NULL)
 
 
@@ -208,6 +235,7 @@ libfm_gtk_la_SOURCES = \
 libfm_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GIO_CFLAGS) \
+	$(PANGO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
@@ -217,6 +245,7 @@ libfm_gtk_la_CFLAGS = \
 libfm_gtk_la_LIBADD = \
 	$(GTK_LIBS) \
 	$(GIO_LIBS) \
+	$(PANGO_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
@@ -225,11 +254,13 @@ libfm_gtk_la_LIBADD = \
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
+	-version-info $(ABI_VERSION) \
 	$(NULL)
 
 bin_PROGRAMS = libfm-pref-apps
 
 libfm_pref_apps_SOURCES = \
+	$(gtk_compat_SOURCES) \
 	tools/libfm-pref-apps.c \
 	$(NULL)
 
@@ -245,12 +276,14 @@ libfm_pref_apps_LDADD = \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
 	libfm-gtk.la \
+	libfm.la \
 	$(NULL)
 
 
 if ENABLE_DEMO
 bin_PROGRAMS += libfm-demo
 libfm_demo_SOURCES = \
+	$(gtk_compat_SOURCES) \
 	demo/libfm-demo.c \
 	demo/main-win.c demo/main-win.h \
 	$(NULL)
@@ -272,10 +305,14 @@ endif
 
 
 # GIO module implementing some extension points
+# This only works for glib < 2.27
+# Glib >= 2.27 uses x-scheme-handler.
+if !HAVE_SCHEME_HANDLER
 
 giomodules_LTLIBRARIES = libgiofm.la
 
 libgiofm_la_SOURCES= \
+	$(glib_compat_SOURCES) \
 	gio/module.c \
 	gio/fm-app-lookup.c \
 	gio/fm-app-lookup.h \
@@ -301,6 +338,8 @@ libgiofm_la_LIBADD = \
 	$(INTLLIBS) \
 	$(NULL)
 
+endif
+
 
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
@@ -323,9 +362,10 @@ BUILT_SOURCES= \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-EXTRA_DIST += \
+EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
+	gtk/exo/README \
 	demo/main-win-ui.c \
 	udisks/gen-binding \
 	udisks/udisks.h \
@@ -337,24 +377,6 @@ CLEANFILES = \
 	base/fm-marshal.c \
 	gtk/fm-gtk-marshal.h \
 	gtk/fm-gtk-marshal.c \
-	$(NULL)
-
-# Wrapper program named gnome-terminal used to override the default terminal
-# of glib/gio since it calls gnome-terminal when a term is needed, and this
-# is hard coded in glib.
-pkglib_PROGRAMS=gnome-terminal
-
-gnome_terminal_SOURCES = \
-	gnome-terminal-wrapper.c \
-	$(NULL)
-
-gnome_terminal_CFLAGS = \
-	$(GLIB_CFLAGS) \
-	-Werror-implicit-function-declaration \
-	$(NULL)
-
-gnome_terminal_LDADD = \
-	$(GLIB_LIBS) \
 	$(NULL)
 
 # A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget

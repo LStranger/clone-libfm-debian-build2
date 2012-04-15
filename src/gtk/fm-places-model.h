@@ -66,7 +66,8 @@ typedef enum
 
 typedef struct _FmPlaceItem
 {
-    FmPlaceType type;
+    FmPlaceType type : 6;
+    gboolean vol_mounted : 1;
     FmFileInfo* fi;
     union
     {
@@ -89,6 +90,7 @@ struct _FmPlacesModel
     guint theme_change_handler;
     guint use_trash_change_handler;
     guint pane_icon_size_change_handler;
+    GdkPixbuf* eject_icon;
 
     GSList* jobs;
 };
@@ -99,8 +101,8 @@ struct _FmPlacesModelClass
 };
 
 
-GType        fm_places_model_get_type        (void);
-GtkListStore*    fm_places_model_new            (void);
+GType fm_places_model_get_type        (void);
+GtkListStore* fm_places_model_new            (void);
 
 const GtkTreePath* fm_places_model_get_separator_path(FmPlacesModel* model);
 
@@ -109,6 +111,14 @@ gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it
 gboolean fm_places_model_path_is_separator(FmPlacesModel* model, GtkTreePath* tp);
 gboolean fm_places_model_path_is_bookmark(FmPlacesModel* model, GtkTreePath* tp);
 gboolean fm_places_model_path_is_places(FmPlacesModel* model, GtkTreePath* tp);
+
+void fm_places_model_mount_indicator_cell_data_func(GtkCellLayout *cell_layout,
+                                           GtkCellRenderer *render,
+                                           GtkTreeModel *tree_model,
+                                           GtkTreeIter *it,
+                                           gpointer user_data);
+
+gboolean fm_places_model_find_path(FmPlacesModel* model, GtkTreeIter* iter, FmPath* path);
 
 G_END_DECLS
 

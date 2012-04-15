@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmDeepCountJob</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="FmFileInfoJob.html" title="FmFileInfoJob">
 <link rel="next" href="FmFileOpsJob.html" title="FmFileOpsJob">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="FmFileInfoJob.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="FmFileOpsJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -28,7 +28,7 @@
                   <a href="#FmDeepCountJob.object-hierarchy" class="shortcut">Object Hierarchy</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmDeepCountJob">
+<div class="refentry">
 <a name="FmDeepCountJob"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -37,87 +37,57 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmDeepCountJob.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">#define             <a class="link" href="FmDeepCountJob.html#FM-DEEP-COUNT-JOB-TYPE:CAPS" title="FM_DEEP_COUNT_JOB_TYPE">FM_DEEP_COUNT_JOB_TYPE</a>
-#define             <a class="link" href="FmDeepCountJob.html#FM-DEEP-COUNT-JOB:CAPS" title="FM_DEEP_COUNT_JOB()">FM_DEEP_COUNT_JOB</a>                   (obj)
-#define             <a class="link" href="FmDeepCountJob.html#FM-DEEP-COUNT-JOB-CLASS:CAPS" title="FM_DEEP_COUNT_JOB_CLASS()">FM_DEEP_COUNT_JOB_CLASS</a>             (klass)
-#define             <a class="link" href="FmDeepCountJob.html#IS-FM-DEEP-COUNT-JOB:CAPS" title="IS_FM_DEEP_COUNT_JOB()">IS_FM_DEEP_COUNT_JOB</a>                (obj)
-#define             <a class="link" href="FmDeepCountJob.html#IS-FM-DEEP-COUNT-JOB-CLASS:CAPS" title="IS_FM_DEEP_COUNT_JOB_CLASS()">IS_FM_DEEP_COUNT_JOB_CLASS</a>          (klass)
-                    <a class="link" href="FmDeepCountJob.html#FmDeepCountJob-struct" title="FmDeepCountJob">FmDeepCountJob</a>;
-                    <a class="link" href="FmDeepCountJob.html#FmDeepCountJobClass" title="FmDeepCountJobClass">FmDeepCountJobClass</a>;
-<a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               <a class="link" href="FmDeepCountJob.html#fm-deep-count-job-get-type" title="fm_deep_count_job_get_type ()">fm_deep_count_job_get_type</a>          (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              <a class="link" href="FmDeepCountJob.html#fm-deep-count-job-new" title="fm_deep_count_job_new ()">fm_deep_count_job_new</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
+struct              <a class="link" href="FmDeepCountJob.html#FmDeepCountJob-struct" title="struct FmDeepCountJob">FmDeepCountJob</a>;
+struct              <a class="link" href="FmDeepCountJob.html#FmDeepCountJobClass" title="struct FmDeepCountJobClass">FmDeepCountJobClass</a>;
+<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             <a class="link" href="FmDeepCountJob.html#fm-deep-count-job-new" title="fm_deep_count_job_new ()">fm_deep_count_job_new</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
                                                          <em class="parameter"><code><span class="type">FmDeepCountJobFlags</span> flags</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmDeepCountJob.html#fm-deep-count-job-set-dest" title="fm_deep_count_job_set_dest ()">fm_deep_count_job_set_dest</a>          (<em class="parameter"><code><a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="type">FmDeepCountJob</span></a> *dc</code></em>,
                                                          <em class="parameter"><code><span class="type">dev_t</span> dev</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *fs_id</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmDeepCountJob.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----<a class="link" href="FmJob.html" title="FmJob">FmJob</a>
          +----FmDeepCountJob
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmDeepCountJob.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmDeepCountJob.details"></a><h2>Details</h2>
-<div class="refsect2" title="FM_DEEP_COUNT_JOB_TYPE">
+<div class="refsect2">
 <a name="FM-DEEP-COUNT-JOB-TYPE:CAPS"></a><h3>FM_DEEP_COUNT_JOB_TYPE</h3>
 <pre class="programlisting">#define FM_DEEP_COUNT_JOB_TYPE				(fm_deep_count_job_get_type())
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_DEEP_COUNT_JOB()">
-<a name="FM-DEEP-COUNT-JOB:CAPS"></a><h3>FM_DEEP_COUNT_JOB()</h3>
-<pre class="programlisting">#define             FM_DEEP_COUNT_JOB(obj)</pre>
+<div class="refsect2">
+<a name="FmDeepCountJob-struct"></a><h3>struct FmDeepCountJob</h3>
+<pre class="programlisting">struct FmDeepCountJob;</pre>
 </div>
 <hr>
-<div class="refsect2" title="FM_DEEP_COUNT_JOB_CLASS()">
-<a name="FM-DEEP-COUNT-JOB-CLASS:CAPS"></a><h3>FM_DEEP_COUNT_JOB_CLASS()</h3>
-<pre class="programlisting">#define             FM_DEEP_COUNT_JOB_CLASS(klass)</pre>
-</div>
-<hr>
-<div class="refsect2" title="IS_FM_DEEP_COUNT_JOB()">
-<a name="IS-FM-DEEP-COUNT-JOB:CAPS"></a><h3>IS_FM_DEEP_COUNT_JOB()</h3>
-<pre class="programlisting">#define             IS_FM_DEEP_COUNT_JOB(obj)</pre>
-</div>
-<hr>
-<div class="refsect2" title="IS_FM_DEEP_COUNT_JOB_CLASS()">
-<a name="IS-FM-DEEP-COUNT-JOB-CLASS:CAPS"></a><h3>IS_FM_DEEP_COUNT_JOB_CLASS()</h3>
-<pre class="programlisting">#define             IS_FM_DEEP_COUNT_JOB_CLASS(klass)</pre>
-</div>
-<hr>
-<div class="refsect2" title="FmDeepCountJob">
-<a name="FmDeepCountJob-struct"></a><h3>FmDeepCountJob</h3>
-<pre class="programlisting">typedef struct _FmDeepCountJob FmDeepCountJob;</pre>
-</div>
-<hr>
-<div class="refsect2" title="FmDeepCountJobClass">
-<a name="FmDeepCountJobClass"></a><h3>FmDeepCountJobClass</h3>
-<pre class="programlisting">typedef struct {
+<div class="refsect2">
+<a name="FmDeepCountJobClass"></a><h3>struct FmDeepCountJobClass</h3>
+<pre class="programlisting">struct FmDeepCountJobClass {
 	FmJobClass parent_class;
-} FmDeepCountJobClass;
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_deep_count_job_get_type ()">
-<a name="fm-deep-count-job-get-type"></a><h3>fm_deep_count_job_get_type ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>               fm_deep_count_job_get_type          (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_deep_count_job_new ()">
+<div class="refsect2">
 <a name="fm-deep-count-job-new"></a><h3>fm_deep_count_job_new ()</h3>
-<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              fm_deep_count_job_new               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
+<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             fm_deep_count_job_new               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
                                                          <em class="parameter"><code><span class="type">FmDeepCountJobFlags</span> flags</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_deep_count_job_set_dest ()">
+<div class="refsect2">
 <a name="fm-deep-count-job-set-dest"></a><h3>fm_deep_count_job_set_dest ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_deep_count_job_set_dest          (<em class="parameter"><code><a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="type">FmDeepCountJob</span></a> *dc</code></em>,
                                                          <em class="parameter"><code><span class="type">dev_t</span> dev</code></em>,
@@ -127,6 +97,6 @@
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

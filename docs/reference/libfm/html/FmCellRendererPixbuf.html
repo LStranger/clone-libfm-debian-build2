@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmCellRendererPixbuf</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="FmFolderModel.html" title="FmFolderModel">
-<link rel="next" href="libfm-FmDirTreeModel.html" title="FmDirTreeModel">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="next" href="FmDirTreeModel.html" title="FmDirTreeModel">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="FmFolderModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-FmDirTreeModel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<th width="100%" align="center">Libfm Reference Manual</th>
+<td><a accesskey="n" href="FmDirTreeModel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmCellRendererPixbuf.synopsis" class="shortcut">Top</a>
@@ -30,7 +30,7 @@
                   <a href="#FmCellRendererPixbuf.properties" class="shortcut">Properties</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmCellRendererPixbuf">
+<div class="refentry">
 <a name="FmCellRendererPixbuf"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,76 +39,76 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmCellRendererPixbuf.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">                    <a class="link" href="FmCellRendererPixbuf.html#FmCellRendererPixbuf-struct" title="FmCellRendererPixbuf">FmCellRendererPixbuf</a>;
-                    <a class="link" href="FmCellRendererPixbuf.html#FmCellRendererPixbufClass" title="FmCellRendererPixbufClass">FmCellRendererPixbufClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkCellRenderer.html"><span class="returnvalue">GtkCellRenderer</span></a>*    <a class="link" href="FmCellRendererPixbuf.html#fm-cell-renderer-pixbuf-new" title="fm_cell_renderer_pixbuf_new ()">fm_cell_renderer_pixbuf_new</a>         (<em class="parameter"><code><span class="type">void</span></code></em>);
+<pre class="synopsis">struct              <a class="link" href="FmCellRendererPixbuf.html#FmCellRendererPixbuf-struct" title="struct FmCellRendererPixbuf">FmCellRendererPixbuf</a>;
+struct              <a class="link" href="FmCellRendererPixbuf.html#FmCellRendererPixbufClass" title="struct FmCellRendererPixbufClass">FmCellRendererPixbufClass</a>;
+<span class="returnvalue">GtkCellRenderer</span> *   <a class="link" href="FmCellRendererPixbuf.html#fm-cell-renderer-pixbuf-new" title="fm_cell_renderer_pixbuf_new ()">fm_cell_renderer_pixbuf_new</a>         (<em class="parameter"><code><span class="type">void</span></code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmCellRendererPixbuf.html#fm-cell-renderer-pixbuf-set-fixed-size" title="fm_cell_renderer_pixbuf_set_fixed_size ()">fm_cell_renderer_pixbuf_set_fixed_size</a>
                                                         (<em class="parameter"><code><a class="link" href="FmCellRendererPixbuf.html" title="FmCellRendererPixbuf"><span class="type">FmCellRendererPixbuf</span></a> *render</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> w</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> h</code></em>);
+                                                         <em class="parameter"><code><span class="type">gint</span> w</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> h</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmCellRendererPixbuf.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkCellRenderer.html">GtkCellRenderer</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkCellRendererPixbuf.html">GtkCellRendererPixbuf</a>
+  GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkCellRenderer
+                     +----GtkCellRendererPixbuf
                            +----FmCellRendererPixbuf
 </pre>
 </div>
-<div class="refsect1" title="Properties">
+<div class="refsect1">
 <a name="FmCellRendererPixbuf.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="FmCellRendererPixbuf.html#FmCellRendererPixbuf--info" title='The "info" property'>info</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+  "<a class="link" href="FmCellRendererPixbuf.html#FmCellRendererPixbuf--info" title='The "info" property'>info</a>"                     <span class="type">gpointer</span>              : Read / Write
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmCellRendererPixbuf.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmCellRendererPixbuf.details"></a><h2>Details</h2>
-<div class="refsect2" title="FmCellRendererPixbuf">
-<a name="FmCellRendererPixbuf-struct"></a><h3>FmCellRendererPixbuf</h3>
-<pre class="programlisting">typedef struct _FmCellRendererPixbuf FmCellRendererPixbuf;</pre>
+<div class="refsect2">
+<a name="FmCellRendererPixbuf-struct"></a><h3>struct FmCellRendererPixbuf</h3>
+<pre class="programlisting">struct FmCellRendererPixbuf;</pre>
 </div>
 <hr>
-<div class="refsect2" title="FmCellRendererPixbufClass">
-<a name="FmCellRendererPixbufClass"></a><h3>FmCellRendererPixbufClass</h3>
-<pre class="programlisting">typedef struct {
+<div class="refsect2">
+<a name="FmCellRendererPixbufClass"></a><h3>struct FmCellRendererPixbufClass</h3>
+<pre class="programlisting">struct FmCellRendererPixbufClass {
 	GtkCellRendererPixbufClass parent_class;
-} FmCellRendererPixbufClass;
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_cell_renderer_pixbuf_new ()">
+<div class="refsect2">
 <a name="fm-cell-renderer-pixbuf-new"></a><h3>fm_cell_renderer_pixbuf_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkCellRenderer.html"><span class="returnvalue">GtkCellRenderer</span></a>*    fm_cell_renderer_pixbuf_new         (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">GtkCellRenderer</span> *   fm_cell_renderer_pixbuf_new         (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_cell_renderer_pixbuf_set_fixed_size ()">
+<div class="refsect2">
 <a name="fm-cell-renderer-pixbuf-set-fixed-size"></a><h3>fm_cell_renderer_pixbuf_set_fixed_size ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_cell_renderer_pixbuf_set_fixed_size
                                                         (<em class="parameter"><code><a class="link" href="FmCellRendererPixbuf.html" title="FmCellRendererPixbuf"><span class="type">FmCellRendererPixbuf</span></a> *render</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> w</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> h</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">gint</span> w</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> h</code></em>);</pre>
 </div>
 </div>
-<div class="refsect1" title="Property Details">
+<div class="refsect1">
 <a name="FmCellRendererPixbuf.property-details"></a><h2>Property Details</h2>
-<div class="refsect2" title='The "info" property'>
+<div class="refsect2">
 <a name="FmCellRendererPixbuf--info"></a><h3>The <code class="literal">"info"</code> property</h3>
-<pre class="programlisting">  "info"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "info"                     <span class="type">gpointer</span>              : Read / Write</pre>
 <p>File info.</p>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

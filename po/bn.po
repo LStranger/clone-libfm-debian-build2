@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 02:06+0800\n"
+"POT-Creation-Date: 2011-08-09 21:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -277,42 +278,52 @@ msgstr ""
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr "হাইপারলিঙ্ক খুলতে পছন্দনীয় ওয়েব ব্রাউজার ব্যবহার করা হবে।"
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../data/ui/exec-file.glade.h:1
+#, fuzzy
+msgid "Execute File"
+msgstr "অনেকগুলো ফাইল"
+
+#: ../data/ui/exec-file.glade.h:2
+#, fuzzy
+msgid "Execute in _Terminal"
+msgstr "টার্মিনাল ইমিউলেটরকে কার্যকর করুন"
+
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u বাইট"
 msgstr[1] "%u বাইট"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "কিলোবাইট"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "মেগাবাইট"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "গিগাবাইট"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "টেরাবাইট"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "কিবিবাইট"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "মিবিবাইট"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "গিবিবাইট"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "টিবিবাইট"
 
@@ -332,7 +343,7 @@ msgstr "আবর্জনা বাক্স"
 msgid "My Computer"
 msgstr "আমার কম্পিউটার"
 
-#: ../src/base/fm-path.c:739
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "অ্যাপ্লিকেশন"
 
@@ -340,11 +351,11 @@ msgstr "অ্যাপ্লিকেশন"
 msgid "Network"
 msgstr "নেটওয়ার্ক"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -355,7 +366,7 @@ msgstr ""
 "আকার: %s\n"
 "পরিবর্তিত: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -364,23 +375,23 @@ msgstr ""
 "টাইপ: %s\n"
 "পরিবর্তিত: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "ফাইল অপারেশনটি বাতিল হয়েছে এবং কিছু ত্রুটি রয়েছে।"
 
-#: ../src/gtk/fm-progress-dlg.c:311
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "বাতিলকৃত"
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "ফাইল অপারেশন শেষ হয়েছে, কিন্তু কিছু ত্রুটি রয়েছে।"
 
-#: ../src/gtk/fm-progress-dlg.c:317
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "শেষ হয়েছে"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -390,31 +401,31 @@ msgstr ""
 "না।\n"
 "এর বদলে আপনি কি ফাইলগুলো মুছে ফেলতে চান?"
 
-#: ../src/gtk/fm-progress-dlg.c:429
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:444
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "ফাইল সরানো হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:447
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "ফাইল অনুলেপন করা হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:450
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "ফাইল ফেলে দেয়া হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:453
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "ফাইল মুছে ফেলা হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:456
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "সিমলিঙ্ক তৈরি করা হচ্ছে"
 
-#: ../src/gtk/fm-progress-dlg.c:459
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "ফাইলের বৈশিষ্টাবলী পরিবর্তন করা হচ্ছে"
 
@@ -443,7 +454,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "বিভিন্ন ধরনের ফাইল"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "অনেকগুলো ফাইল"
 
@@ -460,7 +471,7 @@ msgid "Eject Removable Media"
 msgstr "স্থানান্তরযোগ্য মিডিয়া অপসারন করুন"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "বুকমার্ক আইটেম নামান্তর করুন"
 
@@ -472,47 +483,59 @@ msgstr "বুকমার্ক থেকে অপসারণ করুন"
 msgid "Empty Trash"
 msgstr "আবর্জনা বাক্স খালি করুন"
 
-#: ../src/gtk/fm-places-view.c:658
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "নতুন একটি নাম দিন:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "অন্য অ্যাপ্লিকেশনে খুলুন..."
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
 msgstr "পুনরায় নামকরণ"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
 msgstr "সিমলিঙ্ক তৈরি করুন"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
 msgstr "প্রেরণ করুন"
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
 msgstr "কমপ্রেস..."
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
 msgstr "এখানে সম্প্রসারণ করুন"
 
-#: ../src/gtk/fm-file-menu.c:95
+#: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
 msgstr "সম্প্রসারণ করুন..."
 
-#: ../src/gtk/fm-file-menu.c:250
+#: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
 msgstr "পুনরায় জমা করুন (_R)"
 
-#: ../src/gtk/fm-file-menu.c:251
+#: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
 msgstr "মূল পাথে পরিত্যাক্ত ফাইল পুনরায় জমা করুন"
 
-#: ../src/gtk/fm-dnd-dest.c:447
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave ব্যর্থ হয়েছে।"
 
@@ -528,19 +551,19 @@ msgstr "ফাইল খোলার জন্য পছন্দসই কম�
 msgid "Customize"
 msgstr "স্বনির্ধারণ করুন"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "নাম"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "বর্ণনা"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "আকার"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "পরিবর্তিত"
 
@@ -552,33 +575,63 @@ msgstr "ইন্সটলকৃত অ্যাপ্লিকেশন"
 msgid "Error"
 msgstr "ত্রুটি "
 
-#: ../src/gtk/fm-gtk-utils.c:254
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "বর্ণনা"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "অনুগ্রহ করে একটি ফোল্ডার নির্বাচন করুন"
 
-#: ../src/gtk/fm-gtk-utils.c:403
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "কেবলমাত্র সিস্টেম প্রশাসকের এটি করার অনুমোদন আছে।"
 
-#: ../src/gtk/fm-gtk-utils.c:482
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "আপনি কি নির্বাচিত ফাইল আবর্জনা বাক্সে ফেলতে চান‌?"
 
-#: ../src/gtk/fm-gtk-utils.c:503
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "আপনি কি নির্বাচিত ফাইল অপসারণ করতে চান?"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "ফাইল পুনরায় নামকরণ করুন"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "অনুগ্রহ করে একটি নতুন নাম দিন:"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "আপনি কি নিশ্চিত যে আপনি আবর্জনা বাক্স খালি করে ফেলতে চান?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:115
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:122
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+#, fuzzy
+msgid "Loading..."
+msgstr "প্রস্তুত করা হচ্ছে..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -602,8 +655,171 @@ msgstr ""
 msgid "Destination is a sub folder of source"
 msgstr ""
 
-#~ msgid "Trash"
-#~ msgstr "আবর্জনা"
+#: ../src/gtk/fm-places-model.c:451
+msgid "Trash"
+msgstr "আবর্জনা"
 
-#~ msgid "Desktop"
-#~ msgstr "ডেক্সটপ"
+#: ../src/gtk/fm-places-model.c:509
+msgid "Desktop"
+msgstr "ডেক্সটপ"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:41
+msgid "Blank CD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "Blank DVD-ROM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "DVD-RAM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "Blank DVD-RAM Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "DVD+R DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "Blank DVD+R DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "DVD+RW DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "Blank DVD+RW DL Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blu-Ray Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blank Blu-Ray Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blu-Ray R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blank Blu-Ray R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blu-Ray RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blank Blu-Ray RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "HD DVD Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "Blank HD DVD Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "HD DVD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "Blank HD DVD-R Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "HD DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "Blank HD DVD-RW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "MO Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "Blank MO Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "MRW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "Blank MRW Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "MRW/W Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "Blank MRW/W Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:299
+msgid "Blank Optical Disc"
+msgstr ""
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr ""

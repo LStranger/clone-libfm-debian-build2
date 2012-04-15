@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 02:06+0800\n"
+"POT-Creation-Date: 2011-08-09 21:06+0200\n"
 "PO-Revision-Date: 2010-09-06 22:27+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -281,7 +282,17 @@ msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
 "Na otvorenie hyperodkazov sa použije uprednostňovaný webový prehliadač."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../data/ui/exec-file.glade.h:1
+#, fuzzy
+msgid "Execute File"
+msgstr "Spustiť"
+
+#: ../data/ui/exec-file.glade.h:2
+#, fuzzy
+msgid "Execute in _Terminal"
+msgstr "Spustiť v emulátore terminálu"
+
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -289,35 +300,35 @@ msgstr[0] "%u bajt"
 msgstr[1] "%u bajty"
 msgstr[2] "%u bajtov"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "KB"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "MB"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "GB"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "TiB"
 
@@ -337,7 +348,7 @@ msgstr "Kôš"
 msgid "My Computer"
 msgstr "Môj počítač"
 
-#: ../src/base/fm-path.c:739
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Aplikácie"
 
@@ -345,11 +356,11 @@ msgstr "Aplikácie"
 msgid "Network"
 msgstr "Sieť"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -360,7 +371,7 @@ msgstr ""
 "Veľkosť: %s\n"
 "Zmenené: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -369,23 +380,23 @@ msgstr ""
 "Typ: %s\n"
 "Zmenené: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Operácia so súborom je zrušená a vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:311
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "Zrušené"
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "Operácia so súborom je dokončená, ale vyskytli sa chyby."
 
-#: ../src/gtk/fm-progress-dlg.c:317
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "Dokončené"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -395,31 +406,31 @@ msgstr ""
 "ktorom ležia nepodporuje túto operáciu.\n"
 "Chcete ich namiesto toho zmazať?"
 
-#: ../src/gtk/fm-progress-dlg.c:429
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr "c"
 
-#: ../src/gtk/fm-progress-dlg.c:444
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "Presúvajú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:447
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "Kopírujú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:450
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "Presúvajú sa súbory do Koša"
 
-#: ../src/gtk/fm-progress-dlg.c:453
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "Mažú sa súbory"
 
-#: ../src/gtk/fm-progress-dlg.c:456
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "Vytvárajú sa symbolické odkazy"
 
-#: ../src/gtk/fm-progress-dlg.c:459
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "Menia sa atribúty súborov"
 
@@ -447,7 +458,7 @@ msgstr "Chcete tieto zmeny použiť rekurzívne na všetky súbory a podadresár
 msgid "Files of different types"
 msgstr "Súbory rozličných typov"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Viacero súborov"
 
@@ -464,7 +475,7 @@ msgid "Eject Removable Media"
 msgstr "Vysunúť prenosné médium"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Premenovať záložku"
 
@@ -476,47 +487,59 @@ msgstr "Odstrániť zo záložiek"
 msgid "Empty Trash"
 msgstr "Vyprázdniť Kôš"
 
-#: ../src/gtk/fm-places-view.c:658
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Zadajte nový názov:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr "Strom adresárov"
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "Otvoriť pomocou..."
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
 msgstr "Premenovať"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
 msgstr "Vytvoriť symbolický odkaz"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
 msgstr "Poslať do"
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
 msgstr "Komprimovať..."
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
 msgstr "Rozbaliť sem"
 
-#: ../src/gtk/fm-file-menu.c:95
+#: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
 msgstr "Rozbaliť do..."
 
-#: ../src/gtk/fm-file-menu.c:250
+#: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
 msgstr "_Obnoviť"
 
-#: ../src/gtk/fm-file-menu.c:251
+#: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
 msgstr "Obnoviť súbory z Koša na pôvodné miesto"
 
-#: ../src/gtk/fm-dnd-dest.c:447
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave zlyhalo."
 
@@ -532,19 +555,19 @@ msgstr "Definovať vlastný príkazový riadok na otvorenie súborov"
 msgid "Customize"
 msgstr "Prispôsobiť"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Názov"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Zmenené"
 
@@ -556,33 +579,63 @@ msgstr "Nainštalované aplikácie"
 msgid "Error"
 msgstr "Chyba"
 
-#: ../src/gtk/fm-gtk-utils.c:254
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:106
+#, fuzzy
+msgid "Question"
+msgstr "Popis"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "Prosím, vyberte priečinok"
 
-#: ../src/gtk/fm-gtk-utils.c:403
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
 msgstr "Oprávenie vykonať túto operáciu majú iba správcovia systému."
 
-#: ../src/gtk/fm-gtk-utils.c:482
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Chcete presunúť vybrané súbory do Koša?"
 
-#: ../src/gtk/fm-gtk-utils.c:503
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "Chcete prepísať vybrané súbory?"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "Premenovať súbor"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "Prosím, zadajte nový názov:"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ste si sitý, že chcete vyprázdniť Kôš?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:115
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:122
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr ""
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+#, fuzzy
+msgid "<No Sub Folder>"
+msgstr "Žiadny podadresár"
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+msgid "Loading..."
+msgstr "Načítava sa..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -606,11 +659,199 @@ msgstr "Nie je možné skopírovať priečinok do jeho podpriečinka"
 msgid "Destination is a sub folder of source"
 msgstr "Cieľ je podpriečinkom zdroja"
 
-#~ msgid "Trash"
-#~ msgstr "Kôš"
+#: ../src/gtk/fm-places-model.c:451
+msgid "Trash"
+msgstr "Kôš"
 
-#~ msgid "Desktop"
-#~ msgstr "Plocha"
+#: ../src/gtk/fm-places-model.c:509
+msgid "Desktop"
+msgstr "Plocha"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr "Disk CD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:41
+#, fuzzy
+msgid "Blank CD-ROM Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr "Disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr "Disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr "Disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+#, fuzzy
+msgid "Blank DVD-ROM Disc"
+msgstr "Prázdny disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "DVD-RAM Disc"
+msgstr "Disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "Blank DVD-RAM Disc"
+msgstr "Prázdny disk DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr "Disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr "Prázdny disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
+msgid "DVD+R DL Disc"
+msgstr "Disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:50
+#, fuzzy
+msgid "Blank DVD+R DL Disc"
+msgstr "Prázdny disk DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
+msgid "DVD+RW DL Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:51
+#, fuzzy
+msgid "Blank DVD+RW DL Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
+msgid "Blu-Ray Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:52
+#, fuzzy
+msgid "Blank Blu-Ray Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
+msgid "Blu-Ray R Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:53
+#, fuzzy
+msgid "Blank Blu-Ray R Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
+msgid "Blu-Ray RW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:54
+#, fuzzy
+msgid "Blank Blu-Ray RW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
+msgid "HD DVD Disc"
+msgstr "Disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:55
+#, fuzzy
+msgid "Blank HD DVD Disc"
+msgstr "Prázdny disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
+msgid "HD DVD-R Disc"
+msgstr "Disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:56
+#, fuzzy
+msgid "Blank HD DVD-R Disc"
+msgstr "Prázdny disk DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
+msgid "HD DVD-RW Disc"
+msgstr "Disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:57
+#, fuzzy
+msgid "Blank HD DVD-RW Disc"
+msgstr "Prázdny disk DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
+msgid "MO Disc"
+msgstr "Disk CD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:58
+#, fuzzy
+msgid "Blank MO Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
+msgid "MRW Disc"
+msgstr "Disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:59
+#, fuzzy
+msgid "Blank MRW Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
+msgid "MRW/W Disc"
+msgstr "Disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:60
+#, fuzzy
+msgid "Blank MRW/W Disc"
+msgstr "Prázdny disk CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:299
+#, fuzzy
+msgid "Blank Optical Disc"
+msgstr "Prázdny disk CD-R"
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr ""
 
 #~ msgid "Copyright (C) 2005 - 2008"
 #~ msgstr "Copyright (C) 2005 - 2008"
@@ -693,9 +934,6 @@ msgstr "Cieľ je podpriečinkom zdroja"
 
 #~ msgid "To:"
 #~ msgstr "Kam:"
-
-#~ msgid "Execute"
-#~ msgstr "Spustiť"
 
 #~ msgid "Set GID"
 #~ msgstr "SETGID"
@@ -1122,8 +1360,8 @@ msgstr "Cieľ je podpriečinkom zdroja"
 #~ "1. spustiť správcu XSETTINGS alebo\n"
 #~ "2. jednoducho uviesť tému ikon v súbore ~/.gtkrc-2.0.</b>\n"
 #~ "Napríklad ak chcete použiť tému ikon Tango pridajte riadok:\n"
-#~ "<i><b>gtk-icon-theme-name=\"Tango\"</b></i> do svojho súboru ~/.gtkrc-"
-#~ "2.0. (ak neexistuje vytvorte ho)\n"
+#~ "<i><b>gtk-icon-theme-name=\"Tango\"</b></i> do svojho súboru ~/."
+#~ "gtkrc-2.0. (ak neexistuje vytvorte ho)\n"
 #~ "\n"
 #~ "<b>POZN.: Téma ikon, ktorú vyberiete by mala byť kompatibilná s GNOME "
 #~ "inak nebude možné správne zobraziť ikony súborov.</b>  Kvôli rozdielom v "
@@ -1323,9 +1561,6 @@ msgstr "Cieľ je podpriečinkom zdroja"
 #~ msgid "_Edit Bookmarks"
 #~ msgstr "_Upraviť záložky"
 
-#~ msgid "Loading..."
-#~ msgstr "Načítava sa..."
-
 #~ msgid ", Free space: %s (Total: %s )"
 #~ msgstr ", Voľné miesto: %s (Celkom: %s )"
 
@@ -1370,9 +1605,6 @@ msgstr "Cieľ je podpriečinkom zdroja"
 
 #~ msgid "Location"
 #~ msgstr "Umiestnenie"
-
-#~ msgid "Directory Tree"
-#~ msgstr "Strom adresárov"
 
 #~ msgid "Unable to mount device"
 #~ msgstr "Nepodarilo sa pripojiť zariadenie"
@@ -1489,9 +1721,6 @@ msgstr "Cieľ je podpriečinkom zdroja"
 
 #~ msgid "File System"
 #~ msgstr "Súborový systém"
-
-#~ msgid "No Sub Folder"
-#~ msgstr "Žiadny podadresár"
 
 #~ msgid "E_xtract"
 #~ msgstr "_Rozbaliť"
@@ -1637,54 +1866,6 @@ msgstr "Cieľ je podpriečinkom zdroja"
 
 #~ msgid "External %s"
 #~ msgstr "Externá %s"
-
-#~ msgid "CD-ROM Disc"
-#~ msgstr "Disk CD-ROM"
-
-#~ msgid "Blank CD-R Disc"
-#~ msgstr "Prázdny disk CD-R"
-
-#~ msgid "CD-R Disc"
-#~ msgstr "Disk CD-R"
-
-#~ msgid "Blank CD-RW Disc"
-#~ msgstr "Prázdny disk CD-RW"
-
-#~ msgid "CD-RW Disc"
-#~ msgstr "Disk CD-RW"
-
-#~ msgid "DVD-ROM Disc"
-#~ msgstr "Disk DVD-ROM"
-
-#~ msgid "Blank DVD-RAM Disc"
-#~ msgstr "Prázdny disk DVD-ROM"
-
-#~ msgid "DVD-RAM Disc"
-#~ msgstr "Disk DVD-ROM"
-
-#~ msgid "Blank DVD-R Disc"
-#~ msgstr "Prázdny disk DVD-R"
-
-#~ msgid "DVD-R Disc"
-#~ msgstr "Disk DVD-R"
-
-#~ msgid "Blank DVD-RW Disc"
-#~ msgstr "Prázdny disk DVD-RW"
-
-#~ msgid "DVD-RW Disc"
-#~ msgstr "Disk DVD-RW"
-
-#~ msgid "Blank DVD+R Disc"
-#~ msgstr "Prázdny disk DVD+R"
-
-#~ msgid "DVD+R Disc"
-#~ msgstr "Disk DVD+R"
-
-#~ msgid "Blank DVD+RW Disc"
-#~ msgstr "Prázdny disk DVD-RW"
-
-#~ msgid "DVD+RW Disc"
-#~ msgstr "Disk DVD-RW"
 
 #~ msgid "Audio Disc"
 #~ msgstr "Zvukový disk"

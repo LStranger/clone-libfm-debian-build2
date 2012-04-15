@@ -6,17 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lxfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 02:06+0800\n"
-"PO-Revision-Date: 2010-02-07 13:10+0100\n"
-"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
+"POT-Creation-Date: 2011-08-09 21:06+0200\n"
+"PO-Revision-Date: 2011-06-15 00:17+0200\n"
+"Last-Translator: Y P <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Language: Ukrainian\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.0.5\n"
 "X-Poedit-Country: Ukraine\n"
+"X-Poedit-Language: Ukrainian\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -36,10 +38,10 @@ msgid ""
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Ці спеціальні коди можна використати в командній стрічці:</b>\n"
-" <b>%f</b>: означає назву одного файлу\n"
-" <b>%F</b>: означає назву багатьох файлів\n"
-" <b>%u</b>: означає URI файлу\n"
-" <b>%U</b>: означає багато URI"
+"  <b>%f</b>: означає назву одного файлу\n"
+"  <b>%F</b>: означає назву багатьох файлів\n"
+"  <b>%u</b>: означає URI файлу\n"
+"  <b>%U</b>: означає багато URI"
 
 #: ../data/ui/app-chooser.glade.h:9
 msgid "Choose An Application"
@@ -77,7 +79,7 @@ msgstr ""
 
 #: ../data/ui/ask-rename.glade.h:4
 msgid "Apply this option to all existing files"
-msgstr "Застосувати цю опцію до всіх існуючих файлів?"
+msgstr "Застосувати цю опцію до всіх існуючих файлів"
 
 #: ../data/ui/ask-rename.glade.h:5
 msgid "Confirm to replace files"
@@ -198,7 +200,7 @@ msgstr "Тільки читати"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Виберіть програму для відкриття файлів цього типу"
+msgstr "Виберіть програму для відкриття файлів цього типу "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -273,14 +275,22 @@ msgid ""
 "mail addresses."
 msgstr ""
 "Улюблений поштовий клієнт, що буде використаний для створення електронного "
-"листа, коли Ви клацаєте на e-mail адресу"
+"листа, коли Ви клацаєте на e-mail адресу."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
-"Улюблений веб-переглядач, що буде використаний для відкриття гіпер-посилань"
+"Улюблений веб-переглядач, що буде використаний для відкриття гіперпосилань."
 
-#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#: ../data/ui/exec-file.glade.h:1
+msgid "Execute File"
+msgstr "Запустити файл"
+
+#: ../data/ui/exec-file.glade.h:2
+msgid "Execute in _Terminal"
+msgstr "Запустити в _емуляторі терміналу"
+
+#: ../src/base/fm-utils.c:55 ../src/base/fm-utils.c:84
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
@@ -288,35 +298,35 @@ msgstr[0] "%u байт"
 msgstr[1] "%u байт"
 msgstr[2] "%u байт"
 
-#: ../src/base/fm-utils.c:61
+#: ../src/base/fm-utils.c:62
 msgid "KB"
 msgstr "КБ"
 
-#: ../src/base/fm-utils.c:66
+#: ../src/base/fm-utils.c:67
 msgid "MB"
 msgstr "МБ"
 
-#: ../src/base/fm-utils.c:71
+#: ../src/base/fm-utils.c:72
 msgid "GB"
 msgstr "ГБ"
 
-#: ../src/base/fm-utils.c:76
+#: ../src/base/fm-utils.c:77
 msgid "TB"
 msgstr "ТБ"
 
-#: ../src/base/fm-utils.c:90
+#: ../src/base/fm-utils.c:91
 msgid "KiB"
 msgstr "КіБ"
 
-#: ../src/base/fm-utils.c:95
+#: ../src/base/fm-utils.c:96
 msgid "MiB"
 msgstr "МіБ"
 
-#: ../src/base/fm-utils.c:100
+#: ../src/base/fm-utils.c:101
 msgid "GiB"
 msgstr "ГіБ"
 
-#: ../src/base/fm-utils.c:105
+#: ../src/base/fm-utils.c:106
 msgid "TiB"
 msgstr "ТіБ"
 
@@ -336,7 +346,7 @@ msgstr "Смітник"
 msgid "My Computer"
 msgstr "Мій Комп’ютер"
 
-#: ../src/base/fm-path.c:739
+#: ../src/base/fm-path.c:739 ../src/gtk/fm-places-model.c:524
 msgid "Applications"
 msgstr "Програми"
 
@@ -344,11 +354,11 @@ msgstr "Програми"
 msgid "Network"
 msgstr "Мережа"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:151
 msgid ": "
-msgstr ":"
+msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:213 ../src/gtk/fm-progress-dlg.c:232
+#: ../src/gtk/fm-progress-dlg.c:214 ../src/gtk/fm-progress-dlg.c:233
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -359,7 +369,7 @@ msgstr ""
 "Розмір: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:220 ../src/gtk/fm-progress-dlg.c:239
+#: ../src/gtk/fm-progress-dlg.c:221 ../src/gtk/fm-progress-dlg.c:240
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -368,23 +378,23 @@ msgstr ""
 "Тип: %s\n"
 "Змінено: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:309
+#: ../src/gtk/fm-progress-dlg.c:312
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Операцію над файлом відмінено і при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:311
+#: ../src/gtk/fm-progress-dlg.c:314
 msgid "Cancelled"
 msgstr "Відмінено"
 
-#: ../src/gtk/fm-progress-dlg.c:315
+#: ../src/gtk/fm-progress-dlg.c:318
 msgid "The file operation is finished, but there are some errors."
 msgstr "Операцію над файлом закінчено, але при цьому сталося кілька помилок."
 
-#: ../src/gtk/fm-progress-dlg.c:317
+#: ../src/gtk/fm-progress-dlg.c:320
 msgid "Finished"
 msgstr "Закінчено"
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -392,33 +402,33 @@ msgid ""
 msgstr ""
 "Деякі файли не можна перенести в смітник, тому що поточна файлова система не "
 "підтримує цю операцію.\n"
-" Ви бажаєте замість цього видалити їх?"
+"Ви бажаєте замість цього видалити їх?"
 
-#: ../src/gtk/fm-progress-dlg.c:429
+#: ../src/gtk/fm-progress-dlg.c:433
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:444
+#: ../src/gtk/fm-progress-dlg.c:448
 msgid "Moving files"
 msgstr "Переміщення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:447
+#: ../src/gtk/fm-progress-dlg.c:451
 msgid "Copying files"
 msgstr "Копіювання файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:450
+#: ../src/gtk/fm-progress-dlg.c:454
 msgid "Trashing files"
 msgstr "Переміщення файлів в смітник"
 
-#: ../src/gtk/fm-progress-dlg.c:453
+#: ../src/gtk/fm-progress-dlg.c:457
 msgid "Deleting files"
 msgstr "Видалення файлів"
 
-#: ../src/gtk/fm-progress-dlg.c:456
+#: ../src/gtk/fm-progress-dlg.c:460
 msgid "Creating symlinks"
 msgstr "Створення символьних посилань"
 
-#: ../src/gtk/fm-progress-dlg.c:459
+#: ../src/gtk/fm-progress-dlg.c:463
 msgid "Changing file attributes"
 msgstr "Зміна атрибутів"
 
@@ -447,7 +457,7 @@ msgstr ""
 msgid "Files of different types"
 msgstr "Файли різних типів"
 
-#: ../src/gtk/fm-file-properties.c:663
+#: ../src/gtk/fm-file-properties.c:664
 msgid "Multiple Files"
 msgstr "Кілька файлів"
 
@@ -464,7 +474,7 @@ msgid "Eject Removable Media"
 msgstr "Витягнути знімний пристрій"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:657
+#: ../src/gtk/fm-places-view.c:96 ../src/gtk/fm-places-view.c:720
 msgid "Rename Bookmark Item"
 msgstr "Перейменувати елемент закладки"
 
@@ -476,47 +486,59 @@ msgstr "Видалити з закладки"
 msgid "Empty Trash"
 msgstr "Очистити смітник"
 
-#: ../src/gtk/fm-places-view.c:658
+#: ../src/gtk/fm-places-view.c:721
 msgid "Enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
+#: ../src/gtk/fm-side-pane.c:49 ../src/gtk/fm-side-pane.c:297
+msgid "Places"
+msgstr "Місця"
+
+#: ../src/gtk/fm-side-pane.c:50 ../src/gtk/fm-side-pane.c:307
+msgid "Directory Tree"
+msgstr "Дерево тек"
+
+#: ../src/gtk/fm-side-pane.c:51
+msgid "Remote"
+msgstr "Віддалене"
+
+#: ../src/gtk/fm-file-menu.c:86 ../src/gtk/fm-file-menu.c:87
 msgid "Open With..."
 msgstr "Відкрити з..."
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Create Symlink"
 msgstr "Створити символьне посилання"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Send To"
 msgstr "Вислати до"
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Compress..."
 msgstr "Спакувати..."
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:96
 msgid "Extract Here"
 msgstr "Розпакувати сюди"
 
-#: ../src/gtk/fm-file-menu.c:95
+#: ../src/gtk/fm-file-menu.c:97
 msgid "Extract To..."
 msgstr "Розпакувати до..."
 
-#: ../src/gtk/fm-file-menu.c:250
+#: ../src/gtk/fm-file-menu.c:258
 msgid "_Restore"
 msgstr "_Відновити"
 
-#: ../src/gtk/fm-file-menu.c:251
+#: ../src/gtk/fm-file-menu.c:259
 msgid "Restore trashed files to original paths"
 msgstr "Відновити перенесені файли в смітнику до початкового стану"
 
-#: ../src/gtk/fm-dnd-dest.c:447
+#: ../src/gtk/fm-dnd-dest.c:387
 msgid "XDirectSave failed."
 msgstr "XDirectSave не вдалося."
 
@@ -532,19 +554,19 @@ msgstr "Виконати власну команду для відкриття �
 msgid "Customize"
 msgstr "Налаштувати"
 
-#: ../src/gtk/fm-folder-view.c:610
+#: ../src/gtk/fm-folder-view.c:588
 msgid "Name"
 msgstr "Назва"
 
-#: ../src/gtk/fm-folder-view.c:629
+#: ../src/gtk/fm-folder-view.c:607
 msgid "Description"
 msgstr "Опис"
 
-#: ../src/gtk/fm-folder-view.c:636
+#: ../src/gtk/fm-folder-view.c:614
 msgid "Size"
 msgstr "Розмір"
 
-#: ../src/gtk/fm-folder-view.c:642
+#: ../src/gtk/fm-folder-view.c:620
 msgid "Modified"
 msgstr "Змінено"
 
@@ -556,33 +578,63 @@ msgstr "Встановлені програми"
 msgid "Error"
 msgstr "Помилка"
 
-#: ../src/gtk/fm-gtk-utils.c:254
+#: ../src/gtk/fm-gtk-utils.c:55 ../src/gtk/fm-gtk-utils.c:67
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: ../src/gtk/fm-gtk-utils.c:106
+msgid "Question"
+msgstr "Питання"
+
+#: ../src/gtk/fm-gtk-utils.c:282
 msgid "Please select a folder"
 msgstr "Будь-ласка, виберіть теку"
 
-#: ../src/gtk/fm-gtk-utils.c:403
+#: ../src/gtk/fm-gtk-utils.c:452
 msgid "Only system administrators have the permission to do this."
-msgstr "Тільки системний адміністратор може це зробити"
+msgstr "Це може зробити тільки системний адміністратор."
 
-#: ../src/gtk/fm-gtk-utils.c:482
+#: ../src/gtk/fm-gtk-utils.c:531
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Ви бажаєте перемістити вибрані файли до смітника?"
 
-#: ../src/gtk/fm-gtk-utils.c:503
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Do you want to delete the selected files?"
 msgstr "Ви бажаєте видалити вибрані файли?"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Rename File"
 msgstr "Перейменувати файл"
 
-#: ../src/gtk/fm-gtk-utils.c:549
+#: ../src/gtk/fm-gtk-utils.c:598
 msgid "Please enter a new name:"
 msgstr "Вкажіть нову назву:"
 
-#: ../src/gtk/fm-gtk-utils.c:571
+#: ../src/gtk/fm-gtk-utils.c:620
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Ви дійсно бажаєте очистити смітник?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:115
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+"Цей текстовий файл '%s' схоже є скриптом запуску.\n"
+"Що Ви бажаєте зробити з ним?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:122
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr "Цей файл '%s' можна запустити. Ви бажаєте запустити його?"
+
+#: ../src/gtk/fm-dir-tree-model.c:353
+msgid "<No Sub Folder>"
+msgstr "<Немає підтеки>"
+
+#: ../src/gtk/fm-dir-tree-model.c:355
+msgid "Loading..."
+msgstr "Завантажую..."
 
 #: ../src/job/fm-dir-list-job.c:231 ../src/job/fm-dir-list-job.c:240
 #: ../src/job/fm-dir-list-job.c:337
@@ -606,11 +658,174 @@ msgstr "Не можу скопіювати теку в її підтеку"
 msgid "Destination is a sub folder of source"
 msgstr "Тека призначення є підтекою вихідної теки"
 
-#~ msgid "Trash"
-#~ msgstr "Смітник"
+#: ../src/gtk/fm-places-model.c:451
+msgid "Trash"
+msgstr "Смітник"
 
-#~ msgid "Desktop"
-#~ msgstr "Стільниця"
+#: ../src/gtk/fm-places-model.c:509
+msgid "Desktop"
+msgstr "Робочий стіл"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr "Диск CD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:41
+msgid "Blank CD-ROM Disc"
+msgstr "Чистий диск CD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr "Диск CD-R"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr "Чистий диск CD-R"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr "Диск CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr "Чистий диск CD-RW"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr "Диск DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "Blank DVD-ROM Disc"
+msgstr "Чистий диск DVD-ROM"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr "Диск DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr "Чистий диск DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "DVD-RAM Disc"
+msgstr "Диск DVD-RAM"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "Blank DVD-RAM Disc"
+msgstr "Чистий диск DVD-RAM"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr "Диск DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr "Чистий диск DVD+R"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr "Диск DVD+RW"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr "Чистий диск DVD+RW"
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "DVD+R DL Disc"
+msgstr "Диск DVD+R DL"
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "Blank DVD+R DL Disc"
+msgstr "Чистий диск DVD+R DL"
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "DVD+RW DL Disc"
+msgstr "Диск DVD+RW DL"
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "Blank DVD+RW DL Disc"
+msgstr "Чистий диск DVD+RW DL"
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blu-Ray Disc"
+msgstr "Диск Blu-Ray"
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blank Blu-Ray Disc"
+msgstr "Чистий диск Blu-Ray"
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blu-Ray R Disc"
+msgstr "Диск Blu-Ray R"
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blank Blu-Ray R Disc"
+msgstr "Чистий диск Blu-Ray R"
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blu-Ray RW Disc"
+msgstr "Диск Blu-Ray RW"
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blank Blu-Ray RW Disc"
+msgstr "Чистий диск Blu-Ray RW"
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "HD DVD Disc"
+msgstr "Диск HD DVD"
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "Blank HD DVD Disc"
+msgstr "Чистий диск HD DVD"
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "HD DVD-R Disc"
+msgstr "Диск HD DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "Blank HD DVD-R Disc"
+msgstr "Чистий диск HD DVD-R"
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "HD DVD-RW Disc"
+msgstr "Диск HD DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "Blank HD DVD-RW Disc"
+msgstr "Чистий диск HD DVD-RW"
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "MO Disc"
+msgstr "Диск MO"
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "Blank MO Disc"
+msgstr "Чистий диск MO"
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "MRW Disc"
+msgstr "Диск MRW"
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "Blank MRW Disc"
+msgstr "Чистий диск MRW"
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "MRW/W Disc"
+msgstr "Диск MRW/W"
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "Blank MRW/W Disc"
+msgstr "Чистий диск MRW/W"
+
+#: ../src/udisks/g-udisks-device.c:299
+msgid "Blank Optical Disc"
+msgstr "Чистий оптичний диск"
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr "Оптичний диск"
 
 #~ msgid "It's not a valid directory"
 #~ msgstr "Це не є властива тека"

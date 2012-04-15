@@ -4,6 +4,8 @@ fm_cell_renderer_text_get_type
 fm_config_get_type
 fm_deep_count_job_get_type
 fm_dir_list_job_get_type
+fm_dir_tree_model_get_type
+fm_dir_tree_view_get_type
 fm_dnd_dest_get_type
 fm_dnd_src_get_type
 fm_dummy_monitor_get_type
@@ -14,7 +16,10 @@ fm_folder_model_get_type
 fm_folder_view_get_type
 fm_job_get_type
 fm_nav_history_get_type
+fm_path_bar_get_type
 fm_path_entry_get_type
+fm_places_model_get_type
 fm_places_view_get_type
+fm_side_pane_get_type
 fm_simple_job_get_type
 fm_tab_label_get_type

@@ -173,7 +173,7 @@ static gboolean ensure_valid_owner(FmFilePropData* data)
 
     if(!ret)
     {
-        fm_show_error(GTK_WINDOW(data->dlg), _("Please enter a valid user name or numeric id."));
+        fm_show_error(GTK_WINDOW(data->dlg), NULL, _("Please enter a valid user name or numeric id."));
         gtk_widget_grab_focus(data->owner);
     }
 
@@ -205,7 +205,7 @@ static gboolean ensure_valid_group(FmFilePropData* data)
 
     if(!ret)
     {
-        fm_show_error(GTK_WINDOW(data->dlg), _("Please enter a valid group name or numeric id."));
+        fm_show_error(GTK_WINDOW(data->dlg), NULL, _("Please enter a valid group name or numeric id."));
         gtk_widget_grab_focus(data->group);
     }
     if(data->gid == -1)
@@ -353,22 +353,22 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
             if(data->has_dir)
             {
-                if(fm_yes_no(GTK_WINDOW(data->dlg), _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
+                if(fm_yes_no(GTK_WINDOW(data->dlg), NULL, _( "Do you want to recursively apply these changes to all files and sub-folders?" ), TRUE))
                     fm_file_ops_job_set_recursive(job, TRUE);
             }
 
             /* show progress dialog */
-            fm_file_ops_job_run_with_progress(job);
+            fm_file_ops_job_run_with_progress(GTK_WINDOW(data->dlg), job);
             fm_list_unref(paths);
         }
 
         /* change default application for the mime-type if needed */
-        if(data->mime_type && data->mime_type->type)
+        if(data->mime_type && data->mime_type->type && data->open_with)
         {
             GAppInfo* app;
             gboolean default_app_changed = FALSE;
             GError* err = NULL;
-            app = fm_app_chooser_combo_box_get_selected(data->open_with, &default_app_changed);
+            app = fm_app_chooser_combo_box_get_selected(GTK_COMBO_BOX(data->open_with), &default_app_changed);
             if(app)
             {
                 if(default_app_changed)
@@ -376,7 +376,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
                     g_app_info_set_as_default_for_type(app, data->mime_type->type, &err);
                     if(err)
                     {
-                        fm_show_error(GTK_WINDOW(dlg), err->message);
+                        fm_show_error(GTK_WINDOW(dlg), NULL, err->message);
                         g_error_free(err);
                     }
                 }
@@ -634,6 +634,7 @@ static void update_ui(FmFilePropData* data)
 
         gtk_widget_destroy(data->open_with_label);
         gtk_widget_destroy(data->open_with);
+        data->open_with = data->open_with_label = NULL;
     }
 
     /* FIXME: check if all files has the same parent dir, mtime, or atime */
@@ -679,6 +680,7 @@ static void init_application_list(FmFilePropData* data)
         {
             gtk_widget_destroy(data->open_with_label);
             gtk_widget_destroy(data->open_with);
+            data->open_with = data->open_with_label = NULL;
         }
     }
 }
@@ -756,9 +758,11 @@ GtkWidget* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     return dlg;
 }
 
-gboolean fm_show_file_properties(FmFileInfoList* files)
+gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files)
 {
     GtkWidget* dlg = fm_file_properties_widget_new(files, TRUE);
+    if(parent)
+        gtk_window_set_transient_for(GTK_WINDOW(dlg), parent);
     gtk_widget_show(dlg);
     return TRUE;
 }

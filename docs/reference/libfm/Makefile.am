@@ -31,7 +31,9 @@ SCANGOBJ_OPTIONS=
 
 # Extra options to supply to gtkdoc-scan.
 # e.g. SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED"
-SCAN_OPTIONS=
+# http://developer.gnome.org/gtk-doc-manual/unstable/metafiles_types.html.en
+# using --rebuild-types to re-generate type list automatically.
+SCAN_OPTIONS=--rebuild-types
 
 # Extra options to supply to gtkdoc-mkdb.
 # e.g. MKDB_OPTIONS=--sgml-mode --output-format=xml
@@ -116,6 +118,7 @@ GTKDOC_CFLAGS= \
 GTKDOC_LIBS= \
 	$(top_builddir)/src/libfm.la \
 	$(top_builddir)/src/libfm-gtk.la \
+	$(GLIB_LIBS) \
 	$(NULL)
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.

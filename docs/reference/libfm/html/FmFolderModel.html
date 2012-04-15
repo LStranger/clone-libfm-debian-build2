@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmFolderModel</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="FmSimpleJob.html" title="FmSimpleJob">
 <link rel="next" href="FmCellRendererPixbuf.html" title="FmCellRendererPixbuf">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="FmSimpleJob.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="FmCellRendererPixbuf.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -32,7 +32,7 @@
                   <a href="#FmFolderModel.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmFolderModel">
+<div class="refentry">
 <a name="FmFolderModel"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -41,162 +41,162 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmFolderModel.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">                    <a class="link" href="FmFolderModel.html#FmFolderModel-struct" title="FmFolderModel">FmFolderModel</a>;
-                    <a class="link" href="FmFolderModel.html#FmFolderModelClass" title="FmFolderModelClass">FmFolderModelClass</a>;
-<a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="returnvalue">FmFolderModel</span></a> *     <a class="link" href="FmFolderModel.html#fm-folder-model-new" title="fm_folder_model_new ()">fm_folder_model_new</a>                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *dir</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_hidden</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-set-folder" title="fm_folder_model_set_folder ()">fm_folder_model_set_folder</a>          (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *dir</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmFolderModel.html#fm-folder-model-get-is-loading" title="fm_folder_model_get_is_loading ()">fm_folder_model_get_is_loading</a>      (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmFolderModel.html#fm-folder-model-get-show-hidden" title="fm_folder_model_get_show_hidden ()">fm_folder_model_get_show_hidden</a>     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-set-show-hidden" title="fm_folder_model_set_show_hidden ()">fm_folder_model_set_show_hidden</a>     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_hidden</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-file-created" title="fm_folder_model_file_created ()">fm_folder_model_file_created</a>        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-file-deleted" title="fm_folder_model_file_deleted ()">fm_folder_model_file_deleted</a>        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);
+<pre class="synopsis">struct              <a class="link" href="FmFolderModel.html#FmFolderModel-struct" title="struct FmFolderModel">FmFolderModel</a>;
+struct              <a class="link" href="FmFolderModel.html#FmFolderModelClass" title="struct FmFolderModelClass">FmFolderModelClass</a>;
 <span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-file-changed" title="fm_folder_model_file_changed ()">fm_folder_model_file_changed</a>        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-file-created" title="fm_folder_model_file_created ()">fm_folder_model_file_created</a>        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-file-deleted" title="fm_folder_model_file_deleted ()">fm_folder_model_file_deleted</a>        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolderModel.html#fm-folder-model-find-iter-by-filename" title="fm_folder_model_find_iter_by_filename ()">fm_folder_model_find_iter_by_filename</a>
+                                                        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-get-common-suffix-for-prefix" title="fm_folder_model_get_common_suffix_for_prefix ()">fm_folder_model_get_common_suffix_for_prefix</a>
                                                         (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prefix</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> (file_info_predicateFmFileInfo*) ()</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *common_suffix</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmFolderModel.html#fm-folder-model-find-iter-by-filename" title="fm_folder_model_find_iter_by_filename ()">fm_folder_model_find_iter_by_filename</a>
-                                                        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeIter"><span class="type">GtkTreeIter</span></a> *it</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *prefix</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> (*file_info_predicate) (FmFileInfo*)</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *common_suffix</code></em>);
+<span class="returnvalue">guint</span>               <a class="link" href="FmFolderModel.html#fm-folder-model-get-icon-size" title="fm_folder_model_get_icon_size ()">fm_folder_model_get_icon_size</a>       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolderModel.html#fm-folder-model-get-is-loaded" title="fm_folder_model_get_is_loaded ()">fm_folder_model_get_is_loaded</a>       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolderModel.html#fm-folder-model-get-show-hidden" title="fm_folder_model_get_show_hidden ()">fm_folder_model_get_show_hidden</a>     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);
+<a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="returnvalue">FmFolderModel</span></a> *     <a class="link" href="FmFolderModel.html#fm-folder-model-new" title="fm_folder_model_new ()">fm_folder_model_new</a>                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *dir</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-set-folder" title="fm_folder_model_set_folder ()">fm_folder_model_set_folder</a>          (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *dir</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-set-icon-size" title="fm_folder_model_set_icon_size ()">fm_folder_model_set_icon_size</a>       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a> icon_size</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="FmFolderModel.html#fm-folder-model-get-icon-size" title="fm_folder_model_get_icon_size ()">fm_folder_model_get_icon_size</a>       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);
+                                                         <em class="parameter"><code><span class="type">guint</span> icon_size</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolderModel.html#fm-folder-model-set-show-hidden" title="fm_folder_model_set_show_hidden ()">fm_folder_model_set_show_hidden</a>     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmFolderModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----FmFolderModel
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="FmFolderModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 FmFolderModel implements
- <a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html">GtkTreeModel</a>,  <a href="/usr/share/gtk-doc/html/gtk/GtkTreeSortable.html">GtkTreeSortable</a>,  <a href="/usr/share/gtk-doc/html/gtk/gtk-GtkTreeView-drag-and-drop.html#GtkTreeDragSource">GtkTreeDragSource</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-GtkTreeView-drag-and-drop.html#GtkTreeDragDest">GtkTreeDragDest</a>.</p>
+ GtkTreeModel,  GtkTreeSortable,  GtkTreeDragSource and  GtkTreeDragDest.</p>
 </div>
-<div class="refsect1" title="Signals">
+<div class="refsect1">
 <a name="FmFolderModel.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="FmFolderModel.html#FmFolderModel-loaded" title='The "loaded" signal'>loaded</a>"                                         : Run First
+  "<a class="link" href="FmFolderModel.html#FmFolderModel-loaded" title='The "loaded" signal'>loaded</a>"                                         : <code class="literal">Run First</code>
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmFolderModel.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmFolderModel.details"></a><h2>Details</h2>
-<div class="refsect2" title="FmFolderModel">
-<a name="FmFolderModel-struct"></a><h3>FmFolderModel</h3>
-<pre class="programlisting">typedef struct _FmFolderModel FmFolderModel;</pre>
+<div class="refsect2">
+<a name="FmFolderModel-struct"></a><h3>struct FmFolderModel</h3>
+<pre class="programlisting">struct FmFolderModel;</pre>
 </div>
 <hr>
-<div class="refsect2" title="FmFolderModelClass">
-<a name="FmFolderModelClass"></a><h3>FmFolderModelClass</h3>
-<pre class="programlisting">typedef struct {
+<div class="refsect2">
+<a name="FmFolderModelClass"></a><h3>struct FmFolderModelClass</h3>
+<pre class="programlisting">struct FmFolderModelClass {
     GObjectClass parent;
     /* Default signal handlers */
     void (*loaded)( FmFolderModel* model );
-} FmFolderModelClass;
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_model_new ()">
-<a name="fm-folder-model-new"></a><h3>fm_folder_model_new ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="returnvalue">FmFolderModel</span></a> *     fm_folder_model_new                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *dir</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_hidden</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-folder-model-file-changed"></a><h3>fm_folder_model_file_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_file_changed        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_model_set_folder ()">
+<div class="refsect2">
+<a name="fm-folder-model-file-created"></a><h3>fm_folder_model_file_created ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_file_created        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-model-file-deleted"></a><h3>fm_folder_model_file_deleted ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_file_deleted        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-model-find-iter-by-filename"></a><h3>fm_folder_model_find_iter_by_filename ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_model_find_iter_by_filename
+                                                        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-model-get-common-suffix-for-prefix"></a><h3>fm_folder_model_get_common_suffix_for_prefix ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_get_common_suffix_for_prefix
+                                                        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *prefix</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> (*file_info_predicate) (FmFileInfo*)</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *common_suffix</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-model-get-icon-size"></a><h3>fm_folder_model_get_icon_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               fm_folder_model_get_icon_size       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-model-get-is-loaded"></a><h3>fm_folder_model_get_is_loaded ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_model_get_is_loaded       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-model-get-show-hidden"></a><h3>fm_folder_model_get_show_hidden ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_model_get_show_hidden     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-model-new"></a><h3>fm_folder_model_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="returnvalue">FmFolderModel</span></a> *     fm_folder_model_new                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *dir</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-folder-model-set-folder"></a><h3>fm_folder_model_set_folder ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_set_folder          (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
                                                          <em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *dir</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_model_get_is_loading ()">
-<a name="fm-folder-model-get-is-loading"></a><h3>fm_folder_model_get_is_loading ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_folder_model_get_is_loading      (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_get_show_hidden ()">
-<a name="fm-folder-model-get-show-hidden"></a><h3>fm_folder_model_get_show_hidden ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_folder_model_get_show_hidden     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_set_show_hidden ()">
-<a name="fm-folder-model-set-show-hidden"></a><h3>fm_folder_model_set_show_hidden ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_set_show_hidden     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_hidden</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_file_created ()">
-<a name="fm-folder-model-file-created"></a><h3>fm_folder_model_file_created ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_file_created        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_file_deleted ()">
-<a name="fm-folder-model-file-deleted"></a><h3>fm_folder_model_file_deleted ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_file_deleted        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_file_changed ()">
-<a name="fm-folder-model-file-changed"></a><h3>fm_folder_model_file_changed ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_file_changed        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_get_common_suffix_for_prefix ()">
-<a name="fm-folder-model-get-common-suffix-for-prefix"></a><h3>fm_folder_model_get_common_suffix_for_prefix ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_get_common_suffix_for_prefix
-                                                        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prefix</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> (file_info_predicateFmFileInfo*) ()</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *common_suffix</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_find_iter_by_filename ()">
-<a name="fm-folder-model-find-iter-by-filename"></a><h3>fm_folder_model_find_iter_by_filename ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_folder_model_find_iter_by_filename
-                                                        (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeIter"><span class="type">GtkTreeIter</span></a> *it</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_model_set_icon_size ()">
+<div class="refsect2">
 <a name="fm-folder-model-set-icon-size"></a><h3>fm_folder_model_set_icon_size ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_set_icon_size       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a> icon_size</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">guint</span> icon_size</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_model_get_icon_size ()">
-<a name="fm-folder-model-get-icon-size"></a><h3>fm_folder_model_get_icon_size ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               fm_folder_model_get_icon_size       (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-folder-model-set-show-hidden"></a><h3>fm_folder_model_set_show_hidden ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_model_set_show_hidden     (<em class="parameter"><code><a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);</pre>
 </div>
 </div>
-<div class="refsect1" title="Signal Details">
+<div class="refsect1">
 <a name="FmFolderModel.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" title='The "loaded" signal'>
+<div class="refsect2">
 <a name="FmFolderModel-loaded"></a><h3>The <code class="literal">"loaded"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolderModel.html" title="FmFolderModel"><span class="type">FmFolderModel</span></a> *fmfoldermodel,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>       user_data)          : Run First</pre>
+                                                        <span class="type">gpointer</span>       user_data)          : <code class="literal">Run First</code></pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

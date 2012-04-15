@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmSimpleJob</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="FmJob.html" title="FmJob">
 <link rel="next" href="FmFolderModel.html" title="FmFolderModel">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="FmJob.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="FmFolderModel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -28,7 +28,7 @@
                   <a href="#FmSimpleJob.object-hierarchy" class="shortcut">Object Hierarchy</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmSimpleJob">
+<div class="refentry">
 <a name="FmSimpleJob"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -37,57 +37,59 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmSimpleJob.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">                    <a class="link" href="FmSimpleJob.html#FmSimpleJob-struct" title="FmSimpleJob">FmSimpleJob</a>;
-                    <a class="link" href="FmSimpleJob.html#FmSimpleJobClass" title="FmSimpleJobClass">FmSimpleJobClass</a>;
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="FmSimpleJob.html#FmSimpleJobFunc" title="FmSimpleJobFunc ()">*FmSimpleJobFunc</a>)                  (<em class="parameter"><code><a class="link" href="FmSimpleJob.html" title="FmSimpleJob"><span class="type">FmSimpleJob</span></a> *Param1</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> Param2</code></em>);
-<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              <a class="link" href="FmSimpleJob.html#fm-simple-job-new" title="fm_simple_job_new ()">fm_simple_job_new</a>                   (<em class="parameter"><code><a class="link" href="FmSimpleJob.html#FmSimpleJobFunc" title="FmSimpleJobFunc ()"><span class="type">FmSimpleJobFunc</span></a> func</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+<pre class="synopsis">struct              <a class="link" href="FmSimpleJob.html#FmSimpleJob-struct" title="struct FmSimpleJob">FmSimpleJob</a>;
+struct              <a class="link" href="FmSimpleJob.html#FmSimpleJobClass" title="struct FmSimpleJobClass">FmSimpleJobClass</a>;
+<span class="returnvalue">gboolean</span>            (<a class="link" href="FmSimpleJob.html#FmSimpleJobFunc" title="FmSimpleJobFunc ()">*FmSimpleJobFunc</a>)                  (<em class="parameter"><code><a class="link" href="FmSimpleJob.html" title="FmSimpleJob"><span class="type">FmSimpleJob</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> Param2</code></em>);
+<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             <a class="link" href="FmSimpleJob.html#fm-simple-job-new" title="fm_simple_job_new ()">fm_simple_job_new</a>                   (<em class="parameter"><code><a class="link" href="FmSimpleJob.html#FmSimpleJobFunc" title="FmSimpleJobFunc ()"><span class="type">FmSimpleJobFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">GDestroyNotify</span> destroy_data</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmSimpleJob.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----<a class="link" href="FmJob.html" title="FmJob">FmJob</a>
          +----FmSimpleJob
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmSimpleJob.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmSimpleJob.details"></a><h2>Details</h2>
-<div class="refsect2" title="FmSimpleJob">
-<a name="FmSimpleJob-struct"></a><h3>FmSimpleJob</h3>
-<pre class="programlisting">typedef struct _FmSimpleJob FmSimpleJob;</pre>
+<div class="refsect2">
+<a name="FmSimpleJob-struct"></a><h3>struct FmSimpleJob</h3>
+<pre class="programlisting">struct FmSimpleJob;</pre>
 </div>
 <hr>
-<div class="refsect2" title="FmSimpleJobClass">
-<a name="FmSimpleJobClass"></a><h3>FmSimpleJobClass</h3>
-<pre class="programlisting">typedef struct {
-	FmJobClass parent_class;
-} FmSimpleJobClass;
+<div class="refsect2">
+<a name="FmSimpleJobClass"></a><h3>struct FmSimpleJobClass</h3>
+<pre class="programlisting">struct FmSimpleJobClass {
+    FmJobClass parent_class;
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="FmSimpleJobFunc ()">
+<div class="refsect2">
 <a name="FmSimpleJobFunc"></a><h3>FmSimpleJobFunc ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*FmSimpleJobFunc)                  (<em class="parameter"><code><a class="link" href="FmSimpleJob.html" title="FmSimpleJob"><span class="type">FmSimpleJob</span></a> *Param1</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> Param2</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            (*FmSimpleJobFunc)                  (<em class="parameter"><code><a class="link" href="FmSimpleJob.html" title="FmSimpleJob"><span class="type">FmSimpleJob</span></a> *Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> Param2</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_simple_job_new ()">
+<div class="refsect2">
 <a name="fm-simple-job-new"></a><h3>fm_simple_job_new ()</h3>
-<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a>*              fm_simple_job_new                   (<em class="parameter"><code><a class="link" href="FmSimpleJob.html#FmSimpleJobFunc" title="FmSimpleJobFunc ()"><span class="type">FmSimpleJobFunc</span></a> func</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             fm_simple_job_new                   (<em class="parameter"><code><a class="link" href="FmSimpleJob.html#FmSimpleJobFunc" title="FmSimpleJobFunc ()"><span class="type">FmSimpleJobFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                                                         <em class="parameter"><code><span class="type">GDestroyNotify</span> destroy_data</code></em>);</pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

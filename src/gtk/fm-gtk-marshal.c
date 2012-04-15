@@ -21,6 +21,7 @@
 #define g_marshal_value_peek_boxed(v)    g_value_get_boxed (v)
 #define g_marshal_value_peek_pointer(v)  g_value_get_pointer (v)
 #define g_marshal_value_peek_object(v)   g_value_get_object (v)
+#define g_marshal_value_peek_variant(v)  g_value_get_variant (v)
 #else /* !G_ENABLE_DEBUG */
 /* WARNING: This code accesses GValues directly, which is UNSUPPORTED API.
  *          Do not access GValues directly in your code. Instead, use the
@@ -44,30 +45,33 @@
 #define g_marshal_value_peek_boxed(v)    (v)->data[0].v_pointer
 #define g_marshal_value_peek_pointer(v)  (v)->data[0].v_pointer
 #define g_marshal_value_peek_object(v)   (v)->data[0].v_pointer
+#define g_marshal_value_peek_variant(v)  (v)->data[0].v_pointer
 #endif /* !G_ENABLE_DEBUG */
 
 
-/* BOOL:UINT,UINT,POINTER (gtk/fm-gtk-marshal.list:1) */
+/* BOOL:INT,INT,UINT,UINT,POINTER (gtk/fm-gtk-marshal.list:1) */
 void
-fm_marshal_BOOLEAN__UINT_UINT_POINTER (GClosure     *closure,
-                                       GValue       *return_value G_GNUC_UNUSED,
-                                       guint         n_param_values,
-                                       const GValue *param_values,
-                                       gpointer      invocation_hint G_GNUC_UNUSED,
-                                       gpointer      marshal_data)
+fm_marshal_BOOLEAN__INT_INT_UINT_UINT_POINTER (GClosure     *closure,
+                                               GValue       *return_value G_GNUC_UNUSED,
+                                               guint         n_param_values,
+                                               const GValue *param_values,
+                                               gpointer      invocation_hint G_GNUC_UNUSED,
+                                               gpointer      marshal_data)
 {
-  typedef gboolean (*GMarshalFunc_BOOLEAN__UINT_UINT_POINTER) (gpointer     data1,
-                                                               guint        arg_1,
-                                                               guint        arg_2,
-                                                               gpointer     arg_3,
-                                                               gpointer     data2);
-  register GMarshalFunc_BOOLEAN__UINT_UINT_POINTER callback;
+  typedef gboolean (*GMarshalFunc_BOOLEAN__INT_INT_UINT_UINT_POINTER) (gpointer     data1,
+                                                                       gint         arg_1,
+                                                                       gint         arg_2,
+                                                                       guint        arg_3,
+                                                                       guint        arg_4,
+                                                                       gpointer     arg_5,
+                                                                       gpointer     data2);
+  register GMarshalFunc_BOOLEAN__INT_INT_UINT_UINT_POINTER callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
   gboolean v_return;
 
   g_return_if_fail (return_value != NULL);
-  g_return_if_fail (n_param_values == 4);
+  g_return_if_fail (n_param_values == 6);
 
   if (G_CCLOSURE_SWAP_DATA (closure))
     {
@@ -79,12 +83,14 @@ fm_marshal_BOOLEAN__UINT_UINT_POINTER (GClosure     *closure,
       data1 = g_value_peek_pointer (param_values + 0);
       data2 = closure->data;
     }
-  callback = (GMarshalFunc_BOOLEAN__UINT_UINT_POINTER) (marshal_data ? marshal_data : cc->callback);
+  callback = (GMarshalFunc_BOOLEAN__INT_INT_UINT_UINT_POINTER) (marshal_data ? marshal_data : cc->callback);
 
   v_return = callback (data1,
-                       g_marshal_value_peek_uint (param_values + 1),
-                       g_marshal_value_peek_uint (param_values + 2),
-                       g_marshal_value_peek_pointer (param_values + 3),
+                       g_marshal_value_peek_int (param_values + 1),
+                       g_marshal_value_peek_int (param_values + 2),
+                       g_marshal_value_peek_uint (param_values + 3),
+                       g_marshal_value_peek_uint (param_values + 4),
+                       g_marshal_value_peek_pointer (param_values + 5),
                        data2);
 
   g_value_set_boolean (return_value, v_return);

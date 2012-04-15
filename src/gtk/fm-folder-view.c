@@ -41,8 +41,7 @@
 
 enum{
     CHDIR,
-	LOADED,
-	STATUS,
+    LOADED,
     CLICKED,
     SEL_CHANGED,
     SORT_CHANGED,
@@ -61,7 +60,6 @@ static GList* fm_folder_view_get_selected_tree_paths(FmFolderView* fv);
 static gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt);
 static void on_chdir(FmFolderView* fv, FmPath* dir_path);
 static void on_loaded(FmFolderView* fv, FmPath* dir_path);
-static void on_status(FmFolderView* fv, const char* msg);
 static void on_model_loaded(FmFolderModel* model, FmFolderView* fv);
 static FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv);
 
@@ -82,7 +80,7 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
 {
     GObjectClass *g_object_class;
     GtkWidgetClass *widget_class;
-	FmFolderViewClass *fv_class;
+    FmFolderViewClass *fv_class;
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->finalize = fm_folder_view_finalize;
     widget_class = GTK_WIDGET_CLASS(klass);
@@ -107,15 +105,6 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      G_TYPE_FROM_CLASS(klass),
                      G_SIGNAL_RUN_FIRST,
                      G_STRUCT_OFFSET(FmFolderViewClass, loaded),
-                     NULL, NULL,
-                     g_cclosure_marshal_VOID__POINTER,
-                     G_TYPE_NONE, 1, G_TYPE_POINTER);
-
-    signals[STATUS]=
-        g_signal_new("status",
-                     G_TYPE_FROM_CLASS(klass),
-                     G_SIGNAL_RUN_FIRST,
-                     G_STRUCT_OFFSET(FmFolderViewClass, status),
                      NULL, NULL,
                      g_cclosure_marshal_VOID__POINTER,
                      G_TYPE_NONE, 1, G_TYPE_POINTER);
@@ -165,37 +154,27 @@ gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
 
 void on_chdir(FmFolderView* fv, FmPath* dir_path)
 {
-	GtkWidget* toplevel = gtk_widget_get_toplevel((GtkWidget*)fv);
-	if(GTK_WIDGET_REALIZED(toplevel))
-	{
-		GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
-		gdk_window_set_cursor(toplevel->window, cursor);
-	}
+    GtkWidget* toplevel = gtk_widget_get_toplevel((GtkWidget*)fv);
+    if(GTK_WIDGET_REALIZED(toplevel))
+    {
+        GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
+        gdk_window_set_cursor(toplevel->window, cursor);
+    }
 }
 
 void on_loaded(FmFolderView* fv, FmPath* dir_path)
 {
-	GtkWidget* toplevel = gtk_widget_get_toplevel((GtkWidget*)fv);
-	if(GTK_WIDGET_REALIZED(toplevel))
-		gdk_window_set_cursor(toplevel->window, NULL);
-}
-
-void on_status(FmFolderView* fv, const char* msg)
-{
-
+    GtkWidget* toplevel = gtk_widget_get_toplevel((GtkWidget*)fv);
+    if(GTK_WIDGET_REALIZED(toplevel))
+        gdk_window_set_cursor(toplevel->window, NULL);
 }
 
 void on_model_loaded(FmFolderModel* model, FmFolderView* fv)
 {
-	FmFolder* folder = model->dir;
-	char* msg;
-	/* FIXME: prevent direct access to data members */
-	g_signal_emit(fv, signals[LOADED], 0, folder->dir_path);
-
-    /* FIXME: show number of hidden files and available disk spaces. */
-	msg = g_strdup_printf("%d files are listed.", fm_list_get_length(folder->files) );
-	g_signal_emit(fv, signals[STATUS], 0, msg);
-	g_free(msg);
+    FmFolder* folder = model->dir;
+    char* msg;
+    /* FIXME: prevent direct access to data members */
+    g_signal_emit(fv, signals[LOADED], 0, folder->dir_path);
 }
 
 FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity severity, FmFolderView* fv)
@@ -209,7 +188,7 @@ FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity
         else if(err->code == G_IO_ERROR_FAILED_HANDLED)
             return FM_JOB_CONTINUE;
     }
-    fm_show_error(parent, err->message);
+    fm_show_error(parent, NULL, err->message);
     return FM_JOB_CONTINUE;
 }
 
@@ -326,8 +305,8 @@ static void fm_folder_view_finalize(GObject *object)
         if( self->model )
             g_object_unref(self->model);
     }
-	g_object_unref(self->dnd_src);
-	g_object_unref(self->dnd_dest);
+    g_object_unref(self->dnd_src);
+    g_object_unref(self->dnd_dest);
 
     if(self->cwd)
         fm_path_unref(self->cwd);
@@ -399,7 +378,7 @@ static gboolean on_drag_drop(GtkWidget *dest_widget,
     gboolean ret = FALSE;
     GdkAtom target = gtk_drag_dest_find_target(dest_widget, drag_context, NULL);
     if(target != GDK_NONE)
-        ret = fm_dnd_dest_drag_drop(fv->dnd_dest, drag_context, target, time);
+        ret = fm_dnd_dest_drag_drop(fv->dnd_dest, drag_context, target, x, y, time);
     return ret;
 }
 
@@ -430,7 +409,7 @@ static GtkTreePath* get_drop_path(FmFolderView* fv, gint x, gint y)
     case FM_FV_COMPACT_VIEW:
     case FM_FV_THUMBNAIL_VIEW:
         {
-            tp = exo_icon_view_get_path_at_pos((const struct ExoIconView *)fv->view, x, y);
+            tp = exo_icon_view_get_path_at_pos((const struct ExoIconView *)(const struct ExoIconView *)fv->view, x, y);
             exo_icon_view_set_drag_dest_item(EXO_ICON_VIEW(fv->view), tp, EXO_ICON_VIEW_DROP_INTO);
             break;
         }
@@ -489,7 +468,6 @@ static void on_drag_leave(GtkWidget *dest_widget,
                                 guint time,
                                 FmFolderView* fv)
 {
-    g_debug("ON_DRAG_LEAVE");
     fm_dnd_dest_drag_leave(fv->dnd_dest, drag_context, time);
 }
 
@@ -715,22 +693,22 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 
         /* FIXME: maybe calling set_icon_size here is a good idea */
 
-		gtk_drag_source_set(fv->view, GDK_BUTTON1_MASK,
-			fm_default_dnd_src_targets, N_FM_DND_SRC_DEFAULT_TARGETS,
-			GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
+        gtk_drag_source_set(fv->view, GDK_BUTTON1_MASK,
+            fm_default_dnd_src_targets, N_FM_DND_SRC_DEFAULT_TARGETS,
+            GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
         fm_dnd_src_set_widget(fv->dnd_src, fv->view);
 
-		gtk_drag_dest_set(fv->view, 0,
-			fm_default_dnd_dest_targets, N_FM_DND_DEST_DEFAULT_TARGETS,
-			GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
-		fm_dnd_dest_set_widget(fv->dnd_dest, fv->view);
+        gtk_drag_dest_set(fv->view, 0,
+            fm_default_dnd_dest_targets, N_FM_DND_DEST_DEFAULT_TARGETS,
+            GDK_ACTION_COPY|GDK_ACTION_MOVE|GDK_ACTION_LINK|GDK_ACTION_ASK);
+        fm_dnd_dest_set_widget(fv->dnd_dest, fv->view);
         g_signal_connect_after(fv->view, "drag-motion", G_CALLBACK(on_drag_motion), fv);
         g_signal_connect(fv->view, "drag-leave", G_CALLBACK(on_drag_leave), fv);
         g_signal_connect(fv->view, "drag-drop", G_CALLBACK(on_drag_drop), fv);
         g_signal_connect(fv->view, "drag-data-received", G_CALLBACK(on_drag_data_received), fv);
         g_signal_connect(fv->view, "button-press-event", G_CALLBACK(on_btn_pressed), fv);
 
-        fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment(fv), gtk_scrolled_window_get_vadjustment(fv));
+        fm_dnd_set_dest_auto_scroll(fv->view, gtk_scrolled_window_get_hadjustment(GTK_SCROLLED_WINDOW(fv)), gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(fv)));
 
         gtk_widget_show(fv->view);
         gtk_container_add((GtkContainer*)fv, fv->view);
@@ -739,9 +717,9 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             gtk_widget_grab_focus(fv->view);
     }
     else
-	{
+    {
         /* g_debug("same mode"); */
-	}
+    }
 }
 
 FmFolderViewMode fm_folder_view_get_mode(FmFolderView* fv)
@@ -785,7 +763,7 @@ void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, int by)
         fv->sort_by = by;
     if(fv->model)
         gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fv->model),
-		                                     fv->sort_by, fv->sort_type);
+                                             fv->sort_by, fv->sort_type);
 }
 
 GtkSortType fm_folder_view_get_sort_type(FmFolderView* fv)
@@ -815,18 +793,18 @@ gboolean fm_folder_view_get_show_hidden(FmFolderView* fv)
 
 gboolean fm_folder_view_chdir_by_name(FmFolderView* fv, const char* path_str)
 {
-	gboolean ret;
-	FmPath* path;
+    gboolean ret;
+    FmPath* path;
 
     if( G_UNLIKELY( !path_str ) )
         return FALSE;
 
-	path = fm_path_new(path_str);
-	if(!path) /* might be a malformed path */
-		return FALSE;
-	ret = fm_folder_view_chdir(fv, path);
-	fm_path_unref(path);
-	return ret;
+    path = fm_path_new_for_str(path_str);
+    if(!path) /* might be a malformed path */
+        return FALSE;
+    ret = fm_folder_view_chdir(fv, path);
+    fm_path_unref(path);
+    return ret;
 }
 
 static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv)
@@ -903,7 +881,6 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         if(fv->model)
         {
             model = FM_FOLDER_MODEL(fv->model);
-            g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
             g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
             if(model->dir)
                 g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
@@ -912,20 +889,22 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         }
     }
 
-	/* FIXME: the signal handler should be able to cancel the loading. */
-	g_signal_emit(fv, signals[CHDIR], 0, path);
-	if(fv->cwd)
-		fm_path_unref(fv->cwd);
+    /* FIXME: the signal handler should be able to cancel the loading. */
+    g_signal_emit(fv, signals[CHDIR], 0, path);
+    if(fv->cwd)
+        fm_path_unref(fv->cwd);
     fv->cwd = fm_path_ref(path);
 
-    fv->folder = folder = fm_folder_get_for_path(path);
+    fv->folder = folder = fm_folder_get(path);
     if(folder)
     {
         /* connect error handler */
         g_signal_connect(folder, "loaded", on_folder_loaded, fv);
         g_signal_connect(folder, "unmount", on_folder_unmounted, fv);
         g_signal_connect(folder, "error", on_folder_err, fv);
-        if(fm_folder_get_is_loading(folder))
+        if(fm_folder_get_is_loaded(folder))
+            on_folder_loaded(folder, fv);
+        else
         {
             switch(fv->mode)
             {
@@ -941,8 +920,6 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
             }
             fv->model = NULL;
         }
-        else
-            on_folder_loaded(folder, fv);
     }
     return TRUE;
 }
@@ -1041,12 +1018,12 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
     if(!fv->model)
         return FALSE;
 
-	/* FIXME: handle single click activation */
+    /* FIXME: handle single click activation */
     if( evt->type == GDK_BUTTON_PRESS )
     {
-		/* special handling for ExoIconView */
-		if(evt->button != 1)
-		{
+        /* special handling for ExoIconView */
+        if(evt->button != 1)
+        {
             if(fv->mode==FM_FV_ICON_VIEW || fv->mode==FM_FV_COMPACT_VIEW || fv->mode==FM_FV_THUMBNAIL_VIEW)
             {
                 /* select the item on right click for ExoIconView */
@@ -1055,7 +1032,7 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
                     /* if the hit item is not currently selected */
                     if(!exo_icon_view_path_is_selected(EXO_ICON_VIEW(view), tp))
                     {
-                        sels = exo_icon_view_get_selected_items((const struct ExoIconView *)view);
+                        sels = exo_icon_view_get_selected_items((const struct ExoIconView *)(const struct ExoIconView *)view);
                         if( sels ) /* if there are selected items */
                         {
                             exo_icon_view_unselect_all(EXO_ICON_VIEW(view)); /* unselect all items */
@@ -1089,27 +1066,27 @@ gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
                     gtk_tree_path_free(tp);
                 }
             }
-		}
+        }
 
-		if(evt->button == 2) /* middle click */
-			type = FM_FV_MIDDLE_CLICK;
-		else if(evt->button == 3) /* right click */
-			type = FM_FV_CONTEXT_MENU;
+        if(evt->button == 2) /* middle click */
+            type = FM_FV_MIDDLE_CLICK;
+        else if(evt->button == 3) /* right click */
+            type = FM_FV_CONTEXT_MENU;
     }
 
-	if( type != FM_FV_CLICK_NONE )
-	{
-		sels = fm_folder_view_get_selected_tree_paths(fv);
-		if( sels || type == FM_FV_CONTEXT_MENU )
-		{
-			item_clicked(fv, sels ? sels->data : NULL, type);
-			if(sels)
-			{
-				g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
-				g_list_free(sels);
-			}
-		}
-	}
+    if( type != FM_FV_CLICK_NONE )
+    {
+        sels = fm_folder_view_get_selected_tree_paths(fv);
+        if( sels || type == FM_FV_CONTEXT_MENU )
+        {
+            item_clicked(fv, sels ? sels->data : NULL, type);
+            if(sels)
+            {
+                g_list_foreach(sels, (GFunc)gtk_tree_path_free, NULL);
+                g_list_free(sels);
+            }
+        }
+    }
     return FALSE;
 }
 
@@ -1237,6 +1214,11 @@ FmFileInfo* fm_folder_view_get_cwd_info(FmFolderView* fv)
     return FM_FOLDER_MODEL(fv->model)->dir->dir_fi;
 }
 
+gboolean fm_folder_view_get_is_loaded(FmFolderView* fv)
+{
+    return fv->folder && fm_folder_get_is_loaded(fv->folder);
+}
+
 static void cancel_pending_row_activated(FmFolderView* fv)
 {
     if(fv->row_activated_idle)
@@ -1246,4 +1228,14 @@ static void cancel_pending_row_activated(FmFolderView* fv)
         gtk_tree_row_reference_free(fv->activated_row_ref);
         fv->activated_row_ref = NULL;
     }
+}
+
+FmFolderModel* fm_folder_view_get_model(FmFolderView* fv)
+{
+    return FM_FOLDER_MODEL(fv->model);
+}
+
+FmFolder* fm_folder_view_get_folder(FmFolderView* fv)
+{
+    return fv->folder;
 }

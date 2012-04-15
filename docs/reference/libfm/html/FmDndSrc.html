@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmDndSrc</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
 <link rel="prev" href="FmTabLabel.html" title="FmTabLabel">
-<link rel="next" href="FmDndDest.html" title="FmDndDest">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="next" href="libfm-FmDndDest.html" title="FmDndDest">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="FmTabLabel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
-<td><a accesskey="n" href="FmDndDest.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<th width="100%" align="center">Libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-FmDndDest.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmDndSrc.synopsis" class="shortcut">Top</a>
@@ -30,7 +30,7 @@
                   <a href="#FmDndSrc.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmDndSrc">
+<div class="refentry">
 <a name="FmDndSrc"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,91 +39,91 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmDndSrc.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">                    <a class="link" href="FmDndSrc.html#FmDndSrc-struct" title="FmDndSrc">FmDndSrc</a>;
-                    <a class="link" href="FmDndSrc.html#FmDndSrcClass" title="FmDndSrcClass">FmDndSrcClass</a>;
-<a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="returnvalue">FmDndSrc</span></a>*           <a class="link" href="FmDndSrc.html#fm-dnd-src-new" title="fm_dnd_src_new ()">fm_dnd_src_new</a>                      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-widget" title="fm_dnd_src_set_widget ()">fm_dnd_src_set_widget</a>               (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);
-<span class="returnvalue">FmFileInfoList</span>*     <a class="link" href="FmDndSrc.html#fm-dnd-src-get-files" title="fm_dnd_src_get_files ()">fm_dnd_src_get_files</a>                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-files" title="fm_dnd_src_set_files ()">fm_dnd_src_set_files</a>                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfoList</span> *files</code></em>);
+<pre class="synopsis">struct              <a class="link" href="FmDndSrc.html#FmDndSrc-struct" title="struct FmDndSrc">FmDndSrc</a>;
+struct              <a class="link" href="FmDndSrc.html#FmDndSrcClass" title="struct FmDndSrcClass">FmDndSrcClass</a>;
+<a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    <a class="link" href="FmDndSrc.html#fm-dnd-src-get-files" title="fm_dnd_src_get_files ()">fm_dnd_src_get_files</a>                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>);
+<a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="returnvalue">FmDndSrc</span></a> *          <a class="link" href="FmDndSrc.html#fm-dnd-src-new" title="fm_dnd_src_new ()">fm_dnd_src_new</a>                      (<em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-file" title="fm_dnd_src_set_file ()">fm_dnd_src_set_file</a>                 (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-files" title="fm_dnd_src_set_files ()">fm_dnd_src_set_files</a>                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="type">FmFileInfoList</span></a> *files</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-widget" title="fm_dnd_src_set_widget ()">fm_dnd_src_set_widget</a>               (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmDndSrc.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----FmDndSrc
 </pre>
 </div>
-<div class="refsect1" title="Signals">
+<div class="refsect1">
 <a name="FmDndSrc.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="FmDndSrc.html#FmDndSrc-data-get" title='The "data-get" signal'>data-get</a>"                                       : Run First
+  "<a class="link" href="FmDndSrc.html#FmDndSrc-data-get" title='The "data-get" signal'>data-get</a>"                                       : <code class="literal">Run First</code>
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmDndSrc.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmDndSrc.details"></a><h2>Details</h2>
-<div class="refsect2" title="FmDndSrc">
-<a name="FmDndSrc-struct"></a><h3>FmDndSrc</h3>
-<pre class="programlisting">typedef struct _FmDndSrc FmDndSrc;</pre>
+<div class="refsect2">
+<a name="FmDndSrc-struct"></a><h3>struct FmDndSrc</h3>
+<pre class="programlisting">struct FmDndSrc;</pre>
 </div>
 <hr>
-<div class="refsect2" title="FmDndSrcClass">
-<a name="FmDndSrcClass"></a><h3>FmDndSrcClass</h3>
-<pre class="programlisting">typedef struct {
+<div class="refsect2">
+<a name="FmDndSrcClass"></a><h3>struct FmDndSrcClass</h3>
+<pre class="programlisting">struct FmDndSrcClass {
 	GObjectClass parent_class;
 	void (*data_get)();
-} FmDndSrcClass;
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_dnd_src_new ()">
-<a name="fm-dnd-src-new"></a><h3>fm_dnd_src_new ()</h3>
-<pre class="programlisting"><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="returnvalue">FmDndSrc</span></a>*           fm_dnd_src_new                      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_dnd_src_set_widget ()">
-<a name="fm-dnd-src-set-widget"></a><h3>fm_dnd_src_set_widget ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_widget               (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *w</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_dnd_src_get_files ()">
+<div class="refsect2">
 <a name="fm-dnd-src-get-files"></a><h3>fm_dnd_src_get_files ()</h3>
-<pre class="programlisting"><span class="returnvalue">FmFileInfoList</span>*     fm_dnd_src_get_files                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    fm_dnd_src_get_files                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_dnd_src_set_files ()">
-<a name="fm-dnd-src-set-files"></a><h3>fm_dnd_src_set_files ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_files                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfoList</span> *files</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-dnd-src-new"></a><h3>fm_dnd_src_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="returnvalue">FmDndSrc</span></a> *          fm_dnd_src_new                      (<em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_dnd_src_set_file ()">
+<div class="refsect2">
 <a name="fm-dnd-src-set-file"></a><h3>fm_dnd_src_set_file ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_file                 (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfo</span> *file</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-src-set-files"></a><h3>fm_dnd_src_set_files ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_files                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="type">FmFileInfoList</span></a> *files</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dnd-src-set-widget"></a><h3>fm_dnd_src_set_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_widget               (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);</pre>
 </div>
 </div>
-<div class="refsect1" title="Signal Details">
+<div class="refsect1">
 <a name="FmDndSrc.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" title='The "data-get" signal'>
+<div class="refsect2">
 <a name="FmDndSrc-data-get"></a><h3>The <code class="literal">"data-get"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *fmdndsrc,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

@@ -3,20 +3,28 @@
                "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY version SYSTEM "version.xml">
 ]>
 <book id="index">
   <bookinfo>
-    <title>libfm Reference Manual</title>
+    <title>Libfm Reference Manual</title>
     <releaseinfo>
-      for libfm [VERSION].
+      for Libfm &version;
       The latest version of this documentation can be found on-line at
-      <ulink role="online-location" url="http://[SERVER]/libfm/index.html">http://[SERVER]/libfm/</ulink>.
+      <ulink role="online-location" url="http://sf.net/projects/pcmanfm/">http://sf.net/projects/pcmanfm/</ulink>.
     </releaseinfo>
   </bookinfo>
 
-  <chapter>
-    <title>[Insert title here]</title>
-        <xi:include href="xml/fm-dir-list-job.xml"/>
+  <chapter id="libfm">
+    <title>Libfm Overview</title>
+    <para>
+Libfm is a library built on top of glib/gio for developing file managers.
+It provides some useful file management utilities and related-widgets
+missing in gtk+/glib. It's originally developed for use in PCManFM, but
+it's carefully designed to be desktop environment-independent and can be
+used to develop other file manager-related tools as well.
+    </para>
+    <xi:include href="xml/fm-dir-list-job.xml"/>
     <xi:include href="xml/fm-job.xml"/>
     <xi:include href="xml/fm-simple-job.xml"/>
     <xi:include href="xml/fm-folder-model.xml"/>

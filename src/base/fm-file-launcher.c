@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include "fm-file-launcher.h"
 #include "fm-file-info-job.h"
+#include "fm-app-info.h"
 
 static void launch_files(GAppLaunchContext* ctx, GAppInfo* app, GList* file_infos)
 {
@@ -90,7 +91,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
                                  * e.g: If this URL points to the another desktop entry file, and it
                                  * points to yet another desktop entry file, this can create a
                                  * infinite loop. This is a extremely rare case. */
-                                FmPath* path = fm_path_new(url);
+                                FmPath* path = fm_path_new_for_uri(url);
                                 _uris = g_list_prepend(_uris, path);
                                 ret = fm_launch_paths(ctx, _uris, launcher, user_data);
                                 g_list_free(_uris);
@@ -119,7 +120,7 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
     }
 
     if(app)
-        ret = g_app_info_launch_uris(app, uris, ctx, &err);
+        ret = fm_app_info_launch_uris(app, uris, ctx, &err);
 
     if(err)
     {
@@ -172,18 +173,40 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     /* FIXME: we need to use eaccess/euidaccess here. */
                     if(g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
                     {
-                        app = g_app_info_create_from_commandline(filename, NULL, 0, NULL);
-                        if(app)
+                        if(launcher->exec_file)
                         {
-                            if(!g_app_info_launch(app, NULL, ctx, &err))
+                            FmFileLauncherExecAction act = launcher->exec_file(fi, user_data);
+                            GAppInfoCreateFlags flags = 0;
+                            switch(act)
                             {
-                                if(launcher->error)
-                                    launcher->error(ctx, err, user_data);
-                                g_error_free(err);
-                                err = NULL;
+                            case FM_FILE_LAUNCHER_EXEC_IN_TERMINAL:
+                                flags |= G_APP_INFO_CREATE_NEEDS_TERMINAL;
+                                /* NOTE: no break here */
+                            case FM_FILE_LAUNCHER_EXEC:
+                            {
+                                /* filename may contain spaces. Fix #3143296 */
+                                char* quoted = g_shell_quote(filename);
+                                app = fm_app_info_create_from_commandline(quoted, NULL, flags, NULL);
+                                g_free(quoted);
+                                if(app)
+                                {
+                                    if(!fm_app_info_launch(app, NULL, ctx, &err))
+                                    {
+                                        if(launcher->error)
+                                            launcher->error(ctx, err, user_data);
+                                        g_error_free(err);
+                                        err = NULL;
+                                    }
+                                    g_object_unref(app);
+                                    continue;
+                                }
+                                break;
                             }
-                            g_object_unref(app);
-                            continue;
+                            case FM_FILE_LAUNCHER_EXEC_OPEN:
+                                break;
+                            case FM_FILE_LAUNCHER_EXEC_CANCEL:
+                                continue;
+                            }
                         }
                     }
                     g_free(filename);
@@ -237,7 +260,7 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                     l->data = uri;
                 }
                 fis = g_list_reverse(fis);
-                g_app_info_launch_uris(app, fis, ctx, err);
+                fm_app_info_launch_uris(app, fis, ctx, err);
                 /* free URI strings */
                 g_list_foreach(fis, (GFunc)g_free, NULL);
                 g_object_unref(app);

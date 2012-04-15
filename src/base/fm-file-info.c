@@ -242,16 +242,27 @@ static void fm_file_info_clear( FmFileInfo* fi )
             g_free(fi->collate_key);
         fi->collate_key = NULL;
     }
-    if( fi->disp_name && fi->disp_name != fi->path->name )
-    {
-        g_free( fi->disp_name );
-        fi->disp_name = NULL;
-    }
+
     if( fi->path )
     {
+        if(G_LIKELY(fi->disp_name) && fi->disp_name != fi->path->name)
+        {
+            g_free( fi->disp_name );
+            fi->disp_name = NULL;
+        }
+
         fm_path_unref(fi->path);
         fi->path = NULL;
     }
+    else
+    {
+        if(fi->disp_name)
+        {
+            g_free(fi->disp_name);
+            fi->disp_name = NULL;
+        }
+    }
+
     if( fi->disp_size )
     {
         g_free( fi->disp_size );
@@ -350,6 +361,25 @@ const char* fm_file_info_get_disp_name( FmFileInfo* fi )
     return fi->disp_name;
 }
 
+void fm_file_info_set_path(FmFileInfo* fi, FmPath* path)
+{
+    if(fi->path)
+    {
+        if(fi->path->name == fi->disp_name)
+            fi->disp_name = NULL;
+        fm_path_unref(fi->path);
+    }
+
+    if(path)
+    {
+        fi->path = fm_path_ref(path);
+        /* FIXME: need to handle UTF-8 issue here */
+        fi->disp_name = fi->path->name;
+    }
+    else
+        fi->path = NULL;
+}
+
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name )
 {
     if ( fi->disp_name && fi->disp_name != fi->path->name )
@@ -420,6 +450,13 @@ gboolean fm_file_info_is_image( FmFileInfo* fi )
     return FALSE;
 }
 
+gboolean fm_file_info_is_text( FmFileInfo* fi )
+{
+    if(g_content_type_is_a(fi->type->type, "text/plain"))
+        return TRUE;
+    return FALSE;
+}
+
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi )
 {
     return fi->type == desktop_entry_type;
@@ -437,6 +474,15 @@ gboolean fm_file_info_is_executable_type( FmFileInfo* fi )
     // FIXME: didn't check access rights.
 //    return mime_type_is_executable_file( file_path, fi->type->type );
     return g_content_type_can_be_executable(fi->type->type);
+}
+
+gboolean fm_file_info_is_hidden(FmFileInfo* fi)
+{
+    const char* name = fi->path->name;
+    /* files with . prefix or ~ suffix are regarded as hidden files.
+     * dirs with . prefix are regarded as hidden dirs. */
+    return (name[0] == '.' ||
+       (!fm_file_info_is_dir(fi) && g_str_has_suffix(name, "~")) );
 }
 
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi)

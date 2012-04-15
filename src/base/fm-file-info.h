@@ -36,7 +36,8 @@
 
 G_BEGIN_DECLS
 
-typedef enum
+/* Some flags are defined for future use and are not supported now */
+enum _FmFileInfoFlag
 {
     FM_FILE_INFO_NONE = 0,
     FM_FILE_INFO_HOME_DIR = (1 << 0),
@@ -45,7 +46,8 @@ typedef enum
     FM_FILE_INFO_MOUNT_POINT = (1 << 3),
     FM_FILE_INFO_REMOTE = (1 << 4),
     FM_FILE_INFO_VIRTUAL = (1 << 5)
-}FmFileInfoFlag;   /* For future use, not all supported now */
+};
+typedef enum _FmFileInfoFlag FmFileInfoFlag;
 
 typedef struct _FmFileInfo FmFileInfo;
 typedef FmList FmFileInfoList;
@@ -77,8 +79,8 @@ struct _FmFileInfo
     char* collate_key; /* used to sort files by name */
     char* disp_size;  /* displayed human-readable file size */
     char* disp_mtime; /* displayed last modification time */
-	FmMimeType* type;
-	FmIcon* icon;
+    FmMimeType* type;
+    FmIcon* icon;
 
     char* target; /* target of shortcut or mountable. */
 
@@ -103,6 +105,7 @@ FmPath* fm_file_info_get_path( FmFileInfo* fi );
 const char* fm_file_info_get_name( FmFileInfo* fi );
 const char* fm_file_info_get_disp_name( FmFileInfo* fi );
 
+void fm_file_info_set_path(FmFileInfo* fi, FmPath* path);
 void fm_file_info_set_disp_name( FmFileInfo* fi, const char* name );
 
 goffset fm_file_info_get_size( FmFileInfo* fi );
@@ -125,9 +128,13 @@ gboolean fm_file_info_is_mountable( FmFileInfo* fi );
 
 gboolean fm_file_info_is_image( FmFileInfo* fi );
 
+gboolean fm_file_info_is_text( FmFileInfo* fi );
+
 gboolean fm_file_info_is_desktop_entry( FmFileInfo* fi );
 
 gboolean fm_file_info_is_unknown_type( FmFileInfo* fi );
+
+gboolean fm_file_info_is_hidden(FmFileInfo* fi);
 
 /* if the mime-type is executable, such as shell script, python script, ... */
 gboolean fm_file_info_is_executable_type( FmFileInfo* fi);

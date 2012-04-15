@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmFolder</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
-<link rel="home" href="index.html" title="libfm Reference Manual">
-<link rel="up" href="ch01.html" title="[Insert title here]">
-<link rel="prev" href="FmDndDest.html" title="FmDndDest">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm.html" title="Libfm Overview">
+<link rel="prev" href="libfm-FmDndDest.html" title="FmDndDest">
 <link rel="next" href="libfm-fm-gtk.html" title="fm-gtk">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="FmDndDest.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-FmDndDest.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">libfm Reference Manual</th>
+<th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="libfm-fm-gtk.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
@@ -30,7 +30,7 @@
                   <a href="#FmFolder.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" title="FmFolder">
+<div class="refentry">
 <a name="FmFolder"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,162 +39,199 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="FmFolder.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">                    <a class="link" href="FmFolder.html#FmFolder-struct" title="FmFolder">FmFolder</a>;
-                    <a class="link" href="FmFolder.html#FmFolderClass" title="FmFolderClass">FmFolderClass</a>;
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           <a class="link" href="FmFolder.html#fm-folder-get" title="fm_folder_get ()">fm_folder_get</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           <a class="link" href="FmFolder.html#fm-folder-get-for-gfile" title="fm_folder_get_for_gfile ()">fm_folder_get_for_gfile</a>             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="type">GFile</span></a> *gf</code></em>);
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           <a class="link" href="FmFolder.html#fm-folder-get-for-path" title="fm_folder_get_for_path ()">fm_folder_get_for_path</a>              (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           <a class="link" href="FmFolder.html#fm-folder-get-for-path-name" title="fm_folder_get_for_path_name ()">fm_folder_get_for_path_name</a>         (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           <a class="link" href="FmFolder.html#fm-folder-get-for-uri" title="fm_folder_get_for_uri ()">fm_folder_get_for_uri</a>               (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);
-<span class="returnvalue">FmFileInfoList</span>*     <a class="link" href="FmFolder.html#fm-folder-get-files" title="fm_folder_get_files ()">fm_folder_get_files</a>                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
-<span class="returnvalue">FmFileInfo</span>*         <a class="link" href="FmFolder.html#fm-folder-get-file-by-name" title="fm_folder_get_file_by_name ()">fm_folder_get_file_by_name</a>          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
+<pre class="synopsis">struct              <a class="link" href="FmFolder.html#FmFolder-struct" title="struct FmFolder">FmFolder</a>;
+struct              <a class="link" href="FmFolder.html#FmFolderClass" title="struct FmFolderClass">FmFolderClass</a>;
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get" title="fm_folder_get ()">fm_folder_get</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="FmFolder.html#fm-folder-get-file-by-name" title="fm_folder_get_file_by_name ()">fm_folder_get_file_by_name</a>          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="FmFolder.html#fm-folder-get-is-loading" title="fm_folder_get_is_loading ()">fm_folder_get_is_loading</a>            (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    <a class="link" href="FmFolder.html#fm-folder-get-files" title="fm_folder_get_files ()">fm_folder_get_files</a>                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolder.html#fm-folder-get-filesystem-info" title="fm_folder_get_filesystem_info ()">fm_folder_get_filesystem_info</a>       (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> *total_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> *free_size</code></em>);
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get-for-gfile" title="fm_folder_get_for_gfile ()">fm_folder_get_for_gfile</a>             (<em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get-for-path-name" title="fm_folder_get_for_path_name ()">fm_folder_get_for_path_name</a>         (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get-for-uri" title="fm_folder_get_for_uri ()">fm_folder_get_for_uri</a>               (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolder.html#fm-folder-get-is-loaded" title="fm_folder_get_is_loaded ()">fm_folder_get_is_loaded</a>             (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmFolder.html#fm-folder-query-filesystem-info" title="fm_folder_query_filesystem_info ()">fm_folder_query_filesystem_info</a>     (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmFolder.html#fm-folder-reload" title="fm_folder_reload ()">fm_folder_reload</a>                    (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="FmFolder.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----FmFolder
 </pre>
 </div>
-<div class="refsect1" title="Signals">
+<div class="refsect1">
 <a name="FmFolder.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="FmFolder.html#FmFolder-error" title='The "error" signal'>error</a>"                                          : Run Last
-  "<a class="link" href="FmFolder.html#FmFolder-files-added" title='The "files-added" signal'>files-added</a>"                                    : Run First
-  "<a class="link" href="FmFolder.html#FmFolder-files-changed" title='The "files-changed" signal'>files-changed</a>"                                  : Run First
-  "<a class="link" href="FmFolder.html#FmFolder-files-removed" title='The "files-removed" signal'>files-removed</a>"                                  : Run First
-  "<a class="link" href="FmFolder.html#FmFolder-loaded" title='The "loaded" signal'>loaded</a>"                                         : Run First
-  "<a class="link" href="FmFolder.html#FmFolder-unmount" title='The "unmount" signal'>unmount</a>"                                        : Run First
+  "<a class="link" href="FmFolder.html#FmFolder-changed" title='The "changed" signal'>changed</a>"                                        : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-content-changed" title='The "content-changed" signal'>content-changed</a>"                                : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-error" title='The "error" signal'>error</a>"                                          : <code class="literal">Run Last</code>
+  "<a class="link" href="FmFolder.html#FmFolder-files-added" title='The "files-added" signal'>files-added</a>"                                    : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-files-changed" title='The "files-changed" signal'>files-changed</a>"                                  : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-files-removed" title='The "files-removed" signal'>files-removed</a>"                                  : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-fs-info" title='The "fs-info" signal'>fs-info</a>"                                        : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-loaded" title='The "loaded" signal'>loaded</a>"                                         : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-removed" title='The "removed" signal'>removed</a>"                                        : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-unmount" title='The "unmount" signal'>unmount</a>"                                        : <code class="literal">Run First</code>
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="FmFolder.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="FmFolder.details"></a><h2>Details</h2>
-<div class="refsect2" title="FmFolder">
-<a name="FmFolder-struct"></a><h3>FmFolder</h3>
-<pre class="programlisting">typedef struct _FmFolder FmFolder;</pre>
+<div class="refsect2">
+<a name="FmFolder-struct"></a><h3>struct FmFolder</h3>
+<pre class="programlisting">struct FmFolder;</pre>
 </div>
 <hr>
-<div class="refsect2" title="FmFolderClass">
-<a name="FmFolderClass"></a><h3>FmFolderClass</h3>
-<pre class="programlisting">typedef struct {
-	GObjectClass parent_class;
+<div class="refsect2">
+<a name="FmFolderClass"></a><h3>struct FmFolderClass</h3>
+<pre class="programlisting">struct FmFolderClass {
+    GObjectClass parent_class;
 
     void (*files_added)(FmFolder* dir, GSList* files);
     void (*files_removed)(FmFolder* dir, GSList* files);
     void (*files_changed)(FmFolder* dir, GSList* files);
     void (*loaded)(FmFolder* dir);
     void (*unmount)(FmFolder* dir);
-	FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
-
-    void (*reserved1)(void);
-    void (*reserved2)(void);
-    void (*reserved3)(void);
-    void (*reserved4)(void);
-} FmFolderClass;
+    void (*changed)(FmFolder* dir);
+    void (*removed)(FmFolder* dir);
+    void (*content_changed)(FmFolder* dir);
+    void (*fs_info)(FmFolder* dir);
+    FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
+};
 </pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_get ()">
+<div class="refsect2">
 <a name="fm-folder-get"></a><h3>fm_folder_get ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           fm_folder_get                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_get_for_gfile ()">
-<a name="fm-folder-get-for-gfile"></a><h3>fm_folder_get_for_gfile ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           fm_folder_get_for_gfile             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gio/GFile.html"><span class="type">GFile</span></a> *gf</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_get_for_path ()">
-<a name="fm-folder-get-for-path"></a><h3>fm_folder_get_for_path ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           fm_folder_get_for_path              (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_get_for_path_name ()">
-<a name="fm-folder-get-for-path-name"></a><h3>fm_folder_get_for_path_name ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           fm_folder_get_for_path_name         (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_get_for_uri ()">
-<a name="fm-folder-get-for-uri"></a><h3>fm_folder_get_for_uri ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a>*           fm_folder_get_for_uri               (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_get_files ()">
-<a name="fm-folder-get-files"></a><h3>fm_folder_get_files ()</h3>
-<pre class="programlisting"><span class="returnvalue">FmFileInfoList</span>*     fm_folder_get_files                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2" title="fm_folder_get_file_by_name ()">
+<div class="refsect2">
 <a name="fm-folder-get-file-by-name"></a><h3>fm_folder_get_file_by_name ()</h3>
-<pre class="programlisting"><span class="returnvalue">FmFileInfo</span>*         fm_folder_get_file_by_name          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_folder_get_file_by_name          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_get_is_loading ()">
-<a name="fm-folder-get-is-loading"></a><h3>fm_folder_get_is_loading ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            fm_folder_get_is_loading            (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<div class="refsect2">
+<a name="fm-folder-get-files"></a><h3>fm_folder_get_files ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    fm_folder_get_files                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
 </div>
 <hr>
-<div class="refsect2" title="fm_folder_reload ()">
+<div class="refsect2">
+<a name="fm-folder-get-filesystem-info"></a><h3>fm_folder_get_filesystem_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_get_filesystem_info       (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> *total_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint64</span> *free_size</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-get-for-gfile"></a><h3>fm_folder_get_for_gfile ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get_for_gfile             (<em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-get-for-path-name"></a><h3>fm_folder_get_for_path_name ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get_for_path_name         (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-get-for-uri"></a><h3>fm_folder_get_for_uri ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get_for_uri               (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-get-is-loaded"></a><h3>fm_folder_get_is_loaded ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_get_is_loaded             (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-query-filesystem-info"></a><h3>fm_folder_query_filesystem_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_query_filesystem_info     (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-folder-reload"></a><h3>fm_folder_reload ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_reload                    (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
 </div>
 </div>
-<div class="refsect1" title="Signal Details">
+<div class="refsect1">
 <a name="FmFolder.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" title='The "error" signal'>
-<a name="FmFolder-error"></a><h3>The <code class="literal">"error"</code> signal</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>      arg2,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run Last</pre>
+<div class="refsect2">
+<a name="FmFolder-changed"></a><h3>The <code class="literal">"changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
 </div>
 <hr>
-<div class="refsect2" title='The "files-added" signal'>
+<div class="refsect2">
+<a name="FmFolder-content-changed"></a><h3>The <code class="literal">"content-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmFolder-error"></a><h3>The <code class="literal">"error"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+                                                        <span class="type">gpointer</span>  arg1,
+                                                        <span class="type">gint</span>      arg2,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run Last</code></pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="FmFolder-files-added"></a><h3>The <code class="literal">"files-added"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span>  arg1,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
 </div>
 <hr>
-<div class="refsect2" title='The "files-changed" signal'>
+<div class="refsect2">
 <a name="FmFolder-files-changed"></a><h3>The <code class="literal">"files-changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span>  arg1,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
 </div>
 <hr>
-<div class="refsect2" title='The "files-removed" signal'>
+<div class="refsect2">
 <a name="FmFolder-files-removed"></a><h3>The <code class="literal">"files-removed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span>  arg1,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
 </div>
 <hr>
-<div class="refsect2" title='The "loaded" signal'>
+<div class="refsect2">
+<a name="FmFolder-fs-info"></a><h3>The <code class="literal">"fs-info"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="FmFolder-loaded"></a><h3>The <code class="literal">"loaded"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
 </div>
 <hr>
-<div class="refsect2" title='The "unmount" signal'>
+<div class="refsect2">
+<a name="FmFolder-removed"></a><h3>The <code class="literal">"removed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="FmFolder-unmount"></a><h3>The <code class="literal">"unmount"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>  user_data)      : Run First</pre>
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

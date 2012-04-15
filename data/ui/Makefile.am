@@ -8,14 +8,12 @@ ui_in_files= \
 	ask-rename.glade \
 	app-chooser.glade \
 	preferred-apps.glade \
+	exec-file.glade \
 	$(NULL)
 ui_DATA = $(ui_in_files:.glade=.ui)
 
 EXTRA_DIST = \
-	$(ui_DATA) \
-	$(NULL)
-
-CLEANFILES = \
+	$(ui_in_files) \
 	$(ui_DATA) \
 	$(NULL)
 
