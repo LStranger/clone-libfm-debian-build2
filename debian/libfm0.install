@@ -1,4 +1,7 @@
-usr/lib/libfm.so.0*
-usr/share/mime/packages
-usr/share/locale/*/LC_MESSAGES/libfm.mo
+etc/xdg/libfm/libfm.conf
 usr/lib/gio/modules/libgiofm.so
+usr/lib/libfm.so.0*
+usr/lib/libfm/gnome-terminal
+usr/share/libfm/archivers.list
+usr/share/locale/*/LC_MESSAGES/libfm.mo
+usr/share/mime/packages
