@@ -10,8 +10,8 @@ Build-Depends:
  libgtk2.0-dev (>= 2.16), libmenu-cache1-dev, libtool, lsb-release
 Standards-Version: 3.9.2
 Homepage: http://pcmanfm.sourceforge.net/
-Vcs-Git: git://git.debian.org/git/pkg-lxde/libfm.git
-Vcs-Browser: http://git.debian.org/?p=pkd-lxde/libfm.git;a=summary
+Vcs-Browser: http://git.lxde.org/gitweb/?p=debian/libfm.git
+Vcs-Git: git://git.lxde.org/git/debian/libfm.git
 
 Package: libfm1
 Section: libs
