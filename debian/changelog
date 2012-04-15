@@ -1,3 +1,27 @@
+libfm (0.1.12+git20100830-1) experimental; urgency=low
+
+  [ Andrew Lee (李健秋) ]
+  * Sync with upstream git
+  * Bumped Standard-version to 3.9.1
+  * Update copyright info.
+  * Added copyright_hints file
+  * enable udisk build option
+  * Correct build-depends
+  * Sync with upstream git.
+
+  [ Julien Lavergne ]
+  * debian/rules:
+   - Pass --fail-missing to dh_install.
+   - Remove .la and .a files.
+   - Install apport hook only on Ubuntu.
+  * debian/apport/source_libfm.py:
+   - Add apport hook.
+  * debian/control:
+   - Build-depends on lsb-release, needed to detect the distribution.
+
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Mon, 30 Aug 2010 23:41:23 -0400
+
 libfm (0.1.12-1) unstable; urgency=low
 
   [ Julien Lavergne ]

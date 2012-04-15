@@ -6,11 +6,17 @@ Uploaders: Andrew Lee (李健秋) <ajqlee@debian.org>
 Build-Depends: cdbs,
                debhelper (>= 7.0.50~),
                autotools-dev,
+               automake,
+               autoconf,
+               pkg-config,
+               libtool,
                libglib2.0-dev (>= 2.18),
                libgtk2.0-dev (>= 2.16),
                libmenu-cache1-dev,
-               intltool
-Standards-Version: 3.8.4
+               intltool,
+               libdbus-glib-1-dev,
+               lsb-release
+Standards-Version: 3.9.1
 Homepage: http://pcmanfm.sourceforge.net/
 Vcs-Git: git://git.debian.org/git/collab-maint/libfm.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/libfm.git;a=summary

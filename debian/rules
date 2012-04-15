@@ -1,10 +1,47 @@
 #!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+# Copyright (C) 2010 Julien Lavergne <gilir@ubuntu.com> 
+# Copyright (C) 2010 Justin B Rye <jbr@edlug.org.uk>
+# Copyright (C) 2010 Andrew Lee (李健秋) <ajqlee@debian.org>
+# Description: Main Debian packaging script for morituri
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+export DH_VERBOSE=1
+
+#include /usr/share/cdbs/1/rules/utils.mk
+
+DISTRO = "$(shell lsb_release -si)"
 
 %:
 	dh $@
 
 override_dh_auto_configure:
-	dh_auto_configure -- 	--enable-debug
+	/usr/bin/autoreconf -fiv
+	dh_auto_configure -- --enable-udisks
+
+override_dh_install:
+	#Remove .la and .a files.
+	find debian/tmp/usr/lib/ -name *.a |xargs rm
+	find debian/tmp/usr/lib -name *.la |xargs rm
+	dh_install --fail-missing
+
+	#Install apport hook only on Ubuntu
+ifeq ($(DISTRO),"Ubuntu")
+	dh_install -plibfm0 debian/apport/source_libfm.py usr/share/apport/package-hooks
+endif
 
 override_dh_strip:
 	dh_strip --dbg-package=libfm0-dbg
