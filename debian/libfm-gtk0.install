@@ -1,0 +1,6 @@
+usr/lib/libfm-gtk*.so.0*
+usr/bin/libfm-pref-apps
+etc/xdg/libfm/
+usr/share/applications/
+usr/lib/libfm/gnome-terminal
+usr/share/libfm

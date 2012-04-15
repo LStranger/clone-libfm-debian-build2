@@ -1,0 +1,5 @@
+libfm (0.1.9-1) experimental; urgency=low
+
+  * Initial release (Closes: #575544)
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Wed, 31 Mar 2010 01:03:06 +0800

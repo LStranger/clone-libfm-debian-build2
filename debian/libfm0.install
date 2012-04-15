@@ -1,0 +1,4 @@
+usr/lib/libfm.so.0*
+usr/share/mime/packages
+usr/share/locale/*/LC_MESSAGES/libfm.mo
+usr/lib/gio/modules/libgiofm.so

@@ -1,0 +1,87 @@
+Source: libfm
+Section: libs
+Priority: extra
+Maintainer: Debian LXDE Packaging Team <pkg-lxde-maintainers@lists.alioth.debian.org>
+Uploaders: Andrew Lee (李健秋) <ajqlee@debian.org>
+Build-Depends: cdbs, debhelper (>= 7.0.50~), autotools-dev, libglib2.0-dev (>= 2.16), libgtk2.0-dev (>= 2.16), libmenu-cache1-dev, intltool
+Standards-Version: 3.8.4
+Homepage: http://pcmanfm.sourceforge.net/
+Vcs-Git: git://git.debian.org/git/collab-maint/libfm.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/libfm.git;a=summary
+
+Package: libfm0
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: file management support - core library 
+ LibFM provides file management functions built on top of Glib/GIO,    
+ giving a convenient higher-level API. Features:         
+  * Desktop-independent, following FreeDesktop standards;         
+  * Fast, light on memory usage, and responsive - well suited to
+    less powerful hardware such as netbooks and thin clients;         
+  * Uses GIO/GVFS (like Nautilus) for Trash support and access to 
+    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
+  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;   
+  * Supports both Drag-and-Drop, and the X Direct Save protocol;
+  * Reusable design with the core functions separated out to         
+    simplify porting to other GUIs.
+ .
+ This package contains the core function library.
+
+Package: libfm-gtk0
+Section: libs
+Architecture: any
+Depends: libfm0 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: file management support - GTK+ GUI library
+ LibFM provides file management functions built on top of Glib/GIO,    
+ giving a convenient higher-level API. Features:         
+  * Desktop-independent, following FreeDesktop standards;         
+  * Fast, light on memory usage, and responsive - well suited to
+    less powerful hardware such as netbooks and thin clients;         
+  * Uses GIO/GVFS (like Nautilus) for Trash support and access to 
+    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
+  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;   
+  * Supports both Drag-and-Drop, and the X Direct Save protocol;
+  * Reusable design with the core functions separated out to         
+    simplify porting to other GUIs.
+ .
+ This package contains the GTK+ GUI.
+
+Package: libfm-dev
+Section: libdevel
+Architecture: any
+Depends: libfm0 (= ${binary:Version}), ${misc:Depends}, libfm-gtk0 (= ${binary:Version})
+Description: file management support - development headers
+ LibFM provides file management functions built on top of Glib/GIO,    
+ giving a convenient higher-level API. Features:         
+  * Desktop-independent, following FreeDesktop standards;         
+  * Fast, light on memory usage, and responsive - well suited to
+    less powerful hardware such as netbooks and thin clients;         
+  * Uses GIO/GVFS (like Nautilus) for Trash support and access to 
+    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
+  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;   
+  * Supports both Drag-and-Drop, and the X Direct Save protocol;
+  * Reusable design with the core functions separated out to         
+    simplify porting to other GUIs.
+ .
+ This package contains the development headers.
+
+Package: libfm0-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: libfm0 (= ${binary:Version}), libfm-gtk0 (= ${binary:Version}), ${misc:Depends}
+Description: file management support - debugging symbols
+ LibFM provides file management functions built on top of Glib/GIO,    
+ giving a convenient higher-level API. Features:         
+  * Desktop-independent, following FreeDesktop standards;         
+  * Fast, light on memory usage, and responsive - well suited to
+    less powerful hardware such as netbooks and thin clients;         
+  * Uses GIO/GVFS (like Nautilus) for Trash support and access to 
+    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
+  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;   
+  * Supports both Drag-and-Drop, and the X Direct Save protocol;
+  * Reusable design with the core functions separated out to         
+    simplify porting to other GUIs.
+ .
+ This package contains the debugging symbols.
