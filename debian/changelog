@@ -13,7 +13,7 @@ libfm (0.1.17-1) unstable; urgency=low
     (Closes: #653337, #608077, #639982, #614470)
     - Added missing files for building API doc with gtk-doc.
     - Fixed incorrect header guards.
-    - Added some compatibility headers and files used with min-lib-ver.py 
+    - Added some compatibility headers and files used with min-lib-ver.py
       for future gtk3 migration.
     - Added warning message for gtk-doc in autogen.sh and add configuration
       summary in configure.ac.
@@ -27,17 +27,17 @@ libfm (0.1.17-1) unstable; urgency=low
       destination folder withouth write permission causes data loss.
       https://bugs.launchpad.net/ubuntu/+source/pcmanfm/+bug/820865
     - Add missing license info and fix some build problems found by make
-      distcheck. 
+      distcheck.
     - Bumped ABI version with libtool -version-info to 1:0:0.
     - Update AUTHORS info.
     - Fixed Regression: Dnd to add folder to bookmarks is broken.
-    - Added optional window titles to commonly used dialogs provided 
+    - Added optional window titles to commonly used dialogs provided
       by fm-gtk-utils.c. Fix #3300800
     – Deletion prompt has no title.
     - Fixed untranslatable messages.
     - Make menu of side pane translatable.
     - Apply patch #3301641: Typing “~” in location bar loads root folder.
-    - API changed: fm_folder_get_is_loading() -> fm_folder_get_is_loaded(), 
+    - API changed: fm_folder_get_is_loading() -> fm_folder_get_is_loaded(),
       fm_folder_model_get_is_loading() -> fm_folder_model_get_is_loaded().
       Add fm_folder_view_get_is_loaded(). Correctly update popup menu of
       FmSidePane when mode is changed.
@@ -66,7 +66,7 @@ libfm (0.1.17-1) unstable; urgency=low
     - Fixed SF#3148077: Latest pcmanfm/libfm crashes when trying to open
       /proc/self/fd/ (or its symlink /dev/fd/). In this same system
       nautilus opens that directory fine.
-    - Fixed SF#3143296: spaces are still (or again) not escaped in paths to 
+    - Fixed SF#3143296: spaces are still (or again) not escaped in paths to
       execute.
     - Fixed SF#3135910: "Extract here" doesn’t handle space and encoding
       characters.
