@@ -1,8 +1,9 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Steve Cook (Yorvyk) <yorvik.ubunto@googlemail.com>\n"
 "Language-Team: English UK en_GB <yorvik.ubunto@gmail.com>\n"
@@ -321,68 +322,97 @@ msgstr "Shortcuts"
 msgid "Mount Point"
 msgstr "Mount Point"
 
-#: ../src/base/fm-path.c:435
+#: ../src/base/fm-path.c:436
 msgid "Trash Can"
 msgstr "Trash Can"
 
-#: ../src/base/fm-path.c:437
+#: ../src/base/fm-path.c:438
 msgid "My Computer"
 msgstr "My Computer"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Applications"
 
-#: ../src/base/fm-path.c:448
+#: ../src/base/fm-path.c:449
 msgid "Network"
 msgstr "Network"
 
-#: ../src/gtk/fm-progress-dlg.c:142
+#: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:299
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+"Type: %s\n"
+"Modified: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
 msgstr "The file operation is cancelled and there are some errors."
 
-#: ../src/gtk/fm-progress-dlg.c:301
+#: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
 msgstr "Cancelled"
 
-#: ../src/gtk/fm-progress-dlg.c:305
+#: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
 msgstr "The file operation is finished, but there are some errors."
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
 msgstr "Finished"
 
-#: ../src/gtk/fm-progress-dlg.c:401
+#: ../src/gtk/fm-progress-dlg.c:328
+msgid ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
+"Do you want to delete them instead?"
+msgstr ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don’t support this operation.\n"
+"Do you want to delete them instead?"
+
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:416
+#: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
 msgstr "Moving files"
 
-#: ../src/gtk/fm-progress-dlg.c:419
+#: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
 msgstr "Copying files"
 
-#: ../src/gtk/fm-progress-dlg.c:422
-#, fuzzy
+#: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
-msgstr "Trashing files"
+msgstr "Transferring to Rubbish Bin"
 
-#: ../src/gtk/fm-progress-dlg.c:425
+#: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
 msgstr "Deleting files"
 
-#: ../src/gtk/fm-progress-dlg.c:428
+#: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
 msgstr "Creating symlinks"
 
-#: ../src/gtk/fm-progress-dlg.c:431
+#: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
 msgstr "Changing file attributes"
 
@@ -429,7 +459,6 @@ msgid "Remove from Bookmark"
 msgstr "Remove from Bookmark"
 
 #: ../src/gtk/fm-places-view.c:160
-#, fuzzy
 msgid "Empty Trash"
 msgstr "Empty Rubbish"
 
@@ -445,33 +474,41 @@ msgstr "Desktop"
 msgid "Enter a new name:"
 msgstr "Enter a new name:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
 msgstr "Open With..."
 
-#: ../src/gtk/fm-file-menu.c:89
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
 msgstr "Rename"
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
 msgstr "Create Symlink"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
 msgstr "Send To"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
 msgstr "Compress..."
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
 msgstr "Extract Here"
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
 msgstr "Extract To..."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr "_Restore"
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr "Restore deleted files"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -489,19 +526,19 @@ msgstr "Execute custom command line to open files"
 msgid "Customize"
 msgstr "Customise"
 
-#: ../src/gtk/fm-folder-view.c:485
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Name"
 
-#: ../src/gtk/fm-folder-view.c:504
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Description"
 
-#: ../src/gtk/fm-folder-view.c:511
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Size"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Modified"
 
@@ -513,34 +550,33 @@ msgstr "Installed Applications"
 msgid "Error"
 msgstr "Error"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Please select a folder"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
 msgstr "Only system administrators have the permission to do this."
 
-#: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
-msgstr "Do you want to move the selected files to trash bin?"
+#: ../src/gtk/fm-gtk-utils.c:475
+msgid "Do you want to move the selected files to trash can?"
+msgstr "Do you want to move the selected files to trash can?"
 
-#: ../src/gtk/fm-gtk-utils.c:478
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Do you want to delete the selected files?"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Rename File"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Please enter a new name:"
 
-#: ../src/gtk/fm-gtk-utils.c:552
-#, fuzzy
-msgid "Are you sure you want to empty the trash bin?"
-msgstr "Are you sure you want to empty the rubbish bin?"
+#: ../src/gtk/fm-gtk-utils.c:564
+msgid "Are you sure you want to empty the trash can?"
+msgstr "Are you sure you want to empty the Rubbish Bin?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325

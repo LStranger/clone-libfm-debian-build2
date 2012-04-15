@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 02:56+0200\n"
-"PO-Revision-Date: 2010-04-16 13:17+0200\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
+"PO-Revision-Date: 2010-04-27 12:00+0200\n"
 "Last-Translator: Mario <mb@mariobehling.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr "Với các tập tin sau đây?"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "---"
-msgstr ""
+msgstr "---"
 
 #: ../data/ui/file-prop.glade.h:2
 msgid "<b>Access Control</b>"
@@ -286,35 +286,35 @@ msgstr[0] "Số ít%u byteSố nhiều%u byte"
 
 #: ../src/base/fm-utils.c:61
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../src/base/fm-utils.c:66
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../src/base/fm-utils.c:71
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 #: ../src/base/fm-utils.c:76
 msgid "TB"
-msgstr ""
+msgstr "TB"
 
 #: ../src/base/fm-utils.c:90
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 #: ../src/base/fm-utils.c:95
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #: ../src/base/fm-utils.c:100
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #: ../src/base/fm-utils.c:105
 msgid "TiB"
-msgstr ""
+msgstr "TiB"
 
 #: ../src/base/fm-file-info.c:53
 msgid "Shortcuts"
@@ -324,67 +324,97 @@ msgstr "Phím tắt"
 msgid "Mount Point"
 msgstr "Điểm tăng lên"
 
-#: ../src/base/fm-path.c:435
+#: ../src/base/fm-path.c:436
 msgid "Trash Can"
 msgstr "Thùng rác"
 
-#: ../src/base/fm-path.c:437
+#: ../src/base/fm-path.c:438
 msgid "My Computer"
 msgstr "Máy tính của tôi"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Các ứng dụng"
 
-#: ../src/base/fm-path.c:448
+#: ../src/base/fm-path.c:449
 msgid "Network"
 msgstr "Mạng"
 
-#: ../src/gtk/fm-progress-dlg.c:142
+#: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
-msgstr ""
+msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:299
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+"loại: %s\n"
+"Kích thước: %s\n"
+"Số lần sửa đổi: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+"Loại: %s\n"
+"Số lần sửa đổi: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Hoạt động của tập tin đã bị hủy và có một số lỗi"
 
-#: ../src/gtk/fm-progress-dlg.c:301
+#: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
 msgstr "Hủy"
 
-#: ../src/gtk/fm-progress-dlg.c:305
+#: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
 msgstr "Hoạt độngj của tập tin đã hoàn thành, nhưng có môt số lỗi."
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
 msgstr "Hoàn thành"
 
-#: ../src/gtk/fm-progress-dlg.c:401
-msgid ", "
+#: ../src/gtk/fm-progress-dlg.c:328
+msgid ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
+"Do you want to delete them instead?"
 msgstr ""
+"Một số tập tin không thể được chuyển đến thùng rác có thể bởi vì hệ thống "
+"tập tin cơ bản không hỗ trợ hoạt động này \\ n.Bạn có muốn xóa chúng để thay "
+"thế?"
 
-#: ../src/gtk/fm-progress-dlg.c:416
+#: ../src/gtk/fm-progress-dlg.c:422
+msgid ", "
+msgstr ", "
+
+#: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
 msgstr "Đang di chuyển các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:419
+#: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
 msgstr "Đang sao chép các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
 msgstr "Đang vô hiệu các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:425
+#: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
 msgstr "Đang xóa các tập tin"
 
-#: ../src/gtk/fm-progress-dlg.c:428
+#: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
 msgstr "Đang tạo liên kết tượng trưng"
 
-#: ../src/gtk/fm-progress-dlg.c:431
+#: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
 msgstr "Đang thay đổi thuộc tính tập tin"
 
@@ -447,105 +477,112 @@ msgstr "Máy để bàn"
 msgid "Enter a new name:"
 msgstr "Nhập tên mới:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr "Mở bằng ..."
+msgstr "Mở bởi ..."
 
-#: ../src/gtk/fm-file-menu.c:89
-#, fuzzy
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
 msgstr "Đổi tên"
 
-#: ../src/gtk/fm-file-menu.c:90
-msgid "Create Symlink"
-msgstr ""
-
 #: ../src/gtk/fm-file-menu.c:91
-msgid "Send To"
-msgstr ""
+msgid "Create Symlink"
+msgstr "Tạo liên kết "
 
 #: ../src/gtk/fm-file-menu.c:92
-msgid "Compress..."
-msgstr ""
+msgid "Send To"
+msgstr "Gửi tới"
 
 #: ../src/gtk/fm-file-menu.c:93
-msgid "Extract Here"
-msgstr ""
+msgid "Compress..."
+msgstr "Nén"
 
 #: ../src/gtk/fm-file-menu.c:94
+msgid "Extract Here"
+msgstr "Giải nén ở đây"
+
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
-msgstr ""
+msgstr "Giải nén tại.."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr "_Khôi phục"
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr "Khôi phục các tập tin đã xóa về lại dạng gốc"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
-msgstr ""
+msgstr "Trực tiếp lưu thất bại"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:96
 msgid "Use selected application to open files"
-msgstr ""
+msgstr "Sử dụng ứng dụng đã chọn để mở các tập tin"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Thực hiện tùy chỉnh dòng lệnh để mở các tập tin"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
-msgstr ""
+msgstr "Tùy chỉnh"
 
-#: ../src/gtk/fm-folder-view.c:485
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
-msgstr ""
+msgstr "Tên"
 
-#: ../src/gtk/fm-folder-view.c:504
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
-msgstr ""
+msgstr "Mô tả"
 
-#: ../src/gtk/fm-folder-view.c:511
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
-msgstr ""
+msgstr "Kích thước"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
-msgstr ""
+msgstr "Sưả đổi lần"
 
 #: ../src/gtk/fm-app-menu-view.c:157
 msgid "Installed Applications"
-msgstr ""
+msgstr "Cài đặt ứng dụng"
 
 #: ../src/gtk/fm-gtk-utils.c:45
 msgid "Error"
-msgstr ""
+msgstr "Lỗi"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
-msgstr ""
+msgstr "Vui long chọn thư mục"
 
-#: ../src/gtk/fm-gtk-utils.c:385
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr ""
+msgstr "Chỉ có quản trị hệ thống mới được phép làm điều này"
 
-#: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
-msgstr ""
+#: ../src/gtk/fm-gtk-utils.c:475
+msgid "Do you want to move the selected files to trash can?"
+msgstr "Bạn có muốn di chuyển tập tin đã chọn đến thùng rác?"
 
-#: ../src/gtk/fm-gtk-utils.c:478
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
-msgstr ""
+msgstr "Bạn có muốn xóa ongcác tập tin đẫ chọn không?"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
-msgstr ""
+msgstr "Dổi tên tập tin"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
-msgstr ""
+msgstr "Vui lòng nhập tên mới:"
 
-#: ../src/gtk/fm-gtk-utils.c:552
-msgid "Are you sure you want to empty the trash bin?"
-msgstr ""
+#: ../src/gtk/fm-gtk-utils.c:564
+msgid "Are you sure you want to empty the trash can?"
+msgstr "Bạn có chắc muốn làm sạch thùng rác không?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
 #: ../src/job/fm-dir-list-job.c:325
 #, c-format
 msgid "The specified directory is not valid"
-msgstr ""
+msgstr "Các thư mục chỉ định không hợp lệ"

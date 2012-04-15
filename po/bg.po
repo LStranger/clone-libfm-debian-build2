@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 02:56+0200\n"
-"PO-Revision-Date: 2010-04-16 20:07+0200\n"
-"Last-Translator: Радослав Иванов <rec_ku@hotmail.com>\n"
+"POT-Creation-Date: 2010-04-28 02:27+0800\n"
+"PO-Revision-Date: 2010-04-26 18:07+0200\n"
+"Last-Translator: Радослав <Rec.ku@hotmail.com>\n"
 "Language-Team: MIME-Version: 1.0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 "X-Poedit-Bookmarks: -1,59,-1,-1,-1,-1,-1,-1,-1,-1\n"
-"X-Generator: Pootle 1.1.0\n"
 "X-Poedit-Language: Bulgarian\n"
 "X-Poedit-Country: BULGARIA\n"
 
@@ -155,7 +156,7 @@ msgstr "<b>Обект:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
 msgid "<b>Total Size of Files:</b>"
-msgstr "<b>Максимален размер на файловете:</b>"
+msgstr "<b>Максимален размер:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 msgid "<b>_Group:</b>"
@@ -201,7 +202,7 @@ msgstr "Четене и Записване"
 
 #: ../data/ui/file-prop.glade.h:23
 msgid "Read only"
-msgstr "Единствено четене"
+msgstr "Само четене"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
@@ -209,7 +210,7 @@ msgstr "Изберете приложение за отваряне на фай�
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
-msgstr "Единствено записване"
+msgstr "Само записване"
 
 #: ../data/ui/file-prop.glade.h:26
 msgid "_General"
@@ -335,67 +336,97 @@ msgstr "Преки пътища"
 msgid "Mount Point"
 msgstr "Точка на монтиране"
 
-#: ../src/base/fm-path.c:435
+#: ../src/base/fm-path.c:436
 msgid "Trash Can"
 msgstr "Кошче"
 
-#: ../src/base/fm-path.c:437
+#: ../src/base/fm-path.c:438
 msgid "My Computer"
 msgstr "Моят компютър"
 
-#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+#: ../src/base/fm-path.c:446 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Приложения"
 
-#: ../src/base/fm-path.c:448
+#: ../src/base/fm-path.c:449
 msgid "Network"
 msgstr "Мрежа"
 
-#: ../src/gtk/fm-progress-dlg.c:142
+#: ../src/gtk/fm-progress-dlg.c:145
 msgid ": "
 msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:299
+#: ../src/gtk/fm-progress-dlg.c:208 ../src/gtk/fm-progress-dlg.c:227
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+"Вид: %s\n"
+"Размер: %s\n"
+"Променен: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:215 ../src/gtk/fm-progress-dlg.c:234
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+"Вин: %s\n"
+"Променен: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:302
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Операцията е отказана и възникнаха грешки."
 
-#: ../src/gtk/fm-progress-dlg.c:301
+#: ../src/gtk/fm-progress-dlg.c:304
 msgid "Cancelled"
 msgstr "Отказано"
 
-#: ../src/gtk/fm-progress-dlg.c:305
+#: ../src/gtk/fm-progress-dlg.c:308
 msgid "The file operation is finished, but there are some errors."
 msgstr "Операцията е изпълнена, но възникнаха грешки."
 
-#: ../src/gtk/fm-progress-dlg.c:307
+#: ../src/gtk/fm-progress-dlg.c:310
 msgid "Finished"
 msgstr "Приключено"
 
-#: ../src/gtk/fm-progress-dlg.c:401
+#: ../src/gtk/fm-progress-dlg.c:328
+msgid ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
+"Do you want to delete them instead?"
+msgstr ""
+"Някои файлове не могат да бъдат изхвърлени в коша, защото основните файлови "
+"системи не поддържат\n"
+"тази операция. Желаете ли да ги изтриете въпреки това?"
+
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid ", "
 msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:416
+#: ../src/gtk/fm-progress-dlg.c:437
 msgid "Moving files"
 msgstr "Преместване на файлове"
 
-#: ../src/gtk/fm-progress-dlg.c:419
+#: ../src/gtk/fm-progress-dlg.c:440
 msgid "Copying files"
 msgstr "Копиране на файлове"
 
-#: ../src/gtk/fm-progress-dlg.c:422
+#: ../src/gtk/fm-progress-dlg.c:443
 msgid "Trashing files"
 msgstr "Изхвърляне в кошчето"
 
-#: ../src/gtk/fm-progress-dlg.c:425
+#: ../src/gtk/fm-progress-dlg.c:446
 msgid "Deleting files"
 msgstr "Изтриване на файлове"
 
-#: ../src/gtk/fm-progress-dlg.c:428
+#: ../src/gtk/fm-progress-dlg.c:449
 msgid "Creating symlinks"
 msgstr "Създаване на символни връзки"
 
-#: ../src/gtk/fm-progress-dlg.c:431
+#: ../src/gtk/fm-progress-dlg.c:452
 msgid "Changing file attributes"
 msgstr "Промяна на флаговете"
 
@@ -460,33 +491,41 @@ msgstr "Работен плот"
 msgid "Enter a new name:"
 msgstr "Въведете ново име:"
 
-#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+#: ../src/gtk/fm-file-menu.c:84 ../src/gtk/fm-file-menu.c:85
 msgid "Open With..."
-msgstr "Отвори със..."
+msgstr "Отвори с..."
 
-#: ../src/gtk/fm-file-menu.c:89
+#: ../src/gtk/fm-file-menu.c:90
 msgid "Rename"
 msgstr "Преименувай"
 
-#: ../src/gtk/fm-file-menu.c:90
+#: ../src/gtk/fm-file-menu.c:91
 msgid "Create Symlink"
 msgstr "Създаване на символна връзка"
 
-#: ../src/gtk/fm-file-menu.c:91
+#: ../src/gtk/fm-file-menu.c:92
 msgid "Send To"
 msgstr "Изпрати до"
 
-#: ../src/gtk/fm-file-menu.c:92
+#: ../src/gtk/fm-file-menu.c:93
 msgid "Compress..."
 msgstr "Компресирай..."
 
-#: ../src/gtk/fm-file-menu.c:93
+#: ../src/gtk/fm-file-menu.c:94
 msgid "Extract Here"
 msgstr "Разархивирай тук"
 
-#: ../src/gtk/fm-file-menu.c:94
+#: ../src/gtk/fm-file-menu.c:95
 msgid "Extract To..."
 msgstr "Разархивирай в..."
+
+#: ../src/gtk/fm-file-menu.c:244
+msgid "_Restore"
+msgstr "_Възстановяване"
+
+#: ../src/gtk/fm-file-menu.c:245
+msgid "Restore trashed files to original paths"
+msgstr "Възстанови изхвърлените файлове"
 
 #: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
@@ -508,19 +547,19 @@ msgstr ""
 msgid "Customize"
 msgstr "Промени"
 
-#: ../src/gtk/fm-folder-view.c:485
+#: ../src/gtk/fm-folder-view.c:522
 msgid "Name"
 msgstr "Име"
 
-#: ../src/gtk/fm-folder-view.c:504
+#: ../src/gtk/fm-folder-view.c:541
 msgid "Description"
 msgstr "Описание"
 
-#: ../src/gtk/fm-folder-view.c:511
+#: ../src/gtk/fm-folder-view.c:548
 msgid "Size"
 msgstr "Размер"
 
-#: ../src/gtk/fm-folder-view.c:517
+#: ../src/gtk/fm-folder-view.c:554
 msgid "Modified"
 msgstr "Променен"
 
@@ -532,33 +571,32 @@ msgstr "Инсталирани програми"
 msgid "Error"
 msgstr "Грешка"
 
-#: ../src/gtk/fm-gtk-utils.c:239
+#: ../src/gtk/fm-gtk-utils.c:254
 msgid "Please select a folder"
 msgstr "Моля, изберете папка"
 
-#: ../src/gtk/fm-gtk-utils.c:385
-#, fuzzy
+#: ../src/gtk/fm-gtk-utils.c:400
 msgid "Only system administrators have the permission to do this."
-msgstr "Единствено администратора има привилегии да направи това."
+msgstr "Само администратора има привилегии да направи това."
 
-#: ../src/gtk/fm-gtk-utils.c:461
-msgid "Do you want to move the selected files to trash bin?"
+#: ../src/gtk/fm-gtk-utils.c:475
+msgid "Do you want to move the selected files to trash can?"
 msgstr "Искате ли да преместите файловете в кошчето?"
 
-#: ../src/gtk/fm-gtk-utils.c:478
+#: ../src/gtk/fm-gtk-utils.c:496
 msgid "Do you want to delete the selected files?"
 msgstr "Искате ли да изтриете маркираните файлове?"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Rename File"
 msgstr "Преименувай файла"
 
-#: ../src/gtk/fm-gtk-utils.c:530
+#: ../src/gtk/fm-gtk-utils.c:542
 msgid "Please enter a new name:"
 msgstr "Моля, въведете ново име:"
 
-#: ../src/gtk/fm-gtk-utils.c:552
-msgid "Are you sure you want to empty the trash bin?"
+#: ../src/gtk/fm-gtk-utils.c:564
+msgid "Are you sure you want to empty the trash can?"
 msgstr "Наистина ли искате да изпразните кошчето?"
 
 #: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([libfm], [0.1.10], [http://libfm.sf.net/])
+AC_INIT([libfm], [0.1.11], [http://libfm.sf.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
 AC_CONFIG_HEADERS([config.h])
@@ -19,7 +19,8 @@ AC_HEADER_STDC
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
-AC_CHECK_FUNCS(mmap)
+AC_FUNC_MMAP
+AC_CHECK_LIB(m, pow)
 
 # Large file support
 AC_ARG_ENABLE([largefile],

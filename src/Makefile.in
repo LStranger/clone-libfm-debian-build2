@@ -167,8 +167,8 @@ am_libfm_pref_apps_OBJECTS =  \
 	libfm_pref_apps-libfm-pref-apps.$(OBJEXT) $(am__objects_1)
 libfm_pref_apps_OBJECTS = $(am_libfm_pref_apps_OBJECTS)
 libfm_pref_apps_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) libfm.la \
-	libfm-gtk.la $(am__DEPENDENCIES_1)
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) libfm-gtk.la \
+	$(am__DEPENDENCIES_1)
 libfm_pref_apps_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libfm_pref_apps_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
@@ -559,7 +559,6 @@ libfm_pref_apps_LDADD = \
 	$(GTK_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
-	libfm.la \
 	libfm-gtk.la \
 	$(NULL)
 
