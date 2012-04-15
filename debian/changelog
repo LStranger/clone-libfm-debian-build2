@@ -1,3 +1,23 @@
+libfm (0.1.11-1) unstable; urgency=low
+
+  * New upstream release
+    - Added a workaround for a bug newly introduced bug in gtk+ 2.18
+      in detailed view mode
+    - Correctly remember default action when destination file already 
+      exists.
+    - Delete files rather than move them to trash if trash is not 
+      supported.
+    - Add very basic support to "UnTrash" deleted files.
+    - Remove unnecessary export of some internal APIs.
+    - Update translations and replace "trash bin" with "trash can" for
+      consistence.
+    - Handle non-existent parent folders when untrashing files.
+    - Remove unused LD_ADD for libfm-pref-apps.
+    - Keep focus while changing view mode.
+    - Translation updates.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Thu, 29 Apr 2010 03:52:06 +0800
+
 libfm (0.1.10-1) unstable; urgency=low
 
   * New upstream release
