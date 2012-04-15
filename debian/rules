@@ -1,8 +1,9 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright (C) 2010 Julien Lavergne <gilir@ubuntu.com> 
+# Copyright (C) 2010 Julien Lavergne <gilir@ubuntu.com>
 # Copyright (C) 2010 Justin B Rye <jbr@edlug.org.uk>
-# Copyright (C) 2010 Andrew Lee (李健秋) <ajqlee@debian.org>
+# Copyright (C) 2012 Sergey Slipchenko <faergeek@gmail.com>
+# Copyright (C) 2010-2012 Andrew Lee (李健秋) <ajqlee@debian.org>
 # Description: Main Debian packaging script for morituri
 #
 # This program is free software; you can redistribute it and/or
@@ -30,7 +31,7 @@ DISTRO = "$(shell lsb_release -si)"
 
 override_dh_auto_configure:
 	#/usr/bin/autoreconf -fiv
-	dh_auto_configure -- --enable-udisks
+	dh_auto_configure -- --enable-udisks --enable-gtk-doc
 
 override_dh_install:
 	#Remove .la and .a files.
@@ -44,7 +45,7 @@ ifeq ($(DISTRO),"Ubuntu")
 endif
 
 override_dh_strip:
-	dh_strip --dbg-package=libfm0-dbg
+	dh_strip --dbg-package=libfm1-dbg
 
 override_dh_auto_test:
 	#Don't do anything, tests didn't pass for now

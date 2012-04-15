@@ -9,4 +9,4 @@ Index: libfm-0.1.10/data/libfm.conf
 +terminal=x-terminal-emulator %s
  thumbnail_local=1
  thumbnail_max=2048
- 
+

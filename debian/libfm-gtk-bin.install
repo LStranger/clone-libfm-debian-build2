@@ -1,5 +1,4 @@
 etc/xdg/libfm/pref-apps.conf
 usr/bin/libfm-pref-apps
-usr/lib/libfm-gtk*.so.0*
 usr/share/libfm/ui
 usr/share/applications/

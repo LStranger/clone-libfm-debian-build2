@@ -1,4 +1,8 @@
-libfm.so.0 libfm0 #MINVER#
+libfm.so.1 libfm1 #MINVER#
+ fm_app_info_create_from_commandline@Base 0.1.17
+ fm_app_info_launch@Base 0.1.17
+ fm_app_info_launch_default_for_uri@Base 0.1.17
+ fm_app_info_launch_uris@Base 0.1.17
  fm_archiver_create_archive@Base 0.1.12
  fm_archiver_extract_archives@Base 0.1.12
  fm_archiver_extract_archives_to@Base 0.1.12
@@ -50,10 +54,12 @@ libfm.so.0 libfm0 #MINVER#
  fm_file_info_is_desktop_entry@Base 0.1.12
  fm_file_info_is_dir@Base 0.1.12
  fm_file_info_is_executable_type@Base 0.1.12
+ fm_file_info_is_hidden@Base 0.1.17
  fm_file_info_is_image@Base 0.1.12
  fm_file_info_is_mountable@Base 0.1.12
  fm_file_info_is_shortcut@Base 0.1.12
  fm_file_info_is_symlink@Base 0.1.12
+ fm_file_info_is_text@Base 0.1.17
  fm_file_info_is_unknown_type@Base 0.1.12
  fm_file_info_job_add@Base 0.1.12
  fm_file_info_job_add_gfile@Base 0.1.12
@@ -68,6 +74,7 @@ libfm.so.0 libfm0 #MINVER#
  fm_file_info_ref@Base 0.1.12
  fm_file_info_set_disp_name@Base 0.1.12
  fm_file_info_set_from_gfileinfo@Base 0.1.12
+ fm_file_info_set_path@Base 0.1.17
  fm_file_info_unref@Base 0.1.12
  fm_file_ops_job_ask_rename@Base 0.1.12
  fm_file_ops_job_emit_cur_file@Base 0.1.12
@@ -85,12 +92,13 @@ libfm.so.0 libfm0 #MINVER#
  fm_folder_get@Base 0.1.12
  fm_folder_get_file_by_name@Base 0.1.12
  fm_folder_get_files@Base 0.1.12
+ fm_folder_get_filesystem_info@Base 0.1.17
  fm_folder_get_for_gfile@Base 0.1.12
- fm_folder_get_for_path@Base 0.1.12
  fm_folder_get_for_path_name@Base 0.1.12
  fm_folder_get_for_uri@Base 0.1.12
- fm_folder_get_is_loading@Base 0.1.12
+ fm_folder_get_is_loaded@Base 0.1.17
  fm_folder_get_type@Base 0.1.12
+ fm_folder_query_filesystem_info@Base 0.1.17
  fm_folder_reload@Base 0.1.12
  fm_icon_from_gicon@Base 0.1.12
  fm_icon_from_name@Base 0.1.12
@@ -165,6 +173,7 @@ libfm.so.0 libfm0 #MINVER#
  fm_nav_history_list@Base 0.1.12
  fm_nav_history_new@Base 0.1.12
  fm_nav_history_set_max@Base 0.1.12
+ fm_path_depth@Base 0.1.17
  fm_path_display_basename@Base 0.1.12
  fm_path_display_name@Base 0.1.12
  fm_path_equal@Base 0.1.12
@@ -187,7 +196,6 @@ libfm.so.0 libfm0 #MINVER#
  fm_path_list_new_from_uris@Base 0.1.12
  fm_path_list_to_uri_list@Base 0.1.12
  fm_path_list_write_uri_list@Base 0.1.12
- fm_path_new@Base 0.1.12
  fm_path_new_child@Base 0.1.12
  fm_path_new_child_len@Base 0.1.12
  fm_path_new_for_commandline_arg@Base 0.1.14
@@ -205,3 +213,4 @@ libfm.so.0 libfm0 #MINVER#
  fm_qdata_id@Base 0.1.12
  fm_simple_job_get_type@Base 0.1.12
  fm_simple_job_new@Base 0.1.12
+ fm_str_replace@Base 0.1.17

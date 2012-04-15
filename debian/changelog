@@ -1,3 +1,100 @@
+libfm (0.1.17-1) unstable; urgency=low
+
+  [ Andrew Lee (李健秋) ]
+  * Merging upstream version 0.1.17:
+    (Closes: #653337, #608077, #639982, #614470)
+    - Added missing files for building API doc with gtk-doc.
+    - Fixed incorrect header guards.
+    - Added some compatibility headers and files used with min-lib-ver.py 
+      for future gtk3 migration.
+    - Added warning message for gtk-doc in autogen.sh and add configuration
+      summary in configure.ac.
+    - Removed generated files from version control. and Fix wrong project
+      URL in configure.ac.
+    - fixed a DSO issue
+    - re-added docs
+    - Remove docs directory from make file
+    - Added missing license header
+    - Try to fix Lubuntu bug LP#820865: pcmanfm cut&paste a folder to a
+      destination folder withouth write permission causes data loss.
+      https://bugs.launchpad.net/ubuntu/+source/pcmanfm/+bug/820865
+    - Add missing license info and fix some build problems found by make
+      distcheck. 
+    - Bumped ABI version with libtool -version-info to 1:0:0.
+    - Update AUTHORS info.
+    - Fixed Regression: Dnd to add folder to bookmarks is broken.
+    - Added optional window titles to commonly used dialogs provided 
+      by fm-gtk-utils.c. Fix #3300800
+    – Deletion prompt has no title.
+    - Fixed untranslatable messages.
+    - Make menu of side pane translatable.
+    - Apply patch #3301641: Typing “~” in location bar loads root folder.
+    - API changed: fm_folder_get_is_loading() -> fm_folder_get_is_loaded(), 
+      fm_folder_model_get_is_loading() -> fm_folder_model_get_is_loaded().
+      Add fm_folder_view_get_is_loaded(). Correctly update popup menu of
+      FmSidePane when mode is changed.
+    - Added missing g_object_ref. - Add "changed", "removed",
+      "content-changed", and "fs-info" signals to FmFolder and add
+      filesystem size query to FmFolder.
+    - Implement %k field code for Exec key according to desktop entry spec.
+    - Fixed SF#3093778 Pasting empty string causes copying “/” to current
+      folder.
+    - Added a simple and basic implementation of button-style path bar.
+    - Fixed SF#3086703 – PCManFM crashes on non existent directories.
+    - Fixed SF#3115734 – Copying to long path names.
+    - Do chdir to / if cwd is under the mounted filesystem which is going
+      to be unmounted.
+    - Fixed SF#3114626 – PCManFM 0.9.9 Umount partitions problem.
+    - Fixed SF#3127903 – Fails to give permission denied error when
+      overwriting.
+    - Fixed reference of invalid widget pointer in properties dialog.
+    - Prevent removing built ui files and fix #3181001
+    – data/ui/*.glade files missing in tarball.
+    - Show tooltips for tab labels when the label text is ellipsized.
+    - Use a forward compatible way to register uri scheme handlers as in
+      glib >= 2.27.
+    - Fixed SF#3094197: Prepare deprecation of the gio module.
+    - Fixed SF#3132262: Crash when trying to restore files from trash.
+    - Fixed SF#3148077: Latest pcmanfm/libfm crashes when trying to open
+      /proc/self/fd/ (or its symlink /dev/fd/). In this same system
+      nautilus opens that directory fine.
+    - Fixed SF#3143296: spaces are still (or again) not escaped in paths to 
+      execute.
+    - Fixed SF#3135910: "Extract here" doesn’t handle space and encoding
+      characters.
+    - Added some macros to validate enum values.
+    - Changed order of typedeffing enums and declaring them
+    – for C++ compatibility
+
+  [ Sergey Slipchenko ]
+  * Drop 02-libfm-0.1.14-API-changes.patch.
+  * Bumped SONAME. Fixed unused build dependency on cdbs as reported on PTS.
+  * Added configure option to build with gtk-doc, changed name of the package
+    with debugging symbols.
+  * Renamed *.install and *.symbols files based on new package names.
+  * Fixed files and directories to install, usr/lib/gio/modules needed when
+    glib < 2.27 (on squeeze).
+  * Updated *.symbols files.
+
+  [ Andrew Lee (李健秋) ]
+  * Updating Vcs tags.
+  * Using Debhelper 8.
+  * Sorting Build-Depends.
+  * Warpping build-depends.
+  * Warpping and sorting depends.
+  * Updating copyright info.
+  * Drop useless NEWS and README in debian/docs.
+  * Removing useless whitespaces at EOL and EOF.
+  * Solving dependency problem while upgrade: Added new binary packages
+    libfm-data and libfm-gtk-bin.
+  * Create libfm-data.install and relocate files except .so from
+    libfm1.install.
+  * Create libfm-gtk-bin.install and relocate files except .so from
+    libfm-gtk1.install.
+  * Bumped standards-version to 3.9.2.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Wed, 01 Feb 2012 01:12:59 +0800
+
 libfm (0.1.14-2) unstable; urgency=low
 
   [ Julien Lavergne ]
@@ -53,7 +150,7 @@ libfm (0.1.12-1) unstable; urgency=low
   [ Andrew Lee (李健秋) ]
   * New upstream release
     - Fixed desktop does not work with xrandr
-    - Fixed middle-click shortcut on directory in bookmarks area 
+    - Fixed middle-click shortcut on directory in bookmarks area
       (Closes:583136)
     - Updated translations
   * debian/control:
@@ -66,9 +163,9 @@ libfm (0.1.11-1) unstable; urgency=low
   * New upstream release
     - Added a workaround for a bug newly introduced bug in gtk+ 2.18
       in detailed view mode
-    - Correctly remember default action when destination file already 
+    - Correctly remember default action when destination file already
       exists.
-    - Delete files rather than move them to trash if trash is not 
+    - Delete files rather than move them to trash if trash is not
       supported.
     - Add very basic support to "UnTrash" deleted files.
     - Remove unnecessary export of some internal APIs.
