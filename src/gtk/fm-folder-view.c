@@ -43,6 +43,7 @@ enum{
 	STATUS,
     CLICKED,
     SEL_CHANGED,
+    SORT_CHANGED,
     N_SIGNALS
 };
 
@@ -64,6 +65,7 @@ static FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorS
 
 static gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv);
 static void on_sel_changed(GObject* obj, FmFolderView* fv);
+static void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv);
 
 static void on_dnd_src_data_get(FmDndSrc* ds, FmFolderView* fv);
 
@@ -138,6 +140,16 @@ static void fm_folder_view_class_init(FmFolderViewClass *klass)
                      NULL, NULL,
                      g_cclosure_marshal_VOID__POINTER,
                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+    /* Emitted when sorting of the view got changed. */
+    signals[SORT_CHANGED]=
+        g_signal_new("sort-changed",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmFolderViewClass, sort_changed),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__VOID,
+                     G_TYPE_NONE, 0);
 }
 
 gboolean on_folder_view_focus_in(GtkWidget* widget, GdkEventFocus* evt)
@@ -192,7 +204,7 @@ FmJobErrorAction on_folder_err(FmFolder* folder, GError* err, FmJobErrorSeverity
     if( err->domain == G_IO_ERROR )
     {
         if( err->code == G_IO_ERROR_NOT_MOUNTED && severity < FM_JOB_ERROR_CRITICAL )
-            if(fm_mount_path(parent, folder->dir_path))
+            if(fm_mount_path(parent, folder->dir_path, TRUE))
                 return FM_JOB_RETRY;
     }
     fm_show_error(parent, err->message);
@@ -257,6 +269,8 @@ static void fm_folder_view_init(FmFolderView *self)
     g_signal_connect(self->dnd_dest, "query-info", G_CALLBACK(on_dnd_dest_query_info), self);
 
     self->mode = -1;
+    self->sort_type = GTK_SORT_ASCENDING;
+    self->sort_by = COL_FILE_NAME;
 }
 
 
@@ -388,7 +402,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
 
                 render = fm_cell_renderer_text_new();
                 g_object_set((GObject*)render,
-                             "xalign", 0.0,
+                             "xalign", 1.0, /* FIXME: why this needs to be 1.0? */
                              "yalign", 0.5,
                              NULL );
                 exo_icon_view_set_layout_mode( (ExoIconView*)fv->view, EXO_ICON_VIEW_LAYOUT_COLS );
@@ -411,6 +425,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
                                  "wrap-mode", PANGO_WRAP_WORD_CHAR,
                                  "wrap-width", 90,
                                  "alignment", PANGO_ALIGN_CENTER,
+                                 "xalign", 0.5,
                                  "yalign", 0.0,
                                  NULL );
                     exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 4 );
@@ -431,6 +446,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
                                  "wrap-mode", PANGO_WRAP_WORD_CHAR,
                                  "wrap-width", 180,
                                  "alignment", PANGO_ALIGN_CENTER,
+                                 "xalign", 0.5,
                                  "yalign", 0.0,
                                  NULL );
                     exo_icon_view_set_column_spacing( (ExoIconView*)fv->view, 8 );
@@ -491,6 +507,7 @@ void fm_folder_view_set_mode(FmFolderView* fv, FmFolderViewMode mode)
             gtk_tree_view_append_column((GtkTreeView*)fv->view, col);
 
 			render = gtk_cell_renderer_text_new();
+            g_object_set(render, "xalign", 1.0, NULL);
             col = gtk_tree_view_column_new_with_attributes(_("Size"), render, "text", COL_FILE_SIZE, NULL);
 			gtk_tree_view_column_set_sort_column_id(col, COL_FILE_SIZE);
 			gtk_tree_view_column_set_resizable(col, TRUE);
@@ -577,7 +594,8 @@ GtkSelectionMode fm_folder_view_get_selection_mode(FmFolderView* fv)
 
 void fm_folder_view_sort(FmFolderView* fv, GtkSortType type, int by)
 {
-    if(type >=0)
+    /* (int) is needed here since enum seems to be treated as unsigned int so -1 becomes > 0 */
+    if((int)type >=0)
         fv->sort_type = type;
     if(by >=0)
         fv->sort_by = by;
@@ -640,7 +658,12 @@ static void on_folder_unmounted(FmFolder* folder, FmFolderView* fv)
         exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), NULL);
         break;
     }
-    fv->model = NULL;
+    if(fv->model)
+    {
+        g_signal_handlers_disconnect_by_func(fv->model, on_sort_col_changed, fv);
+        g_object_unref(fv->model);
+        fv->model = NULL;
+    }
 }
 
 static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
@@ -650,6 +673,7 @@ static void on_folder_loaded(FmFolder* folder, FmFolderView* fv)
 
     model = fm_folder_model_new(folder, fv->show_hidden);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), fv->sort_by, fv->sort_type);
+    g_signal_connect(model, "sort-column-changed", G_CALLBACK(on_sort_col_changed), fv);
 
     switch(fv->mode)
     {
@@ -694,6 +718,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
         {
             model = FM_FOLDER_MODEL(fv->model);
             g_signal_handlers_disconnect_by_func(model, on_model_loaded, fv);
+            g_signal_handlers_disconnect_by_func(model, on_sort_col_changed, fv);
             if(model->dir)
                 g_signal_handlers_disconnect_by_func(model->dir, on_folder_err, fv);
             g_object_unref(model);
@@ -727,6 +752,7 @@ gboolean fm_folder_view_chdir(FmFolderView* fv, FmPath* path)
                 exo_icon_view_set_model(EXO_ICON_VIEW(fv->view), NULL);
                 break;
             }
+            fv->model = NULL;
         }
         else
             on_folder_loaded(folder, fv);
@@ -805,6 +831,18 @@ void on_sel_changed(GObject* obj, FmFolderView* fv)
     g_signal_emit(fv, signals[SEL_CHANGED], 0, files);
     if(files)
         fm_list_unref(files);
+}
+
+void on_sort_col_changed(GtkTreeSortable* sortable, FmFolderView* fv)
+{
+    int col;
+    GtkSortType order;
+    if(gtk_tree_sortable_get_sort_column_id(sortable, &col, &order))
+    {
+        fv->sort_by = col;
+        fv->sort_type = order;
+        g_signal_emit(fv, signals[SORT_CHANGED], 0);
+    }
 }
 
 gboolean on_btn_pressed(GtkWidget* view, GdkEventButton* evt, FmFolderView* fv)
@@ -944,7 +982,7 @@ gboolean on_dnd_dest_query_info(FmDndDest* dd, int x, int y,
 		FmPath* dir_path =  model->dir->dir_path;
         fm_dnd_dest_set_dest_file(dd, model->dir->dir_fi);
 	}
-	return TRUE;
+	return FALSE;
 }
 
 

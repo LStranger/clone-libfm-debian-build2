@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-18 23:15+0800\n"
-"PO-Revision-Date: 2010-02-19 11:00+0100\n"
-"Last-Translator: Emmanuel Trillaud <etrillaud@gmail.com>\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"PO-Revision-Date: 2010-04-08 10:13+0200\n"
+"Last-Translator: Cilyan <gaknar@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: ../data/ui/app-chooser.glade.h:1
 msgid "<b>Command line to execute:</b>"
@@ -29,13 +31,13 @@ msgstr "<b>Type de fichier à ouvrir :</b>"
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Ces codes spéciaux peuvent être utilisé en ligne de commande:</b>\n"
 "  <b>%f</b>: Représente un unique nom de fichier\n"
-"  <b>%F:</b> Représente plusieurs noms de fichier\n"
+"  <b>%F</b>: Représente plusieurs noms de fichier\n"
 "  <b>%u</b>: Représente une unique URI d'un fichier\n"
 "  <b>%U</b>: Représente plusieurs URI"
 
@@ -199,7 +201,7 @@ msgstr "Lecture seule"
 
 #: ../data/ui/file-prop.glade.h:24
 msgid "Select the application used to open files of this type "
-msgstr "Sélectionner l'application à utiliser pour ouvrir ce type de fichiers"
+msgstr "Sélectionner l'application à utiliser pour ouvrir ce type de fichiers "
 
 #: ../data/ui/file-prop.glade.h:25
 msgid "Write only"
@@ -224,12 +226,11 @@ msgstr "<b>Progrès:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Des erreurs sont survenues :</b>"
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Procédé :</b>"
+msgstr "<b>Temps restant :</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -274,10 +275,12 @@ msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Votre client courriel favori sera utilisé pour composer les courriels quand "
+"vous cliquerez sur des adresses courriels."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
-msgstr ""
+msgstr "Votre clients Web favori sera utilisé pour ouvrir les liens"
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -326,67 +329,67 @@ msgstr "Raccourcis"
 msgid "Mount Point"
 msgstr "Point de Montage"
 
-#: ../src/base/fm-path.c:423
+#: ../src/base/fm-path.c:435
 msgid "Trash Can"
 msgstr "Corbeille"
 
-#: ../src/base/fm-path.c:425
+#: ../src/base/fm-path.c:437
 msgid "My Computer"
-msgstr ""
+msgstr "Mon ordinateur"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Applications"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:448
 msgid "Network"
 msgstr "Réseau"
 
-#: ../src/gtk/fm-progress-dlg.c:111
+#: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ""
+msgstr " : "
 
-#: ../src/gtk/fm-progress-dlg.c:265
+#: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "L'opération sur les fichiers est annulé et il y a des erreurs"
 
-#: ../src/gtk/fm-progress-dlg.c:267
+#: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulé"
 
-#: ../src/gtk/fm-progress-dlg.c:271
+#: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "L'opération sur les fichiers est terminé, mais il y a des erreurs"
 
-#: ../src/gtk/fm-progress-dlg.c:273
+#: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr ""
+msgstr "Terminés"
 
-#: ../src/gtk/fm-progress-dlg.c:365
+#: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
-msgstr ""
+msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:380
+#: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
 msgstr "Déplace les fichiers"
 
-#: ../src/gtk/fm-progress-dlg.c:383
+#: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
 msgstr "Copie les fichiers"
 
-#: ../src/gtk/fm-progress-dlg.c:386
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
-msgstr "Jette les fichiers "
+msgstr "Jette les fichiers"
 
-#: ../src/gtk/fm-progress-dlg.c:389
+#: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
 msgstr "Supprime les fichiers"
 
-#: ../src/gtk/fm-progress-dlg.c:392
+#: ../src/gtk/fm-progress-dlg.c:428
 msgid "Creating symlinks"
 msgstr "Créé des liens symboliques"
 
-#: ../src/gtk/fm-progress-dlg.c:395
+#: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
 msgstr "Change des attributs de fichiers"
 
@@ -413,39 +416,39 @@ msgstr "Fichiers de différents types"
 msgid "Multiple Files"
 msgstr "Fichiers Multiples"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Monter le volume"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Démonter le volume"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "Éjecter le média amovible"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Renommer Signets"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Enlever des Signets"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Vider la Corbeille"
 
-#: ../src/gtk/fm-places-view.c:404
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Corbeille"
 
-#: ../src/gtk/fm-places-view.c:454
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Bureau"
 
-#: ../src/gtk/fm-places-view.c:751
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Entrer un nouveau nom:"
 
@@ -467,17 +470,17 @@ msgstr "Envoie A"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
-msgstr ""
+msgstr "Compression..."
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Extract Here"
-msgstr ""
+msgstr "Extraire ici"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract To..."
-msgstr ""
+msgstr "Extraire vers..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "Échec de XDirectSave."
 
@@ -493,19 +496,19 @@ msgstr "Lancer une commande en ligne personnalisée pour ouvrir les fichiers"
 msgid "Customize"
 msgstr "Personnaliser"
 
-#: ../src/gtk/fm-folder-view.c:469
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/gtk/fm-folder-view.c:488
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Description"
 
-#: ../src/gtk/fm-folder-view.c:494
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Taille"
 
-#: ../src/gtk/fm-folder-view.c:500
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Modifié"
 
@@ -521,23 +524,28 @@ msgstr "Erreur"
 msgid "Please select a folder"
 msgstr "Sélectionner un dossier"
 
-#: ../src/gtk/fm-gtk-utils.c:459
+#: ../src/gtk/fm-gtk-utils.c:385
+msgid "Only system administrators have the permission to do this."
+msgstr ""
+"Seuls les administrateurs système ont la permission de faire cette action."
+
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Voulez-vous déplacer les fichiers sélectionnés dans la corbeille ?"
 
-#: ../src/gtk/fm-gtk-utils.c:476
+#: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
 msgstr "Voulez-vous supprimer les fichiers sélectionnés ?"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
 msgstr "Renommer le fichier"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
 msgstr "Entrez un nouveau nom:"
 
-#: ../src/gtk/fm-gtk-utils.c:550
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Êtes vous sûr de vouloir vider la corbeille ?"
 

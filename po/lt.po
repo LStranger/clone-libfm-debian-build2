@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-18 23:15+0800\n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Julius Vitkauskas <zadintuvas@gmail.com>\n"
 "Language-Team: \n"
@@ -26,13 +26,13 @@ msgstr "<b>Atidaromo failo tipas:</b>"
 msgid ""
 "<b>These special codes can be used in the command line:</b>\n"
 "  <b>%f</b>: Represents a single file name\n"
-"  <b>%F:</b> Represents multiple file names\n"
+"  <b>%F</b>: Represents multiple file names\n"
 "  <b>%u</b>: Represents a single URI of the file\n"
 "  <b>%U</b>: Represents multiple URIs"
 msgstr ""
 "<b>Komandinėje eilutėje gali būti naudojami šie specialūs kodai:</b>\n"
 " <b>%f</b>: reiškia vieno failo pavadinimą\n"
-" <b>%F:</b> reiškia kelių failų pavadinimus\n"
+" <b>%F</b>: reiškia kelių failų pavadinimus\n"
 " <b>%u</b>: reiškia vieną failo URI\n"
 " <b>%U</b>: reiškia kelis URIs"
 
@@ -42,7 +42,7 @@ msgstr "Pasirinkite programą"
 
 #: ../data/ui/app-chooser.glade.h:10
 msgid "Custom Command Line"
-msgstr ""
+msgstr "Komandinė eilutė"
 
 #: ../data/ui/app-chooser.glade.h:11
 msgid "Execute in terminal emulator"
@@ -217,12 +217,11 @@ msgstr "<b>Eiga:</b>"
 
 #: ../data/ui/progress.glade.h:4
 msgid "<b>Some errors occurred:</b>"
-msgstr ""
+msgstr "<b>Įvyko kelios klaidos:</b>"
 
 #: ../data/ui/progress.glade.h:5
-#, fuzzy
 msgid "<b>Time remaining:</b>"
-msgstr "<b>Apdorojama:</b>"
+msgstr "<b>Liko laiko:</b>"
 
 #. To: <Destination folder> ex. Copy file to..., Move file to...etc.
 #: ../data/ui/progress.glade.h:7
@@ -235,46 +234,46 @@ msgid "Preparing..."
 msgstr "Ruošiamasi..."
 
 #: ../data/ui/preferred-apps.glade.h:1
-#, fuzzy
 msgid "<b>Mail client</b>"
-msgstr "<b>Failo tipas:</b>"
+msgstr "<b>Pašto klientas:</b>"
 
 #: ../data/ui/preferred-apps.glade.h:2
 msgid "<b>Terminal Emulator</b>"
-msgstr ""
+msgstr "<b>Terminalo emuliatorius</b>"
 
 #: ../data/ui/preferred-apps.glade.h:3
-#, fuzzy
 msgid "<b>Web Browser</b>"
-msgstr "<b>Savininkas:</b>"
+msgstr "<b>Naršyklė:</b>"
 
 #: ../data/ui/preferred-apps.glade.h:4
 msgid "Command line:"
-msgstr ""
+msgstr "Komandinė eilutė:"
 
 #: ../data/ui/preferred-apps.glade.h:5
 msgid "File Associations"
-msgstr ""
+msgstr "Failų asociacijos"
 
 #: ../data/ui/preferred-apps.glade.h:6
-#, fuzzy
 msgid "Preferred Applications"
-msgstr "Programos"
+msgstr "Pageidautinos programos"
 
 #: ../data/ui/preferred-apps.glade.h:7
-#, fuzzy
 msgid "System Applications"
-msgstr "Įdiegtos programos"
+msgstr "Sistemos programos"
 
 #: ../data/ui/preferred-apps.glade.h:8
 msgid ""
 "The preferred Mail Client will be used to compose emails when you click on E-"
 "mail addresses."
 msgstr ""
+"Numatytas pašto klientas bus atvertas rašyti laiškui, kai jūs paspausite ant "
+"el. pašto adreso."
 
 #: ../data/ui/preferred-apps.glade.h:9
 msgid "The preferred Web Browser will be used to open hyperlinks."
 msgstr ""
+"Numatyta interneto naršyklė bus naudojama atverti interneto puslapių "
+"adresams."
 
 #: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
 #, c-format
@@ -324,67 +323,67 @@ msgstr "Nuorodos"
 msgid "Mount Point"
 msgstr "Prijungimo taškas"
 
-#: ../src/base/fm-path.c:423
+#: ../src/base/fm-path.c:435
 msgid "Trash Can"
 msgstr "Šiukšlinė"
 
-#: ../src/base/fm-path.c:425
+#: ../src/base/fm-path.c:437
 msgid "My Computer"
 msgstr "Mano kompiuteris"
 
-#: ../src/base/fm-path.c:433 ../src/gtk/fm-places-view.c:467
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
 msgid "Applications"
 msgstr "Programos"
 
-#: ../src/base/fm-path.c:436
+#: ../src/base/fm-path.c:448
 msgid "Network"
 msgstr "Tinklas"
 
-#: ../src/gtk/fm-progress-dlg.c:111
+#: ../src/gtk/fm-progress-dlg.c:142
 msgid ": "
-msgstr ""
+msgstr ":"
 
-#: ../src/gtk/fm-progress-dlg.c:265
+#: ../src/gtk/fm-progress-dlg.c:299
 msgid "The file operation is cancelled and there are some errors."
-msgstr ""
+msgstr "Failų operacija atšaukta, tačiau įvyko klaidų."
 
-#: ../src/gtk/fm-progress-dlg.c:267
+#: ../src/gtk/fm-progress-dlg.c:301
 msgid "Cancelled"
-msgstr ""
+msgstr "Atšaukta"
 
-#: ../src/gtk/fm-progress-dlg.c:271
+#: ../src/gtk/fm-progress-dlg.c:305
 msgid "The file operation is finished, but there are some errors."
-msgstr ""
+msgstr "Failų operacija baigta, bet įvyko klaidų."
 
-#: ../src/gtk/fm-progress-dlg.c:273
+#: ../src/gtk/fm-progress-dlg.c:307
 msgid "Finished"
-msgstr ""
+msgstr "Baigta"
 
-#: ../src/gtk/fm-progress-dlg.c:365
+#: ../src/gtk/fm-progress-dlg.c:401
 msgid ", "
-msgstr ""
+msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:380
+#: ../src/gtk/fm-progress-dlg.c:416
 msgid "Moving files"
 msgstr "Perkeliami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:383
+#: ../src/gtk/fm-progress-dlg.c:419
 msgid "Copying files"
 msgstr "Kopijuojami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:386
+#: ../src/gtk/fm-progress-dlg.c:422
 msgid "Trashing files"
 msgstr "Išmetami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:389
+#: ../src/gtk/fm-progress-dlg.c:425
 msgid "Deleting files"
 msgstr "Ištrinami failai"
 
-#: ../src/gtk/fm-progress-dlg.c:392
+#: ../src/gtk/fm-progress-dlg.c:428
 msgid "Creating symlinks"
 msgstr "Kuriamos sisteminės nuorodos"
 
-#: ../src/gtk/fm-progress-dlg.c:395
+#: ../src/gtk/fm-progress-dlg.c:431
 msgid "Changing file attributes"
 msgstr "Keičiami failo atributai"
 
@@ -411,39 +410,39 @@ msgstr "Skirtingų tipų failai"
 msgid "Multiple Files"
 msgstr "Keli failai"
 
-#: ../src/gtk/fm-places-view.c:128
+#: ../src/gtk/fm-places-view.c:132
 msgid "Mount Volume"
 msgstr "Prijungti skirsnį"
 
-#: ../src/gtk/fm-places-view.c:129
+#: ../src/gtk/fm-places-view.c:133
 msgid "Unmount Volume"
 msgstr "Atjungti skirsnį"
 
-#: ../src/gtk/fm-places-view.c:130
+#: ../src/gtk/fm-places-view.c:134
 msgid "Eject Removable Media"
 msgstr "Atjungti išorinį įrenginį"
 
-#: ../src/gtk/fm-places-view.c:143 ../src/gtk/fm-places-view.c:750
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
 msgid "Rename Bookmark Item"
 msgstr "Pervadinti žymelę"
 
-#: ../src/gtk/fm-places-view.c:144
+#: ../src/gtk/fm-places-view.c:148
 msgid "Remove from Bookmark"
 msgstr "Pašalinti iš žymelių"
 
-#: ../src/gtk/fm-places-view.c:156
+#: ../src/gtk/fm-places-view.c:160
 msgid "Empty Trash"
 msgstr "Ištuštinti šiukšlinę"
 
-#: ../src/gtk/fm-places-view.c:404
+#: ../src/gtk/fm-places-view.c:498
 msgid "Trash"
 msgstr "Šiukšlinė"
 
-#: ../src/gtk/fm-places-view.c:454
+#: ../src/gtk/fm-places-view.c:552
 msgid "Desktop"
 msgstr "Darbastalis"
 
-#: ../src/gtk/fm-places-view.c:751
+#: ../src/gtk/fm-places-view.c:875
 msgid "Enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
@@ -465,17 +464,17 @@ msgstr "Siųsti į"
 
 #: ../src/gtk/fm-file-menu.c:92
 msgid "Compress..."
-msgstr ""
+msgstr "Suspausti..."
 
 #: ../src/gtk/fm-file-menu.c:93
 msgid "Extract Here"
-msgstr ""
+msgstr "Išskleisti čia"
 
 #: ../src/gtk/fm-file-menu.c:94
 msgid "Extract To..."
-msgstr ""
+msgstr "Išskleisti į..."
 
-#: ../src/gtk/fm-dnd-dest.c:443
+#: ../src/gtk/fm-dnd-dest.c:449
 msgid "XDirectSave failed."
 msgstr "XDirectSave nepavyko."
 
@@ -485,25 +484,25 @@ msgstr "Naudoti pasirinktą programą atverti failams"
 
 #: ../src/gtk/fm-app-chooser-dlg.c:103
 msgid "Execute custom command line to open files"
-msgstr ""
+msgstr "Vykdyti komandą atverti failus"
 
 #: ../src/gtk/fm-app-chooser-combo-box.c:185
 msgid "Customize"
 msgstr "Derinti"
 
-#: ../src/gtk/fm-folder-view.c:469
+#: ../src/gtk/fm-folder-view.c:485
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: ../src/gtk/fm-folder-view.c:488
+#: ../src/gtk/fm-folder-view.c:504
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../src/gtk/fm-folder-view.c:494
+#: ../src/gtk/fm-folder-view.c:511
 msgid "Size"
 msgstr "Dydis"
 
-#: ../src/gtk/fm-folder-view.c:500
+#: ../src/gtk/fm-folder-view.c:517
 msgid "Modified"
 msgstr "Pakeista"
 
@@ -519,23 +518,27 @@ msgstr "Klaida"
 msgid "Please select a folder"
 msgstr "Pasirinkite aplanką"
 
-#: ../src/gtk/fm-gtk-utils.c:459
+#: ../src/gtk/fm-gtk-utils.c:385
+msgid "Only system administrators have the permission to do this."
+msgstr "Šie veiksmai leidžiami tik sistemos administratoriams."
+
+#: ../src/gtk/fm-gtk-utils.c:461
 msgid "Do you want to move the selected files to trash bin?"
 msgstr "Ar norite perkelti pasirinktus failus į šiukšlinę?"
 
-#: ../src/gtk/fm-gtk-utils.c:476
+#: ../src/gtk/fm-gtk-utils.c:478
 msgid "Do you want to delete the selected files?"
 msgstr "Ar norite ištrinti pasirinktus failus?"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Rename File"
 msgstr "Pervadinti failą"
 
-#: ../src/gtk/fm-gtk-utils.c:528
+#: ../src/gtk/fm-gtk-utils.c:530
 msgid "Please enter a new name:"
 msgstr "Įveskite naują pavadinimą:"
 
-#: ../src/gtk/fm-gtk-utils.c:550
+#: ../src/gtk/fm-gtk-utils.c:552
 msgid "Are you sure you want to empty the trash bin?"
 msgstr "Ar tikrai norite ištuštinti šiukšlinę?"
 

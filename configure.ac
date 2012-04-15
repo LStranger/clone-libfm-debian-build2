@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([libfm], [0.1.9], [http://libfm.sf.net/])
+AC_INIT([libfm], [0.1.10], [http://libfm.sf.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
 AC_CONFIG_HEADERS([config.h])
@@ -41,6 +41,11 @@ pkg_modules="gtk+-2.0 >= 2.16.0"
 PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
+
+glib_modules="glib-2.0 >= 2.18.0"
+PKG_CHECK_MODULES(GLIB, [$glib_modules])
+AC_SUBST(GLIB_CFLAGS)
+AC_SUBST(GLIB_LIBS)
 
 gio_modules="gthread-2.0 gio-unix-2.0 glib-2.0 >= 2.18.0"
 PKG_CHECK_MODULES(GIO, [$gio_modules])
@@ -86,6 +91,17 @@ AC_SUBST(giomodulesdir)
 
 GETTEXT_PACKAGE=libfm
 AC_SUBST(GETTEXT_PACKAGE)
+
+# Generate po/LINGUAS on the fly rather than relying on translators
+# to maintain it manually. This also overcome the problem that Transifex
+# cannot add a language to po/LINGUAS if a new po file is submitted.
+rm -f $srcdir/po/LINGUAS
+for po_file in `ls $srcdir/po/*.po | sort`;
+do
+    lang=`echo "$po_file" | sed "s|.*/po/\(.*\)\.po|\1|g"`
+    echo $lang >> $srcdir/po/LINGUAS
+done
+
 AM_GLIB_GNU_GETTEXT
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 

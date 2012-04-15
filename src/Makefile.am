@@ -20,6 +20,7 @@ base_SOURCES = \
 	base/fm-file-info.c \
 	base/fm-mime-type.c \
 	base/fm-utils.c \
+	base/fm-file-launcher.c \
 	base/fm-icon.c \
 	base/fm-bookmarks.c \
 	base/fm-nav-history.c \
@@ -81,6 +82,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-dest.c \
 	gtk/fm-gtk-utils.c \
 	gtk/fm-thumbnail.c \
+	gtk/fm-tab-label.c \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
@@ -94,6 +96,7 @@ libfminclude_HEADERS = \
 	base/fm-file-info.h \
 	base/fm-mime-type.h \
 	base/fm-utils.h \
+	base/fm-file-launcher.h \
 	base/fm-icon.h \
 	base/fm-bookmarks.h \
 	base/fm-nav-history.h \
@@ -133,6 +136,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-dnd-dest.h \
 	gtk/fm-gtk-utils.h \
 	gtk/fm-thumbnail.h \
+	gtk/fm-tab-label.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
@@ -247,7 +251,7 @@ libgiofm_la_SOURCES= \
 
 libgiofm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
-	-DGIO_MODULE_DIR=\"$(GIO_MODULE_DIR)\"	\
+	-DGIO_MODULE_DIR=\"$(giomodulesdir)\"	\
 	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
 	-DG_DISABLE_DEPRECATED \
 	$(NULL)
@@ -310,12 +314,12 @@ gnome_terminal_SOURCES = \
 	$(NULL)
 
 gnome_terminal_CFLAGS = \
-	$(GTK_CFLAGS) \
+	$(GLIB_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
 gnome_terminal_LDADD = \
-	$(GTK_LIBS) \
+	$(GLIB_LIBS) \
 	$(NULL)
 
 # A lib to be loaede with LD_PRELOADS to override GtkFileChooserWidget

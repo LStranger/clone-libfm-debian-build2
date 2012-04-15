@@ -1,0 +1,551 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"PO-Revision-Date: 2010-04-02 15:52+0200\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Kommandorad sm ska exekveras:</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Filtyp att öppna:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F</b>: Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>Dessa specialkoder kan användas på kommandoraden:</b>\n"
+"  <b>%f</b>: För ett filnamn\n"
+"  <b>%F</b>: För flera filnamn\n"
+"  <b>%u</b>: För en URI till en fil\n"
+"  <b>%U</b>: För URI till flera filer"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Välj ett program"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Anpassad kommandorad"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Exekvera i terminalemulator"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Installerat program"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Ange valt program som standardåtgärd för denna filtyp"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Utforska"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Det finns redan en fil med samma namn på denna plats.</b>\n"
+"\n"
+"Vill du ersätta den fil som redan existerar"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Utför detta på alla existerande filer"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Bekräfta ersättning av filer"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Filnamn:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Skriv över"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Byt namn"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_Hoppa över"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "med följande fil?"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Åtkomstkontroll</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>Filtyp:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Grupp:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Senast använd:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Senast ändrad:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Plats:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>_Öppna med:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>Annat:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Ägare:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Storlek på disk:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Mål:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Total storlek på filer:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_Grupp:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_Ägare:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "Filegenskaper"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Gör fil exekverbar"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "Ingen"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Operationer som alla användare kan utföra"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Operationer som filens ägare kan utföra"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users in the same group as the owner of the file can do"
+msgstr "Operationer som användare i samma grupp som ägaren av filen kan utföra"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Läs och skriv"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Endast läs"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Ange program för att öppna filer av denna typ "
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Endast skriv"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_Allmänt"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "_Rättigheter"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Bearbetning:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>Förlopp:</b>"
+
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Fel uppstod:</b>"
+
+#: ../data/ui/progress.glade.h:5
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Tid kvar:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
+msgid "<b>To:</b>"
+msgstr "<b>Till:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:9
+msgid "Preparing..."
+msgstr "Förbereder..."
+
+#: ../data/ui/preferred-apps.glade.h:1
+msgid "<b>Mail client</b>"
+msgstr "<b>E-post-klient</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Terminalemulator</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr "<b>Webbläsare</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr "Kommandorad:"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr "Filassociation"
+
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "Preferred Applications"
+msgstr "Program"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "System Applications"
+msgstr "Systemprogram"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Den föreslagna e-post-klienten kommer att användas när du klickar på en e-"
+"post-adress."
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr ""
+"Den föreslagna webbläsaren kommer att användas för att öppna hyperlänkar."
+
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u byte"
+msgstr[1] "%u byte"
+
+#: ../src/base/fm-utils.c:61
+msgid "KB"
+msgstr "KB"
+
+#: ../src/base/fm-utils.c:66
+msgid "MB"
+msgstr "MB"
+
+#: ../src/base/fm-utils.c:71
+msgid "GB"
+msgstr "GB"
+
+#: ../src/base/fm-utils.c:76
+msgid "TB"
+msgstr "TB"
+
+#: ../src/base/fm-utils.c:90
+msgid "KiB"
+msgstr "KiB"
+
+#: ../src/base/fm-utils.c:95
+msgid "MiB"
+msgstr "MiB"
+
+#: ../src/base/fm-utils.c:100
+msgid "GiB"
+msgstr "GiB"
+
+#: ../src/base/fm-utils.c:105
+msgid "TiB"
+msgstr "TiB"
+
+#: ../src/base/fm-file-info.c:53
+msgid "Shortcuts"
+msgstr "Genvägar"
+
+#: ../src/base/fm-file-info.c:56
+msgid "Mount Point"
+msgstr "Monteringspunkt"
+
+#: ../src/base/fm-path.c:435
+msgid "Trash Can"
+msgstr "Papperskorg"
+
+#: ../src/base/fm-path.c:437
+msgid "My Computer"
+msgstr "Den här datorn"
+
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+msgid "Applications"
+msgstr "Program"
+
+#: ../src/base/fm-path.c:448
+msgid "Network"
+msgstr "Nätverk"
+
+#: ../src/gtk/fm-progress-dlg.c:142
+msgid ": "
+msgstr ": "
+
+#: ../src/gtk/fm-progress-dlg.c:299
+msgid "The file operation is cancelled and there are some errors."
+msgstr "Filoperationen avbröts och fel rapporterades."
+
+#: ../src/gtk/fm-progress-dlg.c:301
+msgid "Cancelled"
+msgstr "Avbruten"
+
+#: ../src/gtk/fm-progress-dlg.c:305
+msgid "The file operation is finished, but there are some errors."
+msgstr "Filoperationen avslutade men fel förekom."
+
+#: ../src/gtk/fm-progress-dlg.c:307
+msgid "Finished"
+msgstr "Avslutades"
+
+#: ../src/gtk/fm-progress-dlg.c:401
+msgid ", "
+msgstr ", "
+
+#: ../src/gtk/fm-progress-dlg.c:416
+msgid "Moving files"
+msgstr "Flyttar filer"
+
+#: ../src/gtk/fm-progress-dlg.c:419
+msgid "Copying files"
+msgstr "Kopierar filer"
+
+#: ../src/gtk/fm-progress-dlg.c:422
+msgid "Trashing files"
+msgstr "Kastar filer"
+
+#: ../src/gtk/fm-progress-dlg.c:425
+msgid "Deleting files"
+msgstr "Raderar filer"
+
+#: ../src/gtk/fm-progress-dlg.c:428
+msgid "Creating symlinks"
+msgstr "Skapar symlänkar"
+
+#: ../src/gtk/fm-progress-dlg.c:431
+msgid "Changing file attributes"
+msgstr "Byter filegenskaper"
+
+#: ../src/gtk/fm-file-properties.c:171
+msgid "Please enter a valid user name or numeric id."
+msgstr "Ange ett korrekt användarnamn eller numeriskt ID."
+
+#: ../src/gtk/fm-file-properties.c:203
+msgid "Please enter a valid group name or numeric id."
+msgstr "Ange ett korrekt gruppnamn eller numeriskt ID."
+
+#: ../src/gtk/fm-file-properties.c:351
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Vill du utföra förändringarna rekursivt på alla filer och underkataloger?"
+
+#: ../src/gtk/fm-file-properties.c:625
+msgid "Files of different types"
+msgstr "Filer av olika typ"
+
+#: ../src/gtk/fm-file-properties.c:653
+msgid "Multiple Files"
+msgstr "Flera filer"
+
+#: ../src/gtk/fm-places-view.c:132
+msgid "Mount Volume"
+msgstr "Montera volym"
+
+#: ../src/gtk/fm-places-view.c:133
+msgid "Unmount Volume"
+msgstr "Avmontera volym"
+
+#: ../src/gtk/fm-places-view.c:134
+msgid "Eject Removable Media"
+msgstr "Mata ut flyttbart media"
+
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+msgid "Rename Bookmark Item"
+msgstr "Byt namn på bokmärke"
+
+#: ../src/gtk/fm-places-view.c:148
+msgid "Remove from Bookmark"
+msgstr "Ta bort bokmärke"
+
+#: ../src/gtk/fm-places-view.c:160
+msgid "Empty Trash"
+msgstr "Töm papperskorgen"
+
+#: ../src/gtk/fm-places-view.c:498
+msgid "Trash"
+msgstr "Papperskorgen"
+
+#: ../src/gtk/fm-places-view.c:552
+msgid "Desktop"
+msgstr "Skrivbord"
+
+#: ../src/gtk/fm-places-view.c:875
+msgid "Enter a new name:"
+msgstr "Ange ett nytt namn:"
+
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+msgid "Open With..."
+msgstr "Öppna med..."
+
+#: ../src/gtk/fm-file-menu.c:89
+msgid "Rename"
+msgstr "Byt namn"
+
+#: ../src/gtk/fm-file-menu.c:90
+msgid "Create Symlink"
+msgstr "Skapa symlänk"
+
+#: ../src/gtk/fm-file-menu.c:91
+msgid "Send To"
+msgstr "Skicka till"
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr "Komprimera..."
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr "Extrahera här"
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr "Extrahera till..."
+
+#: ../src/gtk/fm-dnd-dest.c:449
+msgid "XDirectSave failed."
+msgstr "XDirectSave misslyckades."
+
+#: ../src/gtk/fm-app-chooser-dlg.c:96
+msgid "Use selected application to open files"
+msgstr "Använd angivet program för att öppna filer"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:103
+msgid "Execute custom command line to open files"
+msgstr "Exekvera anpassad kommandorad för att öppna filer"
+
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr "Anpassa"
+
+#: ../src/gtk/fm-folder-view.c:485
+msgid "Name"
+msgstr "Namn"
+
+#: ../src/gtk/fm-folder-view.c:504
+msgid "Description"
+msgstr "Beskrivning"
+
+#: ../src/gtk/fm-folder-view.c:511
+msgid "Size"
+msgstr "Storlek"
+
+#: ../src/gtk/fm-folder-view.c:517
+msgid "Modified"
+msgstr "Modifierad"
+
+#: ../src/gtk/fm-app-menu-view.c:157
+msgid "Installed Applications"
+msgstr "Installerade program"
+
+#: ../src/gtk/fm-gtk-utils.c:45
+msgid "Error"
+msgstr "Fel"
+
+#: ../src/gtk/fm-gtk-utils.c:239
+msgid "Please select a folder"
+msgstr "Vänligen ange en katalog"
+
+#: ../src/gtk/fm-gtk-utils.c:385
+msgid "Only system administrators have the permission to do this."
+msgstr "Endast en systemadministratör kan utföra detta."
+
+#: ../src/gtk/fm-gtk-utils.c:461
+msgid "Do you want to move the selected files to trash bin?"
+msgstr "Vill du flytta de markerade filerna till papperskorgen?"
+
+#: ../src/gtk/fm-gtk-utils.c:478
+msgid "Do you want to delete the selected files?"
+msgstr "Vill du radera de markerade filerna?"
+
+#: ../src/gtk/fm-gtk-utils.c:530
+msgid "Rename File"
+msgstr "Byt namn på fil"
+
+#: ../src/gtk/fm-gtk-utils.c:530
+msgid "Please enter a new name:"
+msgstr "Ange nytt namn:"
+
+#: ../src/gtk/fm-gtk-utils.c:552
+msgid "Are you sure you want to empty the trash bin?"
+msgstr "Är du säker på att du vill tömma papperskorgen?"
+
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
+#, c-format
+msgid "The specified directory is not valid"
+msgstr "Angiven katalog existerar inte"

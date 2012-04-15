@@ -1,7 +1,7 @@
 /*
  *      fm-file-info.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -318,6 +318,12 @@ const char* fm_file_info_get_name( FmFileInfo* fi )
 /* Get displayed name encoded in UTF-8 */
 const char* fm_file_info_get_disp_name( FmFileInfo* fi )
 {
+    if(G_UNLIKELY(!fi->disp_name))
+    {
+        /* FIXME: this is not guaranteed to be UTF-8.
+         * Encoding conversion is needed here. */
+        return fi->path->name;
+    }
     return fi->disp_name;
 }
 

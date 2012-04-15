@@ -1,0 +1,551 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-18 02:56+0200\n"
+"PO-Revision-Date: 2010-04-16 13:17+0200\n"
+"Last-Translator: Mario <mb@mariobehling.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.1\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Dòng lệnh để thực thi:</b>"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Loại tập tin để được mở:</b>"
+
+#: ../data/ui/app-chooser.glade.h:4
+#, no-c-format
+msgid ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F</b>: Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>Những mã đặc biệt có thể được sử dụng trong dòng lệnh:</b>\n"
+"  <b>%f</b>: Đại diện cho một tên tệp duy nhất\n"
+"  <b>%F</b>:Đại diện cho nhiều tên tập tin\n"
+"  <b>%u</b>: Đại diện cho URI duy nhất của tập tin\n"
+"  <b>%U</b>: Đại diện cho nhiều URI"
+
+#: ../data/ui/app-chooser.glade.h:9
+msgid "Choose An Application"
+msgstr "Chọn một ứng dụng"
+
+#: ../data/ui/app-chooser.glade.h:10
+msgid "Custom Command Line"
+msgstr "Dòng lệnh tùy biến"
+
+#: ../data/ui/app-chooser.glade.h:11
+msgid "Execute in terminal emulator"
+msgstr "Tực hiện trong thiết bị đầu cuối emulator"
+
+#: ../data/ui/app-chooser.glade.h:12
+msgid "Installed Application"
+msgstr "Cài đặt ứng dụng"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Set selected application as default action of this file type"
+msgstr "Thiết lập ứng dụng đã chọn như tác dụng mặc định của loại tập tin này"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "_Browse"
+msgstr "_Xem qua"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Đã có một tập tin trùng tên trong đây.</b>\n"
+"Bạn có muốn thay thế tập tin hiện tại ko"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "Apply this option to all existing files"
+msgstr "Áp dụng tùy chọn này cho tất cả tập tin đã có"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "Confirm to replace files"
+msgstr "Chấp nhận thay thế các tập tin"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Tên tập tin:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "_Overwrite"
+msgstr "_Ghi đè lên"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Rename"
+msgstr "_Đổi tên"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Skip"
+msgstr "_Bỏ qua"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "with the following file?"
+msgstr "Với các tập tin sau đây?"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "---"
+msgstr ""
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>Access Control</b>"
+msgstr "<b>Kiểm soát truy cập</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>File Type:</b>"
+msgstr "<b>Loại tập tin:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Group:</b>"
+msgstr "<b>Nhóm:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Truy cập gần nhất:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Lần sữa đổi gần nhất:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Location:</b>"
+msgstr "<b>Vị trí:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b> Mở với:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "<b>Other:</b>"
+msgstr "<b>khác:</b>"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Owner:</b>"
+msgstr "<b>Sở hữu:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Kích thước trên đĩa:</b>"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>Target:</b>"
+msgstr "<b>Mục tiêu:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Tổng kích thước của các tập tin:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>_Group:</b>"
+msgstr "<b>_Nhóm:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>_Owner:</b>"
+msgstr "<b>_Sở hữu:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "File Properties"
+msgstr "Chi tiết tập tin"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "Make the file executable"
+msgstr "Làm thực thi tập tin"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "None"
+msgstr "Không"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Operations that all other users can do"
+msgstr "Những hoạt động mà người dùng khác có thể thực hiện"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Operations that the owner of the file can do"
+msgstr "Những hoạt động mà người sở hữu tập tin có thể thực hiện"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Operations that users in the same group as the owner of the file can do"
+msgstr ""
+"Những hoạt động mà người dùng trong cùng nhóm là chủ sở hữu tập tin có thể "
+"thực hiện"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Read and Write"
+msgstr "Đọc và viết"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "Read only"
+msgstr "Chỉ đọc"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "Select the application used to open files of this type "
+msgstr "Lựa chọn ứng dụng để mở loại tập tin này"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "Write only"
+msgstr "Chỉ viết"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "_General"
+msgstr "_Tổng hợp"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "_Permissions"
+msgstr "_"
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:2
+msgid "<b>Processing:</b>"
+msgstr "<b>Đang thực hiện:</b>"
+
+#: ../data/ui/progress.glade.h:3
+msgid "<b>Progress:</b>"
+msgstr "<b>Phát triển:</b>"
+
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>một số lỗi xảy ra:</b>"
+
+#: ../data/ui/progress.glade.h:5
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Thời gian còn lại:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:7
+msgid "<b>To:</b>"
+msgstr "<b>Đến:</b>"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:9
+msgid "Preparing..."
+msgstr "Đang chuẩn bị..."
+
+#: ../data/ui/preferred-apps.glade.h:1
+msgid "<b>Mail client</b>"
+msgstr "<b>Thư khách hàng</b>"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Thiết bị đầu cuối Emulator</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "<b>Web Browser</b>"
+msgstr "<b>Trình duyệt Web</b>"
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "Command line:"
+msgstr "Dòng lệnh:"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid "File Associations"
+msgstr "Các tập tin kết hợp"
+
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "Preferred Applications"
+msgstr "Các ứng dụng ưa thích"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "System Applications"
+msgstr " ứng dụng hệ thống"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Mail khách hàng ưa thích sẽ được sử dụng khi bạn bấm vào những địa chỉ email"
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Trình duyệt Web ưa thích khi bạn sử dụng để mở liên kết nhanh"
+
+#: ../src/base/fm-utils.c:54 ../src/base/fm-utils.c:83
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "Số ít%u byteSố nhiều%u byte"
+
+#: ../src/base/fm-utils.c:61
+msgid "KB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:66
+msgid "MB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:71
+msgid "GB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:76
+msgid "TB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:90
+msgid "KiB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:95
+msgid "MiB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:100
+msgid "GiB"
+msgstr ""
+
+#: ../src/base/fm-utils.c:105
+msgid "TiB"
+msgstr ""
+
+#: ../src/base/fm-file-info.c:53
+msgid "Shortcuts"
+msgstr "Phím tắt"
+
+#: ../src/base/fm-file-info.c:56
+msgid "Mount Point"
+msgstr "Điểm tăng lên"
+
+#: ../src/base/fm-path.c:435
+msgid "Trash Can"
+msgstr "Thùng rác"
+
+#: ../src/base/fm-path.c:437
+msgid "My Computer"
+msgstr "Máy tính của tôi"
+
+#: ../src/base/fm-path.c:445 ../src/gtk/fm-places-view.c:567
+msgid "Applications"
+msgstr "Các ứng dụng"
+
+#: ../src/base/fm-path.c:448
+msgid "Network"
+msgstr "Mạng"
+
+#: ../src/gtk/fm-progress-dlg.c:142
+msgid ": "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:299
+msgid "The file operation is cancelled and there are some errors."
+msgstr "Hoạt động của tập tin đã bị hủy và có một số lỗi"
+
+#: ../src/gtk/fm-progress-dlg.c:301
+msgid "Cancelled"
+msgstr "Hủy"
+
+#: ../src/gtk/fm-progress-dlg.c:305
+msgid "The file operation is finished, but there are some errors."
+msgstr "Hoạt độngj của tập tin đã hoàn thành, nhưng có môt số lỗi."
+
+#: ../src/gtk/fm-progress-dlg.c:307
+msgid "Finished"
+msgstr "Hoàn thành"
+
+#: ../src/gtk/fm-progress-dlg.c:401
+msgid ", "
+msgstr ""
+
+#: ../src/gtk/fm-progress-dlg.c:416
+msgid "Moving files"
+msgstr "Đang di chuyển các tập tin"
+
+#: ../src/gtk/fm-progress-dlg.c:419
+msgid "Copying files"
+msgstr "Đang sao chép các tập tin"
+
+#: ../src/gtk/fm-progress-dlg.c:422
+msgid "Trashing files"
+msgstr "Đang vô hiệu các tập tin"
+
+#: ../src/gtk/fm-progress-dlg.c:425
+msgid "Deleting files"
+msgstr "Đang xóa các tập tin"
+
+#: ../src/gtk/fm-progress-dlg.c:428
+msgid "Creating symlinks"
+msgstr "Đang tạo liên kết tượng trưng"
+
+#: ../src/gtk/fm-progress-dlg.c:431
+msgid "Changing file attributes"
+msgstr "Đang thay đổi thuộc tính tập tin"
+
+#: ../src/gtk/fm-file-properties.c:171
+msgid "Please enter a valid user name or numeric id."
+msgstr "vui lòng điền tên người dùng hay số id  hợp lệ"
+
+#: ../src/gtk/fm-file-properties.c:203
+msgid "Please enter a valid group name or numeric id."
+msgstr "Vui lòng điền tên nhóm hay số id hợp lệ"
+
+#: ../src/gtk/fm-file-properties.c:351
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Bạn có muốn áp dụng những thay đổi này cho tất cả các tập tin và tiểu tập "
+"tin không?"
+
+#: ../src/gtk/fm-file-properties.c:625
+msgid "Files of different types"
+msgstr "Những tập tin khác loại"
+
+#: ../src/gtk/fm-file-properties.c:653
+msgid "Multiple Files"
+msgstr "Nhiều tập tin"
+
+#: ../src/gtk/fm-places-view.c:132
+msgid "Mount Volume"
+msgstr "Âm thanh  ngoài"
+
+#: ../src/gtk/fm-places-view.c:133
+msgid "Unmount Volume"
+msgstr "Không âm thanh ngoài"
+
+#: ../src/gtk/fm-places-view.c:134
+msgid "Eject Removable Media"
+msgstr "Loại bỏ thiết bị truyền thông rời"
+
+#: ../src/gtk/fm-places-view.c:147 ../src/gtk/fm-places-view.c:874
+msgid "Rename Bookmark Item"
+msgstr "Đổi tên mục đánh dấu trang"
+
+#: ../src/gtk/fm-places-view.c:148
+msgid "Remove from Bookmark"
+msgstr "Loại bỏ khỏi đánh dấu trang"
+
+#: ../src/gtk/fm-places-view.c:160
+msgid "Empty Trash"
+msgstr "Làm sạch thùng rác"
+
+#: ../src/gtk/fm-places-view.c:498
+msgid "Trash"
+msgstr "Rác"
+
+#: ../src/gtk/fm-places-view.c:552
+msgid "Desktop"
+msgstr "Máy để bàn"
+
+#: ../src/gtk/fm-places-view.c:875
+msgid "Enter a new name:"
+msgstr "Nhập tên mới:"
+
+#: ../src/gtk/fm-file-menu.c:83 ../src/gtk/fm-file-menu.c:84
+msgid "Open With..."
+msgstr "Mở bằng ..."
+
+#: ../src/gtk/fm-file-menu.c:89
+#, fuzzy
+msgid "Rename"
+msgstr "Đổi tên"
+
+#: ../src/gtk/fm-file-menu.c:90
+msgid "Create Symlink"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:91
+msgid "Send To"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:92
+msgid "Compress..."
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:93
+msgid "Extract Here"
+msgstr ""
+
+#: ../src/gtk/fm-file-menu.c:94
+msgid "Extract To..."
+msgstr ""
+
+#: ../src/gtk/fm-dnd-dest.c:449
+msgid "XDirectSave failed."
+msgstr ""
+
+#: ../src/gtk/fm-app-chooser-dlg.c:96
+msgid "Use selected application to open files"
+msgstr ""
+
+#: ../src/gtk/fm-app-chooser-dlg.c:103
+msgid "Execute custom command line to open files"
+msgstr ""
+
+#: ../src/gtk/fm-app-chooser-combo-box.c:185
+msgid "Customize"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:485
+msgid "Name"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:504
+msgid "Description"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:511
+msgid "Size"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:517
+msgid "Modified"
+msgstr ""
+
+#: ../src/gtk/fm-app-menu-view.c:157
+msgid "Installed Applications"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:45
+msgid "Error"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:239
+msgid "Please select a folder"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:385
+msgid "Only system administrators have the permission to do this."
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:461
+msgid "Do you want to move the selected files to trash bin?"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:478
+msgid "Do you want to delete the selected files?"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:530
+msgid "Rename File"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:530
+msgid "Please enter a new name:"
+msgstr ""
+
+#: ../src/gtk/fm-gtk-utils.c:552
+msgid "Are you sure you want to empty the trash bin?"
+msgstr ""
+
+#: ../src/job/fm-dir-list-job.c:229 ../src/job/fm-dir-list-job.c:238
+#: ../src/job/fm-dir-list-job.c:325
+#, c-format
+msgid "The specified directory is not valid"
+msgstr ""

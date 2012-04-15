@@ -101,7 +101,8 @@ am__objects_3 = libfm_gtk_la-fm-gtk.lo $(am__objects_2) \
 	libfm_gtk_la-fm-cell-renderer-pixbuf.lo \
 	libfm_gtk_la-fm-dnd-src.lo libfm_gtk_la-fm-dnd-dest.lo \
 	libfm_gtk_la-fm-gtk-utils.lo libfm_gtk_la-fm-thumbnail.lo \
-	libfm_gtk_la-fm-gtk-marshal.lo $(am__objects_1)
+	libfm_gtk_la-fm-tab-label.lo libfm_gtk_la-fm-gtk-marshal.lo \
+	$(am__objects_1)
 am_libfm_gtk_la_OBJECTS = $(am__objects_3) $(am__objects_1)
 libfm_gtk_la_OBJECTS = $(am_libfm_gtk_la_OBJECTS)
 libfm_gtk_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -112,11 +113,11 @@ libfm_la_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 am__objects_4 = libfm_la-fm-config.lo libfm_la-fm-list.lo \
 	libfm_la-fm-path.lo libfm_la-fm-folder.lo \
 	libfm_la-fm-file-info.lo libfm_la-fm-mime-type.lo \
-	libfm_la-fm-utils.lo libfm_la-fm-icon.lo \
-	libfm_la-fm-bookmarks.lo libfm_la-fm-nav-history.lo \
-	libfm_la-fm-monitor.lo libfm_la-fm-dummy-monitor.lo \
-	libfm_la-fm-archiver.lo libfm_la-fm-marshal.lo \
-	$(am__objects_1)
+	libfm_la-fm-utils.lo libfm_la-fm-file-launcher.lo \
+	libfm_la-fm-icon.lo libfm_la-fm-bookmarks.lo \
+	libfm_la-fm-nav-history.lo libfm_la-fm-monitor.lo \
+	libfm_la-fm-dummy-monitor.lo libfm_la-fm-archiver.lo \
+	libfm_la-fm-marshal.lo $(am__objects_1)
 am__objects_5 = libfm_la-fm-job.lo libfm_la-fm-simple-job.lo \
 	libfm_la-fm-dir-list-job.lo libfm_la-fm-deep-count-job.lo \
 	libfm_la-fm-file-ops-job.lo libfm_la-fm-file-info-job.lo \
@@ -233,6 +234,8 @@ FGREP = @FGREP@
 GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
 GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LIBS = @GIO_LIBS@
+GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_LIBS = @GLIB_LIBS@
 GMODULE_CFLAGS = @GMODULE_CFLAGS@
 GMODULE_LIBS = @GMODULE_LIBS@
 GMOFILES = @GMOFILES@
@@ -368,6 +371,7 @@ base_SOURCES = \
 	base/fm-file-info.c \
 	base/fm-mime-type.c \
 	base/fm-utils.c \
+	base/fm-file-launcher.c \
 	base/fm-icon.c \
 	base/fm-bookmarks.c \
 	base/fm-nav-history.c \
@@ -429,6 +433,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-dnd-dest.c \
 	gtk/fm-gtk-utils.c \
 	gtk/fm-thumbnail.c \
+	gtk/fm-tab-label.c \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
@@ -442,6 +447,7 @@ libfminclude_HEADERS = \
 	base/fm-file-info.h \
 	base/fm-mime-type.h \
 	base/fm-utils.h \
+	base/fm-file-launcher.h \
 	base/fm-icon.h \
 	base/fm-bookmarks.h \
 	base/fm-nav-history.h \
@@ -481,6 +487,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-dnd-dest.h \
 	gtk/fm-gtk-utils.h \
 	gtk/fm-thumbnail.h \
+	gtk/fm-tab-label.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
@@ -586,7 +593,7 @@ libgiofm_la_SOURCES = \
 
 libgiofm_la_CFLAGS = \
 	$(GIO_CFLAGS) \
-	-DGIO_MODULE_DIR=\"$(GIO_MODULE_DIR)\"	\
+	-DGIO_MODULE_DIR=\"$(giomodulesdir)\"	\
 	-DGVFS_LOCALEDIR=\""$(localedir)"\"	\
 	-DG_DISABLE_DEPRECATED \
 	$(NULL)
@@ -630,12 +637,12 @@ gnome_terminal_SOURCES = \
 	$(NULL)
 
 gnome_terminal_CFLAGS = \
-	$(GTK_CFLAGS) \
+	$(GLIB_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
 gnome_terminal_LDADD = \
-	$(GTK_LIBS) \
+	$(GLIB_LIBS) \
 	$(NULL)
 
 xml_purge_SOURCES = xml-purge.c
@@ -885,6 +892,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-path-entry.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-places-view.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-progress-dlg.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-tab-label.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_gtk_la-fm-thumbnail.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-archiver.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-bookmarks.Plo@am__quote@
@@ -894,6 +902,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-dummy-monitor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-file-info-job.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-file-info.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-file-launcher.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-file-ops-job-change-attr.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-file-ops-job-delete.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libfm_la-fm-file-ops-job-xfer.Plo@am__quote@
@@ -1104,6 +1113,13 @@ libfm_gtk_la-fm-thumbnail.lo: gtk/fm-thumbnail.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -c -o libfm_gtk_la-fm-thumbnail.lo `test -f 'gtk/fm-thumbnail.c' || echo '$(srcdir)/'`gtk/fm-thumbnail.c
 
+libfm_gtk_la-fm-tab-label.lo: gtk/fm-tab-label.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -MT libfm_gtk_la-fm-tab-label.lo -MD -MP -MF $(DEPDIR)/libfm_gtk_la-fm-tab-label.Tpo -c -o libfm_gtk_la-fm-tab-label.lo `test -f 'gtk/fm-tab-label.c' || echo '$(srcdir)/'`gtk/fm-tab-label.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_gtk_la-fm-tab-label.Tpo $(DEPDIR)/libfm_gtk_la-fm-tab-label.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gtk/fm-tab-label.c' object='libfm_gtk_la-fm-tab-label.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -c -o libfm_gtk_la-fm-tab-label.lo `test -f 'gtk/fm-tab-label.c' || echo '$(srcdir)/'`gtk/fm-tab-label.c
+
 libfm_gtk_la-fm-gtk-marshal.lo: gtk/fm-gtk-marshal.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_gtk_la_CFLAGS) $(CFLAGS) -MT libfm_gtk_la-fm-gtk-marshal.lo -MD -MP -MF $(DEPDIR)/libfm_gtk_la-fm-gtk-marshal.Tpo -c -o libfm_gtk_la-fm-gtk-marshal.lo `test -f 'gtk/fm-gtk-marshal.c' || echo '$(srcdir)/'`gtk/fm-gtk-marshal.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_gtk_la-fm-gtk-marshal.Tpo $(DEPDIR)/libfm_gtk_la-fm-gtk-marshal.Plo
@@ -1166,6 +1182,13 @@ libfm_la-fm-utils.lo: base/fm-utils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='base/fm-utils.c' object='libfm_la-fm-utils.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-fm-utils.lo `test -f 'base/fm-utils.c' || echo '$(srcdir)/'`base/fm-utils.c
+
+libfm_la-fm-file-launcher.lo: base/fm-file-launcher.c
+@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-fm-file-launcher.lo -MD -MP -MF $(DEPDIR)/libfm_la-fm-file-launcher.Tpo -c -o libfm_la-fm-file-launcher.lo `test -f 'base/fm-file-launcher.c' || echo '$(srcdir)/'`base/fm-file-launcher.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libfm_la-fm-file-launcher.Tpo $(DEPDIR)/libfm_la-fm-file-launcher.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='base/fm-file-launcher.c' object='libfm_la-fm-file-launcher.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -c -o libfm_la-fm-file-launcher.lo `test -f 'base/fm-file-launcher.c' || echo '$(srcdir)/'`base/fm-file-launcher.c
 
 libfm_la-fm-icon.lo: base/fm-icon.c
 @am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libfm_la_CFLAGS) $(CFLAGS) -MT libfm_la-fm-icon.lo -MD -MP -MF $(DEPDIR)/libfm_la-fm-icon.Tpo -c -o libfm_la-fm-icon.lo `test -f 'base/fm-icon.c' || echo '$(srcdir)/'`base/fm-icon.c
