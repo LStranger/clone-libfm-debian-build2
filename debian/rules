@@ -24,8 +24,6 @@ export DH_VERBOSE=1
 
 #include /usr/share/cdbs/1/rules/utils.mk
 
-DISTRO = "$(shell lsb_release -si)"
-
 %:
 	dh $@
 
@@ -39,10 +37,7 @@ override_dh_install:
 	find debian/tmp/usr/lib -name *.la |xargs rm
 	dh_install --fail-missing
 
-	#Install apport hook only on Ubuntu
-ifeq ($(DISTRO),"Ubuntu")
-	dh_install -plibfm0 debian/apport/source_libfm.py usr/share/apport/package-hooks
-endif
+	dh_install -plibfm1 debian/apport/source_libfm.py usr/share/apport/package-hooks
 
 override_dh_strip:
 	dh_strip -plibfm1 -plibfm-gtk1 --dbg-package=libfm1-dbg

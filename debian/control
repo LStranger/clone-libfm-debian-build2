@@ -7,7 +7,7 @@ Uploaders:
 Build-Depends:
  debhelper (>= 9), autotools-dev, automake, autoconf, gtk-doc-tools, intltool,
  pkg-config, libdbus-glib-1-dev, libglib2.0-dev,
- libgtk2.0-dev, libmenu-cache1-dev, libtool, lsb-release
+ libgtk2.0-dev, libmenu-cache1-dev, libtool
 Standards-Version: 3.9.3
 Homepage: http://pcmanfm.sourceforge.net/
 Vcs-Browser: http://git.lxde.org/gitweb/?p=debian/libfm.git
