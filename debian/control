@@ -6,8 +6,8 @@ Uploaders:
  Andrew Lee (李健秋) <ajqlee@debian.org>, Daniel Baumann <daniel@debian.org>
 Build-Depends:
  debhelper (>= 9), autotools-dev, automake, autoconf, gtk-doc-tools, intltool,
- pkg-config, libdbus-glib-1-dev, libglib2.0-dev (>= 2.18),
- libgtk2.0-dev (>= 2.16), libmenu-cache1-dev, libtool, lsb-release
+ pkg-config, libdbus-glib-1-dev, libglib2.0-dev,
+ libgtk2.0-dev, libmenu-cache1-dev, libtool, lsb-release
 Standards-Version: 3.9.3
 Homepage: http://pcmanfm.sourceforge.net/
 Vcs-Browser: http://git.lxde.org/gitweb/?p=debian/libfm.git
