@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
 # libfm does not build (yet) with hardening
 export DEB_BUILD_MAINT_OPTIONS = hardening=-all
 
@@ -15,8 +17,8 @@ override_dh_auto_install:
 	dh_auto_install
 
 	# removing unused files
-	rm -f debian/tmp/usr/lib/*.a
-	rm -f debian/tmp/usr/lib/*.la
+	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.a
+	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
 
 override_dh_auto_test:
 	# disabled: fails
