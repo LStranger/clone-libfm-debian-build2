@@ -1,3 +1,30 @@
+libfm (0.1.17-2) unstable; urgency=low
+
+  * Updating maintainer field.
+  * Adding myself to uploaders.
+  * Updating vcs fields.
+  * Removing whitespaces at EOL and EOF.
+  * Updating package to debhelper version 9.
+  * Updating package to standards version 3.9.3.
+  * Making build-depends unversioned where already fulfiled as of
+    squeeze.
+  * Always including apport hook, not only on ubuntu.
+  * Sorting build-depends.
+  * Rewriting copyright file machine-readable format version 1.0.
+  * Prefixing debhelper files with package name.
+  * Decrufting watch file.
+  * Rediffing lxde-conf.patch with common diff options.
+  * Decrufting rules file.
+  * Simplyfing debhelper install files.
+  * Switching to xz compression for both the source and the binary
+    packages.
+  * Reworking package descriptions a bit.
+  * Wrapping depends.
+  * Updating packaging for multiarch.
+  * Sorting packages in control.
+
+ -- Daniel Baumann <daniel@debian.org>  Mon, 16 Apr 2012 20:16:32 +0000
+
 libfm (0.1.17-1.1) unstable; urgency=low
 
   * Non-maintainer upload.
