@@ -1,47 +1,29 @@
 #!/usr/bin/make -f
-# -*- mode: makefile; coding: utf-8 -*-
-# Copyright (C) 2010 Julien Lavergne <gilir@ubuntu.com>
-# Copyright (C) 2010 Justin B Rye <jbr@edlug.org.uk>
-# Copyright (C) 2012 Sergey Slipchenko <faergeek@gmail.com>
-# Copyright (C) 2010-2012 Andrew Lee (李健秋) <ajqlee@debian.org>
-# Description: Main Debian packaging script for morituri
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2, or (at
-# your option) any later version.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-export DH_VERBOSE=1
-
-#include /usr/share/cdbs/1/rules/utils.mk
+# libfm does not build (yet) with hardening
+export DEB_BUILD_MAINT_OPTIONS = hardening=-all
 
 %:
-	dh $@
+	dh ${@}
 
 override_dh_auto_configure:
-	#/usr/bin/autoreconf -fiv
+	autoreconf -i
+
 	dh_auto_configure -- --enable-udisks --enable-gtk-doc
 
-override_dh_install:
-	#Remove .la and .a files.
-	find debian/tmp/usr/lib/ -name *.a |xargs rm
-	find debian/tmp/usr/lib -name *.la |xargs rm
-	dh_install --fail-missing
+override_dh_auto_install:
+	dh_auto_install
 
-	dh_install -plibfm1 debian/apport/source_libfm.py usr/share/apport/package-hooks
+	# removing unused files
+	rm -f debian/tmp/usr/lib/*.a
+	rm -f debian/tmp/usr/lib/*.la
+
+override_dh_auto_test:
+	# disabled: fails
+
+override_dh_install:
+	dh_install --fail-missing
 
 override_dh_strip:
 	dh_strip -plibfm1 -plibfm-gtk1 --dbg-package=libfm1-dbg
 	dh_strip -Nlibfm1 -Nlibfm-gtk1
-
-override_dh_auto_test:
-	#Don't do anything, tests didn't pass for now
