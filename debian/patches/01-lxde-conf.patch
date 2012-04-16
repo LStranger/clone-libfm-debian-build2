@@ -1,7 +1,9 @@
-Index: libfm-0.1.10/data/libfm.conf
-===================================================================
---- libfm-0.1.10.orig/data/libfm.conf	2010-03-20 10:21:17.000000000 +0100
-+++ libfm-0.1.10/data/libfm.conf	2010-04-18 20:33:56.000000000 +0200
+Author: Julien Lavergne <gilir@ubuntu.com>
+Description: Use x-terminal-emulator for terminal by default.
+
+diff -Naurp libfm.orig/data/libfm.conf libfm/data/libfm.conf
+--- libfm.orig/data/libfm.conf	2012-04-16 07:18:19.385800480 +0000
++++ libfm/data/libfm.conf	2012-04-16 11:49:29.205006132 +0000
 @@ -2,6 +2,7 @@
  single_click=0
  use_trash=1
@@ -9,4 +11,4 @@ Index: libfm-0.1.10/data/libfm.conf
 +terminal=x-terminal-emulator %s
  thumbnail_local=1
  thumbnail_max=2048
-
+ 
