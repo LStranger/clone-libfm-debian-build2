@@ -17,9 +17,11 @@ Package: libfm1
 Section: libs
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, libfm-data, lxmenu-data
-Description: file management support - core library
+Description: file management support (core library)
  LibFM provides file management functions built on top of Glib/GIO,
- giving a convenient higher-level API. Features:
+ giving a convenient higher-level API.
+ .
+ Some features:
   * Desktop-independent, following FreeDesktop standards;
   * Fast, light on memory usage, and responsive - well suited to
     less powerful hardware such as netbooks and thin clients;
@@ -30,44 +32,26 @@ Description: file management support - core library
   * Reusable design with the core functions separated out to
     simplify porting to other GUIs.
  .
- This package contains the core function library.
+ This package contains the core library.
 
 Package: libfm-data
 Section: misc
 Architecture: all
 Depends: ${misc:Depends}
 Replaces: libfm0
-Description: file management support - common data
+Description: file management support (common data)
  LibFM provides file management functions built on top of Glib/GIO,
- giving a convenient higher-level API. Features:
-  * Desktop-independent, following FreeDesktop standards;
-  * Fast, light on memory usage, and responsive - well suited to
-    less powerful hardware such as netbooks and thin clients;
-  * Uses GIO/GVFS (like Nautilus) for Trash support and access to
-    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
-  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;
-  * Supports both Drag-and-Drop, and the X Direct Save protocol;
-  * Reusable design with the core functions separated out to
-    simplify porting to other GUIs.
+ giving a convenient higher-level API.
  .
- This package contains the common data of core function library.
+ This package contains the common data of the core library.
 
 Package: libfm-gtk1
 Section: libs
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, libfm1 (= ${binary:Version})
-Description: file management support - GTK+ GUI library
+Description: file management support (GTK+ GUI library)
  LibFM provides file management functions built on top of Glib/GIO
- giving a convenient higher-level API. Features:
-  * Desktop-independent, following FreeDesktop standards;
-  * Fast, light on memory usage, and responsive - well suited to
-    less powerful hardware such as netbooks and thin clients;
-  * Uses GIO/GVFS (like Nautilus) for Trash support and access to
-    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
-  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;
-  * Supports both Drag-and-Drop, and the X Direct Save protocol;
-  * Reusable design with the core functions separated out to
-    simplify porting to other GUIs.
+ giving a convenient higher-level API.
  .
  This package contains the GTK+ GUI.
 
@@ -76,18 +60,9 @@ Section: misc
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Replaces: libfm-gtk0
-Description: file management support - utilities
+Description: file management support (utilities)
  LibFM provides file management functions built on top of Glib/GIO
- giving a convenient higher-level API. Features:
-  * Desktop-independent, following FreeDesktop standards;
-  * Fast, light on memory usage, and responsive - well suited to
-    less powerful hardware such as netbooks and thin clients;
-  * Uses GIO/GVFS (like Nautilus) for Trash support and access to
-    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
-  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;
-  * Supports both Drag-and-Drop, and the X Direct Save protocol;
-  * Reusable design with the core functions separated out to
-    simplify porting to other GUIs.
+ giving a convenient higher-level API.
  .
  This package contains the utilities which are used by the libraries
  and other packages.
@@ -97,20 +72,11 @@ Section: libdevel
 Architecture: any
 Depends:
  ${misc:Depends}, libfm1 (= ${binary:Version}), libfm-gtk1 (= ${binary:Version})
-Description: file management support - development headers
+Description: file management support (development)
  LibFM provides file management functions built on top of Glib/GIO,
- giving a convenient higher-level API. Features:
-  * Desktop-independent, following FreeDesktop standards;
-  * Fast, light on memory usage, and responsive - well suited to
-    less powerful hardware such as netbooks and thin clients;
-  * Uses GIO/GVFS (like Nautilus) for Trash support and access to
-    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
-  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;
-  * Supports both Drag-and-Drop, and the X Direct Save protocol;
-  * Reusable design with the core functions separated out to
-    simplify porting to other GUIs.
+ giving a convenient higher-level API.
  .
- This package contains the development headers.
+ This package contains the development files.
 
 Package: libfm1-dbg
 Section: debug
@@ -119,17 +85,8 @@ Architecture: any
 Depends:
  ${misc:Depends}, libfm1 (= ${binary:Version}),
  libfm-gtk1 (= ${binary:Version})
-Description: file management support - debugging symbols
+Description: file management support (debug)
  LibFM provides file management functions built on top of Glib/GIO,
- giving a convenient higher-level API. Features:
-  * Desktop-independent, following FreeDesktop standards;
-  * Fast, light on memory usage, and responsive - well suited to
-    less powerful hardware such as netbooks and thin clients;
-  * Uses GIO/GVFS (like Nautilus) for Trash support and access to
-    remote file systems (FTP, SFTP, WebDAV, Windows shares, etc.);
-  * Clipboard operations are compatible with GTK+/GNOME and Qt/KDE;
-  * Supports both Drag-and-Drop, and the X Direct Save protocol;
-  * Reusable design with the core functions separated out to
-    simplify porting to other GUIs.
+ giving a convenient higher-level API.
  .
  This package contains the debugging symbols.
