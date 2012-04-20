@@ -1,6 +1,6 @@
 Source: libfm
 Section: libs
-Priority: extra
+Priority: optional
 Maintainer: Debian LXDE Maintainers <lxde-debian@lists.lxde.org>
 Uploaders:
  Andrew Lee (李健秋) <ajqlee@debian.org>, Daniel Baumann <daniel@debian.org>
