@@ -19,6 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-path-bar
+ * @short_description: A widget for representing current path.
+ * @title: FmPathBar
+ *
+ * @include: libfm/fm-path-bar.h
+ *
+ * The #FmPathBar represents current path as number of buttons so it is
+ * possible to click buttons to change directory to parent or child.
+ */
 
 #include "fm-path-bar.h"
 #include <string.h>
@@ -31,7 +41,7 @@ enum{
 static GQuark btn_data_id = 0;
 static guint signals[N_SIGNALS];
 
-static void fm_path_bar_finalize            (GObject *object);
+static void fm_path_bar_dispose            (GObject *object);
 
 G_DEFINE_TYPE(FmPathBar, fm_path_bar, GTK_TYPE_HBOX)
 
@@ -61,15 +71,23 @@ static void fm_path_bar_class_init(FmPathBarClass *klass)
     GtkWidgetClass* widget_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_path_bar_finalize;
+    g_object_class->dispose = fm_path_bar_dispose;
 
     widget_class = GTK_WIDGET_CLASS(klass);
     widget_class->size_allocate = on_size_allocate;
 
     btn_data_id = g_quark_from_static_string("FmPathBtn");
 
-    /* chdir signal is emitted when the user toggles a path element
-     * in the bar and when a new path is set via fm_path_bar_set_path. */
+    /**
+     * FmPathBar::chdir:
+     * @bar: the object which emitted the signal
+     * @path: (#FmPath *) new path
+     *
+     * The FmPathBar::chdir signal is emitted when the user toggles a path
+     * element in the bar or when new path is set via fm_path_bar_set_path().
+     *
+     * Since: 0.1.16
+     */
     signals[CHDIR] =
         g_signal_new("chdir",
                      G_TYPE_FROM_CLASS(klass),
@@ -81,20 +99,26 @@ static void fm_path_bar_class_init(FmPathBarClass *klass)
 }
 
 
-static void fm_path_bar_finalize(GObject *object)
+static void fm_path_bar_dispose(GObject *object)
 {
     FmPathBar *bar;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_PATH_BAR(object));
 
-    bar = FM_PATH_BAR(object);
+    bar = (FmPathBar*)object;
     if(bar->cur_path)
+    {
         fm_path_unref(bar->cur_path);
+        bar->cur_path = NULL;
+    }
     if(bar->full_path)
+    {
         fm_path_unref(bar->full_path);
+        bar->full_path = NULL;
+    }
 
-    G_OBJECT_CLASS(fm_path_bar_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_path_bar_parent_class)->dispose(object);
 }
 
 static void emit_chdir(FmPathBar* bar, FmPath* path)
@@ -104,9 +128,9 @@ static void emit_chdir(FmPathBar* bar, FmPath* path)
 
 static void on_scroll_btn_clicked(GtkButton* btn, FmPathBar* bar)
 {
-    GtkAdjustment* hadj = gtk_viewport_get_hadjustment(bar->viewport);
+    GtkAdjustment* hadj = gtk_viewport_get_hadjustment(GTK_VIEWPORT(bar->viewport));
     gdouble value;
-    if(btn == bar->left_scroll) /* scroll left */
+    if(btn == (GtkButton*)bar->left_scroll) /* scroll left */
         value = hadj->value - hadj->page_increment;
     else
         value = hadj->value + hadj->page_increment;
@@ -150,25 +174,44 @@ static void fm_path_bar_init(FmPathBar *bar)
     gtk_widget_show_all(GTK_WIDGET(bar));
 }
 
-
-GtkWidget *fm_path_bar_new(void)
+/**
+ * fm_path_bar_new
+ *
+ * Creates new path bar.
+ *
+ * Returns: (transfer full): a new #FmPathBar object.
+ *
+ * Since: 0.1.16
+ */
+FmPathBar* fm_path_bar_new(void)
 {
-    return g_object_new(FM_TYPE_PATH_BAR, NULL);
+    return (FmPathBar*)g_object_new(FM_TYPE_PATH_BAR, NULL);
 }
 
+/**
+ * fm_path_bar_get_path
+ * @bar: a path bar widget
+ *
+ * Retrieves current path from path bar. Returned data are owned by @bar
+ * and should be not freed by caller.
+ *
+ * Returns: (transfer none): current path.
+ *
+ * Since: 0.1.16
+ */
 FmPath* fm_path_bar_get_path(FmPathBar* bar)
 {
     return bar->cur_path;
 }
 
-static GtkWidget* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_element)
+static GtkRadioButton* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_element)
 {
-    GtkButton* btn;
+    GtkRadioButton* btn;
     char* label = fm_path_display_basename(path_element);
     if(!path_element->parent) /* this element is root */
     {
         GtkWidget* hbox = gtk_hbox_new(FALSE, 2);
-        btn = gtk_radio_button_new(grp);
+        btn = (GtkRadioButton*)gtk_radio_button_new(grp);
         gtk_container_add(GTK_CONTAINER(btn), hbox);
         gtk_box_pack_start(GTK_BOX(hbox),
                            gtk_image_new_from_icon_name("drive-harddisk", GTK_ICON_SIZE_BUTTON),
@@ -180,22 +223,31 @@ static GtkWidget* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_element)
     }
     else
     {
-        btn = gtk_radio_button_new_with_label(grp, label);
+        btn = (GtkRadioButton*)gtk_radio_button_new_with_label(grp, label);
     }
     g_free(label);
 
-    gtk_toggle_button_set_mode(btn, FALSE);
-    gtk_widget_show(btn);
+    gtk_toggle_button_set_mode(GTK_TOGGLE_BUTTON(btn), FALSE);
+    gtk_widget_show(GTK_WIDGET(btn));
 
     g_object_set_qdata(G_OBJECT(btn), btn_data_id, path_element);
     g_signal_connect(btn, "toggled", G_CALLBACK(on_path_btn_toggled), bar);
     return btn;
 }
 
+/**
+ * fm_path_bar_set_path
+ * @bar: a path bar widget
+ * @path: a new path to set
+ *
+ * Changes path for the @bar.
+ *
+ * Since: 0.1.16
+ */
 void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
 {
     FmPath* path_element;
-    GtkWidget* btn;
+    GtkRadioButton* btn;
     GSList* grp;
     GList* btns, *l;
 
@@ -220,7 +272,7 @@ void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
                 /* toggle the button */
                 btns = gtk_container_get_children(GTK_CONTAINER(bar->btn_box));
                 l = g_list_nth_prev(g_list_last(btns), n);
-                btn = GTK_WIDGET(l->data);
+                btn = GTK_RADIO_BUTTON(l->data);
                 g_list_free(btns);
                 /* we don't need to emit chdir signal here since later
                  * toggled signal will be triggered on the button, which
@@ -241,7 +293,7 @@ void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
      *        all of the buttons. */
 
     /* destroy existing path element buttons */
-    gtk_container_foreach(bar->btn_box, (GtkCallback)gtk_widget_destroy, NULL);
+    gtk_container_foreach(GTK_CONTAINER(bar->btn_box), (GtkCallback)gtk_widget_destroy, NULL);
     grp = NULL;
     path_element = path;
     btns = NULL;
@@ -256,8 +308,8 @@ void fm_path_bar_set_path(FmPathBar* bar, FmPath* path)
 
     for(l = btns; l; l=l->next)
     {
-        btn = GTK_WIDGET(l->data);
-        gtk_box_pack_start(GTK_BOX(bar->btn_box), btn, FALSE, TRUE, 0);
+        btn = GTK_RADIO_BUTTON(l->data);
+        gtk_box_pack_start(GTK_BOX(bar->btn_box), GTK_WIDGET(btn), FALSE, TRUE, 0);
     }
     g_list_free(btns);
 

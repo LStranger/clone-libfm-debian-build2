@@ -1,7 +1,7 @@
 /*
  *      fm-app-menu-view.h
  *      
- *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *      
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -27,11 +27,16 @@
 
 G_BEGIN_DECLS
 
-GtkWidget*	fm_app_menu_view_new(void);
-GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view);
-char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view);
-char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view);
+GtkTreeView* fm_app_menu_view_new(void);
+
+GAppInfo* fm_app_menu_view_dup_selected_app(GtkTreeView* view);
+
+char* fm_app_menu_view_dup_selected_app_desktop_id(GtkTreeView* view);
+
+char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view);
+
 gboolean fm_app_menu_view_is_app_selected(GtkTreeView* view);
+
 gboolean fm_app_menu_view_is_item_app(GtkTreeView* view, GtkTreeIter* it);
 
 G_END_DECLS

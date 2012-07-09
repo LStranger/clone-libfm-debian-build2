@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-app-chooser-combo-box</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm-progress-dlg.html" title="fm-progress-dlg">
-<link rel="next" href="FmConfig.html" title="FmConfig">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="libfm-fm-gtk.html" title="fm-gtk">
+<link rel="next" href="libfm-fm-app-chooser-dlg.html" title="fm-app-chooser-dlg">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm-progress-dlg.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-fm-gtk.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmConfig.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-fm-app-chooser-dlg.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#libfm-fm-app-chooser-combo-box.synopsis" class="shortcut">Top</a>
@@ -37,11 +37,11 @@
 </tr></table></div>
 <div class="refsynopsisdiv">
 <a name="libfm-fm-app-chooser-combo-box.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><span class="returnvalue">GList</span> *             <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-get-custom-apps" title="fm_app_chooser_combo_box_get_custom_apps ()">fm_app_chooser_combo_box_get_custom_apps</a>
-                                                        (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>);
-<span class="returnvalue">GAppInfo</span> *          <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-get-selected" title="fm_app_chooser_combo_box_get_selected ()">fm_app_chooser_combo_box_get_selected</a>
+<pre class="synopsis"><span class="returnvalue">GAppInfo</span> *          <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-dup-selected-app" title="fm_app_chooser_combo_box_dup_selected_app ()">fm_app_chooser_combo_box_dup_selected_app</a>
                                                         (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>,
                                                          <em class="parameter"><code><span class="type">gboolean</span> *is_sel_changed</code></em>);
+const <span class="returnvalue">GList</span> *       <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-get-custom-apps" title="fm_app_chooser_combo_box_get_custom_apps ()">fm_app_chooser_combo_box_get_custom_apps</a>
+                                                        (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="libfm-fm-app-chooser-combo-box.html#fm-app-chooser-combo-box-setup" title="fm_app_chooser_combo_box_setup ()">fm_app_chooser_combo_box_setup</a>      (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="struct FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
                                                          <em class="parameter"><code><span class="type">GList</span> *apps</code></em>,
@@ -59,16 +59,16 @@
 <div class="refsect1">
 <a name="libfm-fm-app-chooser-combo-box.details"></a><h2>Details</h2>
 <div class="refsect2">
-<a name="fm-app-chooser-combo-box-get-custom-apps"></a><h3>fm_app_chooser_combo_box_get_custom_apps ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span> *             fm_app_chooser_combo_box_get_custom_apps
-                                                        (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>);</pre>
+<a name="fm-app-chooser-combo-box-dup-selected-app"></a><h3>fm_app_chooser_combo_box_dup_selected_app ()</h3>
+<pre class="programlisting"><span class="returnvalue">GAppInfo</span> *          fm_app_chooser_combo_box_dup_selected_app
+                                                        (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> *is_sel_changed</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-app-chooser-combo-box-get-selected"></a><h3>fm_app_chooser_combo_box_get_selected ()</h3>
-<pre class="programlisting"><span class="returnvalue">GAppInfo</span> *          fm_app_chooser_combo_box_get_selected
-                                                        (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> *is_sel_changed</code></em>);</pre>
+<a name="fm-app-chooser-combo-box-get-custom-apps"></a><h3>fm_app_chooser_combo_box_get_custom_apps ()</h3>
+<pre class="programlisting">const <span class="returnvalue">GList</span> *       fm_app_chooser_combo_box_get_custom_apps
+                                                        (<em class="parameter"><code><span class="type">GtkComboBox</span> *combo</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">

@@ -43,19 +43,21 @@ typedef struct _FmCellRendererPixbufClass		FmCellRendererPixbufClass;
 
 struct _FmCellRendererPixbuf
 {
-	GtkCellRendererPixbuf parent;
+    GtkCellRendererPixbuf parent;
     FmFileInfo* fi;
+    GdkPixbuf* icon;
     gint fixed_w;
     gint fixed_h;
 };
 
 struct _FmCellRendererPixbufClass
 {
+    /*< private >*/
 	GtkCellRendererPixbufClass parent_class;
 };
 
 GType		fm_cell_renderer_pixbuf_get_type		(void);
-GtkCellRenderer*	fm_cell_renderer_pixbuf_new			(void);
+FmCellRendererPixbuf* fm_cell_renderer_pixbuf_new		(void);
 
 void fm_cell_renderer_pixbuf_set_fixed_size(FmCellRendererPixbuf* render, gint w, gint h);
 

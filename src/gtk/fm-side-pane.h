@@ -42,6 +42,15 @@ G_BEGIN_DECLS
 typedef struct _FmSidePane            FmSidePane;
 typedef struct _FmSidePaneClass        FmSidePaneClass;
 
+/**
+ * FmSidePaneMode:
+ * @FM_SP_NONE: invalid mode
+ * @FM_SP_PLACES: #FmPlacesView mode
+ * @FM_SP_DIR_TREE: #FnDirTreeView mode
+ * @FM_SP_REMOTE: reserved mode
+ *
+ * Mode of side pane view.
+ */
 typedef enum
 {
     FM_SP_NONE,
@@ -64,6 +73,12 @@ struct _FmSidePane
     GtkUIManager* ui;
 };
 
+/**
+ * FmSidePaneClass:
+ * @parent_class: the parent class
+ * @chdir: the class closure for the #FmSidePane::chdir signal
+ * @mode_changed: the class closure for the #FmSidePane::mode-changed signal
+ */
 struct _FmSidePaneClass
 {
     GtkVBoxClass parent_class;
@@ -73,7 +88,7 @@ struct _FmSidePaneClass
 
 
 GType fm_side_pane_get_type        (void);
-GtkWidget* fm_side_pane_new            (void);
+FmSidePane* fm_side_pane_new       (void);
 
 FmPath* fm_side_pane_get_cwd(FmSidePane* sp);
 void fm_side_pane_chdir(FmSidePane* sp, FmPath* path);

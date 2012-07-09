@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-list</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm-monitor.html" title="fm-monitor">
-<link rel="next" href="libfm-fm-path.html" title="fm-path">
+<link rel="up" href="libfm-core.html" title="Libfm Core Reference.">
+<link rel="prev" href="libfm-fm-icon.html" title="fm-icon">
+<link rel="next" href="libfm-fm-mime-type.html" title="fm-mime-type">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm-monitor.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-fm-icon.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-fm-path.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-fm-mime-type.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#libfm-fm-list.synopsis" class="shortcut">Top</a>
@@ -40,95 +40,16 @@
 <pre class="synopsis">#define             <a class="link" href="libfm-fm-list.html#FM-LIST:CAPS" title="FM_LIST()">FM_LIST</a>                             (list)
 struct              <a class="link" href="libfm-fm-list.html#FmList" title="struct FmList">FmList</a>;
 struct              <a class="link" href="libfm-fm-list.html#FmListFuncs" title="struct FmListFuncs">FmListFuncs</a>;
-<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-clear" title="fm_list_clear ()">fm_list_clear</a>                       (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-delete-link" title="fm_list_delete_link ()">fm_list_delete_link</a>                 (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> l_</code></em>);
-#define             <a class="link" href="libfm-fm-list.html#fm-list-delete-link-nounref" title="fm_list_delete_link_nounref()">fm_list_delete_link_nounref</a>         (list,
-                                                         l_)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-find" title="fm_list_find()">fm_list_find</a>                        (list,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-find-custom" title="fm_list_find_custom()">fm_list_find_custom</a>                 (list,
-                                                         d,
-                                                         f)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-foreach" title="fm_list_foreach()">fm_list_foreach</a>                     (list,
-                                                         f,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-get-length" title="fm_list_get_length()">fm_list_get_length</a>                  (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-index" title="fm_list_index()">fm_list_index</a>                       (list,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-insert-after" title="fm_list_insert_after()">fm_list_insert_after</a>                (list,
-                                                         s,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-insert-after-noref" title="fm_list_insert_after_noref()">fm_list_insert_after_noref</a>          (list,
-                                                         s,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-insert-before" title="fm_list_insert_before()">fm_list_insert_before</a>               (list,
-                                                         s,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-insert-before-noref" title="fm_list_insert_before_noref()">fm_list_insert_before_noref</a>         (list,
-                                                         s,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-insert-sorted" title="fm_list_insert_sorted()">fm_list_insert_sorted</a>               (list,
-                                                         d,
-                                                         f,
-                                                         u)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-insert-sorted-noref" title="fm_list_insert_sorted_noref()">fm_list_insert_sorted_noref</a>         (list,
-                                                         d,
-                                                         f,
-                                                         u)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-is-empty" title="fm_list_is_empty()">fm_list_is_empty</a>                    (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-link-index" title="fm_list_link_index()">fm_list_link_index</a>                  (list,
-                                                         l_)
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-clear" title="fm_list_clear ()">fm_list_clear</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-delete-link" title="fm_list_delete_link ()">fm_list_delete_link</a>                 (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><span class="type">GList</span> *l_</code></em>);
 <a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="returnvalue">FmList</span></a> *            <a class="link" href="libfm-fm-list.html#fm-list-new" title="fm_list_new ()">fm_list_new</a>                         (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmListFuncs" title="struct FmListFuncs"><span class="type">FmListFuncs</span></a> *funcs</code></em>);
-#define             <a class="link" href="libfm-fm-list.html#fm-list-peek-head" title="fm_list_peek_head()">fm_list_peek_head</a>                   (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-peek-head-link" title="fm_list_peek_head_link()">fm_list_peek_head_link</a>              (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-peek-nth" title="fm_list_peek_nth()">fm_list_peek_nth</a>                    (list,
-                                                         n)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-peek-nth-link" title="fm_list_peek_nth_link()">fm_list_peek_nth_link</a>               (list,
-                                                         n)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-peek-tail" title="fm_list_peek_tail()">fm_list_peek_tail</a>                   (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-peek-tail-link" title="fm_list_peek_tail_link()">fm_list_peek_tail_link</a>              (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-pop-head" title="fm_list_pop_head()">fm_list_pop_head</a>                    (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-pop-head-link" title="fm_list_pop_head_link()">fm_list_pop_head_link</a>               (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-pop-nth" title="fm_list_pop_nth()">fm_list_pop_nth</a>                     (list,
-                                                         n)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-pop-nth-link" title="fm_list_pop_nth_link()">fm_list_pop_nth_link</a>                (list,
-                                                         n)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-pop-tail" title="fm_list_pop_tail()">fm_list_pop_tail</a>                    (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-pop-tail-link" title="fm_list_pop_tail_link()">fm_list_pop_tail_link</a>               (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-head" title="fm_list_push_head()">fm_list_push_head</a>                   (list,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-head-link" title="fm_list_push_head_link()">fm_list_push_head_link</a>              (list,
-                                                         l_)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-head-noref" title="fm_list_push_head_noref()">fm_list_push_head_noref</a>             (list,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-nth" title="fm_list_push_nth()">fm_list_push_nth</a>                    (list,
-                                                         d,
-                                                         n)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-nth-link" title="fm_list_push_nth_link()">fm_list_push_nth_link</a>               (list,
-                                                         n,
-                                                         l_)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-nth-noref" title="fm_list_push_nth_noref()">fm_list_push_nth_noref</a>              (list,
-                                                         d,
-                                                         n)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-tail" title="fm_list_push_tail()">fm_list_push_tail</a>                   (list,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-tail-link" title="fm_list_push_tail_link()">fm_list_push_tail_link</a>              (list,
-                                                         l_)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-push-tail-noref" title="fm_list_push_tail_noref()">fm_list_push_tail_noref</a>             (list,
-                                                         d)
-<a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="returnvalue">FmList</span></a> *            <a class="link" href="libfm-fm-list.html#fm-list-ref" title="fm_list_ref ()">fm_list_ref</a>                         (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-remove" title="fm_list_remove ()">fm_list_remove</a>                      (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>,
+<a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="returnvalue">FmList</span></a> *            <a class="link" href="libfm-fm-list.html#fm-list-ref" title="fm_list_ref ()">fm_list_ref</a>                         (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-remove" title="fm_list_remove ()">fm_list_remove</a>                      (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-remove-all" title="fm_list_remove_all ()">fm_list_remove_all</a>                  (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-remove-all" title="fm_list_remove_all ()">fm_list_remove_all</a>                  (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);
-#define             <a class="link" href="libfm-fm-list.html#fm-list-reverse" title="fm_list_reverse()">fm_list_reverse</a>                     (list)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-sort" title="fm_list_sort()">fm_list_sort</a>                        (list,
-                                                         f,
-                                                         d)
-#define             <a class="link" href="libfm-fm-list.html#fm-list-unlink" title="fm_list_unlink()">fm_list_unlink</a>                      (list,
-                                                         l_)
-<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-unref" title="fm_list_unref ()">fm_list_unref</a>                       (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libfm-fm-list.html#fm-list-unref" title="fm_list_unref ()">fm_list_unref</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -163,97 +84,13 @@ struct              <a class="link" href="libfm-fm-list.html#FmListFuncs" title=
 <hr>
 <div class="refsect2">
 <a name="fm-list-clear"></a><h3>fm_list_clear ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_clear                       (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_clear                       (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-list-delete-link"></a><h3>fm_list_delete_link ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_delete_link                 (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> l_</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-delete-link-nounref"></a><h3>fm_list_delete_link_nounref()</h3>
-<pre class="programlisting">#define fm_list_delete_link_nounref(list, l_)    g_queue_delete_link((GQueue*)list,l_)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-find"></a><h3>fm_list_find()</h3>
-<pre class="programlisting">#define fm_list_find(list,d)				g_queue_find((GQueue*)list,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-find-custom"></a><h3>fm_list_find_custom()</h3>
-<pre class="programlisting">#define fm_list_find_custom(list,d,f)		g_queue_find_custom((GQueue*)list,d,f)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-foreach"></a><h3>fm_list_foreach()</h3>
-<pre class="programlisting">#define fm_list_foreach(list,f,d)			g_queue_foreach((GQueue*)list,f,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-get-length"></a><h3>fm_list_get_length()</h3>
-<pre class="programlisting">#define fm_list_get_length(list)			g_queue_get_length((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-index"></a><h3>fm_list_index()</h3>
-<pre class="programlisting">#define fm_list_index(list,d)				g_queue_index((GQueue*)list,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-insert-after"></a><h3>fm_list_insert_after()</h3>
-<pre class="programlisting">#define fm_list_insert_after(list,s,d)		g_queue_insert_after((GQueue*)list,s,list-&gt;funcs-&gt;item_ref(d))
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-insert-after-noref"></a><h3>fm_list_insert_after_noref()</h3>
-<pre class="programlisting">#define fm_list_insert_after_noref(list,s,d)		g_queue_insert_after((GQueue*)list,s,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-insert-before"></a><h3>fm_list_insert_before()</h3>
-<pre class="programlisting">#define fm_list_insert_before(list,s,d) g_queue_insert_before((GQueue*)list,s,list-&gt;funcs-&gt;item_ref(d))
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-insert-before-noref"></a><h3>fm_list_insert_before_noref()</h3>
-<pre class="programlisting">#define fm_list_insert_before_noref(list,s,d) g_queue_insert_before((GQueue*)list,s,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-insert-sorted"></a><h3>fm_list_insert_sorted()</h3>
-<pre class="programlisting">#define fm_list_insert_sorted(list,d,f,u) g_queue_insert_sorted((GQueue*)list,list-&gt;funcs-&gt;item_ref(d),f,u)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-insert-sorted-noref"></a><h3>fm_list_insert_sorted_noref()</h3>
-<pre class="programlisting">#define fm_list_insert_sorted_noref(list,d,f,u) g_queue_insert_sorted((GQueue*)list,d,f,u)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-is-empty"></a><h3>fm_list_is_empty()</h3>
-<pre class="programlisting">#define fm_list_is_empty(list)				g_queue_is_empty((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-link-index"></a><h3>fm_list_link_index()</h3>
-<pre class="programlisting">#define fm_list_link_index(list,l_)		g_queue_index((GQueue*)list,l_)
-</pre>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_delete_link                 (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><span class="type">GList</span> *l_</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
@@ -262,169 +99,25 @@ struct              <a class="link" href="libfm-fm-list.html#FmListFuncs" title=
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-list-peek-head"></a><h3>fm_list_peek_head()</h3>
-<pre class="programlisting">#define fm_list_peek_head(list)			g_queue_peek_head((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-peek-head-link"></a><h3>fm_list_peek_head_link()</h3>
-<pre class="programlisting">#define fm_list_peek_head_link(list)		g_queue_peek_head_link((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-peek-nth"></a><h3>fm_list_peek_nth()</h3>
-<pre class="programlisting">#define fm_list_peek_nth(list,n)			g_queue_peek_nth((GQueue*)list,n)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-peek-nth-link"></a><h3>fm_list_peek_nth_link()</h3>
-<pre class="programlisting">#define fm_list_peek_nth_link(list,n)		g_queue_peek_nth_link((GQueue*)list,n)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-peek-tail"></a><h3>fm_list_peek_tail()</h3>
-<pre class="programlisting">#define fm_list_peek_tail(list)			g_queue_peek_tail((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-peek-tail-link"></a><h3>fm_list_peek_tail_link()</h3>
-<pre class="programlisting">#define fm_list_peek_tail_link(list)		g_queue_peek_tail_link((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-pop-head"></a><h3>fm_list_pop_head()</h3>
-<pre class="programlisting">#define fm_list_pop_head(list)				g_queue_pop_head((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-pop-head-link"></a><h3>fm_list_pop_head_link()</h3>
-<pre class="programlisting">#define fm_list_pop_head_link(list)		g_queue_pop((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-pop-nth"></a><h3>fm_list_pop_nth()</h3>
-<pre class="programlisting">#define fm_list_pop_nth(list,n)			g_queue_pop_nth((GQueue*)list,n)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-pop-nth-link"></a><h3>fm_list_pop_nth_link()</h3>
-<pre class="programlisting">#define fm_list_pop_nth_link(list,n)		g_queue_pop_nth_link((GQueue*)list,n)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-pop-tail"></a><h3>fm_list_pop_tail()</h3>
-<pre class="programlisting">#define fm_list_pop_tail(list)				g_queue_pop_tail((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-pop-tail-link"></a><h3>fm_list_pop_tail_link()</h3>
-<pre class="programlisting">#define fm_list_pop_tail_link(list)		g_queue_pop_tail_link((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-head"></a><h3>fm_list_push_head()</h3>
-<pre class="programlisting">#define fm_list_push_head(list,d)			g_queue_push_head((GQueue*)list,list-&gt;funcs-&gt;item_ref(d))
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-head-link"></a><h3>fm_list_push_head_link()</h3>
-<pre class="programlisting">#define fm_list_push_head_link(list,l_) g_queue_push_head_link((GQueue*)list,l_)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-head-noref"></a><h3>fm_list_push_head_noref()</h3>
-<pre class="programlisting">#define fm_list_push_head_noref(list,d)			g_queue_push_head((GQueue*)list,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-nth"></a><h3>fm_list_push_nth()</h3>
-<pre class="programlisting">#define fm_list_push_nth(list,d,n)			g_queue_push_nth((GQueue*)list,list-&gt;funcs-&gt;item_ref(d),n)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-nth-link"></a><h3>fm_list_push_nth_link()</h3>
-<pre class="programlisting">#define fm_list_push_nth_link(list,n,l_) g_queue_push_nth_link((GQueue*)list,n,l_)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-nth-noref"></a><h3>fm_list_push_nth_noref()</h3>
-<pre class="programlisting">#define fm_list_push_nth_noref(list,d,n)			g_queue_push_nth((GQueue*)list,d,n)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-tail"></a><h3>fm_list_push_tail()</h3>
-<pre class="programlisting">#define fm_list_push_tail(list,d)			g_queue_push_tail((GQueue*)list,list-&gt;funcs-&gt;item_ref(d))
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-tail-link"></a><h3>fm_list_push_tail_link()</h3>
-<pre class="programlisting">#define fm_list_push_tail_link(list,l_) g_queue_push_tail_link((GQueue*)list,l_)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-push-tail-noref"></a><h3>fm_list_push_tail_noref()</h3>
-<pre class="programlisting">#define fm_list_push_tail_noref(list,d)			g_queue_push_tail((GQueue*)list,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
 <a name="fm-list-ref"></a><h3>fm_list_ref ()</h3>
-<pre class="programlisting"><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="returnvalue">FmList</span></a> *            fm_list_ref                         (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="returnvalue">FmList</span></a> *            fm_list_ref                         (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-list-remove"></a><h3>fm_list_remove ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_remove                      (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_remove                      (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-list-remove-all"></a><h3>fm_list_remove_all ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_remove_all                  (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_remove_all                  (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-list-reverse"></a><h3>fm_list_reverse()</h3>
-<pre class="programlisting">#define fm_list_reverse(list)				g_queue_reverse((GQueue*)list)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-sort"></a><h3>fm_list_sort()</h3>
-<pre class="programlisting">#define fm_list_sort(list,f,d)				g_queue_sort((GQueue*)list,f,d)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-list-unlink"></a><h3>fm_list_unlink()</h3>
-<pre class="programlisting">#define fm_list_unlink(list,l_)			g_queue_unlink((GQueue*)list,l_)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
 <a name="fm-list-unref"></a><h3>fm_list_unref ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_unref                       (<em class="parameter"><code><span class="type">gpointer</span> list</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_list_unref                       (<em class="parameter"><code><a class="link" href="libfm-fm-list.html#FmList" title="struct FmList"><span class="type">FmList</span></a> *list</code></em>);</pre>
 </div>
 </div>
 </div>

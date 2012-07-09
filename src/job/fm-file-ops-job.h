@@ -34,16 +34,15 @@ G_BEGIN_DECLS
             FM_FILE_OPS_JOB_TYPE, FmFileOpsJob))
 #define FM_FILE_OPS_JOB_CLASS(klass)        (G_TYPE_CHECK_CLASS_CAST((klass),\
             FM_FILE_OPS_JOB_TYPE, FmFileOpsJobClass))
-#define IS_FM_FILE_OPS_JOB(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_FILE_OPS_JOB(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
             FM_FILE_OPS_JOB_TYPE))
-#define IS_FM_FILE_OPS_JOB_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_FILE_OPS_JOB_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_FILE_OPS_JOB_TYPE))
 
 typedef struct _FmFileOpsJob            FmFileOpsJob;
 typedef struct _FmFileOpsJobClass        FmFileOpsJobClass;
 
-enum _FmFileOpType
-{
+typedef enum {
     FM_FILE_OP_NONE,
     FM_FILE_OP_MOVE,
     FM_FILE_OP_COPY,
@@ -52,18 +51,15 @@ enum _FmFileOpType
     FM_FILE_OP_DELETE,
     FM_FILE_OP_LINK,
     FM_FILE_OP_CHANGE_ATTR
-};
-typedef enum _FmFileOpType FmFileOpType;
+} FmFileOpType;
 
-enum _FmFileOpOption
-{
+typedef enum {
     FM_FILE_OP_CANCEL = 0,
     FM_FILE_OP_OVERWRITE = 1<<0,
     FM_FILE_OP_RENAME = 1<<1,
     FM_FILE_OP_SKIP = 1<<2,
     FM_FILE_OP_SKIP_ERROR = 1<<3
-};
-typedef enum _FmFileOpOption FmFileOpOption;
+} FmFileOpOption;
 
 /* FIXME: maybe we should create derived classes for different kind
  * of file operations rather than use one class to handle all kinds of
@@ -96,8 +92,8 @@ struct _FmFileOpsJob
     };
 
     /* for chmod and chown */
-    guint32 uid;
-    guint32 gid;
+    gint32 uid;
+    gint32 gid;
     mode_t new_mode;
     mode_t new_mode_mask;
 
@@ -106,16 +102,25 @@ struct _FmFileOpsJob
     GFileMonitor* dest_folder_mon;
 };
 
+/**
+ * FmFileOpsJobClass
+ * @parent_class: the parent class
+ * @prepared: the class closure for the #FmFileOpsJob::prepared signal
+ * @cur_file: the class closure for the #FmFileOpsJob::cur-file signal
+ * @percent: the class closure for the #FmFileOpsJob::percent signal
+ * @ask_rename: the class closure for the #FmFileOpsJob::ask-rename signal
+ */
 struct _FmFileOpsJobClass
 {
     FmJobClass parent_class;
-    void (*cur_file)(FmFileOpsJob* job, FmPath* file);
+    void (*prepared)(FmFileOpsJob* job);
+    void (*cur_file)(FmFileOpsJob* job, const char* file);
     void (*percent)(FmFileOpsJob* job, guint percent);
     FmFileOpOption (*ask_rename)(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, char** new_name);
 };
 
 GType fm_file_ops_job_get_type        (void);
-FmJob* fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
+FmFileOpsJob* fm_file_ops_job_new(FmFileOpType type, FmPathList* files);
 void fm_file_ops_job_set_dest(FmFileOpsJob* job, FmPath* dest);
 FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job);
 
@@ -123,7 +128,7 @@ FmPath* fm_file_ops_job_get_dest(FmFileOpsJob* job);
 void fm_file_ops_job_set_recursive(FmFileOpsJob* job, gboolean recursive);
 
 void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mode_mask);
-void fm_file_ops_job_set_chown(FmFileOpsJob* job, guint uid, guint gid);
+void fm_file_ops_job_set_chown(FmFileOpsJob* job, gint uid, gint gid);
 
 void fm_file_ops_job_emit_prepared(FmFileOpsJob* job);
 void fm_file_ops_job_emit_cur_file(FmFileOpsJob* job, const char* cur_file);

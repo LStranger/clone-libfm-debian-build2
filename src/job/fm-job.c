@@ -23,40 +23,41 @@
 #include "fm-marshal.h"
 
 /**
- * SECTION:fmjob
+ * SECTION:fm-job
  * @short_description: Base class of all kinds of asynchronous jobs.
- * @include: libfm/fm.h
+ * @title: FmJob
  *
- * FmJob can be used to create asynchronous jobs performing some
+ * @include: libfm/fm-job.h
+ *
+ * The #FmJob can be used to create asynchronous jobs performing some
  * time-consuming tasks in another worker thread.
- * To run a FmJob in another thread you simply call
+ * To run a #FmJob in another thread you simply call
  * fm_job_run_async(), and then the task will be done in another
- * worker thread. Later, when the job is finished, "finished" signal is
+ * worker thread. Later, when the job is finished, #FmJob::finished signal is
  * emitted. When the job is still running, it's possible to cancel it
- * from main thread by calling fm_job_cancel(). Then, "cancelled" signal
- * will be emitted before emitting "finished" signal. You can also run
+ * from main thread by calling fm_job_cancel(). Then, #FmJob::cancelled signal
+ * will be emitted before emitting #FmJob::finished signal. You can also run
  * the job in blocking fashion instead of running it asynchronously by
  * calling fm_job_run_sync().
  */
 
 enum {
-	FINISHED,
-	ERROR,
-	CANCELLED,
-	ASK,
-	PROGRESS,
-	N_SIGNALS
+    FINISHED,
+    ERROR,
+    CANCELLED,
+    ASK,
+    N_SIGNALS
 };
 
 typedef struct _FmIdleCall
 {
-	FmJob* job;
-	FmJobCallMainThreadFunc func;
-	gpointer user_data;
-	gpointer ret;
+    FmJob* job;
+    FmJobCallMainThreadFunc func;
+    gpointer user_data;
+    gpointer ret;
 }FmIdleCall;
 
-static void fm_job_finalize  			(GObject *object);
+static void fm_job_finalize              (GObject *object);
 /*
 static gboolean fm_job_error_accumulator(GSignalInvocationHint *ihint, GValue *return_accu,
                                            const GValue *handler_return, gpointer data);
@@ -76,21 +77,61 @@ G_LOCK_DEFINE_STATIC(idle_handler);
 static GThreadPool* thread_pool = NULL;
 static guint n_jobs = 0;
 
-static signals[N_SIGNALS];
+static guint signals[N_SIGNALS];
+
+static void fm_job_emit_finished(FmJob* job)
+{
+    g_signal_emit(job, signals[FINISHED], 0);
+}
+
+static void fm_job_emit_cancelled(FmJob* job)
+{
+    g_signal_emit(job, signals[CANCELLED], 0);
+}
+
+static void fm_job_dispose(GObject *object)
+{
+    FmJob *self;
+
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_JOB(object));
+
+    self = (FmJob*)object;
+
+    if(self->cancellable)
+    {
+        /* FIXME: should we use new API provided in glib 2.22 for this? */
+        g_signal_handlers_disconnect_by_func(self->cancellable, on_cancellable_cancelled, self);
+        g_object_unref(self->cancellable);
+        self->cancellable = NULL;
+    }
+
+    G_OBJECT_CLASS(fm_job_parent_class)->dispose(object);
+}
 
 static void fm_job_class_init(FmJobClass *klass)
 {
-	GObjectClass *g_object_class;
+    GObjectClass *g_object_class;
 
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_job_finalize;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->dispose = fm_job_dispose;
+    g_object_class->finalize = fm_job_finalize;
 
-	klass->run_async = fm_job_real_run_async;
+    klass->run_async = fm_job_real_run_async;
 
-	fm_job_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
+    fm_job_parent_class = (GObjectClass*)g_type_class_peek(G_TYPE_OBJECT);
 
-    /* "finished" signsl is emitted when the job is finished. This signal
-     * is not emitted on a cancelled job. */
+    /**
+     * FmJob::finished:
+     * @job: a job that emitted the signal
+     *
+     * The #FmJob::finished signal is emitted after the job is finished.
+     * The signal is never emitted if the fm_job_run_XXX() function
+     * returned %FALSE, in that case the #FmJob::cancelled signal will be
+     * emitted instead.
+     *
+     * Since: 0.1.0
+     */
     signals[FINISHED] =
         g_signal_new( "finished",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -100,19 +141,40 @@ static void fm_job_class_init(FmJobClass *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
 
-    /* "error" signsl is emitted when errors happen. */
+    /**
+     * FmJob::error:
+     * @job: a job that emitted the signal
+     * @error: an error descriptor
+     * @severity: #FmJobErrorSeverity of the error
+     *
+     * The #FmJob::error signal is emitted when errors happen.
+     *
+     * Return value: #FmJobErrorAction that should be performed on that error.
+     *
+     * Since: 0.1.0
+     */
     signals[ERROR] =
         g_signal_new( "error",
                       G_TYPE_FROM_CLASS ( klass ),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, error ),
                       NULL /*fm_job_error_accumulator*/, NULL,
-                      fm_marshal_INT__POINTER_INT,
-                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
+                      fm_marshal_UINT__BOXED_UINT,
+#if GLIB_CHECK_VERSION(2,26,0)
+                      G_TYPE_UINT, 2, G_TYPE_ERROR, G_TYPE_UINT );
+#else
+                      G_TYPE_UINT, 2, G_TYPE_BOXED, G_TYPE_UINT );
+#endif
 
-    /* "cancelled" signsl is emitted when the job is cancelled or aborted
-     * due to critical errors. For a cancelled job, "finished" signal
-     * is not emitted. */
+    /**
+     * FmJob::cancelled:
+     * @job: a job that emitted the signal
+     *
+     * The #FmJob::cancelled signal is emitted when the job is cancelled
+     * or aborted due to critical errors.
+     *
+     * Since: 0.1.0
+     */
     signals[CANCELLED] =
         g_signal_new( "cancelled",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -122,8 +184,20 @@ static void fm_job_class_init(FmJobClass *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0 );
 
-    /* "ask" signal is emitted when the job asked for user interactions.
-     * The user then will have a list of available options. */
+    /**
+     * FmJob::ask:
+     * @job: a job that emitted the signal
+     * @question: (const gchar *) a question to ask user
+     * @options: (gchar* const *) list of choices to ask user
+     *
+     * The #FmJob::ask signal is emitted when the job asks for some
+     * user interactions. The user then will have a list of available
+     * @options.
+     *
+     * Return value: user's choice.
+     *
+     * Since: 0.1.0
+     */
     signals[ASK] =
         g_signal_new( "ask",
                       G_TYPE_FROM_CLASS ( klass ),
@@ -136,89 +210,122 @@ static void fm_job_class_init(FmJobClass *klass)
 
 static void fm_job_init(FmJob *self)
 {
-	/* create the thread pool if it doesn't exist. */
-	if( G_UNLIKELY(!thread_pool) )
-		thread_pool = g_thread_pool_new((GFunc)job_thread, NULL, -1, FALSE, NULL);
-	++n_jobs;
+    /* create the thread pool if it doesn't exist. */
+    if( G_UNLIKELY(!thread_pool) )
+        thread_pool = g_thread_pool_new((GFunc)job_thread, NULL, -1, FALSE, NULL);
+    ++n_jobs;
 }
 
-
+/**
+ * fm_job_new
+ *
+ * Creates a new #FmJob object.
+ *
+ * Returns: a new #FmJob object.
+ *
+ * Since: 0.1.0
+ */
 FmJob* fm_job_new(void)
 {
-	return (FmJob*)g_object_new(FM_TYPE_JOB, NULL);
+    return (FmJob*)g_object_new(FM_TYPE_JOB, NULL);
 }
 
 
 static void fm_job_finalize(GObject *object)
 {
-	FmJob *self;
+    FmJob *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_JOB(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_JOB(object));
 
-	self = FM_JOB(object);
+    self = (FmJob*)object;
 
-	if(self->cancellable)
+    if(self->mutex)
+        g_mutex_free(self->mutex);
+
+    if(self->cond)
+        g_cond_free(self->cond);
+
+    if (G_OBJECT_CLASS(fm_job_parent_class)->finalize)
+        (* G_OBJECT_CLASS(fm_job_parent_class)->finalize)(object);
+
+    --n_jobs;
+    if(0 == n_jobs)
     {
-        /* FIXME: should we use new API provided in glib 2.22 for this? */
-        g_signal_handlers_disconnect_by_func(self->cancellable, on_cancellable_cancelled, self);
-		g_object_unref(self->cancellable);
+        g_thread_pool_free(thread_pool, TRUE, FALSE);
+        thread_pool = NULL;
     }
-
-	if(self->mutex)
-		g_mutex_free(self->mutex);
-
-	if(self->cond)
-		g_cond_free(self->cond);
-
-	if (G_OBJECT_CLASS(fm_job_parent_class)->finalize)
-		(* G_OBJECT_CLASS(fm_job_parent_class)->finalize)(object);
-
-	--n_jobs;
-	if(0 == n_jobs)
-	{
-		g_thread_pool_free(thread_pool, TRUE, FALSE);
-		thread_pool = NULL;
-	}
 }
 
 static inline void init_mutex(FmJob* job)
 {
-	if(!job->mutex)
-	{
-		job->mutex = g_mutex_new();
-		job->cond = g_cond_new();
-	}
+    if(!job->mutex)
+    {
+        job->mutex = g_mutex_new();
+        job->cond = g_cond_new();
+    }
 }
 
-gboolean fm_job_real_run_async(FmJob* job)
+static gboolean fm_job_real_run_async(FmJob* job)
 {
-	g_thread_pool_push(thread_pool, job, NULL);
-	return TRUE;
+    g_thread_pool_push(thread_pool, job, NULL);
+    return TRUE;
 }
 
+/**
+ * fm_job_run_async
+ * @job: a job to run
+ *
+ * Starts the @job asyncronously creating new thread. If job starts
+ * successfully then the #FmJob::finished signal will be emitted when
+ * @job is either succeeded or was cancelled. If @job could not be
+ * started then #FmJob::cancelled signal is emitted before return from
+ * this function.
+ *
+ * Returns: %TRUE if job started successfully.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_job_run_async(FmJob* job)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	gboolean ret;
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    gboolean ret;
     job->running = TRUE;
+    g_object_ref(job); /* acquire a ref, it will be unrefed by on_idle_cleanup() */
     ret = klass->run_async(job);
+    if(G_UNLIKELY(!ret)) /* failed? */
+    {
+        fm_job_emit_cancelled(job);
+        g_object_unref(job);
+    }
     return ret;
 }
 
+/**
+ * fm_job_run_sync
+ * @job: a job to run
+ *
+ * Runs the @job in current thread in a blocking fashion. The job will
+ * emit either #FmJob::cancelled signal if job was cancelled
+ * or #FmJob::finished signal if it finished successfully.
+ *
+ * Returns: %TRUE if @job ran successfully.
+ *
+ * Since: 0.1.0
+ */
 /* run a job in current thread in a blocking fashion.  */
 gboolean fm_job_run_sync(FmJob* job)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	gboolean ret;
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    gboolean ret;
     job->running = TRUE;
     ret = klass->run(job);
     job->running = FALSE;
-	if(job->cancel)
-		fm_job_emit_cancelled(job);
-	else
-		fm_job_emit_finished(job);
-	return ret;
+    if(job->cancel)
+        fm_job_emit_cancelled(job);
+    else
+        fm_job_emit_finished(job);
+    return ret;
 }
 
 static void on_sync_job_finished(FmJob* job, GMainLoop* mainloop)
@@ -227,111 +334,166 @@ static void on_sync_job_finished(FmJob* job, GMainLoop* mainloop)
     job->running = FALSE;
 }
 
-/* Run a job in current thread in a blocking fashion and an additional 
- * mainloop being created to prevent blocking of user interface.
- * A job running synchronously with this function should be unrefed
- * later with g_object_unref when no longer needed. */
+/**
+ * fm_job_run_sync_with_mainloop
+ * @job: a job to run
+ *
+ * Runs the @job in current thread in a blocking fashion and an additional
+ * mainloop being created to prevent blocking of user interface. If @job
+ * started successfully then #FmJob::finished signal is emitted when @job
+ * is either succeeded or was cancelled.
+ *
+ * Returns: %TRUE if job started successfully.
+ *
+ * Since: 0.1.1
+ */
 gboolean fm_job_run_sync_with_mainloop(FmJob* job)
 {
     GMainLoop* mainloop = g_main_loop_new(NULL, FALSE);
     gboolean ret;
-    g_object_ref(job); /* acquire a ref because later it will be unrefed in idle handler. */
     g_signal_connect(job, "finished", G_CALLBACK(on_sync_job_finished), mainloop);
     ret = fm_job_run_async(job);
-    if(ret)
+    if(G_LIKELY(ret))
     {
         g_main_loop_run(mainloop);
-        g_signal_handlers_disconnect_by_func(job, on_sync_job_finished, mainloop);
     }
-    else
-        g_object_unref(job);
+    g_signal_handlers_disconnect_by_func(job, on_sync_job_finished, mainloop);
     g_main_loop_unref(mainloop);
     return ret;
 }
 
 /* this is called from working thread */
-void job_thread(FmJob* job, gpointer unused)
+static void job_thread(FmJob* job, gpointer unused)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	klass->run(job);
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    klass->run(job);
 
-	/* let the main thread know that we're done, and free the job
-	 * in idle handler if neede. */
-	fm_job_finish(job);
+    /* let the main thread know that we're done, and free the job
+     * in idle handler if neede. */
+    fm_job_finish(job);
 }
 
+/**
+ * fm_job_cancel
+ * @job: a job to cancel
+ *
+ * Cancels the @job.
+ *
+ * Since: 0.1.0
+ */
 /* cancel the job */
 void fm_job_cancel(FmJob* job)
 {
-	FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
-	job->cancel = TRUE;
-	if(job->cancellable)
-		g_cancellable_cancel(job->cancellable);
-	/* FIXME: is this needed? */
-	if(klass->cancel)
-		klass->cancel(job);
+    FmJobClass* klass = FM_JOB_CLASS(G_OBJECT_GET_CLASS(job));
+    job->cancel = TRUE;
+    if(job->cancellable)
+        g_cancellable_cancel(job->cancellable);
+    /* FIXME: is this needed? */
+    if(klass->cancel)
+        klass->cancel(job);
 }
 
-static gboolean on_idle_call(FmIdleCall* data)
+static gboolean on_idle_call(gpointer input_data)
 {
-	data->ret = data->func(data->job, data->user_data);
-	g_mutex_lock(data->job->mutex);
-	g_cond_broadcast(data->job->cond);
-	g_mutex_unlock(data->job->mutex);
-	return FALSE;
+    FmIdleCall* data = (FmIdleCall*)input_data;
+    data->ret = data->func(data->job, data->user_data);
+    g_mutex_lock(data->job->mutex);
+    g_cond_broadcast(data->job->cond);
+    g_mutex_unlock(data->job->mutex);
+    return FALSE;
 }
 
-/* Following APIs are private to FmJob and should only be used in the
- * implementation of classes derived from FmJob.
- * Besides, they should be called from working thread only */
+/**
+ * fm_job_call_main_thread
+ * @job: the job that calls main thread
+ * @func: callback to run from main thread
+ * @user_data: user data for the callback
+ *
+ * Stops calling thread, waits main thread for idle, passes @user_data
+ * to callback @func in main thread, gathers result of callback, and
+ * returns it to caller.
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * This function should be called from working thread only.
+ *
+ * Returns: return value from running @func.
+ *
+ * Since: 0.1.0
+ */
 gpointer fm_job_call_main_thread(FmJob* job,
-				FmJobCallMainThreadFunc func, gpointer user_data)
+                                 FmJobCallMainThreadFunc func, gpointer user_data)
 {
-	FmIdleCall data;
-	init_mutex(job);
-	data.job = job;
-	data.func = func;
-	data.user_data = user_data;
-	g_mutex_lock(job->mutex);
-	g_idle_add( (GSourceFunc)on_idle_call, &data );
-	g_cond_wait(job->cond, job->mutex);
-	g_mutex_unlock(job->mutex);
-	return data.ret;
+    FmIdleCall data;
+    init_mutex(job);
+    data.job = job;
+    data.func = func;
+    data.user_data = user_data;
+    g_mutex_lock(job->mutex);
+    g_idle_add(on_idle_call, &data);
+    g_cond_wait(job->cond, job->mutex);
+    g_mutex_unlock(job->mutex);
+    return data.ret;
 }
 
+/**
+ * fm_job_finish
+ * @job: the job that was finished
+ *
+ * Schedules the finishing of job. Once this function is called the
+ * @job becomes invalid for the caller and should be not used anymore.
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * This function should be called from working thread only.
+ *
+ * Since: 0.1.0
+ */
 void fm_job_finish(FmJob* job)
 {
-	G_LOCK(idle_handler);
-	if(0 == idle_handler)
-		idle_handler = g_idle_add(on_idle_cleanup, NULL);
-	finished = g_slist_append(finished, job);
+    G_LOCK(idle_handler);
+    if(0 == idle_handler)
+        idle_handler = g_idle_add(on_idle_cleanup, NULL);
+    finished = g_slist_append(finished, job);
     job->running = FALSE;
-	G_UNLOCK(idle_handler);
-}
-
-void fm_job_emit_finished(FmJob* job)
-{
-	g_signal_emit(job, signals[FINISHED], 0);
-}
-
-void fm_job_emit_cancelled(FmJob* job)
-{
-	g_signal_emit(job, signals[CANCELLED], 0);
+    G_UNLOCK(idle_handler);
 }
 
 struct AskData
 {
-	const char* question;
-	const char** options;
+    const char* question;
+    gchar* const *options;
 };
 
-static gpointer ask_in_main_thread(FmJob* job, struct AskData* data)
+static gpointer ask_in_main_thread(FmJob* job, gpointer input_data)
 {
-	gint ret;
-	g_signal_emit(job, signals[ASK], 0, data->question, data->options, &ret);
-	return GINT_TO_POINTER(ret);
+    gint ret;
+#define data ((struct AskData*)input_data)
+    g_signal_emit(job, signals[ASK], 0, data->question, data->options, &ret);
+#undef data
+    return GINT_TO_POINTER(ret);
 }
 
+/**
+ * fm_job_ask
+ * @job: the job that calls main thread
+ * @question: the text to ask the user
+ * @...: list of choices to give the user
+ *
+ * Asks the user for some interactions. The user will have a list of
+ * available options and should make a choice.
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * This function should be called from working thread only.
+ *
+ * Returns: user's choice.
+ *
+ * Since: 0.1.0
+ */
 gint fm_job_ask(FmJob* job, const char* question, ...)
 {
     gint ret;
@@ -342,14 +504,50 @@ gint fm_job_ask(FmJob* job, const char* question, ...)
     return ret;
 }
 
-gint fm_job_askv(FmJob* job, const char* question, const char** options)
+/**
+ * fm_job_askv
+ * @job: the job that calls main thread
+ * @question: the text to ask the user
+ * @options: list of choices to give the user
+ *
+ * Asks the user for some interactions. The user will have a list of
+ * available options and should make a choice.
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * This function should be called from working thread only.
+ *
+ * Returns: user's choice.
+ *
+ * Since: 0.1.0
+ */
+gint fm_job_askv(FmJob* job, const char* question, gchar* const *options)
 {
-	struct AskData data;
-	data.question = question;
-	data.options = options;
-	return (gint)fm_job_call_main_thread(job, ask_in_main_thread, &data);
+    struct AskData data;
+    data.question = question;
+    data.options = options;
+    return GPOINTER_TO_INT(fm_job_call_main_thread(job, ask_in_main_thread, &data));
 }
 
+/**
+ * fm_job_ask_valist
+ * @job: the job that calls main thread
+ * @question: the text to ask the user
+ * @options: list of choices to give the user
+ *
+ * Asks the user for some interactions. The user will have a list of
+ * available options and should make a choice.
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * This function should be called from working thread only.
+ *
+ * Returns: user's choice.
+ *
+ * Since: 0.1.0
+ */
 gint fm_job_ask_valist(FmJob* job, const char* question, va_list options)
 {
     GArray* opts = g_array_sized_new(TRUE, TRUE, sizeof(char*), 6);
@@ -360,57 +558,92 @@ gint fm_job_ask_valist(FmJob* job, const char* question, va_list options)
         g_array_append_val(opts, opt);
         opt = va_arg (options, const char *);
     }
-    ret = fm_job_askv(job, question, opts->data);
+    ret = fm_job_askv(job, question, &opts->data);
     g_array_free(opts, TRUE);
     return ret;
 }
 
 
 /* unref finished job objects in main thread on idle */
-gboolean on_idle_cleanup(gpointer unused)
+static gboolean on_idle_cleanup(gpointer unused)
 {
-	GSList* jobs;
-	GSList* l;
+    GSList* jobs;
+    GSList* l;
 
-	G_LOCK(idle_handler);
-	jobs = finished;
-	finished = NULL;
-	idle_handler = 0;
-	G_UNLOCK(idle_handler);
+    G_LOCK(idle_handler);
+    jobs = finished;
+    finished = NULL;
+    idle_handler = 0;
+    G_UNLOCK(idle_handler);
 
-	for(l = jobs; l; l=l->next)
-	{
-		FmJob* job = (FmJob*)l->data;
-		if(job->cancel)
-			fm_job_emit_cancelled(job);
+    for(l = jobs; l; l=l->next)
+    {
+        FmJob* job = FM_JOB(l->data);
+        if(job->cancel)
+            fm_job_emit_cancelled(job);
         fm_job_emit_finished(job);
-		g_object_unref(job);
-	}
-	g_slist_free(jobs);
-	return FALSE;
+        g_object_unref(job);
+    }
+    g_slist_free(jobs);
+    return FALSE;
 }
 
-/* Used by derived classes to implement FmJob::run() using gio inside.
- * This API tried to initialize a GCancellable object for use with gio and
+/**
+ * fm_job_init_cancellable
+ * @job: the job to init
+ *
+ * Used by derived classes to implement #FmJobClass:run() using gio inside.
+ * This API tries to initialize a #GCancellable object for use with gio and
  * should only be called once in the constructor of derived classes which
- * require the use of GCancellable. */
+ * require the use of #GCancellable.
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * Since: 0.1.0
+ */
 void fm_job_init_cancellable(FmJob* job)
 {
     job->cancellable = g_cancellable_new();
     g_signal_connect(job->cancellable, "cancelled", G_CALLBACK(on_cancellable_cancelled), job);
 }
 
-/* Used to implement FmJob::run() using gio inside.
- * This API tried to initialize a GCancellable object for use with gio. */
-GCancellable* fm_job_get_cancellable(FmJob* job)
-{
-	return job->cancellable;
-}
-
-/* Let the job use an existing cancellable object.
+/**
+ * fm_job_get_cancellable
+ * @job: the job to inspect
+ *
+ * Get an existing #GCancellable object from @job for use with gio in
+ * another job by calling fm_job_set_cancellable().
  * This can be used when you wish to share a cancellable object
  * among different jobs.
- * This should only be called before the job is launched. */
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * Returns: a #GCancellable object if it was initialized for @job.
+ *
+ * Since: 0.1.9
+ */
+GCancellable* fm_job_get_cancellable(FmJob* job)
+{
+    return job->cancellable;
+}
+
+/**
+ * fm_job_set_cancellable
+ * @job: the job to set
+ * @cancellable: (allow-none): a shared cancellable object
+ *
+ * Lets the job to use an existing @cancellable object.
+ * This can be used when you wish to share a cancellable object
+ * among different jobs.
+ * This should only be called before the @job is launched.
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * Since: 0.1.0
+ */
 void fm_job_set_cancellable(FmJob* job, GCancellable* cancellable)
 {
     if(G_UNLIKELY(job->cancellable))
@@ -427,43 +660,61 @@ void fm_job_set_cancellable(FmJob* job, GCancellable* cancellable)
         job->cancellable = NULL;
 }
 
-void on_cancellable_cancelled(GCancellable* cancellable, FmJob* job)
+static void on_cancellable_cancelled(GCancellable* cancellable, FmJob* job)
 {
     job->cancel = TRUE;
 }
 
 struct ErrData
 {
-	GError* err;
-	FmJobErrorSeverity severity;
+    GError* err;
+    FmJobErrorSeverity severity;
 };
 
-gpointer error_in_main_thread(FmJob* job, struct ErrData* data)
+static gpointer error_in_main_thread(FmJob* job, gpointer input_data)
 {
-	gboolean ret;
+    guint ret;
+#define data ((struct ErrData*)input_data)
     g_debug("FmJob error: %s", data->err->message);
-	g_signal_emit(job, signals[ERROR], 0, data->err, data->severity, &ret);
-	return GINT_TO_POINTER(ret);
+    g_signal_emit(job, signals[ERROR], 0, data->err, (guint)data->severity, &ret);
+#undef data
+    return GUINT_TO_POINTER(ret);
 }
 
-/* Emit an 'error' signal to notify the main thread when an error occurs.
+/**
+ * fm_job_emit_error
+ * @job: a job that emitted the signal
+ * @err: an error descriptor
+ * @severity: severity of the error
+ *
+ * Emits an #FmJob::error signal in the main thread to notify it when an
+ * error occurs.
  * The return value of this function is the return value returned by
  * the connected signal handlers.
- * If severity is FM_JOB_ERROR_CRITICAL, the returned value is ignored and
+ * If @severity is FM_JOB_ERROR_CRITICAL, the returned value is ignored and
  * fm_job_cancel() is called to abort the job. Otherwise, the signal
  * handler of this error can return FM_JOB_RETRY to ask for retrying the
  * failed operation, return FM_JOB_CONTINUE to ignore the error and
  * continue the remaining job, or return FM_JOB_ABORT to abort the job.
- * If FM_JOB_ABORT is returned by the signal handler, fm_job_cancel
+ * If FM_JOB_ABORT is returned by the signal handler, fm_job_cancel()
  * will be called in fm_job_emit_error().
+ *
+ * This APIs is private to #FmJob and should only be used in the
+ * implementation of classes derived from #FmJob.
+ *
+ * This function should be called from working thread only.
+ *
+ * Returns: action that should be performed on that error.
+ *
+ * Since: 0.1.0
  */
 FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity severity)
 {
-	gboolean ret;
-	struct ErrData data;
-	data.err = err;
-	data.severity = severity;
-	ret = (gboolean)fm_job_call_main_thread(job, error_in_main_thread, &data);
+    FmJobErrorAction ret;
+    struct ErrData data;
+    data.err = err;
+    data.severity = severity;
+    ret = GPOINTER_TO_UINT(fm_job_call_main_thread(job, error_in_main_thread, &data));
     if(severity == FM_JOB_ERROR_CRITICAL || ret == FM_JOB_ABORT)
     {
         ret = FM_JOB_ABORT;
@@ -478,7 +729,7 @@ FmJobErrorAction fm_job_emit_error(FmJob* job, GError* err, FmJobErrorSeverity s
             ret = FM_JOB_CONTINUE;
     }
 
-	return ret;
+    return ret;
 }
 
 /* FIXME: need to re-think how to do this in a correct way. */
@@ -493,13 +744,31 @@ gboolean fm_job_error_accumulator(GSignalInvocationHint *ihint, GValue *return_a
 }
 */
 
-/* return TRUE if the job is already cancelled */
+/**
+ * fm_job_is_cancelled
+ * @job: the job to inspect
+ *
+ * Checks if the job is already cancelled.
+ *
+ * Returns: %TRUE if the job is already cancelled.
+ *
+ * Since: 0.1.9
+ */
 gboolean fm_job_is_cancelled(FmJob* job)
 {
     return job->cancel;
 }
 
-/* return TRUE if the job is still running */
+/**
+ * fm_job_is_running
+ * @job: the job to inspect
+ *
+ * Checks if the job is still running.
+ *
+ * Returns: %TRUE if the job is still running.
+ *
+ * Since: 0.1.9
+ */
 gboolean fm_job_is_running(FmJob* job)
 {
     return job->running;

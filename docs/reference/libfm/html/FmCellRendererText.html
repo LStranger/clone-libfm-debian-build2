@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmCellRendererText</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm-app-menu-view.html" title="fm-app-menu-view">
-<link rel="next" href="libfm-fm-icon-pixbuf.html" title="fm-icon-pixbuf">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmCellRendererPixbuf.html" title="FmCellRendererPixbuf">
+<link rel="next" href="libfm-fm-clipboard.html" title="fm-clipboard">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm-app-menu-view.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmCellRendererPixbuf.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-fm-icon-pixbuf.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-fm-clipboard.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmCellRendererText.synopsis" class="shortcut">Top</a>
@@ -33,7 +33,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmCellRendererText.top_of_page"></a>FmCellRendererText</span></h2>
-<p>FmCellRendererText</p>
+<p>FmCellRendererText — An implementation of cell text renderer.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -58,6 +58,12 @@ struct              <a class="link" href="FmCellRendererText.html#FmCellRenderer
 </div>
 <div class="refsect1">
 <a name="FmCellRendererText.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-cell-renderer-text.h
+</p>
+<p>
+The <a class="link" href="FmCellRendererText.html" title="FmCellRendererText"><span class="type">FmCellRendererText</span></a> can be used to render text in cell.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmCellRendererText.details"></a><h2>Details</h2>
@@ -75,7 +81,6 @@ struct              <a class="link" href="FmCellRendererText.html#FmCellRenderer
 <div class="refsect2">
 <a name="FmCellRendererTextClass"></a><h3>struct FmCellRendererTextClass</h3>
 <pre class="programlisting">struct FmCellRendererTextClass {
-	GtkCellRendererTextClass parent_class;
 };
 </pre>
 </div>
@@ -83,6 +88,17 @@ struct              <a class="link" href="FmCellRendererText.html#FmCellRenderer
 <div class="refsect2">
 <a name="fm-cell-renderer-text-new"></a><h3>fm_cell_renderer_text_new ()</h3>
 <pre class="programlisting"><span class="returnvalue">GtkCellRenderer</span> *   fm_cell_renderer_text_new           (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates new <span class="type">GtkCellRenderer</span> object for <a class="link" href="FmCellRendererText.html" title="FmCellRendererText"><span class="type">FmCellRendererText</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <span class="type">GtkCellRenderer</span> object.</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 </div>

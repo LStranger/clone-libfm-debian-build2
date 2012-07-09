@@ -37,7 +37,6 @@ struct _FmAppChooserComboBoxData
     GAppInfo* initial_sel_app;
     GtkTreeIter separator_iter;
     GtkTreeIter other_apps_iter;
-    gpointer other_apps_iter_user_data;
     GList* custom_apps;
 };
 
@@ -86,13 +85,12 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
             /* if it's already in the list, select it */
             if(found)
             {
-                g_object_unref(app);
                 gtk_combo_box_set_active_iter(cb, &it);
             }
             else /* if it's not found, add it to the list */
             {
                 gtk_list_store_insert_before(GTK_LIST_STORE(model), &it, &data->separator_iter);
-                gtk_list_store_set(model, &it,
+                gtk_list_store_set(GTK_LIST_STORE(model), &it,
                                    0, g_app_info_get_icon(app),
                                    1, g_app_info_get_name(app),
                                    2, app, -1);
@@ -101,6 +99,7 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
                 /* add to custom apps list */
                 data->custom_apps = g_list_prepend(data->custom_apps, g_object_ref(app));
             }
+            g_object_unref(app);
         }
         else
         {
@@ -113,8 +112,9 @@ static void on_app_selected(GtkComboBox* cb, FmAppChooserComboBoxData* data)
         data->prev_sel_iter = it;
 }
 
-static void free_data(FmAppChooserComboBoxData* data)
+static void free_data(gpointer user_data)
 {
+    FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)user_data;
     if(data->initial_sel_app)
         g_object_unref(data->initial_sel_app);
 
@@ -133,7 +133,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
 {
     FmAppChooserComboBoxData* data = g_slice_new0(FmAppChooserComboBoxData);
     GtkListStore* store = gtk_list_store_new(3, G_TYPE_ICON, G_TYPE_STRING, G_TYPE_APP_INFO);
-    GtkTreeIter it ,def_it = {0};
+    GtkTreeIter it;
     GList* l;
     GtkCellRenderer* render;
 
@@ -172,8 +172,11 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
 
     if(mime_type) /* if this list is retrived with g_app_info_get_all_for_type() */
     {
-        g_list_foreach(apps, (GFunc)g_object_unref, NULL);
-        g_list_free(apps);
+        if(apps)
+        {
+            g_list_foreach(apps, (GFunc)g_object_unref, NULL);
+            g_list_free(apps);
+        }
     }
 
     gtk_list_store_append(store, &it); /* separator */
@@ -185,7 +188,7 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
                        1, _("Customize"),
                        2, NULL, -1);
     data->other_apps_iter = it;
-    gtk_combo_box_set_model(combo, store);
+    gtk_combo_box_set_model(combo, GTK_TREE_MODEL(store));
 
     if(data->initial_sel_iter.user_data) /* intital selection is set */
     {
@@ -196,14 +199,14 @@ void fm_app_chooser_combo_box_setup(GtkComboBox* combo, FmMimeType* mime_type, G
     g_object_unref(store);
 
     g_signal_connect(combo, "changed", G_CALLBACK(on_app_selected), data);
-    g_object_set_qdata_full(G_OBJECT(combo), fm_qdata_id, data, (GDestroyNotify)free_data);
+    g_object_set_qdata_full(G_OBJECT(combo), fm_qdata_id, data, free_data);
 }
 
 /* returns the currently selected app. is_sel_changed (can be NULL) will retrive a
  * boolean value which tells you if the currently selected app is different from the one
  * initially selected in the combobox.
  * the returned GAppInfo needs to be freed with g_object_unref() */
-GAppInfo* fm_app_chooser_combo_box_get_selected(GtkComboBox* combo, gboolean* is_sel_changed)
+GAppInfo* fm_app_chooser_combo_box_dup_selected_app(GtkComboBox* combo, gboolean* is_sel_changed)
 {
     GtkTreeIter it;
     if(gtk_combo_box_get_active_iter(combo, &it))
@@ -223,7 +226,7 @@ GAppInfo* fm_app_chooser_combo_box_get_selected(GtkComboBox* combo, gboolean* is
 
 /* get a list of custom apps added with app-chooser.
  * the returned GList is owned by the combo box and shouldn't be freed. */
-GList* fm_app_chooser_combo_box_get_custom_apps(GtkComboBox* combo)
+const GList* fm_app_chooser_combo_box_get_custom_apps(GtkComboBox* combo)
 {
     FmAppChooserComboBoxData* data = (FmAppChooserComboBoxData*)g_object_get_qdata(G_OBJECT(combo), fm_qdata_id);
     return data->custom_apps;

@@ -29,14 +29,19 @@
 #include <limits.h>
 #include <glib/gi18n-lib.h>
 
+struct _FmPathList
+{
+    FmList list;
+};
+
 static FmPath* root_path = NULL;
 
-static char* home_dir = NULL;
+static const char* home_dir = NULL;
 static int home_len = 0;
 static FmPath* home_path = NULL;
 
 static FmPath* desktop_path = NULL;
-static char* desktop_dir = NULL;
+static const char* desktop_dir = NULL;
 static int desktop_len = 0;
 
 static FmPath* trash_root_path = NULL;
@@ -52,7 +57,6 @@ static FmPath* _fm_path_alloc(FmPath* parent, int name_len, int flags)
     path->n_ref = 1;
     path->flags = flags;
     path->parent = parent ? fm_path_ref(parent) : NULL;
-    path->flags = flags;
     return path;
 }
 
@@ -232,11 +236,14 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
 /**
  * fm_path_new_child_len
  * @parent: a parent path
- * @basename: basename of a direct child of @parent directory in glib
- * filename encoding. (can be non-UTF-8).
- * @len: length of basename
+ * @basename: basename of a direct child of @parent directory
+ * @name_len: length of @basename
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Creates new #FmPath for child of @parent directory which have name
+ * @basename. The string length of @basename is @name_len. @basename is
+ * in glib filename encoding (can be non-UTF-8).
+ *
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
@@ -247,7 +254,7 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 
     /* skip empty basename */
     if(G_UNLIKELY(!basename || name_len == 0))
-        return parent ? fm_path_ref(path) : NULL;
+        return parent ? fm_path_ref(parent) : NULL;
 
     if(G_LIKELY(parent)) /* remove slashes if needed. */
     {
@@ -315,10 +322,12 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
 /**
  * fm_path_new_child
  * @parent: a parent path
- * @basename: basename of a direct child of @parent directory in glib
- * filename encoding. (can be non-UTF-8).
+ * @basename: basename of a direct child of @parent directory
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Creates new #FmPath for child of @parent directory which have name
+ * @basename. @basename is in glib filename encoding (can be non-UTF-8).
+ *
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_child(FmPath* parent, const char* basename)
@@ -361,7 +370,10 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
 /**
  * fm_path_new_relative
  * @parent: a parent path
- * @rel: a path relative to @parent in glib filename encoding. (can be
+ * @rel: a path relative to @parent
+ *
+ * Creates new #FmPath which is relative to @parent directory by the
+ * relative path string @rel. @rel is in glib filename encoding. (can be
  * non-UTF-8). However this should not be a escaped ASCII string used in
  * URI. If you're building a relative path for a URI, and the relative
  * path is escaped, you have to unescape it first.
@@ -372,7 +384,7 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
  *
  * If @parent is NULL, this works the same as fm_path_new_for_str(@rel)
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
@@ -461,7 +473,7 @@ FmPath* fm_path_new_for_path(const char* path_name)
 static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unescape)
 {
     FmPath* path, *root;
-    char* rel_path;
+    const char* rel_path;
     if(!uri || !*uri)
         return fm_path_ref(root_path);
 
@@ -482,14 +494,16 @@ static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unes
 
 /**
  * fm_path_new_for_uri
- * @path_name: a URI with special characters escaped.
+ * @uri: a URI with special characters escaped.
+ *
+ * Creates new #FmPath by given @uri.
  * Encoded URI such as http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81
  * will be unescaped.
  *
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
  * string.
  *
- * Returns: a newly created FmPath for the path. You have to call
+ * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
 FmPath* fm_path_new_for_uri(const char* uri)
@@ -578,12 +592,14 @@ FmPath* fm_path_new_for_commandline_arg(const char* arg)
 
 FmPath* fm_path_ref(FmPath* path)
 {
+    g_return_val_if_fail(path != NULL, NULL);
     g_atomic_int_inc(&path->n_ref);
     return path;
 }
 
 void fm_path_unref(FmPath* path)
 {
+    g_return_if_fail(path != NULL);
     /* g_debug("fm_path_unref: %s, n_ref = %d", fm_path_to_str(path), path->n_ref); */
     if(g_atomic_int_dec_and_test(&path->n_ref))
     {
@@ -627,21 +643,6 @@ gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix)
             return TRUE;
     }
     return FALSE;
-}
-
-static int fm_path_strlen(FmPath* path)
-{
-    int len = 0;
-    for(;;)
-    {
-        len += strlen(path->name);
-        if(G_UNLIKELY(!path->parent ))
-            break;
-        if(path->parent->parent)
-            ++len; /* add a character for separator */
-        path = path->parent;
-    }
-    return len;
 }
 
 /* recursive internal implem. of fm_path_to_str returns end of current
@@ -733,7 +734,7 @@ char* fm_path_display_basename(FmPath* path)
             {
                 /* FIXME: this should be more flexible */
                 const char* p = path->name + 5;
-                while(p == '/')
+                while(*p == '/')
                     ++p;
                 if(g_str_has_prefix(p, "applications.menu"))
                     return g_strdup(_("Applications"));
@@ -798,7 +799,7 @@ void _fm_path_init()
     /* build path object for home dir */
     name = home_dir + 1; /* skip leading / */
     parent = root_path;
-    while( sep = strchr(name, '/') )
+    while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
         if(len > 0)
@@ -818,9 +819,21 @@ void _fm_path_init()
         --desktop_len;
 
     /* build path object for desktop_path dir */
+    /* FIXME: can it be that desktop_dir is outside of home_dir ?
+    if(G_UNLIKELY(strncmp(desktop_dir, home_dir, home_len)))
+    {
+        name = &desktop_dir[1];
+        parent = root_path;
+        while()
+        {
+        }
+    }
+    else
+    { */
     name = desktop_dir + home_len + 1; /* skip home_path dir part / */
     parent = home_path;
-    while( sep = strchr(name, '/') )
+    /* } */
+    while((sep = strchr(name, '/')))
     {
         int len = (sep - name);
         if(len > 0)
@@ -840,6 +853,9 @@ void _fm_path_init()
     apps_root_path = _fm_path_new_internal(NULL, "menu://applications/", 20, FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
 }
 
+void _fm_path_finalize(void)
+{
+}
 
 /* For used in hash tables */
 
@@ -861,10 +877,10 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
 {
     if(p1 == p2)
         return TRUE;
-    if(!p1)
-        return !p2 ? TRUE:FALSE;
-    if(!p2)
-        return !p1 ? TRUE:FALSE;
+    if(!p1) /* if p2 is also NULL then p1==p2 and that is handled above */
+        return FALSE;
+    if(!p2) /* case of p1==NULL handled above */
+        return FALSE;
     if( strcmp(p1->name, p2->name) != 0 )
         return FALSE;
     return fm_path_equal( p1->parent, p2->parent);
@@ -887,7 +903,7 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
         return TRUE;
 
     /* must also contain leading slash */
-    if (n < (strlen(path->name) + 1))
+    if ((size_t)n < (strlen(path->name) + 1))
         return FALSE;
 
     /* check for current part mismatch */
@@ -918,8 +934,8 @@ int fm_path_depth(FmPath* path)
 
 static FmListFuncs funcs =
 {
-    fm_path_ref,
-    fm_path_unref
+    .item_ref = (gpointer (*)(gpointer))&fm_path_ref,
+    .item_unref = (void (*)(gpointer))&fm_path_unref
 };
 
 FmPathList* fm_path_list_new()
@@ -927,14 +943,9 @@ FmPathList* fm_path_list_new()
     return (FmPathList*)fm_list_new(&funcs);
 }
 
-gboolean fm_list_is_path_list(FmList* list)
+FmPathList* fm_path_list_new_from_uris(char* const* uris)
 {
-    return list->funcs == &funcs;
-}
-
-FmPathList* fm_path_list_new_from_uris(const char** uris)
-{
-    const char** uri;
+    char* const* uri;
     FmPathList* pl = fm_path_list_new();
     for(uri = uris; *uri; ++uri)
     {
@@ -948,7 +959,7 @@ FmPathList* fm_path_list_new_from_uris(const char** uris)
                 path = fm_path_new_for_uri(puri);
             else /* it's not a valid path or URI */
                 continue;
-            fm_list_push_tail_noref(pl, path);
+            fm_list_push_tail_noref((FmList*)pl, path);
         }
     }
     return pl;
@@ -957,7 +968,7 @@ FmPathList* fm_path_list_new_from_uris(const char** uris)
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
     char** uris = g_strsplit(uri_list, "\r\n", -1);
-    FmPathList* pl = fm_path_list_new_from_uris((const char **)uris);
+    FmPathList* pl = fm_path_list_new_from_uris(uris);
     g_strfreev(uris);
     return pl;
 }
@@ -992,10 +1003,10 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
 {
     FmPathList* list = fm_path_list_new();
     GList* l;
-    for(l=fm_list_peek_head_link(fis);l;l=l->next)
+    for(l=fm_list_peek_head_link((FmList*)fis);l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fi->path);
+        fm_path_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1007,7 +1018,7 @@ FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
     for(l=fis;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fi->path);
+        fm_path_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1019,7 +1030,7 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
     for(l=fis;l;l=l->next)
     {
         FmFileInfo* fi = (FmFileInfo*)l->data;
-        fm_list_push_tail(list, fi->path);
+        fm_path_list_push_tail(list, fm_file_info_get_path(fi));
     }
     return list;
 }
@@ -1027,7 +1038,7 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
 void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
 {
     GList* l;
-    for(l = fm_list_peek_head_link(pl); l; l=l->next)
+    for(l = fm_path_list_peek_head_link(pl); l; l=l->next)
     {
         FmPath* path = (FmPath*)l->data;
         char* uri = fm_path_to_uri(path);

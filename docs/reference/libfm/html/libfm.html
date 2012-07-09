@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Libfm Overview</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<title>Part I. Libfm Overview</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
 <link rel="up" href="index.html" title="Libfm Reference Manual">
 <link rel="prev" href="index.html" title="Libfm Reference Manual">
-<link rel="next" href="FmDirListJob.html" title="FmDirListJob">
+<link rel="next" href="libfm-core.html" title="Libfm Core Reference.">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -17,80 +17,96 @@
 <td> </td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmDirListJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-core.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr></table>
-<div class="chapter">
-<div class="titlepage"><div><div><h2 class="title">
-<a name="libfm"></a>Libfm Overview</h2></div></div></div>
-<div class="toc"><dl>
-<dt>
-<span class="refentrytitle"><a href="FmDirListJob.html">FmDirListJob</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmJob.html">FmJob</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmSimpleJob.html">FmSimpleJob</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmFolderModel.html">FmFolderModel</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmCellRendererPixbuf.html">FmCellRendererPixbuf</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmDirTreeModel.html">FmDirTreeModel</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmTabLabel.html">FmTabLabel</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmDndSrc.html">FmDndSrc</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-FmDndDest.html">FmDndDest</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmFolder.html">FmFolder</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-gtk.html">fm-gtk</a></span><span class="refpurpose"></span>
-</dt>
+<div class="part">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="libfm"></a>Part I. Libfm Overview</h1></div></div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="chapter"><a href="libfm-core.html">Libfm Core Reference.</a></span></dt>
+<dd><dl>
 <dt>
 <span class="refentrytitle"><a href="libfm-fm.html">fm</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmFileInfoJob.html">FmFileInfoJob</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-app-info.html">fm-app-info</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmDeepCountJob.html">FmDeepCountJob</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-archiver.html">fm-archiver</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmFileOpsJob.html">FmFileOpsJob</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="FmBookmarks.html">FmBookmarks</a></span><span class="refpurpose"> — Bookmarks support for libfm.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="libfm-fm-thumbnail.html">fm-thumbnail</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="FmConfig.html">FmConfig</a></span><span class="refpurpose"> — Configuration file support for applications that use libfm.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmPathEntry.html">FmPathEntry</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="FmDummyMonitor.html">FmDummyMonitor</a></span><span class="refpurpose"> — Replacement of <span class="type">GFileMonitor</span> for virtual filesystems.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="libfm-fm-file-properties.html">fm-file-properties</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-file-info.html">fm-file-info</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmFolderView.html">FmFolderView</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-file-launcher.html">fm-file-launcher</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="libfm-fm-file-menu.html">fm-file-menu</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="FmFolder.html">FmFolder</a></span><span class="refpurpose"> — Folder loading and monitoring.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="libfm-fm-gtk-utils.html">fm-gtk-utils</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-icon.html">fm-icon</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmPlacesView.html">FmPlacesView</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-list.html">fm-list</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="libfm-fm-clipboard.html">fm-clipboard</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-mime-type.html">fm-mime-type</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-monitor.html">fm-monitor</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmNavHistory.html">FmNavHistory</a></span><span class="refpurpose"> — Simple navigation history management.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-path.html">fm-path</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-thumbnailer.html">fm-thumbnailer</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-utils.html">fm-utils</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="libfm-jobs.html">Libfm Jobs.</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="FmDeepCountJob.html">FmDeepCountJob</a></span><span class="refpurpose"> — Job to gather information about file sizes.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmDirListJob.html">FmDirListJob</a></span><span class="refpurpose"> — Job to get listing of directory.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmFileInfoJob.html">FmFileInfoJob</a></span><span class="refpurpose"> — Job to gather information about files.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmFileOpsJob.html">FmFileOpsJob</a></span><span class="refpurpose"> — Job to do something with files.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmJob.html">FmJob</a></span><span class="refpurpose"> — Base class of all kinds of asynchronous jobs.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-FmSimpleJob.html">FmSimpleJob</a></span><span class="refpurpose"> — Job to run a function asynchronously.</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="libfm-gtk.html">Libfm Gtk+ Widgets and Objects.</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-gtk.html">fm-gtk</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-app-chooser-combo-box.html">fm-app-chooser-combo-box</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="libfm-fm-app-chooser-dlg.html">fm-app-chooser-dlg</a></span><span class="refpurpose"></span>
@@ -99,57 +115,77 @@
 <span class="refentrytitle"><a href="libfm-fm-app-menu-view.html">fm-app-menu-view</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmCellRendererText.html">FmCellRendererText</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="FmCellRendererPixbuf.html">FmCellRendererPixbuf</a></span><span class="refpurpose"> — Extended pixbuf cell renderer.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmCellRendererText.html">FmCellRendererText</a></span><span class="refpurpose"> — An implementation of cell text renderer.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-clipboard.html">fm-clipboard</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmDirTreeModel.html">FmDirTreeModel</a></span><span class="refpurpose"> — A model for directory tree view</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmDirTreeView.html">FmDirTreeView</a></span><span class="refpurpose"> — A directory tree view widget.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-dnd-auto-scroll.html">fm-dnd-auto-scroll</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmDndDest.html">FmDndDest</a></span><span class="refpurpose"> — Libfm support for drag&amp;drop target.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmDndSrc.html">FmDndSrc</a></span><span class="refpurpose"> — Libfm support for drag&amp;drop source.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-file-menu.html">fm-file-menu</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-file-properties.html">fm-file-properties</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmFolderModel.html">FmFolderModel</a></span><span class="refpurpose"> — A model for folder view window.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmFolderView.html">FmFolderView</a></span><span class="refpurpose"> — A folder view widget.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-gtk-file-launcher.html">fm-gtk-file-launcher</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libfm-fm-gtk-utils.html">fm-gtk-utils</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="libfm-fm-icon-pixbuf.html">fm-icon-pixbuf</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
+<span class="refentrytitle"><a href="FmPathBar.html">FmPathBar</a></span><span class="refpurpose"> — A widget for representing current path.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmPathEntry.html">FmPathEntry</a></span><span class="refpurpose"> — An entry to enter path with completion.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmPlacesModel.html">FmPlacesModel</a></span><span class="refpurpose"> — A model for side panel with places list.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="FmPlacesView.html">FmPlacesView</a></span><span class="refpurpose"> — A widget for side panel with places list.</span>
+</dt>
+<dt>
 <span class="refentrytitle"><a href="libfm-fm-progress-dlg.html">fm-progress-dlg</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="libfm-fm-app-chooser-combo-box.html">fm-app-chooser-combo-box</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="FmSidePane.html">FmSidePane</a></span><span class="refpurpose"> — A widget for side pane displaying</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="FmConfig.html">FmConfig</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="FmTabLabel.html">FmTabLabel</a></span><span class="refpurpose"> — A tab label widget.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="libfm-fm-file-launcher.html">fm-file-launcher</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="libfm-fm-thumbnail.html">fm-thumbnail</a></span><span class="refpurpose"></span>
 </dt>
-<dt>
-<span class="refentrytitle"><a href="FmBookmarks.html">FmBookmarks</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-monitor.html">fm-monitor</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-list.html">fm-list</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-path.html">fm-path</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-icon.html">fm-icon</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmNavHistory.html">FmNavHistory</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="FmDummyMonitor.html">FmDummyMonitor</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-utils.html">fm-utils</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-file-info.html">fm-file-info</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-archiver.html">fm-archiver</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="libfm-fm-mime-type.html">fm-mime-type</a></span><span class="refpurpose"></span>
-</dt>
-</dl></div>
+</dl></dd>
+</dl>
+</div>
 <p>
 Libfm is a library built on top of glib/gio for developing file managers.
 It provides some useful file management utilities and related-widgets

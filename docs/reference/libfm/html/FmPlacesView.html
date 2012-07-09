@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmPlacesView</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm-gtk-utils.html" title="fm-gtk-utils">
-<link rel="next" href="libfm-fm-clipboard.html" title="fm-clipboard">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmPlacesModel.html" title="FmPlacesModel">
+<link rel="next" href="libfm-fm-progress-dlg.html" title="fm-progress-dlg">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm-gtk-utils.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmPlacesModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-fm-clipboard.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-fm-progress-dlg.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmPlacesView.synopsis" class="shortcut">Top</a>
@@ -37,7 +37,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmPlacesView.top_of_page"></a>FmPlacesView</span></h2>
-<p>FmPlacesView</p>
+<p>FmPlacesView — A widget for side panel with places list.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -46,9 +46,9 @@
 <pre class="synopsis">#define             <a class="link" href="FmPlacesView.html#FM-PLACES-VIEW-TYPE:CAPS" title="FM_PLACES_VIEW_TYPE">FM_PLACES_VIEW_TYPE</a>
 struct              <a class="link" href="FmPlacesView.html#FmPlacesView-struct" title="struct FmPlacesView">FmPlacesView</a>;
 struct              <a class="link" href="FmPlacesView.html#FmPlacesViewClass" title="struct FmPlacesViewClass">FmPlacesViewClass</a>;
-<span class="returnvalue">void</span>                <a class="link" href="FmPlacesView.html#fm-places-chdir" title="fm_places_chdir ()">fm_places_chdir</a>                     (<em class="parameter"><code><a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *pv</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="FmPlacesView.html#fm-places-view-chdir" title="fm_places_view_chdir ()">fm_places_view_chdir</a>                (<em class="parameter"><code><a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *pv</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
-<span class="returnvalue">GtkWidget</span> *         <a class="link" href="FmPlacesView.html#fm-places-view-new" title="fm_places_view_new ()">fm_places_view_new</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="returnvalue">FmPlacesView</span></a> *      <a class="link" href="FmPlacesView.html#fm-places-view-new" title="fm_places_view_new ()">fm_places_view_new</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -77,6 +77,14 @@ FmPlacesView implements
 </div>
 <div class="refsect1">
 <a name="FmPlacesView.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-places-view.h
+</p>
+<p>
+The <a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> displays list of pseudo-folders which contains
+such items as Home directory, Trash bin, mounted removable drives,
+bookmarks, etc.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmPlacesView.details"></a><h2>Details</h2>
@@ -98,27 +106,99 @@ FmPlacesView implements
     void (*chdir)(FmPlacesView* view, guint button, FmPath* path);
 };
 </pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">GtkTreeViewClass</span> <em class="structfield"><code><a name="FmPlacesViewClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="FmPlacesViewClass.chdir"></a>chdir</code></em> ()</span></p></td>
+<td>the class closure for the <a class="link" href="FmPlacesView.html#FmPlacesView-chdir" title='The "chdir" signal'><span class="type">"chdir"</span></a> signal</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-places-chdir"></a><h3>fm_places_chdir ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_places_chdir                     (<em class="parameter"><code><a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *pv</code></em>,
+<a name="fm-places-view-chdir"></a><h3>fm_places_view_chdir ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_places_view_chdir                (<em class="parameter"><code><a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *pv</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<p>
+Changes active path and eventually sends the <a class="link" href="FmPlacesView.html#FmPlacesView-chdir" title='The "chdir" signal'><span class="type">"chdir"</span></a> signal.
+</p>
+<p>
+Before 1.0.0 this call had name fm_places_chdir.
+Before 0.1.12 this call had name fm_places_select.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pv</code></em> :</span></p></td>
+<td>a widget to apply</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>the new path</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-places-view-new"></a><h3>fm_places_view_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         fm_places_view_new                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="returnvalue">FmPlacesView</span></a> *      fm_places_view_new                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates new <a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> widget.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="FmPlacesView.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
 <a name="FmPlacesView-chdir"></a><h3>The <code class="literal">"chdir"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *fmplacesview,
-                                                        <span class="type">guint</span>         arg1,
-                                                        <span class="type">gpointer</span>      arg2,
-                                                        <span class="type">gpointer</span>      user_data)         : <code class="literal">Run Last</code></pre>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> *view,
+                                                        <span class="type">guint</span>         button,
+                                                        <span class="type">gpointer</span>      path,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Run Last</code></pre>
+<p>
+The <a class="link" href="FmPlacesView.html#FmPlacesView-chdir" title='The "chdir" signal'><span class="type">"chdir"</span></a> signal is emitted when current selected
+directory in view is changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>view</code></em> :</span></p></td>
+<td>a view instance that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>button</code></em> :</span></p></td>
+<td>the button row was activated with</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>(<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *) new directory path</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 </div>

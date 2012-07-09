@@ -19,6 +19,7 @@
 
 #include "fm-app-info.h"
 #include "fm-config.h"
+#include "fm-utils.h"
 #include <string.h>
 #include <gio/gdesktopappinfo.h>
 
@@ -44,12 +45,10 @@ static void append_uri_to_cmd(GFile* gf, GString* cmd)
 
 static char* expand_exec_macros(GAppInfo* app, const char* full_desktop_path, GKeyFile* kf, GList* gfiles)
 {
-    char* ret;
     GString* cmd;
     const char* exec = g_app_info_get_commandline(app);
     const char* p;
     gboolean files_added = FALSE;
-    gboolean terminal;
 
     cmd = g_string_sized_new(1024);
     for(p = exec; *p; ++p)
@@ -143,19 +142,43 @@ static void child_setup(gpointer user_data)
         g_setenv ("DESKTOP_STARTUP_ID", data->sn_id, TRUE);
 }
 
+const char* expand_terminal_s(char opt, gpointer unused)
+{
+    return fm_config->terminal;
+}
+
+FmAppCommandParseOption expand_terminal_options[] =
+{
+    {'s', &expand_terminal_s },
+    { 0, NULL }
+};
+
 static char* expand_terminal(char* cmd)
 {
     char* ret;
     /* add terminal emulator command */
-    /* FIXME: this is very unsafe */
-    if(strstr(fm_config->terminal, "%s"))
-        ret = g_strdup_printf(fm_config->terminal, cmd);
+
+    if(fm_app_command_parse(cmd, expand_terminal_options, &ret, NULL) > 0)
+        return ret;
     else /* if %s is not found, fallback to -e */
-        ret = g_strdup_printf("%s -e %s", fm_config->terminal, cmd);
+    {
+        const char* term = fm_config->terminal;
+        char* ret2 = ret;
+        /* bug #3457335: Crash on application start with Terminal=true. */
+        if(!term) /* fallback to xterm if a terminal emulator is not found. */
+        {
+            /* FIXME: we should not hard code xterm here. :-(
+             * It's better to prompt the user and let he or she set
+             * his preferred terminal emulator. */
+            term = "xterm";
+        }
+        ret = g_strdup_printf("%s -e %s", term, ret2);
+        g_free(ret2);
+    }
     return ret;
 }
 
-gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKeyFile* kf, GList* gfiles, GAppLaunchContext* ctx, GError** err)
+static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKeyFile* kf, GList* gfiles, GAppLaunchContext* ctx, GError** err)
 {
     gboolean ret = FALSE;
     char* cmd, *path;

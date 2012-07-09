@@ -19,6 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-info-job
+ * @short_description: Job to gather information about files.
+ * @title: FmFileInfoJob
+ *
+ * @include: libfm/fm-file-info-job.h
+ *
+ * The #FmFileInfoJob can be used to get filled #FmFileInfo for some files.
+ */
+
 #include "fm-file-info-job.h"
 
 #include <sys/types.h>
@@ -28,110 +38,138 @@
 #include <menu-cache.h>
 #include <errno.h>
 
-static void fm_file_info_job_finalize  			(GObject *object);
+#include "fm-file-info.h"
+
+static void fm_file_info_job_dispose              (GObject *object);
 static gboolean fm_file_info_job_run(FmJob* fmjob);
 
 const char gfile_info_query_attribs[]="standard::*,unix::*,time::*,access::*,id::filesystem";
 
 G_DEFINE_TYPE(FmFileInfoJob, fm_file_info_job, FM_TYPE_JOB);
 
-
 static void fm_file_info_job_class_init(FmFileInfoJobClass *klass)
 {
-	GObjectClass *g_object_class;
-	FmJobClass* job_class;
+    GObjectClass *g_object_class;
+    FmJobClass* job_class;
 
-	g_object_class = G_OBJECT_CLASS(klass);
-	g_object_class->finalize = fm_file_info_job_finalize;
+    g_object_class = G_OBJECT_CLASS(klass);
+    g_object_class->dispose = fm_file_info_job_dispose;
+    /* use finalize from parent class */
 
-	job_class = FM_JOB_CLASS(klass);
-	job_class->run = fm_file_info_job_run;
+    job_class = FM_JOB_CLASS(klass);
+    job_class->run = fm_file_info_job_run;
 }
 
 
-static void fm_file_info_job_finalize(GObject *object)
+static void fm_file_info_job_dispose(GObject *object)
 {
-	FmFileInfoJob *self;
+    FmFileInfoJob *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(IS_FM_FILE_INFO_JOB(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_FILE_INFO_JOB(object));
 
-	self = FM_FILE_INFO_JOB(object);
-    fm_list_unref(self->file_infos);
+    self = (FmFileInfoJob*)object;
+    if(self->file_infos)
+    {
+        fm_file_info_list_unref(self->file_infos);
+        self->file_infos = NULL;
+    }
+    if(self->current)
+    {
+        fm_path_unref(self->current);
+        self->current = NULL;
+    }
 
-	G_OBJECT_CLASS(fm_file_info_job_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_file_info_job_parent_class)->dispose(object);
 }
 
 
 static void fm_file_info_job_init(FmFileInfoJob *self)
 {
-	self->file_infos = fm_file_info_list_new();
+    self->file_infos = fm_file_info_list_new();
     fm_job_init_cancellable(FM_JOB(self));
 }
 
-FmJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags)
+/**
+ * fm_file_info_job_new
+ * @files_to_query: (allow-none): list of paths to query informatiom
+ * @flags: modificators of query mode
+ *
+ * Creates a new #FmFileInfoJob which can be used by #FmJob API.
+ *
+ * Returns: (transfer full): a new #FmFileInfoJob object.
+ *
+ * Since: 0.1.0
+ */
+FmFileInfoJob* fm_file_info_job_new(FmPathList* files_to_query, FmFileInfoJobFlags flags)
 {
-	GList* l;
-	FmFileInfoJob* job = (FmFileInfoJob*)g_object_new(FM_TYPE_FILE_INFO_JOB, NULL);
-	FmFileInfoList* file_infos;
+    GList* l;
+    FmFileInfoJob* job = (FmFileInfoJob*)g_object_new(FM_TYPE_FILE_INFO_JOB, NULL);
+    FmFileInfoList* file_infos;
 
     job->flags = flags;
-	if(files_to_query)
-	{
-		file_infos = job->file_infos;
-		for(l = fm_list_peek_head_link(files_to_query);l;l=l->next)
-		{
-			FmPath* path = (FmPath*)l->data;
-			FmFileInfo* fi = fm_file_info_new();
-			fi->path = fm_path_ref(path);
-			fm_list_push_tail_noref(file_infos, fi);
-		}
-	}
-	return (FmJob*)job;
+    if(files_to_query)
+    {
+        file_infos = job->file_infos;
+        for(l = fm_path_list_peek_head_link(files_to_query);l;l=l->next)
+        {
+            FmPath* path = FM_PATH(l->data);
+            FmFileInfo* fi = fm_file_info_new();
+            fm_file_info_set_path(fi, path);
+            fm_file_info_list_push_tail_noref(file_infos, fi);
+        }
+    }
+    return job;
 }
 
-void _fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, MenuCacheItem* item);
-
-gboolean fm_file_info_job_run(FmJob* fmjob)
+static gboolean fm_file_info_job_run(FmJob* fmjob)
 {
-	GList* l;
-	FmFileInfoJob* job = (FmFileInfoJob*)fmjob;
+    GList* l;
+    FmFileInfoJob* job = (FmFileInfoJob*)fmjob;
     GError* err = NULL;
 
-	for(l = fm_list_peek_head_link(job->file_infos); !fm_job_is_cancelled(fmjob) && l;)
-	{
-		FmFileInfo* fi = (FmFileInfo*)l->data;
+    if(job->file_infos == NULL)
+        return FALSE;
+
+    for(l = fm_file_info_list_peek_head_link(job->file_infos); !fm_job_is_cancelled(fmjob) && l;)
+    {
+        FmFileInfo* fi = (FmFileInfo*)l->data;
         GList* next = l->next;
+        FmPath* path = fm_file_info_get_path(fi);
 
-        job->current = fi->path;
+        if(job->current)
+            fm_path_unref(job->current);
+        job->current = fm_path_ref(path);
 
-		if(fm_path_is_native(fi->path))
-		{
-			char* path_str = fm_path_to_str(fi->path);
-			if(!_fm_file_info_job_get_info_for_native_file(FM_JOB(job), fi, path_str, &err))
+        if(fm_path_is_native(path))
+        {
+            char* path_str = fm_path_to_str(path);
+            if(!_fm_file_info_job_get_info_for_native_file(fmjob, fi, path_str, &err))
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
+                {
+                    g_free(path_str);
                     continue; /* retry */
+                }
 
-                next = l->next;
-                fm_list_delete_link(job->file_infos, l); /* also calls unref */
+                fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
-			g_free(path_str);
-		}
-		else
-		{
+            g_free(path_str);
+        }
+        else
+        {
             GFile* gf;
-            if(fm_path_is_virtual(fi->path))
+            if(fm_path_is_virtual(path))
             {
                 /* this is a xdg menu */
-                if(fm_path_is_xdg_menu(fi->path))
+                if(fm_path_is_xdg_menu(path))
                 {
                     MenuCache* mc;
                     MenuCacheDir* dir;
-                    char* path_str = fm_path_to_str(fi->path);
+                    char* path_str = fm_path_to_str(path);
                     char* menu_name = path_str + 5, ch;
                     char* dir_name;
                     while(*menu_name == '/')
@@ -144,8 +182,9 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     menu_name = g_strconcat(menu_name, ".menu", NULL);
                     mc = menu_cache_lookup_sync(menu_name);
                     g_free(menu_name);
+                    *dir_name = ch;
 
-                    if(*dir_name && !(*dir_name == '/' && dir_name[1]=='\0') )
+                    if(ch && !(ch == '/' && dir_name[1]=='\0') )
                     {
                         char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_name, NULL);
                         dir = menu_cache_get_dir_from_path(mc, tmp);
@@ -154,142 +193,88 @@ gboolean fm_file_info_job_run(FmJob* fmjob)
                     else
                         dir = menu_cache_get_root_dir(mc);
                     if(dir)
-                        _fm_file_info_set_from_menu_cache_item(fi, dir);
-                    else
-                    {
-                        next = l->next;
-                        fm_list_delete_link(job->file_infos, l); /* also calls unref */
-                    }
+                        fm_file_info_set_from_menu_cache_item(fi, MENU_CACHE_ITEM(dir));
+                    else /* no retry, just remove item */
+                        fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
                     g_free(path_str);
                     menu_cache_unref(mc);
-                    l=l->next;
+                    l = next;
                     continue;
                 }
             }
 
-			gf = fm_path_to_gfile(fi->path);
-			if(!_fm_file_info_job_get_info_for_gfile(FM_JOB(job), fi, gf, &err))
+            gf = fm_path_to_gfile(path);
+            if(!_fm_file_info_job_get_info_for_gfile(fmjob, fi, gf, &err))
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
+                {
+                    g_object_unref(gf);
                     continue; /* retry */
+                }
 
-                next = l->next;
-                fm_list_delete_link(job->file_infos, l); /* also calls unref */
+                fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
             }
-			g_object_unref(gf);
-		}
+            g_object_unref(gf);
+        }
         l = next;
-	}
-	return TRUE;
+    }
+    return TRUE;
 }
 
-/* this can only be called before running the job. */
+/**
+ * fm_file_info_job_add
+ * @job: a job to add file
+ * @path: a path to add to query list
+ *
+ * Adds a @path to query list for the @job.
+ *
+ * This API may only be called before starting the @job.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_info_job_add(FmFileInfoJob* job, FmPath* path)
 {
-	FmFileInfo* fi = fm_file_info_new();
-	fi->path = fm_path_ref(path);
-	fm_list_push_tail_noref(job->file_infos, fi);
+    FmFileInfo* fi = fm_file_info_new();
+    fm_file_info_set_path(fi, path);
+    fm_file_info_list_push_tail_noref(job->file_infos, fi);
 }
 
+/**
+ * fm_file_info_job_add_gfile
+ * @job: a job to add file
+ * @gf: a file descriptor to add to query list
+ *
+ * Adds a path @gf to query list for the @job.
+ *
+ * This API may only be called before starting the @job.
+ *
+ * Since: 0.1.0
+ */
 void fm_file_info_job_add_gfile(FmFileInfoJob* job, GFile* gf)
 {
     FmPath* path = fm_path_new_for_gfile(gf);
-	FmFileInfo* fi = fm_file_info_new();
-	fi->path = path;
-	fm_list_push_tail_noref(job->file_infos, fi);
+    FmFileInfo* fi = fm_file_info_new();
+    fm_file_info_set_path(fi, path);
+    fm_path_unref(path);
+    fm_file_info_list_push_tail_noref(job->file_infos, fi);
 }
 
-gboolean _fm_file_info_job_get_info_for_native_file(FmJob* job, FmFileInfo* fi, const char* path, GError** err)
-{
-	struct stat st;
-    gboolean is_link;
-_retry:
-	if( lstat( path, &st ) == 0 )
-	{
-		char* type;
-        fi->disp_name = fi->path->name;
-        fi->mode = st.st_mode;
-        fi->mtime = st.st_mtime;
-        fi->atime = st.st_atime;
-        fi->size = st.st_size;
-        fi->dev = st.st_dev;
-        fi->uid = st.st_uid;
-        fi->gid = st.st_gid;
-
-		if( ! fm_job_is_cancelled(FM_JOB(job)) )
-		{
-            /* FIXME: handle symlinks */
-            if(S_ISLNK(st.st_mode))
-            {
-                stat(path, &st);
-                fi->target = g_file_read_link(path, NULL);
-            }
-
-			fi->type = fm_mime_type_get_for_native_file(path, fi->disp_name, &st);
-
-            /* special handling for desktop entry files */
-            if(G_UNLIKELY(fm_file_info_is_desktop_entry(fi)))
-            {
-                char* fpath = fm_path_to_str(fi->path);
-                GKeyFile* kf = g_key_file_new();
-                FmIcon* icon = NULL;
-                if(g_key_file_load_from_file(kf, fpath, 0, NULL))
-                {
-                    char* icon_name = g_key_file_get_locale_string(kf, "Desktop Entry", "Icon", NULL, NULL);
-                    char* title = g_key_file_get_locale_string(kf, "Desktop Entry", "Name", NULL, NULL);
-                    if(icon_name)
-                    {
-                        if(icon_name[0] != '/') /* this is a icon name, not a full path to icon file. */
-                        {
-                            char* dot = strrchr(icon_name, '.');
-                            /* remove file extension */
-                            if(dot)
-                            {
-                                ++dot;
-                                if(strcmp(dot, "png") == 0 ||
-                                   strcmp(dot, "svg") == 0 ||
-                                   strcmp(dot, "xpm") == 0)
-                                   *(dot-1) = '\0';
-                            }
-                        }
-                        icon = fm_icon_from_name(icon_name);
-                        g_free(icon_name);
-                    }
-                    if(title)
-                        fi->disp_name = title;
-                }
-                if(icon)
-                    fi->icon = icon;
-                else
-                    fi->icon = fm_icon_ref(fi->type->icon);
-            }
-            else
-                fi->icon = fm_icon_ref(fi->type->icon);
-		}
-	}
-	else
-    {
-        g_set_error(err, G_IO_ERROR, g_io_error_from_errno(errno), g_strerror(errno));
-		return FALSE;
-    }
-	return TRUE;
-}
-
-gboolean _fm_file_info_job_get_info_for_gfile(FmJob* job, FmFileInfo* fi, GFile* gf, GError** err)
-{
-	GFileInfo* inf;
-	inf = g_file_query_info(gf, gfile_info_query_attribs, 0, fm_job_get_cancellable(job), err);
-	if( !inf )
-		return FALSE;
-	fm_file_info_set_from_gfileinfo(fi, inf);
-
-	return TRUE;
-}
-
-/* This API should only be called in error handler */
+/**
+ * fm_file_info_job_get_current
+ * @job: the job to inspect
+ *
+ * Retrieves current the #FmPath which caused the error.
+ * Returned data are owned by @job and shouldn't be freed by caller.
+ *
+ * This API may only be called in error handler.
+ *
+ * Returns: (transfer none): the current processing file path.
+ *
+ * Since: 0.1.10
+ */
 FmPath* fm_file_info_job_get_current(FmFileInfoJob* job)
 {
     return job->current;

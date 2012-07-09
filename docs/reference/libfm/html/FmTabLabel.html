@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmTabLabel</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="FmDirTreeModel.html" title="FmDirTreeModel">
-<link rel="next" href="FmDndSrc.html" title="FmDndSrc">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmSidePane.html" title="FmSidePane">
+<link rel="next" href="libfm-fm-thumbnail.html" title="fm-thumbnail">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="FmDirTreeModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmSidePane.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmDndSrc.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-fm-thumbnail.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmTabLabel.synopsis" class="shortcut">Top</a>
@@ -35,7 +35,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmTabLabel.top_of_page"></a>FmTabLabel</span></h2>
-<p>FmTabLabel</p>
+<p>FmTabLabel — A tab label widget.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -43,8 +43,10 @@
 <a name="FmTabLabel.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="FmTabLabel.html#FmTabLabel-struct" title="struct FmTabLabel">FmTabLabel</a>;
 struct              <a class="link" href="FmTabLabel.html#FmTabLabelClass" title="struct FmTabLabelClass">FmTabLabelClass</a>;
-<span class="returnvalue">GtkWidget</span> *         <a class="link" href="FmTabLabel.html#fm-tab-label-new" title="fm_tab_label_new ()">fm_tab_label_new</a>                    (<em class="parameter"><code>const <span class="type">char</span> *text</code></em>);
+<a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="returnvalue">FmTabLabel</span></a> *        <a class="link" href="FmTabLabel.html#fm-tab-label-new" title="fm_tab_label_new ()">fm_tab_label_new</a>                    (<em class="parameter"><code>const <span class="type">char</span> *text</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmTabLabel.html#fm-tab-label-set-text" title="fm_tab_label_set_text ()">fm_tab_label_set_text</a>               (<em class="parameter"><code><a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> *label</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *text</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmTabLabel.html#fm-tab-label-set-tooltip-text" title="fm_tab_label_set_tooltip_text ()">fm_tab_label_set_tooltip_text</a>       (<em class="parameter"><code><a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> *label</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *text</code></em>);
 </pre>
 </div>
@@ -69,6 +71,13 @@ FmTabLabel implements
 </div>
 <div class="refsect1">
 <a name="FmTabLabel.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-tab-label.h
+</p>
+<p>
+The <a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> is a widget that can be used as a label of tab in
+notebook-like folders view.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmTabLabel.details"></a><h2>Details</h2>
@@ -80,20 +89,77 @@ FmTabLabel implements
 <div class="refsect2">
 <a name="FmTabLabelClass"></a><h3>struct FmTabLabelClass</h3>
 <pre class="programlisting">struct FmTabLabelClass {
-	GtkEventBoxClass parent_class;
 };
 </pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-tab-label-new"></a><h3>fm_tab_label_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         fm_tab_label_new                    (<em class="parameter"><code>const <span class="type">char</span> *text</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="returnvalue">FmTabLabel</span></a> *        fm_tab_label_new                    (<em class="parameter"><code>const <span class="type">char</span> *text</code></em>);</pre>
+<p>
+Creates new tab label widget.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>text to display as a tab label</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> widget. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.10</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-tab-label-set-text"></a><h3>fm_tab_label_set_text ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_tab_label_set_text               (<em class="parameter"><code><a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> *label</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *text</code></em>);</pre>
+<p>
+Changes text on the <em class="parameter"><code>label</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>label</code></em> :</span></p></td>
+<td>a tab label widget</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>text to display as a tab label</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-tab-label-set-tooltip-text"></a><h3>fm_tab_label_set_tooltip_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_tab_label_set_tooltip_text       (<em class="parameter"><code><a class="link" href="FmTabLabel.html" title="FmTabLabel"><span class="type">FmTabLabel</span></a> *label</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *text</code></em>);</pre>
+<p>
+Changes text of tooltip on the <em class="parameter"><code>label</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>label</code></em> :</span></p></td>
+<td>a tab label widget</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>text to display in label tooltip</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 </div>
 </div>

@@ -19,6 +19,17 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-dnd-src
+ * @short_description: Libfm support for drag&drop source.
+ * @title: FmDndSrc
+ *
+ * @include: libfm/fm-dnd-src.h
+ *
+ * The #FmDndSrc is used to assign selection for Drag & Drop operations
+ * and deliver info about it to target widget when requested.
+ */
+
 #include "fm-dnd-src.h"
 
 GtkTargetEntry fm_default_dnd_src_targets[] =
@@ -33,7 +44,7 @@ enum
     N_SIGNALS
 };
 
-static void fm_dnd_src_finalize             (GObject *object);
+static void fm_dnd_src_dispose             (GObject *object);
 
 static void
 on_drag_data_get ( GtkWidget *src_widget,
@@ -62,16 +73,20 @@ G_DEFINE_TYPE(FmDndSrc, fm_dnd_src, G_TYPE_OBJECT);
 static void fm_dnd_src_class_init(FmDndSrcClass *klass)
 {
     GObjectClass *g_object_class;
-    FmDndSrcClass *dnd_src_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_dnd_src_finalize;
+    g_object_class->dispose = fm_dnd_src_dispose;
 
-    dnd_src_class = FM_DND_SRC_CLASS(klass);
-
-    /* emitted when information of source files is needed.
-     * call fm_dnd_source_set_files() in its callback to
-     * provide info of dragged source files. */
+    /**
+     * FmDndSrc::data-get:
+     * @object: the object which emitted the signal
+     *
+     * The #FmDndSrc::data-get signal is emitted when information of
+     * source files is needed. Handler of the signal should then call
+     * fm_dnd_src_set_files() to provide info of dragged source files.
+     *
+     * Since: 0.1.0
+     */
     signals[ DATA_GET ] =
         g_signal_new ( "data-get",
                        G_TYPE_FROM_CLASS( klass ),
@@ -83,21 +98,24 @@ static void fm_dnd_src_class_init(FmDndSrcClass *klass)
 }
 
 
-static void fm_dnd_src_finalize(GObject *object)
+static void fm_dnd_src_dispose(GObject *object)
 {
     FmDndSrc *ds;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DND_SRC(object));
 
-    ds = FM_DND_SRC(object);
+    ds = (FmDndSrc*)object;
 
     if(ds->files)
-        fm_list_unref(ds->files);
+    {
+        fm_file_info_list_unref(ds->files);
+        ds->files = NULL;
+    }
 
     fm_dnd_src_set_widget(ds, NULL);
 
-    G_OBJECT_CLASS(fm_dnd_src_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_dnd_src_parent_class)->dispose(object);
 }
 
 
@@ -106,7 +124,16 @@ static void fm_dnd_src_init(FmDndSrc *self)
 
 }
 
-
+/**
+ * fm_dnd_src_new
+ * @w: (allow-none): the widget where source files are selected
+ *
+ * Creates new drag source descriptor.
+ *
+ * Returns: (transfer full): a new #FmDndSrc object.
+ *
+ * Since: 0.1.0
+ */
 FmDndSrc *fm_dnd_src_new(GtkWidget* w)
 {
     FmDndSrc* ds = (FmDndSrc*)g_object_new(FM_TYPE_DND_SRC, NULL);
@@ -114,12 +141,22 @@ FmDndSrc *fm_dnd_src_new(GtkWidget* w)
     return ds;
 }
 
+/**
+ * fm_dnd_src_set_widget
+ * @ds: the drag source descriptor
+ * @w: (allow-none): the widget where source files are selected
+ *
+ * Resets drag source widget in @ds.
+ *
+ * Since: 0.1.0
+ */
 void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
 {
     if(w == ds->widget)
         return;
     if(ds->widget) /* there is an old widget connected */
     {
+        g_object_remove_weak_pointer(G_OBJECT(ds->widget), (gpointer*)&ds->widget);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_data_get, ds);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_begin, ds);
         g_signal_handlers_disconnect_by_func(ds->widget, on_drag_end, ds);
@@ -127,22 +164,44 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w)
     ds->widget = w;
     if( w )
     {
-        g_object_add_weak_pointer(G_OBJECT(w), &ds->widget);
+        g_object_add_weak_pointer(G_OBJECT(w), (gpointer*)&ds->widget);
         g_signal_connect(w, "drag-data-get", G_CALLBACK(on_drag_data_get), ds);
         g_signal_connect_after(w, "drag-begin", G_CALLBACK(on_drag_begin), ds);
         g_signal_connect_after(w, "drag-end", G_CALLBACK(on_drag_end), ds);
     }
 }
 
+/**
+ * fm_dnd_src_set_files
+ * @ds: the drag source descriptor
+ * @files: list of files to set
+ *
+ * Sets @files as selection list in the source descriptor.
+ *
+ * Since: 0.1.0
+ */
 void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files)
 {
-    ds->files = fm_list_ref(files);
+    if(ds->files)
+        fm_file_info_list_unref(ds->files);
+    ds->files = fm_file_info_list_ref(files);
 }
 
+/**
+ * fm_dnd_src_set_file
+ * @ds: the drag source descriptor
+ * @file: files to set
+ *
+ * Sets @file as selection in the source descriptor.
+ *
+ * Since: 0.1.0
+ */
 void fm_dnd_src_set_file(FmDndSrc* ds, FmFileInfo* file)
 {
     FmFileInfoList* files = fm_file_info_list_new();
-    fm_list_push_tail(files, file);
+    fm_file_info_list_push_tail(files, file);
+    if(ds->files)
+        fm_file_info_list_unref(ds->files);
     ds->files = files;
 }
 
@@ -167,7 +226,7 @@ on_drag_data_get ( GtkWidget *src_widget,
         /* just store the pointer in GtkSelection since this is used
          * within the same app. */
         gtk_selection_data_set(sel_data, type, 8,
-                                &ds->files, sizeof(gpointer));
+                               (guchar*)&ds->files, sizeof(gpointer));
         break;
     case FM_DND_SRC_TARGET_URI_LIST:
         {
@@ -175,12 +234,11 @@ on_drag_data_get ( GtkWidget *src_widget,
             GString* uri_list = g_string_sized_new( 8192 );
             GList* l;
             FmFileInfo* file;
-            char* full_path;
 
-            for( l = fm_list_peek_head_link(ds->files); l; l=l->next )
+            for( l = fm_file_info_list_peek_head_link(ds->files); l; l=l->next )
             {
-                file = (FmFileInfo*)l->data;
-                uri = fm_path_to_uri(file->path);
+                file = FM_FILE_INFO(l->data);
+                uri = fm_path_to_uri(fm_file_info_get_path(file));
                 g_string_append( uri_list, uri );
                 g_free( uri );
                 g_string_append( uri_list, "\r\n" );
@@ -216,4 +274,3 @@ on_drag_end ( GtkWidget *src_widget,
 {
 
 }
-

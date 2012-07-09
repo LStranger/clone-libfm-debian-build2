@@ -32,7 +32,7 @@ static const char query[] =  G_FILE_ATTRIBUTE_STANDARD_TYPE","
 gboolean _fm_file_ops_job_delete_file(FmJob* job, GFile* gf, GFileInfo* inf)
 {
     GError* err = NULL;
-    FmFileOpsJob* fjob = (FmFileOpsJob*)job;
+    FmFileOpsJob* fjob = FM_FILE_OPS_JOB(job);
     gboolean is_dir, descend;
     GFileInfo* _inf = NULL;
     gboolean ret = FALSE;
@@ -71,7 +71,7 @@ _retry_query_info:
 
     /* show progress */
     ++fjob->finished;
-    fm_file_ops_job_emit_percent(FM_FILE_OPS_JOB(job));
+    fm_file_ops_job_emit_percent(fjob);
 
     is_dir = (g_file_info_get_file_type(inf)==G_FILE_TYPE_DIRECTORY);
 
@@ -110,12 +110,12 @@ _retry_query_info:
                                     fm_job_get_cancellable(job), &err);
         if(!enu)
         {
-            FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+            fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
             g_error_free(err);
-            err = NULL;
             return FALSE;
         }
 
+        fjob->src_folder_mon = NULL;
         if(! g_file_is_native(gf))
             fjob->src_folder_mon = fm_monitor_lookup_dummy_monitor(gf);
 
@@ -133,10 +133,9 @@ _retry_query_info:
             {
                 if(err)
                 {
-                    FmJobErrorAction act = fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
+                    fm_job_emit_error(job, err, FM_JOB_ERROR_MODERATE);
                     /* FM_JOB_RETRY is not supported here */
                     g_error_free(err);
-                    err = NULL;
                     g_object_unref(enu);
                     if(fjob->src_folder_mon)
                         g_object_unref(fjob->src_folder_mon);
@@ -181,7 +180,6 @@ _retry_delete:
                     {
                         g_free(scheme);
                         g_error_free(err);
-                        err = NULL;
                         return TRUE;
                     }
                     g_free(scheme);
@@ -208,51 +206,49 @@ gboolean _fm_file_ops_job_delete_run(FmFileOpsJob* job)
     gboolean ret = TRUE;
     /* prepare the job, count total work needed with FmDeepCountJob */
     FmDeepCountJob* dc = fm_deep_count_job_new(job->srcs, FM_DC_JOB_PREPARE_DELETE);
+    FmJob* fmjob = FM_JOB(job);
+    GFileMonitor* old_mon;
+
     /* let the deep count job share the same cancellable */
-    fm_job_set_cancellable(FM_JOB(dc), fm_job_get_cancellable(FM_JOB(job)));
+    fm_job_set_cancellable(FM_JOB(dc), fm_job_get_cancellable(fmjob));
     fm_job_run_sync(FM_JOB(dc));
     job->total = dc->count;
     g_object_unref(dc);
 
-    if(fm_job_is_cancelled(FM_JOB(job)))
+    if(fm_job_is_cancelled(fmjob))
     {
         g_debug("delete job is cancelled");
         return FALSE;
     }
 
-    g_debug("total number of files to delete: %llu", job->total);
+    g_debug("total number of files to delete: %llu", (long long unsigned int)job->total);
 
     fm_file_ops_job_emit_prepared(job);
 
-    l = fm_list_peek_head_link(job->srcs);
-    for(; ! fm_job_is_cancelled(FM_JOB(job)) && l;l=l->next)
+    old_mon = job->src_folder_mon;
+    l = fm_path_list_peek_head_link(job->srcs);
+    for(; ! fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
-        GFileMonitor* mon;
-        GFile* src = fm_path_to_gfile((FmPath*)l->data);
-        if( g_file_is_native(src) )
-            mon = NULL;
-        else
+        GFile* src = fm_path_to_gfile(FM_PATH(l->data));
+
+        job->src_folder_mon = NULL;
+        if(!g_file_is_native(src))
         {
             GFile* src_dir = g_file_get_parent(src);
             if(src_dir)
             {
-                mon = fm_monitor_lookup_dummy_monitor(src_dir);
-                job->src_folder_mon = mon;
+                job->src_folder_mon = fm_monitor_lookup_dummy_monitor(src_dir);
                 g_object_unref(src_dir);
             }
-            else
-                job->src_folder_mon = mon = NULL;
         }
 
-        ret = _fm_file_ops_job_delete_file(FM_JOB(job), src, NULL);
+        ret = _fm_file_ops_job_delete_file(fmjob, src, NULL);
         g_object_unref(src);
 
-        if(mon)
-        {
-            g_object_unref(mon);
-            job->src_folder_mon = NULL;
-        }
+        if(job->src_folder_mon)
+            g_object_unref(job->src_folder_mon);
     }
+    job->src_folder_mon = old_mon;
     return ret;
 }
 
@@ -263,17 +259,17 @@ gboolean _fm_file_ops_job_trash_run(FmFileOpsJob* job)
     FmPathList* unsupported = fm_path_list_new();
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-    g_debug("total number of files to delete: %u", fm_list_get_length(job->srcs));
-    job->total = fm_list_get_length(job->srcs);
+    g_debug("total number of files to delete: %u", fm_path_list_get_length(job->srcs));
+    job->total = fm_path_list_get_length(job->srcs);
 
     fm_file_ops_job_emit_prepared(job);
 
     /* FIXME: we shouldn't trash a file already in trash:/// */
 
-    l = fm_list_peek_head_link(job->srcs);
+    l = fm_path_list_peek_head_link(job->srcs);
     for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
-        GFile* gf = fm_path_to_gfile((FmPath*)l->data);
+        GFile* gf = fm_path_to_gfile(FM_PATH(l->data));
         GFileInfo* inf;
 _retry_trash:
         inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, 0, fmjob->cancellable, &err);
@@ -294,39 +290,43 @@ _retry_trash:
             goto _on_error;
         }
         ret = g_file_trash(gf, fm_job_get_cancellable(fmjob), &err);
-        g_object_unref(gf);
         if(!ret)
         {
-        _on_error:
+_on_error:
             /* if trashing is not supported by the file system */
             if( err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_SUPPORTED)
-                fm_list_push_tail(unsupported, FM_PATH(l->data));
+                fm_path_list_push_tail(unsupported, FM_PATH(l->data));
             else
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MODERATE);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
                     goto _retry_trash;
                 else if(act == FM_JOB_ABORT)
+                {
+                    g_object_unref(gf);
+                    fm_path_list_unref(unsupported);
                     return FALSE;
+                }
             }
             g_error_free(err);
             err = NULL;
         }
+        g_object_unref(gf);
         ++job->finished;
         fm_file_ops_job_emit_percent(job);
     }
 
     /* these files cannot be trashed due to lack of support from
      * underlying file systems. */
-    if(fm_list_is_empty(unsupported))
-        fm_list_unref(unsupported);
+    if(fm_path_list_is_empty(unsupported))
+        fm_path_list_unref(unsupported);
     else
     {
         /* FIXME: this is a dirty hack to fallback to delete if trash is not available.
          * The API must be re-designed later. */
-        g_object_set_data_full(G_OBJECT(job), "trash-unsupported", unsupported, fm_list_unref);
+        g_object_set_data_full(G_OBJECT(job), "trash-unsupported", unsupported, (GDestroyNotify)fm_path_list_unref);
     }
     return TRUE;
 }
@@ -374,10 +374,10 @@ gboolean _fm_file_ops_job_untrash_run(FmFileOpsJob* job)
     GList* l;
     GError* err = NULL;
     FmJob* fmjob = FM_JOB(job);
-    job->total = fm_list_get_length(job->srcs);
+    job->total = fm_path_list_get_length(job->srcs);
     fm_file_ops_job_emit_prepared(job);
 
-    l = fm_list_peek_head_link(job->srcs);
+    l = fm_path_list_peek_head_link(job->srcs);
     for(; !fm_job_is_cancelled(fmjob) && l;l=l->next)
     {
         GFile* gf;
@@ -399,7 +399,7 @@ _retry_get_orig_path:
                  * This is actually allowed by the horrible trash spec. */
                 GFile* orig_path = g_file_new_for_commandline_arg(orig_path_str);
                 /* ensure the existence of parent folder. */
-                if(ensure_parent_dir(FM_JOB(job), orig_path))
+                if(ensure_parent_dir(fmjob, orig_path))
                     ret = _fm_file_ops_job_move_file(job, gf, inf, orig_path);
                 g_object_unref(orig_path);
             }
@@ -419,7 +419,7 @@ _retry_get_orig_path:
 
             if(err)
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MODERATE);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -431,10 +431,10 @@ _retry_get_orig_path:
                 }
             }
         }
-
+        g_object_unref(gf);
         ++job->finished;
         fm_file_ops_job_emit_percent(job);
     }
 
-    return TRUE;
+    return ret;
 }

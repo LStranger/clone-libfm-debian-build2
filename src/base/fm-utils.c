@@ -2,6 +2,7 @@
  *      fm-utils.c
  *
  *      Copyright 2009 - 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -43,7 +44,7 @@
 #define SI_GB   ((gdouble)1000.0 * 1000.0 * 1000.0)
 #define SI_TB   ((gdouble)1000.0 * 1000.0 * 1000.0 * 1000.0)
 
-char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
+char* fm_file_size_to_str( char* buf, size_t buf_size, goffset size, gboolean si_prefix )
 {
     const char * unit;
     gdouble val;
@@ -52,7 +53,9 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
     {
         if(size < (goffset)SI_KB)
         {
-            sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            snprintf(buf, buf_size,
+                     dngettext(GETTEXT_PACKAGE, "%u byte", "%u bytes", (gulong)size),
+                     (guint)size);
             return buf;
         }
         val = (gdouble)size;
@@ -81,7 +84,9 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
     {
         if(size < (goffset)BI_KiB)
         {
-            sprintf( buf, ngettext("%u byte", "%u bytes", (guint)size), (guint)size);
+            snprintf(buf, buf_size,
+                     dngettext(GETTEXT_PACKAGE, "%u byte", "%u bytes", (gulong)size),
+                     (guint)size);
             return buf;
         }
         val = (gdouble)size;
@@ -106,7 +111,7 @@ char* fm_file_size_to_str( char* buf, goffset size, gboolean si_prefix )
             unit = _("TiB");
         }
     }
-    sprintf( buf, "%.1f %s", val, unit );
+    snprintf( buf, buf_size, "%.1f %s", val, unit );
     return buf;
 }
 
@@ -150,15 +155,13 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
                 {
                     int cwd_len;
                     const char* sep;
-                    if(!cwd)
-                        cwd = _cwd = g_get_current_dir();
 
                     sep = strrchr(cwd, '/');
                     if(sep && sep != cwd)
                         cwd_len = (sep - cwd);
                     else
                         cwd_len = strlen(cwd);
-                    ret = g_realloc(ret, len + cwd_len + 1 - 1);
+                    ret = g_realloc(ret, len - 2 + cwd_len + 1);
                     memcpy(ret, cwd, cwd_len);
                     p = ret + cwd_len;
                 }
@@ -181,13 +184,21 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
                 {
                     int cwd_len;
                     cwd_len = strlen(cwd);
-                    ret = g_realloc(ret, len + cwd_len + 1);
-                    memcpy(ret, cwd, cwd_len + 1);
+                    ret = g_realloc(ret, len - 1 + cwd_len + 1);
+                    memcpy(ret, cwd, cwd_len);
                     p = ret + cwd_len;
                 }
                 ++i;
                 continue;
             }
+        }
+        else if(i == 0 && filename[0] != '/') /* relative path without ./ */
+        {
+            int cwd_len = strlen(cwd);
+            ret = g_realloc(ret, len + 1 + cwd_len + 1);
+            memcpy(ret, cwd, cwd_len);
+            p = ret + cwd_len;
+            *p++ = '/';
         }
         for(; i < len; ++p)
         {
@@ -214,19 +225,78 @@ char* fm_canonicalize_filename(const char* filename, const char* cwd)
     return ret;
 }
 
-char* fm_str_replace(char* str, char* old, char* new)
+char* fm_strdup_replace(char* str, char* old, char* new)
 {
-    int i;
     int len = strlen(str);
     char* found;
     GString* buf = g_string_sized_new(len);
-    while(found = strstr(str, old))
+    while((found = strstr(str, old)))
     {
         g_string_append_len(buf, str, (found - str));
         g_string_append(buf, new);
-        str = found + 1;
+        str = found + strlen(old);
     }
-    for(; *str; ++str)
-        g_string_append_c(buf, *str);
+    g_string_append(buf, str);
     return g_string_free(buf, FALSE);
+}
+
+/**
+ * fm_app_command_parse
+ * @cmd:        line to parse
+ * @opts:       plain list of possible options
+ * @ret:        pointer for resulting string, string should be freed by caller
+ * @user_data:  caller data to pass to callback
+ *
+ * This function parses line that contains some %&lt;char&gt; commands and does
+ * substitutions on them using callbacks provided by caller.
+ *
+ * Return value: number of valid options found in @cmd
+ */
+int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
+                         char** ret, gpointer user_data)
+{
+    const char* ptr = cmd, *c, *ins;
+    GString* buf = g_string_sized_new(256);
+    const FmAppCommandParseOption* opt;
+    int hits = 0;
+
+    for(c = ptr; *c; c++)
+    {
+        if(*c == '%')
+        {
+            if(c[1] == '\0')
+                break;
+            if(c != ptr)
+                g_string_append_len(buf, ptr, c - ptr);
+            ++c;
+            ptr = c + 1;
+            if(*c == '%') /* subst "%%" as "%" */
+            {
+                g_string_append_c(buf, '%');
+                continue;
+            }
+            if(!opts) /* no options available? */
+                continue;
+            for(opt = opts; opt->opt; opt++)
+            {
+                if(opt->opt == *c)
+                {
+                    hits++;
+                    if(opt->callback)
+                    {
+                        ins = opt->callback(*c, user_data);
+                        if(ins && *ins)
+                            g_string_append(buf, ins);
+                        /* FIXME: add support for uri and escaping */
+                    }
+                    break;
+                }
+            }
+            /* FIXME: should invalid options be passed 'as is' or ignored? */
+        }
+    }
+    if(c != ptr)
+        g_string_append_len(buf, ptr, c - ptr);
+    *ret = g_string_free(buf, FALSE);
+    return hits;
 }

@@ -1,7 +1,7 @@
 /*
  *      fm-app-menu-view.c
  *
- *      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+ *      Copyright 2010 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ static GtkTreeStore* store = NULL;
 static MenuCache* menu_cache = NULL;
 static gpointer menu_cache_reload_notify = NULL;
 
-static void destroy_store(gpointer user_data)
+static void destroy_store(gpointer user_data, GObject *obj)
 {
     menu_cache_remove_reload_notify(menu_cache, menu_cache_reload_notify);
     menu_cache_reload_notify = NULL;
@@ -105,7 +105,7 @@ static void add_menu_items(GtkTreeIter* parent_it, MenuCacheDir* dir)
     }
 }
 
-static void on_menu_cache_reload(MenuCache* mc, gpointer user_data)
+static void on_menu_cache_reload(gpointer mc, gpointer user_data)
 {
     g_return_if_fail(store);
     gtk_tree_store_clear(store);
@@ -115,9 +115,9 @@ static void on_menu_cache_reload(MenuCache* mc, gpointer user_data)
         add_menu_items(NULL, dir);
 }
 
-GtkWidget *fm_app_menu_view_new(void)
+GtkTreeView *fm_app_menu_view_new(void)
 {
-    GtkWidget* view;
+    GtkTreeView* view;
     GtkTreeViewColumn* col;
     GtkCellRenderer* render;
 
@@ -130,7 +130,7 @@ GtkWidget *fm_app_menu_view_new(void)
                                             (GBoxedCopyFunc)menu_cache_item_ref,
                                             (GBoxedFreeFunc)menu_cache_item_unref);
         store = gtk_tree_store_new(N_COLS, G_TYPE_ICON, /*GDK_TYPE_PIXBUF, */G_TYPE_STRING, menu_cache_item_type);
-        g_object_weak_ref(G_OBJECT(store), (GWeakNotify)destroy_store, NULL);
+        g_object_weak_ref(G_OBJECT(store), destroy_store, NULL);
 
         /* ensure that we're using lxmenu-data */
         oldenv = g_strdup(g_getenv("XDG_MENU_PREFIX"));
@@ -150,7 +150,7 @@ GtkWidget *fm_app_menu_view_new(void)
     else
         g_object_ref(store);
 
-    view = gtk_tree_view_new_with_model((GtkTreeModel*)store);
+    view = (GtkTreeView*)gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
 
     render = gtk_cell_renderer_pixbuf_new();
     col = gtk_tree_view_column_new();
@@ -162,25 +162,25 @@ GtkWidget *fm_app_menu_view_new(void)
     gtk_tree_view_column_pack_start(col, render, TRUE);
     gtk_tree_view_column_set_attributes(col, render, "text", COL_TITLE, NULL);
 
-    gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
+    gtk_tree_view_append_column(view, col);
 
     g_object_unref(store);
     return view;
 }
 
-GAppInfo* fm_app_menu_view_get_selected_app(GtkTreeView* view)
+GAppInfo* fm_app_menu_view_dup_selected_app(GtkTreeView* view)
 {
-    char* id = fm_app_menu_view_get_selected_app_desktop_id(view);
+    char* id = fm_app_menu_view_dup_selected_app_desktop_id(view);
     if(id)
     {
         GDesktopAppInfo* app = g_desktop_app_info_new(id);
         g_free(id);
-        return app;
+        return G_APP_INFO(app);
     }
     return NULL;
 }
 
-char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view)
+char* fm_app_menu_view_dup_selected_app_desktop_id(GtkTreeView* view)
 {
     GtkTreeIter it;
     GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
@@ -194,7 +194,7 @@ char* fm_app_menu_view_get_selected_app_desktop_id(GtkTreeView* view)
     return NULL;
 }
 
-char* fm_app_menu_view_get_selected_app_desktop_file(GtkTreeView* view)
+char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view)
 {
     GtkTreeIter it;
     GtkTreeSelection* sel = gtk_tree_view_get_selection(view);

@@ -2,14 +2,21 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([libfm], [0.1.17], [http://pcmanfm.sorceforge.net/])
+AC_INIT([libfm], [1.0], [http://pcmanfm.sorceforge.net/])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CC
+AM_PROG_CC_C_O
 AM_PROG_LIBTOOL
+
+# automake 1.12 requires AM_PROG_AR.
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
+
+# Vala
+AM_PROG_VALAC([0.13.0])
 
 # Checks for libraries.
 
@@ -44,12 +51,12 @@ PKG_CHECK_MODULES(GTK, [$pkg_modules])
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
-glib_modules="glib-2.0 >= 2.18.0 gobject-2.0 >= 2.24.0"
+glib_modules="glib-2.0 >= 2.24.0 gobject-2.0 >= 2.26.0"
 PKG_CHECK_MODULES(GLIB, [$glib_modules])
 AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
-gio_modules="gthread-2.0 gio-unix-2.0 >= 2.24.0 glib-2.0 >= 2.24.0 gobject-2.0"
+gio_modules="gthread-2.0 gio-unix-2.0 >= 2.26.0 glib-2.0 >= 2.26.0 gobject-2.0"
 PKG_CHECK_MODULES(GIO, [$gio_modules])
 AC_SUBST(GIO_CFLAGS)
 AC_SUBST(GIO_LIBS)
@@ -100,6 +107,28 @@ if test x"$enable_udisks" = x"yes"; then
     AC_SUBST(DBUS_LIBS)
 fi
 
+AC_ARG_ENABLE([exif],
+    AS_HELP_STRING([--disable-exif],
+        [disable libexif which is used for faster thumbnail loading.]),
+    [enable_exif="${enableval}"],
+    [enable_exif=auto]
+)
+AM_CONDITIONAL(ENABLE_EXIF, test x"$enable_exif" != x"no")
+AS_IF([test x"$enable_exif" != x"no"], [
+    # test for availability of libexif
+    exif_modules="libexif"
+    PKG_CHECK_MODULES(EXIF, [$exif_modules],
+        [# turn on libexif support
+        enable_exif=yes
+        AC_DEFINE_UNQUOTED(USE_EXIF, [1], [Enable libexif])
+        AC_SUBST(EXIF_CFLAGS)
+        AC_SUBST(EXIF_LIBS)],
+        [AS_IF([test x"$enable_exif" = x"auto"], [enable_exif=no], [
+            AC_ERROR([Package requirements (libexif) were not met:
+
+$EXIF_PKG_ERRORS
+])])])])
+
 #check for gtk-doc
 GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
 
@@ -120,6 +149,13 @@ AC_ARG_ENABLE(debug,
 if test "$enable_debug" = "yes"; then
     # turn on debug and disable optimization
     CPPFLAGS="$CPPFLAGS -DG_ENABLE_DEBUG -O0 -g"
+    case "$CC" in
+    gcc*)
+        CPPFLAGS="$CPPFLAGS -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers"
+        ;;
+    *)
+        ;;
+    esac
 else
     # turn off glib debug checks
     CPPFLAGS="$CPPFLAGS -DG_DISABLE_ASSERT -DG_DISABLE_CHECKS -DG_DISABLE_CAST_CHECKS"
@@ -146,11 +182,19 @@ done
 AM_GLIB_GNU_GETTEXT
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package.])
 
+dnl Fix invalid sysconfdir when --prefix=/usr
+if test `eval "echo $sysconfdir"` = /usr/etc
+then
+    sysconfdir=/etc
+fi
+
 AC_CONFIG_FILES([
     Makefile
     src/Makefile
+    src/actions/Makefile
     src/tests/Makefile
     data/Makefile
+    data/libfm-pref-apps.1
     data/ui/Makefile
     po/Makefile.in
     docs/Makefile
@@ -170,6 +214,7 @@ echo "prefix:                                                 $prefix"
 echo "sysconfdir:                                             $sysconfdir"
 echo "Enable compiler flags and other support for debugging:  $enable_debug"
 echo "Build udisks support (Linux only, experimental):        $enable_udisks"
+echo "Build with libexif for faster thumbnail loading:        $enable_exif"
 echo "Build demo program src/demo/libfm-demo:                 $enable_demo"
 echo "Large file support:                                     $largefile"
 if test x"$have_scheme_handler" = x"no"; then
@@ -184,7 +229,7 @@ echo
 if test x"$sysconfdir" != x'/etc'; then
     echo
     echo
-    echo 'Error: sysconfdir is not /etc.'
+    echo 'Warning: sysconfdir is not /etc.'
     echo 'Please consider passing --sysconfdir=/etc to configure.';
     echo 'Otherwise default config files will be installed to wrong place.'
     echo

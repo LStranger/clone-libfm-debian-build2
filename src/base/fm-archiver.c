@@ -80,7 +80,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
         }
 
         /* replace all % with %% so encoded URI can be handled correctly when parsing Exec key. */
-        tmp = fm_str_replace(dir_str, "%", "%%");
+        tmp = fm_strdup_replace(dir_str, "%", "%%");
         g_free(dir_str);
         dir_str = tmp;
 
@@ -106,14 +106,14 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
 
     /* replace all % with %% so encoded URI can be handled correctly when parsing Exec key. */
     g_key_file_set_string(dummy, G_KEY_FILE_DESKTOP_GROUP, "Exec", cmd);
-    app = g_desktop_app_info_new_from_keyfile(dummy);
+    app = (GAppInfo*)g_desktop_app_info_new_from_keyfile(dummy);
 
     g_key_file_free(dummy);
     g_debug("cmd = %s", cmd);
     if(app)
     {
         GList* uris = NULL, *l;
-        for(l = fm_list_peek_head_link(files); l; l=l->next)
+        for(l = fm_path_list_peek_head_link(files); l; l=l->next)
         {
             FmPath* path = FM_PATH(l->data);
             uris = g_list_prepend(uris, fm_path_to_uri(path));
@@ -121,6 +121,7 @@ static gboolean launch_program(FmArchiver* archiver, GAppLaunchContext* ctx, con
         fm_app_info_launch_uris(app, uris, ctx, NULL);
         g_list_foreach(uris, (GFunc)g_free, NULL);
         g_list_free(uris);
+        g_object_unref(app);
     }
     g_free(_cmd);
     return TRUE;
@@ -193,7 +194,7 @@ void fm_archiver_set_default(FmArchiver* archiver)
 }
 
 /* get a list of FmArchiver* of all GUI archivers known to libfm */
-GList* fm_archiver_get_all()
+const GList* fm_archiver_get_all()
 {
     return archivers;
 }
@@ -203,11 +204,11 @@ void _fm_archiver_init()
     GKeyFile *kf = g_key_file_new();
     if(g_key_file_load_from_file(kf, PACKAGE_DATA_DIR "/archivers.list", 0, NULL))
     {
-        int n_archivers;
-        char** programs = g_key_file_get_groups(kf, &n_archivers);
+        gsize n_archivers;
+        gchar** programs = g_key_file_get_groups(kf, &n_archivers);
         if(programs)
         {
-            int i;
+            gsize i;
             for(i = 0; i < n_archivers; ++i)
             {
                 FmArchiver* archiver = g_slice_new0(FmArchiver);

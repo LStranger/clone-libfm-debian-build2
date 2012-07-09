@@ -46,7 +46,7 @@ gboolean fm_ok_cancel(GtkWindow* parent, const char* title, const char* question
 /* Ask the user a question with a NULL-terminated array of
  * options provided. The return value was index of the selected option. */
 int fm_ask(GtkWindow* parent, const char* title, const char* question, ...);
-int fm_askv(GtkWindow* parent, const char* title, const char* question, const char** options);
+int fm_askv(GtkWindow* parent, const char* title, const char* question, char* const* options);
 int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va_list options);
 
 char* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text);
@@ -54,6 +54,13 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
 
 /* Ask the user to select a folder. */
 FmPath* fm_select_folder(GtkWindow* parent, const char* title);
+/* TODO: support selecting multiple files */
+FmPath* fm_select_file(GtkWindow* parent, 
+						const char* title,
+						const char* default_folder,
+						gboolean local_only,
+						gboolean show_preview,
+						/* filter1, filter2, ..., NULL */ ...);
 
 /* Mount */
 gboolean fm_mount_path(GtkWindow* parent, FmPath* path, gboolean interactive);
@@ -66,21 +73,22 @@ gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive);
 /* File operations */
 void fm_copy_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir);
 void fm_move_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir);
+void fm_link_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir);
 
 #define fm_copy_file(parent, file, dest_dir) \
     G_STMT_START {    \
         FmPathList* files = fm_path_list_new(); \
-        fm_list_push_tail(files, file); \
+        fm_path_list_push_tail(files, file); \
         fm_copy_files(parent, files, dest_dir); \
-        fm_list_unref(files);   \
+        fm_path_list_unref(files);   \
     } G_STMT_END
 
 #define fm_move_file(parent, file, dest_dir) \
     G_STMT_START {    \
     FmPathList* files = fm_path_list_new(); \
-    fm_list_push_tail(files, file); \
+    fm_path_list_push_tail(files, file); \
     fm_move_files(parent, files, dest_dir); \
-    fm_list_unref(files);   \
+    fm_path_list_unref(files);   \
     } G_STMT_END
 
 void fm_move_or_copy_files_to(GtkWindow* parent, FmPathList* files, gboolean is_move);
@@ -98,6 +106,9 @@ void fm_untrash_files(GtkWindow* parent, FmPathList* files);
 void fm_rename_file(GtkWindow* parent, FmPath* file);
 
 void fm_empty_trash(GtkWindow* parent);
+
+void fm_set_busy_cursor(GtkWidget* widget);
+void fm_unset_busy_cursor(GtkWidget* widget);
 
 G_END_DECLS
 

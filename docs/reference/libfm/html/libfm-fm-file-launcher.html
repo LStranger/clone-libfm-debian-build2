@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-file-launcher</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="FmConfig.html" title="FmConfig">
-<link rel="next" href="FmBookmarks.html" title="FmBookmarks">
+<link rel="up" href="libfm-core.html" title="Libfm Core Reference.">
+<link rel="prev" href="libfm-fm-file-info.html" title="fm-file-info">
+<link rel="next" href="FmFolder.html" title="FmFolder">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="FmConfig.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-fm-file-info.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmBookmarks.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="FmFolder.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#libfm-fm-file-launcher.synopsis" class="shortcut">Top</a>
@@ -38,6 +38,7 @@
 <div class="refsynopsisdiv">
 <a name="libfm-fm-file-launcher.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="libfm-fm-file-launcher.html#FmFileLauncher" title="struct FmFileLauncher">FmFileLauncher</a>;
+enum                <a class="link" href="libfm-fm-file-launcher.html#FmFileLauncherExecAction" title="enum FmFileLauncherExecAction">FmFileLauncherExecAction</a>;
 <span class="returnvalue">gboolean</span>            (<a class="link" href="libfm-fm-file-launcher.html#FmLaunchFolderFunc" title="FmLaunchFolderFunc ()">*FmLaunchFolderFunc</a>)               (<em class="parameter"><code><span class="type">GAppLaunchContext</span> *ctx</code></em>,
                                                          <em class="parameter"><code><span class="type">GList</span> *folder_infos</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
@@ -70,8 +71,19 @@
     gboolean (*open_folder)(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err);
     FmFileLauncherExecAction (*exec_file)(FmFileInfo* file, gpointer user_data);
     gboolean (*error)(GAppLaunchContext* ctx, GError* err, gpointer user_data);
-    int (*ask)(const char* msg, const char** btn_labels, int default_btn, gpointer user_data);
+    int (*ask)(const char* msg, char* const* btn_labels, int default_btn, gpointer user_data);
 };
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmFileLauncherExecAction"></a><h3>enum FmFileLauncherExecAction</h3>
+<pre class="programlisting">typedef enum {
+    FM_FILE_LAUNCHER_EXEC = 1,
+    FM_FILE_LAUNCHER_EXEC_IN_TERMINAL,
+    FM_FILE_LAUNCHER_EXEC_OPEN,
+    FM_FILE_LAUNCHER_EXEC_CANCEL
+} FmFileLauncherExecAction;
 </pre>
 </div>
 <hr>

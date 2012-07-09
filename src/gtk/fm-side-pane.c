@@ -17,6 +17,17 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+/**
+ * SECTION:fm-side-pane
+ * @short_description: A widget for side pane displaying
+ * @title: FmSidePane
+ *
+ * @include: libfm/fm-side-pane.h
+ *
+ * The #FmSidePane widget displays side pane for fast navigation across
+ * places.
+ */
+
 #include <config.h>
 
 #include "fm-side-pane.h"
@@ -52,7 +63,7 @@ static GtkRadioActionEntry menu_actions[]=
 };
 
 
-static void fm_side_pane_finalize            (GObject *object);
+static void fm_side_pane_dispose            (GObject *object);
 
 G_DEFINE_TYPE(FmSidePane, fm_side_pane, GTK_TYPE_VBOX)
 
@@ -62,8 +73,19 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
     GObjectClass *g_object_class;
 
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_side_pane_finalize;
+    g_object_class->dispose = fm_side_pane_dispose;
 
+    /**
+     * FmSidePane::chdir:
+     * @pane: the widget which emitted the signal
+     * @button: the button path was activated with
+     * @path: (#FmPath *) new directory path
+     *
+     * The #FmSidePane::chdir signal is emitted when current selected
+     * directory in the @pane is changed.
+     *
+     * Since: 0.1.12
+     */
     signals[CHDIR] =
         g_signal_new("chdir",
                      G_TYPE_FROM_CLASS(klass),
@@ -73,6 +95,15 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
                      g_cclosure_marshal_VOID__UINT_POINTER,
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 
+    /**
+     * FmSidePane::mode-changed:
+     * @pane: the widget which emitted the signal
+     *
+     * The #FmSidePane::mode-changed signal is emitted when view mode
+     * in the pane is changed.
+     *
+     * Since: 0.1.12
+     */
     signals[MODE_CHANGED] =
         g_signal_new("mode-changed",
                      G_TYPE_FROM_CLASS(klass),
@@ -84,37 +115,19 @@ static void fm_side_pane_class_init(FmSidePaneClass *klass)
 }
 
 
-static void fm_side_pane_finalize(GObject *object)
-{
-    FmSidePane *sp;
-    g_return_if_fail(object != NULL);
-    g_return_if_fail(FM_IS_SIDE_PANE(object));
-    sp = FM_SIDE_PANE(object);
-
-    if(sp->cwd)
-        fm_path_unref(sp->cwd);
-
-    g_object_unref(sp->ui);
-
-    G_OBJECT_CLASS(fm_side_pane_parent_class)->finalize(object);
-}
-
 /* Adopted from gtk/gtkmenutoolbutton.c
  * Copyright (C) 2003 Ricardo Fernandez Pascual
  * Copyright (C) 2004 Paolo Borelli
  */
-static void menu_position_func(GtkMenu *menu, int *x, int *y, gboolean *push_in, GtkButton *button)
+static void menu_position_func(GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer button)
 {
     GtkWidget *widget = GTK_WIDGET(button);
-    GtkRequisition req;
     GtkRequisition menu_req;
-    GtkTextDirection direction;
     GdkRectangle monitor;
     gint monitor_num;
     GdkScreen *screen;
 
     gtk_widget_size_request (GTK_WIDGET (menu), &menu_req);
-    direction = gtk_widget_get_direction (widget);
 
     /* make the menu as wide as the button when needed */
     if(menu_req.width < GTK_WIDGET(button)->allocation.width)
@@ -151,7 +164,7 @@ static void menu_position_func(GtkMenu *menu, int *x, int *y, gboolean *push_in,
 
 static void on_menu_btn_clicked(GtkButton* btn, FmSidePane* sp)
 {
-    gtk_menu_popup(sp->menu, NULL, NULL,
+    gtk_menu_popup((GtkMenu *)sp->menu, NULL, NULL,
                    menu_position_func, btn,
                    1, gtk_get_current_event_time());
 }
@@ -200,19 +213,48 @@ static void fm_side_pane_init(FmSidePane *sp)
     gtk_widget_show_all(GTK_WIDGET(sp));
 }
 
-
-GtkWidget *fm_side_pane_new(void)
+/**
+ * fm_side_pane_new
+ *
+ * Creates new side pane.
+ *
+ * Returns: (transfer full): a new #FmSidePane widget.
+ *
+ * Since: 0.1.12
+ */
+FmSidePane *fm_side_pane_new(void)
 {
     return g_object_new(FM_TYPE_SIDE_PANE, NULL);
 }
 
+/**
+ * fm_side_pane_get_cwd
+ * @sp: a widget to inspect
+ *
+ * Retrieves current active path in the side pane. Returned data are
+ * owned by side pane and should not be freed by caller.
+ *
+ * Returns: active file path.
+ *
+ * Since: 0.1.12
+ */
 FmPath* fm_side_pane_get_cwd(FmSidePane* sp)
 {
     return sp->cwd;
 }
 
+/**
+ * fm_side_pane_chdir
+ * @sp: a widget to apply
+ * @path: new path
+ *
+ * Changes active path in the side pane.
+ *
+ * Since: 0.1.12
+ */
 void fm_side_pane_chdir(FmSidePane* sp, FmPath* path)
 {
+    g_return_if_fail(sp->view != NULL);
     if(sp->cwd)
         fm_path_unref(sp->cwd);
     sp->cwd = fm_path_ref(path);
@@ -220,7 +262,7 @@ void fm_side_pane_chdir(FmSidePane* sp, FmPath* path)
     switch(sp->mode)
     {
     case FM_SP_PLACES:
-        fm_places_chdir(FM_PLACES_VIEW(sp->view), path);
+        fm_places_view_chdir(FM_PLACES_VIEW(sp->view), path);
         break;
     case FM_SP_DIR_TREE:
         fm_dir_tree_view_chdir(FM_DIR_TREE_VIEW(sp->view), path);
@@ -252,7 +294,51 @@ static void on_dirtree_chdir(FmDirTreeView* view, guint button, FmPath* path, Fm
     g_signal_emit(sp, signals[CHDIR], 0, button, path);
 }
 
-void init_dir_tree(FmSidePane* sp)
+static void fm_side_pane_dispose(GObject *object)
+{
+    FmSidePane *sp;
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_SIDE_PANE(object));
+    sp = (FmSidePane*)object;
+
+    if(sp->menu_btn)
+    {
+        g_signal_handlers_disconnect_by_func(sp->menu_btn, on_menu_btn_clicked, sp);
+        sp->menu_btn = NULL;
+    }
+
+    if(sp->cwd)
+    {
+        fm_path_unref(sp->cwd);
+        sp->cwd = NULL;
+    }
+
+    if(sp->ui)
+    {
+        g_object_unref(sp->ui);
+        sp->ui = NULL;
+    }
+
+    if(sp->view)
+    {
+        switch(sp->mode)
+        {
+        case FM_SP_PLACES:
+            g_signal_handlers_disconnect_by_func(sp->view, on_places_chdir, sp);
+            break;
+        case FM_SP_DIR_TREE:
+            g_signal_handlers_disconnect_by_func(sp->view, on_dirtree_chdir, sp);
+            break;
+        default: ; /* other values are impossible, otherwise it's a bug */
+        }
+        gtk_widget_destroy(sp->view);
+        sp->view = NULL;
+    }
+
+    G_OBJECT_CLASS(fm_side_pane_parent_class)->dispose(object);
+}
+
+static void init_dir_tree(FmSidePane* sp)
 {
     if(dir_tree_model)
         g_object_ref(dir_tree_model);
@@ -269,19 +355,28 @@ void init_dir_tree(FmSidePane* sp)
         fm_job_run_sync_with_mainloop(FM_JOB(job));
 
         dir_tree_model = fm_dir_tree_model_new();
-        for(l = fm_list_peek_head_link(job->file_infos); l; l = l->next)
+        for(l = fm_file_info_list_peek_head_link(job->file_infos); l; l = l->next)
         {
             FmFileInfo* fi = FM_FILE_INFO(l->data);
             fm_dir_tree_model_add_root(dir_tree_model, fi, NULL);
         }
         g_object_unref(job);
 
-        g_object_add_weak_pointer(dir_tree_model, &dir_tree_model);
+        g_object_add_weak_pointer((GObject*)dir_tree_model, (gpointer*)&dir_tree_model);
     }
-    gtk_tree_view_set_model(FM_DIR_TREE_VIEW(sp->view), dir_tree_model);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(sp->view), GTK_TREE_MODEL(dir_tree_model));
     g_object_unref(dir_tree_model);
 }
 
+/**
+ * fm_side_pane_set_mode
+ * @sp: a widget to apply
+ * @mode: new mode for the side pane
+ *
+ * Changes side pane view mode.
+ *
+ * Since: 0.1.12
+ */
 void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
 {
     if(mode == sp->mode)
@@ -296,8 +391,8 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
     case FM_SP_PLACES:
         gtk_label_set_text(GTK_LABEL(sp->menu_label), _("Places"));
         /* create places view */
-        sp->view = fm_places_view_new();
-        fm_places_chdir(FM_PLACES_VIEW(sp->view), sp->cwd);
+        sp->view = (GtkWidget*)fm_places_view_new();
+        fm_places_view_chdir(FM_PLACES_VIEW(sp->view), sp->cwd);
         gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sp->scroll),
                 GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
@@ -306,7 +401,7 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
     case FM_SP_DIR_TREE:
         gtk_label_set_text(GTK_LABEL(sp->menu_label), _("Directory Tree"));
         /* create a dir tree */
-        sp->view = fm_dir_tree_view_new();
+        sp->view = (GtkWidget*)fm_dir_tree_view_new();
         init_dir_tree(sp);
         fm_dir_tree_view_chdir(FM_DIR_TREE_VIEW(sp->view), sp->cwd);
 
@@ -319,7 +414,6 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
         sp->view = NULL;
         /* not implemented */
         return;
-        break;
     }
     gtk_widget_show(sp->view);
     gtk_container_add(GTK_CONTAINER(sp->scroll), sp->view);
@@ -327,15 +421,35 @@ void fm_side_pane_set_mode(FmSidePane* sp, FmSidePaneMode mode)
     g_signal_emit(sp, signals[MODE_CHANGED], 0);
 
     /* update the popup menu */
-    gtk_radio_action_set_current_value(gtk_ui_manager_get_action(sp->ui, "/popup/Places"),
+    gtk_radio_action_set_current_value((GtkRadioAction*)gtk_ui_manager_get_action(sp->ui, "/popup/Places"),
                                        sp->mode);
 }
 
+/**
+ * fm_side_pane_get_mode
+ * @sp: a widget to inspect
+ *
+ * Retrieves side pane view mode.
+ *
+ * Returns: current view mode.
+ *
+ * Since: 0.1.12
+ */
 FmSidePaneMode fm_side_pane_get_mode(FmSidePane* sp)
 {
     return sp->mode;
 }
 
+/**
+ * fm_side_pane_get_title_bar
+ * @sp: a widget to inspect
+ *
+ * Retrieves side pane title bar widget.
+ *
+ * Returns: (transfer none): pointer to title bar of side pane.
+ *
+ * Since: 0.1.14
+ */
 GtkWidget* fm_side_pane_get_title_bar(FmSidePane* sp)
 {
     return sp->title_bar;

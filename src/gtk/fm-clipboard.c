@@ -48,7 +48,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     {
         /* set application/kde-cutselection data */
         if(is_cut)
-            gtk_selection_data_set(sel, sel->target, 8, "1", 2);
+            gtk_selection_data_set(sel, sel->target, 8, (guchar*)"1", 2);
         return;
     }
 
@@ -57,7 +57,7 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
         g_string_append(uri_list, is_cut ? "cut\n" : "copy\n");
     if(info == UTF8_STRING)
     {
-        GList* l = fm_list_peek_head_link(files);
+        GList* l = fm_path_list_peek_head_link(files);
         while(l)
         {
             FmPath* path = (FmPath*)l->data;
@@ -72,14 +72,14 @@ static void get_data(GtkClipboard *clip, GtkSelectionData *sel, guint info, gpoi
     {
         fm_path_list_write_uri_list(files, uri_list);
     }
-    gtk_selection_data_set(sel, sel->target, 8, uri_list->str, uri_list->len + 1);
+    gtk_selection_data_set(sel, sel->target, 8, (guchar*)uri_list->str, uri_list->len + 1);
     g_string_free(uri_list, TRUE);
 }
 
 static void clear_data(GtkClipboard* clip, gpointer user_data)
 {
     FmPathList* files = (FmPathList*)user_data;
-    fm_list_unref(files);
+    fm_path_list_unref(files);
     is_cut = FALSE;
 }
 
@@ -88,12 +88,12 @@ gboolean fm_clipboard_cut_or_copy_files(GtkWidget* src_widget, FmPathList* files
     GdkDisplay* dpy = src_widget ? gtk_widget_get_display(src_widget) : gdk_display_get_default();
     GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
     gboolean ret = gtk_clipboard_set_with_data(clip, targets, G_N_ELEMENTS(targets),
-                                               get_data, clear_data, fm_list_ref(files));
+                                               get_data, clear_data, fm_path_list_ref(files));
     is_cut = _is_cut;
     return ret;
 }
 
-gboolean check_kde_curselection(GtkClipboard* clip)
+static gboolean check_kde_curselection(GtkClipboard* clip)
 {
     /* Check application/x-kde-cutselection:
      * If the content of this format is string "1", that means the
@@ -115,7 +115,7 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
     GdkDisplay* dpy = dest_widget ? gtk_widget_get_display(dest_widget) : gdk_display_get_default();
     GtkClipboard* clip = gtk_clipboard_get_for_display(dpy, GDK_SELECTION_CLIPBOARD);
     FmPathList* files;
-    char** uris, **uri;
+    char** uris;
     GdkAtom atom;
     int type = 0;
     GdkAtom *avail_targets;
@@ -200,23 +200,23 @@ gboolean fm_clipboard_paste_files(GtkWidget* dest_widget, FmPath* dest_dir)
 
         if(uris)
         {
-            GtkWindow* parent;
+            GtkWidget* parent;
             if(dest_widget)
-                parent = gtk_widget_get_toplevel(GTK_WIDGET(dest_widget));
+                parent = gtk_widget_get_toplevel(dest_widget);
             else
                 parent = NULL;
 
-            files = fm_path_list_new_from_uris((const char **)uris);
+            files = fm_path_list_new_from_uris(uris);
             g_strfreev(uris);
 
-            if(!fm_list_is_empty(files))
+            if(!fm_path_list_is_empty(files))
             {
                 if( is_cut )
-                    fm_move_files(parent, files, dest_dir);
+                    fm_move_files(GTK_WINDOW(parent), files, dest_dir);
                 else
-                    fm_copy_files(parent, files, dest_dir);
+                    fm_copy_files(GTK_WINDOW(parent), files, dest_dir);
             }
-            fm_list_unref(files);
+            fm_path_list_unref(files);
             return TRUE;
         }
     }

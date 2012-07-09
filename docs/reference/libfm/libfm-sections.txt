@@ -6,9 +6,119 @@ fm_qdata_id
 </SECTION>
 
 <SECTION>
+<FILE>fm-actions</FILE>
+<SUBSECTION Private>
+<TITLE>FmFileAction</TITLE>
+<TITLE>FmFileActionItem</TITLE>
+<TITLE>FmFileActionMenu</TITLE>
+<TITLE>FmFileActionObject</TITLE>
+FmFileAction
+FmFileActionCapability
+FmFileActionClass
+FmFileActionCondition
+FmFileActionExecMode
+FmFileActionItem
+FmFileActionItemClass
+FmFileActionMenu
+FmFileActionMenuClass
+FmFileActionObject
+FmFileActionObjectClass
+FmFileActionProfile
+FmFileActionTarget
+FmFileActionType
+fm_file_action_condition_free
+fm_file_action_condition_match
+fm_file_action_condition_new
+fm_file_action_construct
+fm_file_action_construct_from_keyfile
+fm_file_action_item_construct_from_action
+fm_file_action_item_construct_from_menu
+fm_file_action_item_get_desc
+fm_file_action_item_get_icon
+fm_file_action_item_get_id
+fm_file_action_item_get_name
+fm_file_action_item_get_sub_items
+fm_file_action_item_get_target
+fm_file_action_item_is_action
+fm_file_action_item_is_menu
+fm_file_action_item_launch
+fm_file_action_item_new_for_action_object
+fm_file_action_item_new_from_action
+fm_file_action_item_new_from_menu
+fm_file_action_item_ref
+fm_file_action_item_unref
+fm_file_action_match
+fm_file_action_menu_cache_children
+fm_file_action_menu_construct
+fm_file_action_menu_construct_from_keyfile
+fm_file_action_menu_match
+fm_file_action_menu_new
+fm_file_action_menu_new_from_keyfile
+fm_file_action_new
+fm_file_action_new_from_keyfile
+fm_file_action_object_construct
+fm_file_action_object_construct_from_key_file
+fm_file_action_object_new
+fm_file_action_object_new_from_key_file
+fm_file_action_parameters_expand
+fm_file_action_parameters_is_plural
+fm_file_action_profile_free
+fm_file_action_profile_launch
+fm_file_action_profile_match
+fm_file_action_profile_new
+fm_file_actions_set_desktop_env
+fm_get_actions_for_files
+fm_param_spec_file_action_item
+fm_value_get_file_action_item
+fm_value_set_file_action_item
+fm_value_take_file_action_item
+<SUBSECTION Standard>
+FM_FILE_ACTION
+FM_FILE_ACTION_CLASS
+FM_FILE_ACTION_GET_CLASS
+FM_FILE_ACTION_ITEM
+FM_FILE_ACTION_ITEM_CLASS
+FM_FILE_ACTION_ITEM_GET_CLASS
+FM_FILE_ACTION_MENU
+FM_FILE_ACTION_MENU_CLASS
+FM_FILE_ACTION_MENU_GET_CLASS
+FM_FILE_ACTION_OBJECT
+FM_FILE_ACTION_OBJECT_CLASS
+FM_FILE_ACTION_OBJECT_GET_CLASS
+FM_IS_FILE_ACTION
+FM_IS_FILE_ACTION_CLASS
+FM_IS_FILE_ACTION_ITEM
+FM_IS_FILE_ACTION_ITEM_CLASS
+FM_IS_FILE_ACTION_MENU
+FM_IS_FILE_ACTION_MENU_CLASS
+FM_IS_FILE_ACTION_OBJECT
+FM_IS_FILE_ACTION_OBJECT_CLASS
+FM_TYPE_FILE_ACTION
+FM_TYPE_FILE_ACTION_CAPABILITY
+FM_TYPE_FILE_ACTION_EXEC_MODE
+FM_TYPE_FILE_ACTION_ITEM
+FM_TYPE_FILE_ACTION_MENU
+FM_TYPE_FILE_ACTION_OBJECT
+FM_TYPE_FILE_ACTION_TARGET
+FM_TYPE_FILE_ACTION_TYPE
+FmFileActionItemPrivate
+FmFileActionMenuPrivate
+FmFileActionObjectPrivate
+FmFileActionPrivate
+fm_file_action_capability_get_type
+fm_file_action_exec_mode_get_type
+fm_file_action_get_type
+fm_file_action_item_get_type
+fm_file_action_menu_get_type
+fm_file_action_object_get_type
+fm_file_action_target_get_type
+fm_file_action_type_get_type
+</SECTION>
+
+<SECTION>
 <FILE>fm-app-chooser-combo-box</FILE>
+fm_app_chooser_combo_box_dup_selected_app
 fm_app_chooser_combo_box_get_custom_apps
-fm_app_chooser_combo_box_get_selected
 fm_app_chooser_combo_box_setup
 fm_app_chooser_combo_box_setup_custom
 fm_app_chooser_combo_box_setup_for_mime_type
@@ -16,7 +126,7 @@ fm_app_chooser_combo_box_setup_for_mime_type
 
 <SECTION>
 <FILE>fm-app-chooser-dlg</FILE>
-fm_app_chooser_dlg_get_selected_app
+fm_app_chooser_dlg_dup_selected_app
 fm_app_chooser_dlg_new
 fm_choose_app_for_mime_type
 </SECTION>
@@ -31,9 +141,9 @@ fm_app_info_launch_uris
 
 <SECTION>
 <FILE>fm-app-menu-view</FILE>
-fm_app_menu_view_get_selected_app
-fm_app_menu_view_get_selected_app_desktop_file
-fm_app_menu_view_get_selected_app_desktop_id
+fm_app_menu_view_dup_selected_app
+fm_app_menu_view_dup_selected_app_desktop_file_path
+fm_app_menu_view_dup_selected_app_desktop_id
 fm_app_menu_view_is_app_selected
 fm_app_menu_view_is_item_app
 fm_app_menu_view_new
@@ -59,7 +169,7 @@ FmBookmarkItem
 FmBookmarks
 FmBookmarksClass
 fm_bookmarks_append
-fm_bookmarks_get
+fm_bookmarks_dup
 fm_bookmarks_insert
 fm_bookmarks_list_all
 fm_bookmarks_remove
@@ -68,8 +178,8 @@ fm_bookmarks_reorder
 <SUBSECTION Standard>
 FM_BOOKMARKS
 FM_BOOKMARKS_CLASS
-IS_FM_BOOKMARKS
-IS_FM_BOOKMARKS_CLASS
+FM_IS_BOOKMARKS
+FM_IS_BOOKMARKS_CLASS
 fm_bookmarks_get_type
 </SECTION>
 
@@ -99,8 +209,8 @@ fm_cell_renderer_text_new
 <SUBSECTION Standard>
 FM_CELL_RENDERER_TEXT
 FM_CELL_RENDERER_TEXT_CLASS
-IS_FM_CELL_RENDERER_TEXT
-IS_FM_CELL_RENDERER_TEXT_CLASS
+FM_IS_CELL_RENDERER_TEXT
+FM_IS_CELL_RENDERER_TEXT_CLASS
 fm_cell_renderer_text_get_type
 </SECTION>
 
@@ -137,8 +247,8 @@ fm_config_save
 <SUBSECTION Standard>
 FM_CONFIG
 FM_CONFIG_CLASS
-IS_FM_CONFIG
-IS_FM_CONFIG_CLASS
+FM_IS_CONFIG
+FM_IS_CONFIG_CLASS
 fm_config_get_type
 </SECTION>
 
@@ -148,13 +258,14 @@ fm_config_get_type
 FM_DEEP_COUNT_JOB_TYPE
 FmDeepCountJob
 FmDeepCountJobClass
+FmDeepCountJobFlags
 fm_deep_count_job_new
 fm_deep_count_job_set_dest
 <SUBSECTION Standard>
 FM_DEEP_COUNT_JOB
 FM_DEEP_COUNT_JOB_CLASS
-IS_FM_DEEP_COUNT_JOB
-IS_FM_DEEP_COUNT_JOB_CLASS
+FM_IS_DEEP_COUNT_JOB
+FM_IS_DEEP_COUNT_JOB_CLASS
 fm_deep_count_job_get_type
 </SECTION>
 
@@ -180,14 +291,18 @@ fm_dir_list_job_get_type
 <TITLE>FmDirTreeModel</TITLE>
 FmDirTreeModel
 FmDirTreeModelClass
-fm_dir_tree_get_icon_size
+FmDirTreeModelCol
 fm_dir_tree_model_add_root
-fm_dir_tree_model_collapse_row
-fm_dir_tree_model_expand_row
-fm_dir_tree_model_get_show_hidden
+fm_dir_tree_model_get_icon_size
+fm_dir_tree_model_load_row
 fm_dir_tree_model_new
 fm_dir_tree_model_set_icon_size
-fm_dir_tree_model_set_show_hidden
+fm_dir_tree_model_unload_row
+fm_dir_tree_row_get_disp_name
+fm_dir_tree_row_get_file_info
+fm_dir_tree_row_get_file_path
+fm_dir_tree_row_get_icon
+fm_dir_tree_row_is_loaded
 <SUBSECTION Standard>
 FM_DIR_TREE_MODEL
 FM_DIR_TREE_MODEL_CLASS
@@ -225,7 +340,9 @@ fm_dnd_unset_dest_auto_scroll
 <SECTION>
 <FILE>fm-dnd-dest</FILE>
 <TITLE>FmDndDest</TITLE>
+FmDndDest
 FmDndDestClass
+FmDndDestTargetType
 fm_dnd_dest_drag_data_received
 fm_dnd_dest_drag_drop
 fm_dnd_dest_drag_leave
@@ -233,7 +350,6 @@ fm_dnd_dest_find_target
 fm_dnd_dest_get_default_action
 fm_dnd_dest_get_dest_file
 fm_dnd_dest_get_dest_path
-fm_dnd_dest_get_src_files
 fm_dnd_dest_is_target_supported
 fm_dnd_dest_new
 fm_dnd_dest_set_dest_file
@@ -254,7 +370,7 @@ fm_dnd_dest_get_type
 <TITLE>FmDndSrc</TITLE>
 FmDndSrc
 FmDndSrcClass
-fm_dnd_src_get_files
+FmDndSrcTarget
 fm_dnd_src_new
 fm_dnd_src_set_file
 fm_dnd_src_set_files
@@ -271,15 +387,15 @@ fm_dnd_src_get_type
 <SECTION>
 <FILE>fm-dummy-monitor</FILE>
 <TITLE>FmDummyMonitor</TITLE>
-FM_DUMMY_MONITOR_TYPE
 FmDummyMonitor
 FmDummyMonitorClass
 fm_dummy_monitor_new
 <SUBSECTION Standard>
 FM_DUMMY_MONITOR
 FM_DUMMY_MONITOR_CLASS
-IS_FM_DUMMY_MONITOR
-IS_FM_DUMMY_MONITOR_CLASS
+FM_IS_DUMMY_MONITOR
+FM_IS_DUMMY_MONITOR_CLASS
+FM_TYPE_DUMMY_MONITOR
 fm_dummy_monitor_get_type
 </SECTION>
 
@@ -287,16 +403,18 @@ fm_dummy_monitor_get_type
 <FILE>fm-file-info</FILE>
 FM_FILE_INFO
 FmFileInfo
-FmFileInfoList
 fm_file_info_can_thumbnail
-fm_file_info_copy
 fm_file_info_get_atime
 fm_file_info_get_blocks
 fm_file_info_get_collate_key
 fm_file_info_get_desc
+fm_file_info_get_dev
 fm_file_info_get_disp_mtime
 fm_file_info_get_disp_name
 fm_file_info_get_disp_size
+fm_file_info_get_fs_id
+fm_file_info_get_gid
+fm_file_info_get_icon
 fm_file_info_get_mime_type
 fm_file_info_get_mode
 fm_file_info_get_mtime
@@ -304,12 +422,14 @@ fm_file_info_get_name
 fm_file_info_get_path
 fm_file_info_get_size
 fm_file_info_get_target
+fm_file_info_get_uid
 fm_file_info_is_desktop_entry
 fm_file_info_is_dir
 fm_file_info_is_executable_type
 fm_file_info_is_hidden
 fm_file_info_is_image
 fm_file_info_is_mountable
+fm_file_info_is_native
 fm_file_info_is_shortcut
 fm_file_info_is_symlink
 fm_file_info_is_text
@@ -317,15 +437,17 @@ fm_file_info_is_unknown_type
 fm_file_info_list_is_same_fs
 fm_file_info_list_is_same_type
 fm_file_info_list_new
-fm_file_info_list_new_from_glist
 fm_file_info_new
 fm_file_info_new_from_gfileinfo
+fm_file_info_new_from_menu_cache_item
 fm_file_info_ref
 fm_file_info_set_disp_name
 fm_file_info_set_from_gfileinfo
+fm_file_info_set_from_menu_cache_item
+fm_file_info_set_from_native_file
 fm_file_info_set_path
 fm_file_info_unref
-fm_list_is_file_info_list
+fm_file_info_update
 </SECTION>
 
 <SECTION>
@@ -333,6 +455,7 @@ fm_list_is_file_info_list
 <TITLE>FmFileInfoJob</TITLE>
 FmFileInfoJob
 FmFileInfoJobClass
+FmFileInfoJobFlags
 fm_file_info_job_add
 fm_file_info_job_add_gfile
 fm_file_info_job_get_current
@@ -341,14 +464,15 @@ fm_file_info_job_new
 FM_FILE_INFO_JOB
 FM_FILE_INFO_JOB_CLASS
 FM_TYPE_FILE_INFO_JOB
-IS_FM_FILE_INFO_JOB
-IS_FM_FILE_INFO_JOB_CLASS
+FM_IS_FILE_INFO_JOB
+FM_IS_FILE_INFO_JOB_CLASS
 fm_file_info_job_get_type
 </SECTION>
 
 <SECTION>
 <FILE>fm-file-launcher</FILE>
 FmFileLauncher
+FmFileLauncherExecAction
 FmLaunchFolderFunc
 fm_launch_desktop_entry
 fm_launch_files
@@ -373,6 +497,8 @@ fm_file_menu_set_folder_func
 <FILE>fm-file-ops-job</FILE>
 <TITLE>FmFileOpsJob</TITLE>
 FM_FILE_OPS_JOB_TYPE
+FmFileOpOption
+FmFileOpType
 FmFileOpsJob
 FmFileOpsJobClass
 fm_file_ops_job_ask_rename
@@ -388,8 +514,8 @@ fm_file_ops_job_set_recursive
 <SUBSECTION Standard>
 FM_FILE_OPS_JOB
 FM_FILE_OPS_JOB_CLASS
-IS_FM_FILE_OPS_JOB
-IS_FM_FILE_OPS_JOB_CLASS
+FM_IS_FILE_OPS_JOB
+FM_IS_FILE_OPS_JOB_CLASS
 fm_file_ops_job_get_type
 </SECTION>
 
@@ -419,14 +545,18 @@ fm_show_file_properties
 <TITLE>FmFolder</TITLE>
 FmFolder
 FmFolderClass
-fm_folder_get
+fm_folder_from_gfile
+fm_folder_from_path
+fm_folder_from_path_name
+fm_folder_from_uri
 fm_folder_get_file_by_name
 fm_folder_get_files
 fm_folder_get_filesystem_info
-fm_folder_get_for_gfile
-fm_folder_get_for_path_name
-fm_folder_get_for_uri
-fm_folder_get_is_loaded
+fm_folder_get_info
+fm_folder_get_path
+fm_folder_is_empty
+fm_folder_is_loaded
+fm_folder_is_valid
 fm_folder_query_filesystem_info
 fm_folder_reload
 <SUBSECTION Standard>
@@ -443,17 +573,21 @@ fm_folder_get_type
 <TITLE>FmFolderModel</TITLE>
 FmFolderModel
 FmFolderModelClass
+FmFolderModelViewCol
+COL_FILE_UNSORTED
 fm_folder_model_file_changed
 fm_folder_model_file_created
 fm_folder_model_file_deleted
 fm_folder_model_find_iter_by_filename
-fm_folder_model_get_common_suffix_for_prefix
+fm_folder_model_get_folder
+fm_folder_model_get_folder_path
 fm_folder_model_get_icon_size
-fm_folder_model_get_is_loaded
+fm_folder_model_get_item_userdata
 fm_folder_model_get_show_hidden
 fm_folder_model_new
 fm_folder_model_set_folder
 fm_folder_model_set_icon_size
+fm_folder_model_set_item_userdata
 fm_folder_model_set_show_hidden
 <SUBSECTION Standard>
 FM_FOLDER_MODEL
@@ -472,27 +606,27 @@ fm_folder_model_get_type
 FM_FOLDER_VIEW_TYPE
 FmFolderView
 FmFolderViewClass
-fm_folder_view_chdir
-fm_folder_view_chdir_by_name
-fm_folder_view_custom_select
+FmFolderViewClickType
+FmFolderViewMode
+fm_folder_view_dup_selected_file_paths
+fm_folder_view_dup_selected_files
 fm_folder_view_get_cwd
 fm_folder_view_get_cwd_info
 fm_folder_view_get_folder
-fm_folder_view_get_is_loaded
 fm_folder_view_get_mode
 fm_folder_view_get_model
-fm_folder_view_get_selected_file_paths
-fm_folder_view_get_selected_files
 fm_folder_view_get_selection_mode
 fm_folder_view_get_show_hidden
 fm_folder_view_get_sort_by
 fm_folder_view_get_sort_type
 fm_folder_view_new
 fm_folder_view_select_all
+fm_folder_view_select_custom
 fm_folder_view_select_file_path
 fm_folder_view_select_file_paths
 fm_folder_view_select_invert
 fm_folder_view_set_mode
+fm_folder_view_set_model
 fm_folder_view_set_selection_mode
 fm_folder_view_set_show_hidden
 fm_folder_view_sort
@@ -501,8 +635,8 @@ FM_FOLDER_VIEW
 FM_FOLDER_VIEW_CLASS
 FM_FOLDER_VIEW_CLICK_TYPE_IS_VALID
 FM_FOLDER_VIEW_MODE_IS_VALID
-IS_FM_FOLDER_VIEW
-IS_FM_FOLDER_VIEW_CLASS
+FM_IS_FOLDER_VIEW
+FM_IS_FOLDER_VIEW_CLASS
 fm_folder_view_get_type
 </SECTION>
 
@@ -534,6 +668,7 @@ fm_eject_volume
 fm_empty_trash
 fm_get_user_input
 fm_get_user_input_path
+fm_link_files
 fm_mount_path
 fm_mount_volume
 fm_move_file
@@ -542,12 +677,15 @@ fm_move_files_to
 fm_move_or_copy_files_to
 fm_ok_cancel
 fm_rename_file
+fm_select_file
 fm_select_folder
+fm_set_busy_cursor
 fm_show_error
 fm_trash_files
 fm_trash_or_delete_files
 fm_unmount_mount
 fm_unmount_volume
+fm_unset_busy_cursor
 fm_untrash_files
 fm_yes_no
 </SECTION>
@@ -568,7 +706,7 @@ fm_icon_unref
 
 <SECTION>
 <FILE>fm-icon-pixbuf</FILE>
-fm_icon_get_pixbuf
+fm_pixbuf_from_icon
 </SECTION>
 
 <SECTION>
@@ -577,14 +715,14 @@ fm_icon_get_pixbuf
 FmJob
 FmJobCallMainThreadFunc
 FmJobClass
+FmJobErrorAction
+FmJobErrorSeverity
 fm_job_ask
 fm_job_ask_valist
 fm_job_askv
 fm_job_call_main_thread
 fm_job_cancel
-fm_job_emit_cancelled
 fm_job_emit_error
-fm_job_emit_finished
 fm_job_finish
 fm_job_get_cancellable
 fm_job_init_cancellable
@@ -610,71 +748,25 @@ FmList
 FmListFuncs
 fm_list_clear
 fm_list_delete_link
-fm_list_delete_link_nounref
-fm_list_find
-fm_list_find_custom
-fm_list_foreach
-fm_list_get_length
-fm_list_index
-fm_list_insert_after
-fm_list_insert_after_noref
-fm_list_insert_before
-fm_list_insert_before_noref
-fm_list_insert_sorted
-fm_list_insert_sorted_noref
-fm_list_is_empty
-fm_list_link_index
 fm_list_new
-fm_list_peek_head
-fm_list_peek_head_link
-fm_list_peek_nth
-fm_list_peek_nth_link
-fm_list_peek_tail
-fm_list_peek_tail_link
-fm_list_pop_head
-fm_list_pop_head_link
-fm_list_pop_nth
-fm_list_pop_nth_link
-fm_list_pop_tail
-fm_list_pop_tail_link
-fm_list_push_head
-fm_list_push_head_link
-fm_list_push_head_noref
-fm_list_push_nth
-fm_list_push_nth_link
-fm_list_push_nth_noref
-fm_list_push_tail
-fm_list_push_tail_link
-fm_list_push_tail_noref
 fm_list_ref
 fm_list_remove
 fm_list_remove_all
-fm_list_reverse
-fm_list_sort
-fm_list_unlink
 fm_list_unref
 </SECTION>
 
 <SECTION>
 <FILE>fm-mime-type</FILE>
 FmMimeType
-fm_mime_type_add_action
-fm_mime_type_add_reload_cb
-fm_mime_type_finalize
-fm_mime_type_get_actions
-fm_mime_type_get_all_known_apps
-fm_mime_type_get_default_action
+fm_mime_type_add_thumbnailer
+fm_mime_type_from_file_name
+fm_mime_type_from_name
+fm_mime_type_from_native_file
 fm_mime_type_get_desc
-fm_mime_type_get_for_file_name
-fm_mime_type_get_for_native_file
-fm_mime_type_get_for_type
 fm_mime_type_get_icon
-fm_mime_type_init
-fm_mime_type_join_actions
-fm_mime_type_new
+fm_mime_type_get_thumbnailers
 fm_mime_type_ref
-fm_mime_type_remove_reload_cb
-fm_mime_type_set_default_action
+fm_mime_type_remove_thumbnailer
 fm_mime_type_unref
 <SUBSECTION Standard>
 fm_mime_type_get_type
@@ -695,11 +787,11 @@ FmNavHistory
 FmNavHistoryClass
 FmNavHistoryItem
 fm_nav_history_back
+fm_nav_history_can_back
+fm_nav_history_can_forward
 fm_nav_history_chdir
 fm_nav_history_clear
 fm_nav_history_forward
-fm_nav_history_get_can_back
-fm_nav_history_get_can_forward
 fm_nav_history_get_cur
 fm_nav_history_get_cur_link
 fm_nav_history_jump
@@ -709,17 +801,18 @@ fm_nav_history_set_max
 <SUBSECTION Standard>
 FM_NAV_HISTORY
 FM_NAV_HISTORY_CLASS
-IS_FM_NAV_HISTORY
-IS_FM_NAV_HISTORY_CLASS
+FM_IS_NAV_HISTORY
+FM_IS_NAV_HISTORY_CLASS
 fm_nav_history_get_type
 </SECTION>
 
 <SECTION>
 <FILE>fm-path</FILE>
 FM_PATH
+FmFileInfoList
 FmPath
+FmPathFlags
 FmPathList
-fm_list_is_path_list
 fm_path_depth
 fm_path_display_basename
 fm_path_display_name
@@ -749,7 +842,6 @@ fm_path_list_new_from_uri_list
 fm_path_list_new_from_uris
 fm_path_list_to_uri_list
 fm_path_list_write_uri_list
-fm_path_new
 fm_path_new_child
 fm_path_new_child_len
 fm_path_new_for_commandline_arg
@@ -796,18 +888,28 @@ fm_path_entry_set_path
 FM_PATH_ENTRY
 FM_PATH_ENTRY_CLASS
 FM_TYPE_PATH_ENTRY
-IS_FM_TYPE_PATH_ENTRY
-IS_FM_TYPE_PATH_ENTRY_CLASS
+FM_IS_TYPE_PATH_ENTRY
+FM_IS_TYPE_PATH_ENTRY_CLASS
 fm_path_entry_get_type
 </SECTION>
 
 <SECTION>
 <FILE>fm-places-model</FILE>
 <TITLE>FmPlacesModel</TITLE>
-FmPlaceType
+FmPlacesCol
+FmPlacesItem
 FmPlacesModel
 FmPlacesModelClass
-fm_places_model_find_path
+FmPlacesType
+fm_places_item_get_bookmark_item
+fm_places_item_get_icon
+fm_places_item_get_info
+fm_places_item_get_mount
+fm_places_item_get_path
+fm_places_item_get_volume
+fm_places_item_is_mounted
+fm_places_model_get_bookmarks
+fm_places_model_get_iter_by_fm_path
 fm_places_model_get_separator_path
 fm_places_model_iter_is_separator
 fm_places_model_mount_indicator_cell_data_func
@@ -822,6 +924,7 @@ FM_PLACES_MODEL
 FM_PLACES_MODEL_CLASS
 FM_PLACES_MODEL_GET_CLASS
 FM_TYPE_PLACES_MODEL
+fm_places_item_get_type
 fm_places_model_get_type
 </SECTION>
 
@@ -831,13 +934,13 @@ fm_places_model_get_type
 FM_PLACES_VIEW_TYPE
 FmPlacesView
 FmPlacesViewClass
-fm_places_chdir
+fm_places_view_chdir
 fm_places_view_new
 <SUBSECTION Standard>
 FM_PLACES_VIEW
 FM_PLACES_VIEW_CLASS
-IS_FM_PLACES_VIEW
-IS_FM_PLACES_VIEW_CLASS
+FM_IS_PLACES_VIEW
+FM_IS_PLACES_VIEW_CLASS
 fm_places_view_get_type
 </SECTION>
 
@@ -871,17 +974,9 @@ fm_side_pane_get_type
 
 <SECTION>
 <FILE>fm-simple-job</FILE>
-<TITLE>FmSimpleJob</TITLE>
-FmSimpleJob
-FmSimpleJobClass
 FmSimpleJobFunc
 fm_simple_job_new
 <SUBSECTION Standard>
-FM_IS_SIMPLE_JOB
-FM_IS_SIMPLE_JOB_CLASS
-FM_SIMPLE_JOB
-FM_SIMPLE_JOB_CLASS
-FM_TYPE_SIMPLE_JOB
 fm_simple_job_get_type
 </SECTION>
 
@@ -892,6 +987,7 @@ FmTabLabel
 FmTabLabelClass
 fm_tab_label_new
 fm_tab_label_set_text
+fm_tab_label_set_tooltip_text
 <SUBSECTION Standard>
 FM_IS_TAB_LABEL
 FM_IS_TAB_LABEL_CLASS
@@ -913,12 +1009,24 @@ fm_thumbnail_request_get_size
 </SECTION>
 
 <SECTION>
+<FILE>fm-thumbnailer</FILE>
+FM_THUMBNAILER
+FmThumbnailer
+fm_thumbnailer_check_update
+fm_thumbnailer_free
+fm_thumbnailer_launch_for_uri
+fm_thumbnailer_new_from_keyfile
+</SECTION>
+
+<SECTION>
 <FILE>fm-utils</FILE>
+FmAppCommandParseCallback
+fm_app_command_parse
 fm_canonicalize_filename
 fm_file_size_to_str
 fm_key_file_get_bool
 fm_key_file_get_int
-fm_str_replace
+fm_strdup_replace
 </SECTION>
 
 <SECTION>
@@ -931,5 +1039,6 @@ fm_str_replace
 GDK_KEY_Left
 GDK_KEY_Right
 gdk_display_get_app_launch_context
+gtk_widget_in_destruction
 </SECTION>
 

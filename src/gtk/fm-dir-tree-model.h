@@ -1,6 +1,7 @@
 //      fm-dir-tree-model.h
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -40,15 +41,25 @@ G_BEGIN_DECLS
 #define FM_DIR_TREE_MODEL_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj),\
             FM_TYPE_DIR_TREE_MODEL, FmDirTreeModelClass))
 
-/* Columns of dir tree view */
-enum{
+/**
+ * FmDirTreeModelCol:
+ * @FM_DIR_TREE_MODEL_COL_ICON: (#GdkPixbuf *) icon
+ * @FM_DIR_TREE_MODEL_COL_DISP_NAME: (#char *) displayed name
+ * @FM_DIR_TREE_MODEL_COL_INFO: (#FmFileInfo *) file info
+ * @FM_DIR_TREE_MODEL_COL_PATH: (#FmPath *) file path
+ * @FM_DIR_TREE_MODEL_COL_FOLDER: (#FmFolder *) folder object
+ *
+ * Columns of dir tree model
+ */
+typedef enum {
     FM_DIR_TREE_MODEL_COL_ICON,
     FM_DIR_TREE_MODEL_COL_DISP_NAME,
     FM_DIR_TREE_MODEL_COL_INFO,
     FM_DIR_TREE_MODEL_COL_PATH,
     FM_DIR_TREE_MODEL_COL_FOLDER,
+    /*<private>*/
     N_FM_DIR_TREE_MODEL_COLS
-};
+} FmDirTreeModelCol;
 
 typedef struct _FmDirTreeModel            FmDirTreeModel;
 typedef struct _FmDirTreeModelClass        FmDirTreeModelClass;
@@ -56,40 +67,47 @@ typedef struct _FmDirTreeModelClass        FmDirTreeModelClass;
 struct _FmDirTreeModel
 {
     GObject parent;
+    /*<private>*/
     GList* roots;
     gint stamp;
-    int icon_size;
+    guint icon_size;
     gboolean show_hidden;
-
-#if 0
-    /* check if a folder has subdir */
-    GQueue subdir_checks;
-    GMutex* subdir_checks_mutex;
-    GCancellable* subdir_cancellable;
-    gboolean job_running;
-    GList* current_subdir_check;
-#endif
 };
 
+/**
+ * FmDirTreeModelClass:
+ * @parent_class: the parent class
+ * @row_loaded: the class closure for the #FmDirTreeModel::row-loaded signal
+ */
 struct _FmDirTreeModelClass
 {
     GObjectClass parent_class;
+    void (*row_loaded)(FmDirTreeModel* model, GtkTreePath* row);
 };
 
 
 GType fm_dir_tree_model_get_type(void);
 FmDirTreeModel* fm_dir_tree_model_new(void);
 
-void fm_dir_tree_model_add_root(FmDirTreeModel* model, FmFileInfo* root, GtkTreeIter* it);
+void fm_dir_tree_model_add_root(FmDirTreeModel* model, FmFileInfo* root, GtkTreeIter* iter);
 
-void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp);
-void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp);
+void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp);
+void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp);
 
 void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size);
-guint fm_dir_tree_get_icon_size(FmDirTreeModel* model);
+guint fm_dir_tree_model_get_icon_size(FmDirTreeModel* model);
 
+gboolean fm_dir_tree_row_is_loaded(FmDirTreeModel* model, GtkTreeIter* iter);
+GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* iter);
+FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* iter);
+FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* iter);
+const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* iter);
+
+/* TODO:
 void fm_dir_tree_model_set_show_hidden(FmDirTreeModel* model, gboolean show_hidden);
 gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model);
+
+void fm_dir_tree_model_reload(FmDirTreeModel* model); */
 
 G_END_DECLS
 

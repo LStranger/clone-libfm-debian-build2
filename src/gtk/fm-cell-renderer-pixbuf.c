@@ -19,9 +19,20 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-cell-renderer-pixbuf
+ * @short_description: Extended pixbuf cell renderer.
+ * @title: FmCellRendererPixbuf
+ *
+ * @include: libfm/fm-cell-renderer-pixbuf.h
+ *
+ * The #FmCellRendererPixbuf is extended version of #GtkCellRendererPixbuf
+ * which adds small link picture if corresponding file is symbolic link.
+ */
+
 #include "fm-cell-renderer-pixbuf.h"
 
-static void fm_cell_renderer_pixbuf_finalize  			(GObject *object);
+static void fm_cell_renderer_pixbuf_dispose  (GObject *object);
 
 static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 GtkWidget                  *widget,
@@ -106,17 +117,22 @@ static const guint8 link_icon_data[] =
 
 static void fm_cell_renderer_pixbuf_class_init(FmCellRendererPixbufClass *klass)
 {
-	GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
+    GObjectClass *g_object_class = G_OBJECT_CLASS(klass);
     GtkCellRendererClass *cell_class = GTK_CELL_RENDERER_CLASS(klass);
 
-	g_object_class->finalize = fm_cell_renderer_pixbuf_finalize;
+    g_object_class->dispose = fm_cell_renderer_pixbuf_dispose;
     g_object_class->get_property = fm_cell_renderer_pixbuf_get_property;
     g_object_class->set_property = fm_cell_renderer_pixbuf_set_property;
 
     cell_class->get_size = fm_cell_renderer_pixbuf_get_size;
     cell_class->render = fm_cell_renderer_pixbuf_render;
 
-
+    /**
+     * FmCellRendererPixbuf:info:
+     *
+     * The #FmCellRendererPixbuf:info property is the #FmFileInfo
+     * of file that this object corresponds to.
+     */
     g_object_class_install_property ( g_object_class,
                                       PROP_INFO,
                                       g_param_spec_pointer ( "info",
@@ -126,18 +142,26 @@ static void fm_cell_renderer_pixbuf_class_init(FmCellRendererPixbufClass *klass)
 }
 
 
-static void fm_cell_renderer_pixbuf_finalize(GObject *object)
+static void fm_cell_renderer_pixbuf_dispose(GObject *object)
 {
-	FmCellRendererPixbuf *self;
+    FmCellRendererPixbuf *self;
 
-	g_return_if_fail(object != NULL);
-	g_return_if_fail(FM_IS_CELL_RENDERER_PIXBUF(object));
+    g_return_if_fail(object != NULL);
+    g_return_if_fail(FM_IS_CELL_RENDERER_PIXBUF(object));
 
-	self = FM_CELL_RENDERER_PIXBUF(object);
+    self = FM_CELL_RENDERER_PIXBUF(object);
     if( self->fi )
+    {
         fm_file_info_unref(self->fi);
+        self->fi = NULL;
+    }
+    if(self->icon)
+    {
+        g_object_unref(self->icon);
+        self->icon = NULL;
+    }
 
-	G_OBJECT_CLASS(fm_cell_renderer_pixbuf_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_cell_renderer_pixbuf_parent_class)->dispose(object);
 }
 
 
@@ -149,16 +173,25 @@ static void fm_cell_renderer_pixbuf_init(FmCellRendererPixbuf *self)
                             sizeof(link_icon_data),
                             link_icon_data,
                             FALSE, NULL );
-        g_object_add_weak_pointer((GObject*)link_icon, (gpointer)&link_icon);
+        g_object_add_weak_pointer(G_OBJECT(link_icon), (gpointer)&link_icon);
+        self->icon = link_icon;
     }
     else
-        g_object_ref(link_icon);
+        self->icon = g_object_ref(link_icon);
 }
 
-
-GtkCellRenderer *fm_cell_renderer_pixbuf_new(void)
+/**
+ * fm_cell_renderer_pixbuf_new
+ *
+ * Creates new #FmCellRendererPixbuf object.
+ *
+ * Returns: (transfer full): a new #FmCellRendererPixbuf object.
+ *
+ * Since: 0.1.0
+ */
+FmCellRendererPixbuf *fm_cell_renderer_pixbuf_new(void)
 {
-	return g_object_new(FM_TYPE_CELL_RENDERER_PIXBUF, NULL);
+    return g_object_new(FM_TYPE_CELL_RENDERER_PIXBUF, NULL);
 }
 
 static void fm_cell_renderer_pixbuf_get_property ( GObject *object,
@@ -166,7 +199,7 @@ static void fm_cell_renderer_pixbuf_get_property ( GObject *object,
                                       GValue *value,
                                       GParamSpec *psec )
 {
-    FmCellRendererPixbuf* renderer = (FmCellRendererPixbuf*)object;
+    FmCellRendererPixbuf* renderer = FM_CELL_RENDERER_PIXBUF(object);
     switch( param_id )
     {
     case PROP_INFO:
@@ -183,13 +216,13 @@ static void fm_cell_renderer_pixbuf_set_property ( GObject *object,
                                       const GValue *value,
                                       GParamSpec *psec )
 {
-    FmCellRendererPixbuf* renderer = (FmCellRendererPixbuf*)object;
+    FmCellRendererPixbuf* renderer = FM_CELL_RENDERER_PIXBUF(object);
     switch ( param_id )
     {
     case PROP_INFO:
         if( renderer->fi )
             fm_file_info_unref(renderer->fi);
-        renderer->fi = fm_file_info_ref((FmFileInfo*)g_value_get_pointer(value));
+        renderer->fi = fm_file_info_ref(FM_FILE_INFO(g_value_get_pointer(value)));
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID ( object, param_id, psec );
@@ -197,13 +230,23 @@ static void fm_cell_renderer_pixbuf_set_property ( GObject *object,
     }
 }
 
+/**
+ * fm_cell_renderer_pixbuf_set_fixed_size
+ * @render: the renderer object
+ * @w: new fixed width
+ * @h: new fixed height
+ *
+ * Sets fixed width and height for rendered object.
+ *
+ * Since: 0.1.0
+ */
 void fm_cell_renderer_pixbuf_set_fixed_size(FmCellRendererPixbuf* render, gint w, gint h)
 {
     render->fixed_w = w;
     render->fixed_h = h;
 }
 
-void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
+static void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 GtkWidget                  *widget,
 						 GdkRectangle               *rectangle,
 						 gint                       *x_offset,
@@ -211,7 +254,7 @@ void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
 						 gint                       *width,
 						 gint                       *height)
 {
-    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)cell;
+    FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
     if(render->fixed_w > 0 && render->fixed_h > 0)
     {
         *width = render->fixed_w;
@@ -223,7 +266,7 @@ void fm_cell_renderer_pixbuf_get_size   (GtkCellRenderer            *cell,
     }
 }
 
-void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
+static void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 						 GdkDrawable                *window,
 						 GtkWidget                  *widget,
 						 GdkRectangle               *background_area,
@@ -231,7 +274,7 @@ void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 						 GdkRectangle               *expose_area,
 						 GtkCellRendererState        flags)
 {
-    FmCellRendererPixbuf* render = (FmCellRendererPixbuf*)cell;
+    FmCellRendererPixbuf* render = FM_CELL_RENDERER_PIXBUF(cell);
     /* we don't need to follow state for prelit items */
     if(flags & GTK_CELL_RENDERER_PRELIT)
         flags &= ~GTK_CELL_RENDERER_PRELIT;
@@ -239,7 +282,6 @@ void fm_cell_renderer_pixbuf_render     (GtkCellRenderer            *cell,
 
     if(render->fi && G_UNLIKELY(fm_file_info_is_symlink(render->fi)))
     {
-        GdkRectangle pix_rect;
         GdkPixbuf* pix;
         g_object_get(render, "pixbuf", &pix, NULL);
         if(pix)
