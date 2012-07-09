@@ -11,7 +11,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=-all
 override_dh_auto_configure:
 	autoreconf -i
 
-	dh_auto_configure -- --enable-udisks --enable-gtk-doc
+	dh_auto_configure -- --enable-debug --enable-gtk-doc --enable-udisks
 
 override_dh_auto_install:
 	dh_auto_install
