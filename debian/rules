@@ -2,8 +2,7 @@
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-# libfm does not build (yet) with hardening
-export DEB_BUILD_MAINT_OPTIONS = hardening=-all
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh ${@}
