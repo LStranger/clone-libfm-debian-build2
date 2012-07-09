@@ -1,4 +1,4 @@
-libfm-gtk.so.3 libfm3 #MINVER#
+libfm-gtk.so.3 libfm-dev #MINVER#
  fm_app_chooser_combo_box_dup_selected_app@Base 1.0
  fm_app_chooser_combo_box_get_custom_apps@Base 1.0
  fm_app_chooser_combo_box_setup@Base 1.0
@@ -188,7 +188,7 @@ libfm-gtk.so.3 libfm3 #MINVER#
  fm_unset_busy_cursor@Base 1.0
  fm_untrash_files@Base 1.0
  fm_yes_no@Base 1.0
-libfm.so.3 libfm3 #MINVER#
+libfm.so.3 libfm-dev #MINVER#
  fm_actions_loaded@Base 1.0
  fm_all_actions@Base 1.0
  fm_app_command_parse@Base 1.0
