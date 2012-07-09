@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmDndSrc</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="FmTabLabel.html" title="FmTabLabel">
-<link rel="next" href="libfm-FmDndDest.html" title="FmDndDest">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmDndDest.html" title="FmDndDest">
+<link rel="next" href="libfm-fm-file-menu.html" title="fm-file-menu">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="FmTabLabel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmDndDest.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-FmDndDest.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-fm-file-menu.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmDndSrc.synopsis" class="shortcut">Top</a>
@@ -35,7 +35,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmDndSrc.top_of_page"></a>FmDndSrc</span></h2>
-<p>FmDndSrc</p>
+<p>FmDndSrc — Libfm support for drag&amp;drop source.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -43,12 +43,12 @@
 <a name="FmDndSrc.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="FmDndSrc.html#FmDndSrc-struct" title="struct FmDndSrc">FmDndSrc</a>;
 struct              <a class="link" href="FmDndSrc.html#FmDndSrcClass" title="struct FmDndSrcClass">FmDndSrcClass</a>;
-<a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    <a class="link" href="FmDndSrc.html#fm-dnd-src-get-files" title="fm_dnd_src_get_files ()">fm_dnd_src_get_files</a>                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>);
+enum                <a class="link" href="FmDndSrc.html#FmDndSrcTarget" title="enum FmDndSrcTarget">FmDndSrcTarget</a>;
 <a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="returnvalue">FmDndSrc</span></a> *          <a class="link" href="FmDndSrc.html#fm-dnd-src-new" title="fm_dnd_src_new ()">fm_dnd_src_new</a>                      (<em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-file" title="fm_dnd_src_set_file ()">fm_dnd_src_set_file</a>                 (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-files" title="fm_dnd_src_set_files ()">fm_dnd_src_set_files</a>                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="type">FmFileInfoList</span></a> *files</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmFileInfoList" title="FmFileInfoList"><span class="type">FmFileInfoList</span></a> *files</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmDndSrc.html#fm-dnd-src-set-widget" title="fm_dnd_src_set_widget ()">fm_dnd_src_set_widget</a>               (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
                                                          <em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);
 </pre>
@@ -68,6 +68,13 @@ struct              <a class="link" href="FmDndSrc.html#FmDndSrcClass" title="st
 </div>
 <div class="refsect1">
 <a name="FmDndSrc.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-dnd-src.h
+</p>
+<p>
+The <a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> is used to assign selection for Drag &amp; Drop operations
+and deliver info about it to target widget when requested.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmDndSrc.details"></a><h2>Details</h2>
@@ -80,45 +87,170 @@ struct              <a class="link" href="FmDndSrc.html#FmDndSrcClass" title="st
 <a name="FmDndSrcClass"></a><h3>struct FmDndSrcClass</h3>
 <pre class="programlisting">struct FmDndSrcClass {
 	GObjectClass parent_class;
-	void (*data_get)();
+	void (*data_get)(FmDndSrc*);
 };
 </pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">GObjectClass</span> <em class="structfield"><code><a name="FmDndSrcClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="FmDndSrcClass.data-get"></a>data_get</code></em> ()</span></p></td>
+<td>the class closure for the <a class="link" href="FmDndSrc.html#FmDndSrc-data-get" title='The "data-get" signal'><span class="type">"data-get"</span></a> signal</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-dnd-src-get-files"></a><h3>fm_dnd_src_get_files ()</h3>
-<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    fm_dnd_src_get_files                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>);</pre>
+<a name="FmDndSrcTarget"></a><h3>enum FmDndSrcTarget</h3>
+<pre class="programlisting">typedef enum {
+    FM_DND_SRC_TARGET_FM_LIST,
+    FM_DND_SRC_TARGET_URI_LIST,
+} FmDndSrcTarget;
+</pre>
+<p>
+default targets of drag source
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="FM-DND-SRC-TARGET-FM-LIST:CAPS"></a><span class="term"><code class="literal">FM_DND_SRC_TARGET_FM_LIST</code></span></p></td>
+<td>direct pointer of FmList
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DND-SRC-TARGET-URI-LIST:CAPS"></a><span class="term"><code class="literal">FM_DND_SRC_TARGET_URI_LIST</code></span></p></td>
+<td>"text/uri-list"
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-dnd-src-new"></a><h3>fm_dnd_src_new ()</h3>
 <pre class="programlisting"><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="returnvalue">FmDndSrc</span></a> *          fm_dnd_src_new                      (<em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);</pre>
+<p>
+Creates new drag source descriptor.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>w</code></em> :</span></p></td>
+<td>the widget where source files are selected. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-dnd-src-set-file"></a><h3>fm_dnd_src_set_file ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_file                 (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> *file</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>file</code></em> as selection in the source descriptor.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ds</code></em> :</span></p></td>
+<td>the drag source descriptor</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>file</code></em> :</span></p></td>
+<td>files to set</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-dnd-src-set-files"></a><h3>fm_dnd_src_set_files ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_files                (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="type">FmFileInfoList</span></a> *files</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmFileInfoList" title="FmFileInfoList"><span class="type">FmFileInfoList</span></a> *files</code></em>);</pre>
+<p>
+Sets <em class="parameter"><code>files</code></em> as selection list in the source descriptor.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ds</code></em> :</span></p></td>
+<td>the drag source descriptor</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>files</code></em> :</span></p></td>
+<td>list of files to set</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-dnd-src-set-widget"></a><h3>fm_dnd_src_set_widget ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_dnd_src_set_widget               (<em class="parameter"><code><a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *ds</code></em>,
                                                          <em class="parameter"><code><span class="type">GtkWidget</span> *w</code></em>);</pre>
+<p>
+Resets drag source widget in <em class="parameter"><code>ds</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ds</code></em> :</span></p></td>
+<td>the drag source descriptor</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>w</code></em> :</span></p></td>
+<td>the widget where source files are selected. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="FmDndSrc.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
 <a name="FmDndSrc-data-get"></a><h3>The <code class="literal">"data-get"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *fmdndsrc,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmDndSrc.html" title="FmDndSrc"><span class="type">FmDndSrc</span></a> *object,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmDndSrc.html#FmDndSrc-data-get" title='The "data-get" signal'><span class="type">"data-get"</span></a> signal is emitted when information of
+source files is needed. Handler of the signal should then call
+<a class="link" href="FmDndSrc.html#fm-dnd-src-set-files" title="fm_dnd_src_set_files ()"><code class="function">fm_dnd_src_set_files()</code></a> to provide info of dragged source files.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object</code></em> :</span></p></td>
+<td>the object which emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 </div>

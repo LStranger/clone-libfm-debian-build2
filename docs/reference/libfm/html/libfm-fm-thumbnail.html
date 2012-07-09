@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-thumbnail</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="FmFileOpsJob.html" title="FmFileOpsJob">
-<link rel="next" href="FmPathEntry.html" title="FmPathEntry">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmTabLabel.html" title="FmTabLabel">
+<link rel="next" href="object-tree.html" title="Part II. Object Hierarchy">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="FmFileOpsJob.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmTabLabel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmPathEntry.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="object-tree.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#libfm-fm-thumbnail.synopsis" class="shortcut">Top</a>
@@ -40,12 +40,12 @@
 <pre class="synopsis"><span class="returnvalue">void</span>                (<a class="link" href="libfm-fm-thumbnail.html#FmThumbnailReadyCallback" title="FmThumbnailReadyCallback ()">*FmThumbnailReadyCallback</a>)         (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> Param2</code></em>);
                     <a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest">FmThumbnailRequest</a>;
-<a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="returnvalue">FmThumbnailRequest</span></a> * <a class="link" href="libfm-fm-thumbnail.html#fm-thumbnail-request" title="fm_thumbnail_request ()">fm_thumbnail_request</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *src_file</code></em>,
+<a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="returnvalue">FmThumbnailRequest</span></a> * <a class="link" href="libfm-fm-thumbnail.html#fm-thumbnail-request" title="fm_thumbnail_request ()">fm_thumbnail_request</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> *src_file</code></em>,
                                                          <em class="parameter"><code><span class="type">guint</span> size</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailReadyCallback" title="FmThumbnailReadyCallback ()"><span class="type">FmThumbnailReadyCallback</span></a> callback</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="libfm-fm-thumbnail.html#fm-thumbnail-request-cancel" title="fm_thumbnail_request_cancel ()">fm_thumbnail_request_cancel</a>         (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *req</code></em>);
-<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="libfm-fm-thumbnail.html#fm-thumbnail-request-get-file-info" title="fm_thumbnail_request_get_file_info ()">fm_thumbnail_request_get_file_info</a>  (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *req</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="libfm-fm-thumbnail.html#fm-thumbnail-request-get-file-info" title="fm_thumbnail_request_get_file_info ()">fm_thumbnail_request_get_file_info</a>  (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *req</code></em>);
 <span class="returnvalue">GdkPixbuf</span> *         <a class="link" href="libfm-fm-thumbnail.html#fm-thumbnail-request-get-pixbuf" title="fm_thumbnail_request_get_pixbuf ()">fm_thumbnail_request_get_pixbuf</a>     (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *req</code></em>);
 <span class="returnvalue">guint</span>               <a class="link" href="libfm-fm-thumbnail.html#fm-thumbnail-request-get-size" title="fm_thumbnail_request_get_size ()">fm_thumbnail_request_get_size</a>       (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *req</code></em>);
 </pre>
@@ -68,7 +68,7 @@
 <hr>
 <div class="refsect2">
 <a name="fm-thumbnail-request"></a><h3>fm_thumbnail_request ()</h3>
-<pre class="programlisting"><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="returnvalue">FmThumbnailRequest</span></a> * fm_thumbnail_request               (<em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *src_file</code></em>,
+<pre class="programlisting"><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="returnvalue">FmThumbnailRequest</span></a> * fm_thumbnail_request               (<em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> *src_file</code></em>,
                                                          <em class="parameter"><code><span class="type">guint</span> size</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailReadyCallback" title="FmThumbnailReadyCallback ()"><span class="type">FmThumbnailReadyCallback</span></a> callback</code></em>,
                                                          <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
@@ -81,7 +81,7 @@
 <hr>
 <div class="refsect2">
 <a name="fm-thumbnail-request-get-file-info"></a><h3>fm_thumbnail_request_get_file_info ()</h3>
-<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_thumbnail_request_get_file_info  (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *req</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_thumbnail_request_get_file_info  (<em class="parameter"><code><a class="link" href="libfm-fm-thumbnail.html#FmThumbnailRequest" title="FmThumbnailRequest"><span class="type">FmThumbnailRequest</span></a> *req</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">

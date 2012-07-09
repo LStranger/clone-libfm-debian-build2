@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmPathEntry</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm-thumbnail.html" title="fm-thumbnail">
-<link rel="next" href="libfm-fm-file-properties.html" title="fm-file-properties">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmPathBar.html" title="FmPathBar">
+<link rel="next" href="FmPlacesModel.html" title="FmPlacesModel">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm-thumbnail.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmPathBar.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-fm-file-properties.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="FmPlacesModel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmPathEntry.synopsis" class="shortcut">Top</a>
@@ -37,7 +37,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmPathEntry.top_of_page"></a>FmPathEntry</span></h2>
-<p>FmPathEntry</p>
+<p>FmPathEntry — An entry to enter path with completion.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -46,7 +46,7 @@
 <pre class="synopsis">struct              <a class="link" href="FmPathEntry.html#FmPathEntry-struct" title="struct FmPathEntry">FmPathEntry</a>;
 struct              <a class="link" href="FmPathEntry.html#FmPathEntryClass" title="struct FmPathEntryClass">FmPathEntryClass</a>;
 <a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            <a class="link" href="FmPathEntry.html#fm-path-entry-get-path" title="fm_path_entry_get_path ()">fm_path_entry_get_path</a>              (<em class="parameter"><code><a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> *entry</code></em>);
-<span class="returnvalue">GtkWidget</span> *         <a class="link" href="FmPathEntry.html#fm-path-entry-new" title="fm_path_entry_new ()">fm_path_entry_new</a>                   ();
+<a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="returnvalue">FmPathEntry</span></a> *       <a class="link" href="FmPathEntry.html#fm-path-entry-new" title="fm_path_entry_new ()">fm_path_entry_new</a>                   ();
 <span class="returnvalue">void</span>                <a class="link" href="FmPathEntry.html#fm-path-entry-set-path" title="fm_path_entry_set_path ()">fm_path_entry_set_path</a>              (<em class="parameter"><code><a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> *entry</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
 </pre>
@@ -76,6 +76,13 @@ FmPathEntry implements
 </div>
 <div class="refsect1">
 <a name="FmPathEntry.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-path-entry.h
+</p>
+<p>
+The <a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> represents a widget to enter folder path for changing
+current directory.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmPathEntry.details"></a><h2>Details</h2>
@@ -87,7 +94,6 @@ FmPathEntry implements
 <div class="refsect2">
 <a name="FmPathEntryClass"></a><h3>struct FmPathEntryClass</h3>
 <pre class="programlisting">struct FmPathEntryClass {
-  GtkEntryClass parent_class;
 };
 </pre>
 </div>
@@ -95,17 +101,65 @@ FmPathEntry implements
 <div class="refsect2">
 <a name="fm-path-entry-get-path"></a><h3>fm_path_entry_get_path ()</h3>
 <pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            fm_path_entry_get_path              (<em class="parameter"><code><a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> *entry</code></em>);</pre>
+<p>
+Retrieves the current path in the <em class="parameter"><code>entry</code></em>. Returned data are owned by
+<em class="parameter"><code>entry</code></em> and should be not freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>the widget to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the current path. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.10</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-path-entry-new"></a><h3>fm_path_entry_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         fm_path_entry_new                   ();</pre>
+<pre class="programlisting"><a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="returnvalue">FmPathEntry</span></a> *       fm_path_entry_new                   ();</pre>
+<p>
+Creates new path entry widget.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-path-entry-set-path"></a><h3>fm_path_entry_set_path ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_path_entry_set_path              (<em class="parameter"><code><a class="link" href="FmPathEntry.html" title="FmPathEntry"><span class="type">FmPathEntry</span></a> *entry</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<p>
+Sets new path into enter field.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>a widget to apply</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>new path to set</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.10</p>
 </div>
 </div>
 <div class="refsect1">
@@ -113,8 +167,12 @@ FmPathEntry implements
 <div class="refsect2">
 <a name="FmPathEntry--highlight-completion-match"></a><h3>The <code class="literal">"highlight-completion-match"</code> property</h3>
 <pre class="programlisting">  "highlight-completion-match" <span class="type">gboolean</span>              : Read / Write</pre>
-<p>Wheather to highlight the completion match.</p>
+<p>
+The <a class="link" href="FmPathEntry.html#FmPathEntry--highlight-completion-match" title='The "highlight-completion-match" property'><span class="type">"highlight-completion-match"</span></a> property is the flag
+whether the completion match should be highlighted or not.
+</p>
 <p>Default value: TRUE</p>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 </div>

@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmFolder</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-FmDndDest.html" title="FmDndDest">
-<link rel="next" href="libfm-fm-gtk.html" title="fm-gtk">
+<link rel="up" href="libfm-core.html" title="Libfm Core Reference.">
+<link rel="prev" href="libfm-fm-file-launcher.html" title="fm-file-launcher">
+<link rel="next" href="libfm-fm-icon.html" title="fm-icon">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-FmDndDest.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-fm-file-launcher.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-fm-gtk.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libfm-fm-icon.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmFolder.synopsis" class="shortcut">Top</a>
@@ -35,25 +35,29 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmFolder.top_of_page"></a>FmFolder</span></h2>
-<p>FmFolder</p>
+<p>FmFolder — Folder loading and monitoring.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
 <div class="refsynopsisdiv">
 <a name="FmFolder.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">struct              <a class="link" href="FmFolder.html#FmFolder-struct" title="struct FmFolder">FmFolder</a>;
+<pre class="synopsis">                    <a class="link" href="FmFolder.html#FmFolder-struct" title="FmFolder">FmFolder</a>;
 struct              <a class="link" href="FmFolder.html#FmFolderClass" title="struct FmFolderClass">FmFolderClass</a>;
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get" title="fm_folder_get ()">fm_folder_get</a>                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
-<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="FmFolder.html#fm-folder-get-file-by-name" title="fm_folder_get_file_by_name ()">fm_folder_get_file_by_name</a>          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-from-gfile" title="fm_folder_from_gfile ()">fm_folder_from_gfile</a>                (<em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-from-path" title="fm_folder_from_path ()">fm_folder_from_path</a>                 (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-from-path-name" title="fm_folder_from_path_name ()">fm_folder_from_path_name</a>            (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-from-uri" title="fm_folder_from_uri ()">fm_folder_from_uri</a>                  (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="FmFolder.html#fm-folder-get-file-by-name" title="fm_folder_get_file_by_name ()">fm_folder_get_file_by_name</a>          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
-<a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    <a class="link" href="FmFolder.html#fm-folder-get-files" title="fm_folder_get_files ()">fm_folder_get_files</a>                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<a class="link" href="libfm-fm-path.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    <a class="link" href="FmFolder.html#fm-folder-get-files" title="fm_folder_get_files ()">fm_folder_get_files</a>                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
 <span class="returnvalue">gboolean</span>            <a class="link" href="FmFolder.html#fm-folder-get-filesystem-info" title="fm_folder_get_filesystem_info ()">fm_folder_get_filesystem_info</a>       (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
                                                          <em class="parameter"><code><span class="type">guint64</span> *total_size</code></em>,
                                                          <em class="parameter"><code><span class="type">guint64</span> *free_size</code></em>);
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get-for-gfile" title="fm_folder_get_for_gfile ()">fm_folder_get_for_gfile</a>             (<em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get-for-path-name" title="fm_folder_get_for_path_name ()">fm_folder_get_for_path_name</a>         (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
-<a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          <a class="link" href="FmFolder.html#fm-folder-get-for-uri" title="fm_folder_get_for_uri ()">fm_folder_get_for_uri</a>               (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolder.html#fm-folder-get-is-loaded" title="fm_folder_get_is_loaded ()">fm_folder_get_is_loaded</a>             (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="FmFolder.html#fm-folder-get-info" title="fm_folder_get_info ()">fm_folder_get_info</a>                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            <a class="link" href="FmFolder.html#fm-folder-get-path" title="fm_folder_get_path ()">fm_folder_get_path</a>                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolder.html#fm-folder-is-empty" title="fm_folder_is_empty ()">fm_folder_is_empty</a>                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolder.html#fm-folder-is-loaded" title="fm_folder_is_loaded ()">fm_folder_is_loaded</a>                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmFolder.html#fm-folder-is-valid" title="fm_folder_is_valid ()">fm_folder_is_valid</a>                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmFolder.html#fm-folder-query-filesystem-info" title="fm_folder_query_filesystem_info ()">fm_folder_query_filesystem_info</a>     (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmFolder.html#fm-folder-reload" title="fm_folder_reload ()">fm_folder_reload</a>                    (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);
 </pre>
@@ -74,20 +78,29 @@ struct              <a class="link" href="FmFolder.html#FmFolderClass" title="st
   "<a class="link" href="FmFolder.html#FmFolder-files-added" title='The "files-added" signal'>files-added</a>"                                    : <code class="literal">Run First</code>
   "<a class="link" href="FmFolder.html#FmFolder-files-changed" title='The "files-changed" signal'>files-changed</a>"                                  : <code class="literal">Run First</code>
   "<a class="link" href="FmFolder.html#FmFolder-files-removed" title='The "files-removed" signal'>files-removed</a>"                                  : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-finish-loading" title='The "finish-loading" signal'>finish-loading</a>"                                 : <code class="literal">Run First</code>
   "<a class="link" href="FmFolder.html#FmFolder-fs-info" title='The "fs-info" signal'>fs-info</a>"                                        : <code class="literal">Run First</code>
-  "<a class="link" href="FmFolder.html#FmFolder-loaded" title='The "loaded" signal'>loaded</a>"                                         : <code class="literal">Run First</code>
   "<a class="link" href="FmFolder.html#FmFolder-removed" title='The "removed" signal'>removed</a>"                                        : <code class="literal">Run First</code>
+  "<a class="link" href="FmFolder.html#FmFolder-start-loading" title='The "start-loading" signal'>start-loading</a>"                                  : <code class="literal">Run First</code>
   "<a class="link" href="FmFolder.html#FmFolder-unmount" title='The "unmount" signal'>unmount</a>"                                        : <code class="literal">Run First</code>
 </pre>
 </div>
 <div class="refsect1">
 <a name="FmFolder.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-folder.h
+</p>
+<p>
+The <a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> object allows to open and monitor items of some directory
+(either local or remote), i.e. files and directories, to have fast access
+to their info and to info of the directory itself as well.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmFolder.details"></a><h2>Details</h2>
 <div class="refsect2">
-<a name="FmFolder-struct"></a><h3>struct FmFolder</h3>
-<pre class="programlisting">struct FmFolder;</pre>
+<a name="FmFolder-struct"></a><h3>FmFolder</h3>
+<pre class="programlisting">typedef struct _FmFolder FmFolder;</pre>
 </div>
 <hr>
 <div class="refsect2">
@@ -98,31 +111,192 @@ struct              <a class="link" href="FmFolder.html#FmFolderClass" title="st
     void (*files_added)(FmFolder* dir, GSList* files);
     void (*files_removed)(FmFolder* dir, GSList* files);
     void (*files_changed)(FmFolder* dir, GSList* files);
-    void (*loaded)(FmFolder* dir);
+    void (*start_loading)(FmFolder* dir);
+    void (*finish_loading)(FmFolder* dir);
     void (*unmount)(FmFolder* dir);
     void (*changed)(FmFolder* dir);
     void (*removed)(FmFolder* dir);
     void (*content_changed)(FmFolder* dir);
     void (*fs_info)(FmFolder* dir);
-    FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
+    guint (*error)(FmFolder* dir, GError* err, guint severity);
 };
 </pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-folder-get"></a><h3>fm_folder_get ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get                       (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<a name="fm-folder-from-gfile"></a><h3>fm_folder_from_gfile ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_from_gfile                (<em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);</pre>
+<p>
+Retrieves a folder corresponding to <em class="parameter"><code>gf</code></em>. Returned data may be freshly
+created or already loaded. Caller should call <code class="function">g_object_unref()</code> on the
+returned data after usage.
+</p>
+<p>
+Before 1.0.0 this call had name fm_folder_get_for_gfile.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gf</code></em> :</span></p></td>
+<td>
+<span class="type">GFile</span> file descriptor</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> corresponding to <em class="parameter"><code>gf</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-from-path"></a><h3>fm_folder_from_path ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_from_path                 (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<p>
+Retrieves a folder corresponding to <em class="parameter"><code>path</code></em>. Returned data may be freshly
+created or already loaded. Caller should call <code class="function">g_object_unref()</code> on the
+returned data after usage.
+</p>
+<p>
+Before 1.0.0 this call had name fm_folder_get.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path descriptor for the folder</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> corresponding to <em class="parameter"><code>path</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-from-path-name"></a><h3>fm_folder_from_path_name ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_from_path_name            (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+Retrieves a folder corresponding to <em class="parameter"><code>path</code></em>. Returned data may be freshly
+created or already loaded. Caller should call <code class="function">g_object_unref()</code> on the
+returned data after usage.
+</p>
+<p>
+Before 1.0.0 this call had name fm_folder_get_for_path_name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>POSIX path to the folder</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> corresponding to <em class="parameter"><code>path</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-from-uri"></a><h3>fm_folder_from_uri ()</h3>
+<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_from_uri                  (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
+<p>
+Retrieves a folder corresponding to <em class="parameter"><code>uri</code></em>. Returned data may be freshly
+created or already loaded. Caller should call <code class="function">g_object_unref()</code> on the
+returned data after usage.
+</p>
+<p>
+Before 1.0.0 this call had name fm_folder_get_for_uri.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td>URI for the folder</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> corresponding to <em class="parameter"><code>uri</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-folder-get-file-by-name"></a><h3>fm_folder_get_file_by_name ()</h3>
-<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_folder_get_file_by_name          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_folder_get_file_by_name          (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+<p>
+Tries to find a file with basename <em class="parameter"><code>name</code></em> in the <em class="parameter"><code>folder</code></em>. Returned data
+is owned by <a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> and should be not freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to search</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>basename of file in <em class="parameter"><code>folder</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>info descriptor of file or <code class="literal">NULL</code> if no file was found. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-folder-get-files"></a><h3>fm_folder_get_files ()</h3>
-<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    fm_folder_get_files                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmFileInfoList" title="FmFileInfoList"><span class="returnvalue">FmFileInfoList</span></a> *    fm_folder_get_files                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Retrieves list of currently known files and subdirectories in the
+<em class="parameter"><code>folder</code></em>. Returned list is owned by <a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> and should be not modified
+by caller. If caller wants to keep a reference to the returned list it
+should do <code class="function">fm_file_info_list_ref()</code> on the returned data.
+</p>
+<p>
+Before 1.0.0 this call had name fm_folder_get.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to retrieve file list</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>list of items that <em class="parameter"><code>folder</code></em> currently contains. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.1</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -130,103 +304,488 @@ struct              <a class="link" href="FmFolder.html#FmFolderClass" title="st
 <pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_get_filesystem_info       (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>,
                                                          <em class="parameter"><code><span class="type">guint64</span> *total_size</code></em>,
                                                          <em class="parameter"><code><span class="type">guint64</span> *free_size</code></em>);</pre>
+<p>
+Retrieves info about total and free space on the filesystem which
+contains the <em class="parameter"><code>folder</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to retrieve info</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>total_size</code></em> :</span></p></td>
+<td>pointer to counter of total size of the filesystem</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>free_size</code></em> :</span></p></td>
+<td>pointer to counter of free space on the filesystem</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if information can be retrieved.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-folder-get-for-gfile"></a><h3>fm_folder_get_for_gfile ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get_for_gfile             (<em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);</pre>
+<a name="fm-folder-get-info"></a><h3>fm_folder_get_info ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_folder_get_info                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Retrieves <a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> data about the folder itself. Returned data is
+owned by <a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> and should be not modified or freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to retrieve info</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>info descriptor of the <em class="parameter"><code>folder</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-folder-get-for-path-name"></a><h3>fm_folder_get_for_path_name ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get_for_path_name         (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<a name="fm-folder-get-path"></a><h3>fm_folder_get_path ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            fm_folder_get_path                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Retrieves path of the folder. Returned data is owned by <a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> and
+should be not modified or freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to retrieve path</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>path of the folder. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-folder-get-for-uri"></a><h3>fm_folder_get_for_uri ()</h3>
-<pre class="programlisting"><a class="link" href="FmFolder.html" title="FmFolder"><span class="returnvalue">FmFolder</span></a> *          fm_folder_get_for_uri               (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>);</pre>
+<a name="fm-folder-is-empty"></a><h3>fm_folder_is_empty ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_is_empty                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Checks if folder has no files or subdirectories.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to test</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if folder is empty.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-folder-get-is-loaded"></a><h3>fm_folder_get_is_loaded ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_get_is_loaded             (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<a name="fm-folder-is-loaded"></a><h3>fm_folder_is_loaded ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_is_loaded                 (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Checks if all data for <em class="parameter"><code>folder</code></em> is completely loaded.
+</p>
+<p>
+Before 1.0.0 this call had name fm_folder_get_is_loaded.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to test</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> is loading of folder is already completed.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-folder-is-valid"></a><h3>fm_folder_is_valid ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_folder_is_valid                  (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Checks if directory described by <em class="parameter"><code>folder</code></em> exists.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to test</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if <em class="parameter"><code>folder</code></em> describes a valid existing directory.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-folder-query-filesystem-info"></a><h3>fm_folder_query_filesystem_info ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_query_filesystem_info     (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Queries to retrieve info about filesystem which contains the <em class="parameter"><code>folder</code></em> if
+the filesystem supports such query.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to retrieve info</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-folder-reload"></a><h3>fm_folder_reload ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_folder_reload                    (<em class="parameter"><code><a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder</code></em>);</pre>
+<p>
+Causes to retrieve all data for the <em class="parameter"><code>folder</code></em> as if folder was freshly
+opened.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>folder to be reloaded</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.1</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="FmFolder.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
 <a name="FmFolder-changed"></a><h3>The <code class="literal">"changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-changed" title='The "changed" signal'><span class="type">"changed"</span></a> signal is emitted when the folder itself
+was changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-content-changed"></a><h3>The <code class="literal">"content-changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-content-changed" title='The "content-changed" signal'><span class="type">"content-changed"</span></a> signal is emitted when content
+of the folder is changed (some files are added, removed, or changed).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-error"></a><h3>The <code class="literal">"error"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">gint</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <span class="type">gpointer</span>  arg1,
-                                                        <span class="type">gint</span>      arg2,
+<pre class="programlisting"><span class="returnvalue">guint</span>               user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
+                                                        <span class="type">GError</span>   *error,
+                                                        <span class="type">guint</span>     severity,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run Last</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-error" title='The "error" signal'><span class="type">"error"</span></a> signal is emitted when some error happens.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>error descriptor</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>severity</code></em> :</span></p></td>
+<td>
+<a class="link" href="FmJob.html#FmJobErrorSeverity" title="enum FmJobErrorSeverity"><span class="type">FmJobErrorSeverity</span></a> of the error</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a class="link" href="FmJob.html#FmJobErrorAction" title="enum FmJobErrorAction"><span class="type">FmJobErrorAction</span></a> that should be performed on that error.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.1</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-files-added"></a><h3>The <code class="literal">"files-added"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <span class="type">gpointer</span>  arg1,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
+                                                        <span class="type">gpointer</span>  list,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-files-added" title='The "files-added" signal'><span class="type">"files-added"</span></a> signal is emitted when there is some
+new file created in the directory.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>
+<span class="type">GList</span> of newly added <a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-files-changed"></a><h3>The <code class="literal">"files-changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <span class="type">gpointer</span>  arg1,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
+                                                        <span class="type">gpointer</span>  list,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-files-changed" title='The "files-changed" signal'><span class="type">"files-changed"</span></a> signal is emitted when some file in
+the directory was changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>
+<span class="type">GList</span> of <a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> that were changed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-files-removed"></a><h3>The <code class="literal">"files-removed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <span class="type">gpointer</span>  arg1,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
+                                                        <span class="type">gpointer</span>  list,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-files-removed" title='The "files-removed" signal'><span class="type">"files-removed"</span></a> signal is emitted when some file was
+deleted from the directory.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>
+<span class="type">GList</span> of <a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> that were deleted</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmFolder-finish-loading"></a><h3>The <code class="literal">"finish-loading"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-finish-loading" title='The "finish-loading" signal'><span class="type">"finish-loading"</span></a> signal is emitted when the content
+of the folder is loaded.
+This signal may be emitted more than once and can be induced
+by calling <a class="link" href="FmFolder.html#fm-folder-reload" title="fm_folder_reload ()"><code class="function">fm_folder_reload()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-fs-info"></a><h3>The <code class="literal">"fs-info"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="FmFolder-loaded"></a><h3>The <code class="literal">"loaded"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
-                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-fs-info" title='The "fs-info" signal'><span class="type">"fs-info"</span></a> signal is emitted when filesystem
+information is available.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-removed"></a><h3>The <code class="literal">"removed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-removed" title='The "removed" signal'><span class="type">"removed"</span></a> signal is emitted when the folder itself
+was deleted.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmFolder-start-loading"></a><h3>The <code class="literal">"start-loading"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
+                                                        <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-start-loading" title='The "start-loading" signal'><span class="type">"start-loading"</span></a> signal is emitted when the folder is
+about to be reloaded.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFolder-unmount"></a><h3>The <code class="literal">"unmount"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *fmfolder,
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *folder,
                                                         <span class="type">gpointer</span>  user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmFolder.html#FmFolder-unmount" title='The "unmount" signal'><span class="type">"unmount"</span></a> signal is emitted when the folder was unmounted.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>the monitored directory</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.1</p>
 </div>
 </div>
 </div>

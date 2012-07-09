@@ -1,0 +1,614 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmPlacesModel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmPathEntry.html" title="FmPathEntry">
+<link rel="next" href="FmPlacesView.html" title="FmPlacesView">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="FmPathEntry.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Libfm Reference Manual</th>
+<td><a accesskey="n" href="FmPlacesView.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmPlacesModel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmPlacesModel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmPlacesModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmPlacesModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="FmPlacesModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmPlacesModel.top_of_page"></a>FmPlacesModel</span></h2>
+<p>FmPlacesModel — A model for side panel with places list.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="FmPlacesModel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">enum                <a class="link" href="FmPlacesModel.html#FmPlacesCol" title="enum FmPlacesCol">FmPlacesCol</a>;
+                    <a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem">FmPlacesItem</a>;
+                    <a class="link" href="FmPlacesModel.html#FmPlacesModel-struct" title="FmPlacesModel">FmPlacesModel</a>;
+struct              <a class="link" href="FmPlacesModel.html#FmPlacesModelClass" title="struct FmPlacesModelClass">FmPlacesModelClass</a>;
+enum                <a class="link" href="FmPlacesModel.html#FmPlacesType" title="enum FmPlacesType">FmPlacesType</a>;
+<a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="returnvalue">FmBookmarkItem</span></a> *    <a class="link" href="FmPlacesModel.html#fm-places-item-get-bookmark-item" title="fm_places_item_get_bookmark_item ()">fm_places_item_get_bookmark_item</a>    (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);
+<a class="link" href="libfm-fm-icon.html#FmIcon" title="struct FmIcon"><span class="returnvalue">FmIcon</span></a> *            <a class="link" href="FmPlacesModel.html#fm-places-item-get-icon" title="fm_places_item_get_icon ()">fm_places_item_get_icon</a>             (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="FmPlacesModel.html#fm-places-item-get-info" title="fm_places_item_get_info ()">fm_places_item_get_info</a>             (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);
+<span class="returnvalue">GMount</span> *            <a class="link" href="FmPlacesModel.html#fm-places-item-get-mount" title="fm_places_item_get_mount ()">fm_places_item_get_mount</a>            (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            <a class="link" href="FmPlacesModel.html#fm-places-item-get-path" title="fm_places_item_get_path ()">fm_places_item_get_path</a>             (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);
+<span class="returnvalue">GVolume</span> *           <a class="link" href="FmPlacesModel.html#fm-places-item-get-volume" title="fm_places_item_get_volume ()">fm_places_item_get_volume</a>           (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmPlacesModel.html#fm-places-item-is-mounted" title="fm_places_item_is_mounted ()">fm_places_item_is_mounted</a>           (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);
+<a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="returnvalue">FmBookmarks</span></a> *       <a class="link" href="FmPlacesModel.html#fm-places-model-get-bookmarks" title="fm_places_model_get_bookmarks ()">fm_places_model_get_bookmarks</a>       (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmPlacesModel.html#fm-places-model-get-iter-by-fm-path" title="fm_places_model_get_iter_by_fm_path ()">fm_places_model_get_iter_by_fm_path</a> (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<span class="returnvalue">GtkTreePath</span> *       <a class="link" href="FmPlacesModel.html#fm-places-model-get-separator-path" title="fm_places_model_get_separator_path ()">fm_places_model_get_separator_path</a>  (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmPlacesModel.html#fm-places-model-iter-is-separator" title="fm_places_model_iter_is_separator ()">fm_places_model_iter_is_separator</a>   (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmPlacesModel.html#fm-places-model-mount-indicator-cell-data-func" title="fm_places_model_mount_indicator_cell_data_func ()">fm_places_model_mount_indicator_cell_data_func</a>
+                                                        (<em class="parameter"><code><span class="type">GtkCellLayout</span> *cell_layout</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkCellRenderer</span> *render</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeModel</span> *tree_model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
+<a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="returnvalue">FmPlacesModel</span></a> *     <a class="link" href="FmPlacesModel.html#fm-places-model-new" title="fm_places_model_new ()">fm_places_model_new</a>                 (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmPlacesModel.html#fm-places-model-path-is-bookmark" title="fm_places_model_path_is_bookmark ()">fm_places_model_path_is_bookmark</a>    (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmPlacesModel.html#fm-places-model-path-is-places" title="fm_places_model_path_is_places ()">fm_places_model_path_is_places</a>      (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmPlacesModel.html#fm-places-model-path-is-separator" title="fm_places_model_path_is_separator ()">fm_places_model_path_is_separator</a>   (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="FmPlacesModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GtkListStore
+         +----FmPlacesModel
+</pre>
+</div>
+<div class="refsect1">
+<a name="FmPlacesModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+FmPlacesModel implements
+ GtkTreeModel,  GtkTreeDragSource,  GtkTreeDragDest,  GtkTreeSortable and  GtkBuildable.</p>
+</div>
+<div class="refsect1">
+<a name="FmPlacesModel.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-places-model.h
+</p>
+<p>
+The <a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> represents list of pseudo-folders which contains
+such items as Home directory, Trash bin, mounted removable drives,
+bookmarks, etc. It is used by <a class="link" href="FmPlacesView.html" title="FmPlacesView"><span class="type">FmPlacesView</span></a> to display them in the
+side panel.
+</p>
+</div>
+<div class="refsect1">
+<a name="FmPlacesModel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="FmPlacesCol"></a><h3>enum FmPlacesCol</h3>
+<pre class="programlisting">typedef enum {
+    FM_PLACES_MODEL_COL_ICON,
+    FM_PLACES_MODEL_COL_LABEL,
+    FM_PLACES_MODEL_COL_INFO,
+} FmPlacesCol;
+</pre>
+<p>
+Data of the row in the <a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="FM-PLACES-MODEL-COL-ICON:CAPS"></a><span class="term"><code class="literal">FM_PLACES_MODEL_COL_ICON</code></span></p></td>
+<td>(<span class="type">GdkPixbuf</span> *) icon if the row
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-PLACES-MODEL-COL-LABEL:CAPS"></a><span class="term"><code class="literal">FM_PLACES_MODEL_COL_LABEL</code></span></p></td>
+<td>(<span class="type">char</span> *) name of the row
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-PLACES-MODEL-COL-INFO:CAPS"></a><span class="term"><code class="literal">FM_PLACES_MODEL_COL_INFO</code></span></p></td>
+<td>(<a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *) internal representation
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmPlacesItem"></a><h3>FmPlacesItem</h3>
+<pre class="programlisting">typedef struct _FmPlacesItem FmPlacesItem;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmPlacesModel-struct"></a><h3>FmPlacesModel</h3>
+<pre class="programlisting">typedef struct _FmPlacesModel FmPlacesModel;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmPlacesModelClass"></a><h3>struct FmPlacesModelClass</h3>
+<pre class="programlisting">struct FmPlacesModelClass {
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmPlacesType"></a><h3>enum FmPlacesType</h3>
+<pre class="programlisting">typedef enum {
+    FM_PLACES_ITEM_NONE,
+    FM_PLACES_ITEM_PATH,
+    FM_PLACES_ITEM_VOLUME,
+    FM_PLACES_ITEM_MOUNT
+} FmPlacesType;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="FM-PLACES-ITEM-NONE:CAPS"></a><span class="term"><code class="literal">FM_PLACES_ITEM_NONE</code></span></p></td>
+<td>separator
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-PLACES-ITEM-PATH:CAPS"></a><span class="term"><code class="literal">FM_PLACES_ITEM_PATH</code></span></p></td>
+<td>some path - standard one or bookmark
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-PLACES-ITEM-VOLUME:CAPS"></a><span class="term"><code class="literal">FM_PLACES_ITEM_VOLUME</code></span></p></td>
+<td>a mountable device
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-PLACES-ITEM-MOUNT:CAPS"></a><span class="term"><code class="literal">FM_PLACES_ITEM_MOUNT</code></span></p></td>
+<td>some mounted media or virtual drive
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-item-get-bookmark-item"></a><h3>fm_places_item_get_bookmark_item ()</h3>
+<pre class="programlisting"><a class="link" href="FmBookmarks.html#FmBookmarkItem" title="struct FmBookmarkItem"><span class="returnvalue">FmBookmarkItem</span></a> *    fm_places_item_get_bookmark_item    (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);</pre>
+<p>
+Retrieves bookmark descriptor for the row. Returned data are owned by
+places model and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a places model item</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>bookmark descriptor or <code class="literal">NULL</code> if <em class="parameter"><code>item</code></em> isn't
+a bookmark. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-item-get-icon"></a><h3>fm_places_item_get_icon ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-icon.html#FmIcon" title="struct FmIcon"><span class="returnvalue">FmIcon</span></a> *            fm_places_item_get_icon             (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);</pre>
+<p>
+Retrieves icom image for the row. Returned data are owned by places
+model and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a places model item</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>icon descriptor. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-item-get-info"></a><h3>fm_places_item_get_info ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_places_item_get_info             (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);</pre>
+<p>
+Retrieves file info for the row. Returned data are owned by places
+model and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a places model item</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>file info descriptor. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-item-get-mount"></a><h3>fm_places_item_get_mount ()</h3>
+<pre class="programlisting"><span class="returnvalue">GMount</span> *            fm_places_item_get_mount            (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);</pre>
+<p>
+Rertieves mount descriptor for the row. Returned data are owned by
+places model and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a places model item</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>mount descriptor or <code class="literal">NULL</code> if <em class="parameter"><code>item</code></em> isn't a
+mounted path. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-item-get-path"></a><h3>fm_places_item_get_path ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            fm_places_item_get_path             (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);</pre>
+<p>
+Retrieves path for the row. Returned data are owned by places model
+and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a places model item</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>item path. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-item-get-volume"></a><h3>fm_places_item_get_volume ()</h3>
+<pre class="programlisting"><span class="returnvalue">GVolume</span> *           fm_places_item_get_volume           (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);</pre>
+<p>
+Retrieves volume descriptor for the row. Returned data are owned by
+places model and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a places model item</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>volume descriptor or <code class="literal">NULL</code> if <em class="parameter"><code>item</code></em> isn't a
+mountable volume. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-item-is-mounted"></a><h3>fm_places_item_is_mounted ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_places_item_is_mounted           (<em class="parameter"><code><a class="link" href="FmPlacesModel.html#FmPlacesItem" title="FmPlacesItem"><span class="type">FmPlacesItem</span></a> *item</code></em>);</pre>
+<p>
+Checks if the row is a mounted volume.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a places model item</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the row is a mounted volume.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-get-bookmarks"></a><h3>fm_places_model_get_bookmarks ()</h3>
+<pre class="programlisting"><a class="link" href="FmBookmarks.html" title="FmBookmarks"><span class="returnvalue">FmBookmarks</span></a> *       fm_places_model_get_bookmarks       (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>);</pre>
+<p>
+Retrieves list of bookmarks that is used by the <em class="parameter"><code>model</code></em>. Returned data
+are owned by places model and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>list of bookmarks. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-get-iter-by-fm-path"></a><h3>fm_places_model_get_iter_by_fm_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_places_model_get_iter_by_fm_path (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<p>
+Tries to find an item in the <em class="parameter"><code>model</code></em> by the <em class="parameter"><code>path</code></em>. If item was found
+within <em class="parameter"><code>model</code></em> then sets <em class="parameter"><code>iter</code></em> to match the found item.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>the row iterator pointer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>a file path to search</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if item was found.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-get-separator-path"></a><h3>fm_places_model_get_separator_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkTreePath</span> *       fm_places_model_get_separator_path  (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>);</pre>
+<p>
+Retrieves path to separator between places and bookmark items. Returned
+path should be freed with <code class="function">gtk_tree_path_free()</code> after usage.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the path to separator. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-iter-is-separator"></a><h3>fm_places_model_iter_is_separator ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_places_model_iter_is_separator   (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);</pre>
+<p>
+Checks if the row described in <em class="parameter"><code>it</code></em> is a separator.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>it</code></em> :</span></p></td>
+<td>model iterator to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the row is a separator.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-mount-indicator-cell-data-func"></a><h3>fm_places_model_mount_indicator_cell_data_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_places_model_mount_indicator_cell_data_func
+                                                        (<em class="parameter"><code><span class="type">GtkCellLayout</span> *cell_layout</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkCellRenderer</span> *render</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeModel</span> *tree_model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cell_layout</code></em> :</span></p></td>
+<td>the cell layout</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>render</code></em> :</span></p></td>
+<td>the cell renderer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tree_model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>it</code></em> :</span></p></td>
+<td>the row iterator</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>unused</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-new"></a><h3>fm_places_model_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="returnvalue">FmPlacesModel</span></a> *     fm_places_model_new                 (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates new places model.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-path-is-bookmark"></a><h3>fm_places_model_path_is_bookmark ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_places_model_path_is_bookmark    (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
+<p>
+Checks if the row by <em class="parameter"><code>tp</code></em> is a bookmark item.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tp</code></em> :</span></p></td>
+<td>the row path to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the row is a bookmark item.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-path-is-places"></a><h3>fm_places_model_path_is_places ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_places_model_path_is_places      (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
+<p>
+Checks if the row by <em class="parameter"><code>tp</code></em> is not a bookmark.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tp</code></em> :</span></p></td>
+<td>the row path to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the row is a places item.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-places-model-path-is-separator"></a><h3>fm_places_model_path_is_separator ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_places_model_path_is_separator   (<em class="parameter"><code><a class="link" href="FmPlacesModel.html" title="FmPlacesModel"><span class="type">FmPlacesModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
+<p>
+Checks if the row by <em class="parameter"><code>tp</code></em> is a separator.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>a places model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tp</code></em> :</span></p></td>
+<td>the row path to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the row is a separator.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.14</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

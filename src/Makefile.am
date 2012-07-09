@@ -1,14 +1,19 @@
 # for use in libtool -version-info
-ABI_VERSION=1:0:0
-
-# current dir needs to be built before tests
-SUBDIRS=. tests
+ABI_VERSION=3:1:0
 
 NULL=
+
+# current dir needs to be built before tests
+SUBDIRS= \
+	actions \
+	. \
+	tests \
+	$(NULL)
 
 AM_CPPFLAGS = \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
+	-I$(srcdir)/actions \
 	-I$(srcdir)/job \
 	-I$(srcdir)/gtk \
 	-I$(srcdir)/demo \
@@ -66,6 +71,7 @@ base_SOURCES = \
 	base/fm-dummy-monitor.c \
 	base/fm-archiver.c \
 	base/fm-app-info.c \
+	base/fm-thumbnailer.c \
 	base/fm-marshal.c \
 	$(NULL)
 
@@ -153,6 +159,7 @@ libfminclude_HEADERS = \
 	base/fm-dummy-monitor.h \
 	base/fm-archiver.h \
 	base/fm-app-info.h \
+	base/fm-thumbnailer.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -219,6 +226,7 @@ libfm_la_LIBADD = \
 	$(MENU_CACHE_LIBS) \
 	$(DBUS_LIBS) \
 	$(INTLLIBS) \
+	$(srcdir)/actions/libfmactions.la \
 	$(NULL)
 
 libfm_la_LDFLAGS = \
@@ -237,6 +245,7 @@ libfm_gtk_la_CFLAGS = \
 	$(GIO_CFLAGS) \
 	$(PANGO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
+	$(EXIF_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
@@ -247,6 +256,7 @@ libfm_gtk_la_LIBADD = \
 	$(GIO_LIBS) \
 	$(PANGO_LIBS) \
 	$(MENU_CACHE_LIBS) \
+	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
 	$(NULL)
@@ -362,6 +372,11 @@ BUILT_SOURCES= \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
+# Vala vapi files
+VAPI_FILES = \
+	vapi/libfm.vapi \
+	$(NULL)
+
 EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
@@ -370,6 +385,7 @@ EXTRA_DIST = \
 	udisks/gen-binding \
 	udisks/udisks.h \
 	udisks/udisks-device.h \
+	$(VAPI_FILES) \
 	$(NULL)
 
 CLEANFILES = \

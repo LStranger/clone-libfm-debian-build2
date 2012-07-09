@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-progress-dlg</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm-icon-pixbuf.html" title="fm-icon-pixbuf">
-<link rel="next" href="libfm-fm-app-chooser-combo-box.html" title="fm-app-chooser-combo-box">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmPlacesView.html" title="FmPlacesView">
+<link rel="next" href="FmSidePane.html" title="FmSidePane">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm-icon-pixbuf.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmPlacesView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="libfm-fm-app-chooser-combo-box.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="FmSidePane.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#libfm-fm-progress-dlg.synopsis" class="shortcut">Top</a>
@@ -56,6 +56,32 @@
 <a name="fm-file-ops-job-run-with-progress"></a><h3>fm_file_ops_job_run_with_progress ()</h3>
 <pre class="programlisting"><a class="link" href="libfm-fm-progress-dlg.html#FmProgressDisplay" title="FmProgressDisplay"><span class="returnvalue">FmProgressDisplay</span></a> * fm_file_ops_job_run_with_progress   (<em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
                                                          <em class="parameter"><code><a class="link" href="FmFileOpsJob.html" title="FmFileOpsJob"><span class="type">FmFileOpsJob</span></a> *job</code></em>);</pre>
+<p>
+Runs the file operation job with a progress dialog.
+The returned data structure will be freed in idle handler automatically
+when it's not needed anymore.
+</p>
+<p>
+NOTE: INCONSISTENCY: it takes a reference from job
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent window to show dialog over it</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>job</code></em> :</span></p></td>
+<td>job descriptor to run</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>progress data; not usable; caller should not free it either. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 </div>
 </div>

@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>FmDirTreeView</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="FmDirTreeModel.html" title="FmDirTreeModel">
+<link rel="next" href="libfm-fm-dnd-auto-scroll.html" title="fm-dnd-auto-scroll">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="FmDirTreeModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-dnd-auto-scroll.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#FmDirTreeView.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#FmDirTreeView.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#FmDirTreeView.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#FmDirTreeView.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#FmDirTreeView.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="FmDirTreeView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="FmDirTreeView.top_of_page"></a>FmDirTreeView</span></h2>
+<p>FmDirTreeView — A directory tree view widget.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="FmDirTreeView.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="FmDirTreeView.html#FmDirTreeView-struct" title="struct FmDirTreeView">FmDirTreeView</a>;
+struct              <a class="link" href="FmDirTreeView.html#FmDirTreeViewClass" title="struct FmDirTreeViewClass">FmDirTreeViewClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeView.html#fm-dir-tree-view-chdir" title="fm_dir_tree_view_chdir ()">fm_dir_tree_view_chdir</a>              (<em class="parameter"><code><a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> *view</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            <a class="link" href="FmDirTreeView.html#fm-dir-tree-view-get-cwd" title="fm_dir_tree_view_get_cwd ()">fm_dir_tree_view_get_cwd</a>            (<em class="parameter"><code><a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> *view</code></em>);
+<a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="returnvalue">FmDirTreeView</span></a> *     <a class="link" href="FmDirTreeView.html#fm-dir-tree-view-new" title="fm_dir_tree_view_new ()">fm_dir_tree_view_new</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkTreeView
+                                 +----FmDirTreeView
+</pre>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+FmDirTreeView implements
+ AtkImplementorIface and  GtkBuildable.</p>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeView.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="FmDirTreeView.html#FmDirTreeView-chdir" title='The "chdir" signal'>chdir</a>"                                          : <code class="literal">Run Last</code>
+</pre>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeView.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-dir-tree-view.h
+</p>
+<p>
+The <a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> represents view of filesystem as ierarchical tree
+of folders where each node can be expanded or collapsed when required.
+</p>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeView.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="FmDirTreeView-struct"></a><h3>struct FmDirTreeView</h3>
+<pre class="programlisting">struct FmDirTreeView;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmDirTreeViewClass"></a><h3>struct FmDirTreeViewClass</h3>
+<pre class="programlisting">struct FmDirTreeViewClass {
+    GtkTreeViewClass parent_class;
+    void (*chdir)(FmDirTreeView* view, guint button, FmPath* path);
+};
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">GtkTreeViewClass</span> <em class="structfield"><code><a name="FmDirTreeViewClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="FmDirTreeViewClass.chdir"></a>chdir</code></em> ()</span></p></td>
+<td>the class closure for the <a class="link" href="FmDirTreeView.html#FmDirTreeView-chdir" title='The "chdir" signal'><span class="type">"chdir"</span></a> signal.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-view-chdir"></a><h3>fm_dir_tree_view_chdir ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_view_chdir              (<em class="parameter"><code><a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> *view</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<p>
+Queries change selected directory in the <em class="parameter"><code>view</code></em> to new <em class="parameter"><code>path</code></em>. The
+widget will expand nodes in the tree if that will be needed to
+reach requested path.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>view</code></em> :</span></p></td>
+<td>the widget to change</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>new directory</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-view-get-cwd"></a><h3>fm_dir_tree_view_get_cwd ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            fm_dir_tree_view_get_cwd            (<em class="parameter"><code><a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> *view</code></em>);</pre>
+<p>
+Retrieves current selected directory. Returned data are owned by <em class="parameter"><code>view</code></em>
+and should not be freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>view</code></em> :</span></p></td>
+<td>the widget to retrieve info</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>current directory path. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-view-new"></a><h3>fm_dir_tree_view_new ()</h3>
+<pre class="programlisting"><a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="returnvalue">FmDirTreeView</span></a> *     fm_dir_tree_view_new                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates new <a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> widget.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> object.</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="FmDirTreeView-chdir"></a><h3>The <code class="literal">"chdir"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> *view,
+                                                        <span class="type">guint</span>          button,
+                                                        <span class="type">gpointer</span>       path,
+                                                        <span class="type">gpointer</span>       user_data)      : <code class="literal">Run Last</code></pre>
+<p>
+The <a class="link" href="FmDirTreeView.html#FmDirTreeView-chdir" title='The "chdir" signal'><span class="type">"chdir"</span></a> signal is emitted when current selected
+directory in view is changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>view</code></em> :</span></p></td>
+<td>a view instance that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>button</code></em> :</span></p></td>
+<td>always is 1</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>(<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *) new directory path</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -74,7 +74,7 @@ static void g_udisks_device_class_init(GUDisksDeviceClass *klass)
     g_object_class->finalize = g_udisks_device_finalize;
 }
 
-static clear_props(GUDisksDevice* dev)
+static void clear_props(GUDisksDevice* dev)
 {
     g_free(dev->dev_file);
     g_free(dev->dev_file_presentation);
@@ -93,7 +93,7 @@ static clear_props(GUDisksDevice* dev)
     g_strfreev(dev->mount_paths);
 }
 
-static set_props(GUDisksDevice* dev, GHashTable* props)
+static void set_props(GUDisksDevice* dev, GHashTable* props)
 {
     dev->dev_file = dbus_prop_dup_str(props, "DeviceFile");
     dev->dev_file_presentation = dbus_prop_dup_str(props, "DeviceFilePresentation");
@@ -208,7 +208,7 @@ const char* g_udisks_device_get_icon_name(GUDisksDevice* dev)
                 icon_name = "media-optical-audio";
             else
             {
-                int i;
+                guint i;
                 icon_name = "media-optical";
                 for( i = 0; i < G_N_ELEMENTS(disc_data); ++i)
                 {
@@ -278,7 +278,7 @@ const char* g_udisks_device_get_disc_name(GUDisksDevice* dev)
             name = "Audio CD";
         else
         {
-            int i;
+            guint i;
             for( i = 0; i < G_N_ELEMENTS(disc_data); ++i)
             {
                 if(strcmp(dev->media, disc_data[i].disc_type) == 0)

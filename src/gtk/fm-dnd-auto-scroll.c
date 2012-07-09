@@ -34,14 +34,27 @@ struct _FmDndAutoScroll
 
 static GQuark data_id = 0;
 
-static gboolean on_auto_scroll(FmDndAutoScroll* as)
+static gboolean on_auto_scroll(gpointer user_data)
 {
+    FmDndAutoScroll* as = (FmDndAutoScroll*)user_data;
     int x, y;
     GtkAdjustment* va = as->vadj;
     GtkAdjustment* ha = as->hadj;
     GtkWidget* widget = as->widget;
 
     gdk_window_get_pointer(widget->window, &x, &y, NULL);
+
+    /*
+       HACK.
+       Sometimes we do not get drag-leave signal. (Why?)
+       This check prevents infinite scrolling.
+    */
+    if (y < 0 || y > widget->allocation.height ||
+        x < 0 || x > widget->allocation.width)
+    {
+        as->timeout = 0;
+        return FALSE;
+    }
 
     if(va)
     {
@@ -104,7 +117,7 @@ static gboolean on_drag_motion(GtkWidget *widget, GdkDragContext *drag_context,
         return FALSE;
     if(0 == as->timeout) /* install a scroll timeout if needed */
     {
-        as->timeout = gdk_threads_add_timeout(150, (GSourceFunc)on_auto_scroll, as);
+        as->timeout = gdk_threads_add_timeout(150, on_auto_scroll, as);
     }
     return FALSE;
 }
@@ -120,8 +133,9 @@ static void on_drag_leave(GtkWidget *widget, GdkDragContext *drag_context,
     }
 }
 
-static void fm_dnd_auto_scroll_free(FmDndAutoScroll* as)
+static void fm_dnd_auto_scroll_free(gpointer user_data)
 {
+    FmDndAutoScroll* as = (FmDndAutoScroll*)user_data;
     if(as->timeout)
         g_source_remove(as->timeout);
     if(as->hadj)
@@ -136,7 +150,7 @@ static void fm_dnd_auto_scroll_free(FmDndAutoScroll* as)
 
 /**
  * fm_dnd_set_dest_auto_scroll
- * @drag_dest_widget a drag destination widget
+ * @drag_dest_widget: a drag destination widget
  * @hadj: horizontal GtkAdjustment
  * @vadj: vertical GtkAdjustment
  *
@@ -166,8 +180,8 @@ void fm_dnd_set_dest_auto_scroll(GtkWidget* drag_dest_widget,
     as->hadj = hadj ? GTK_ADJUSTMENT(g_object_ref(hadj)) : NULL;
     as->vadj = vadj ? GTK_ADJUSTMENT(g_object_ref(vadj)) : NULL;
 
-    g_object_set_qdata_full(drag_dest_widget, data_id,
-            as, (GDestroyNotify)fm_dnd_auto_scroll_free);
+    g_object_set_qdata_full(G_OBJECT(drag_dest_widget), data_id,
+                            as, fm_dnd_auto_scroll_free);
 
     g_signal_connect(drag_dest_widget, "drag-motion",
                      G_CALLBACK(on_drag_motion), as);
@@ -177,7 +191,7 @@ void fm_dnd_set_dest_auto_scroll(GtkWidget* drag_dest_widget,
 
 /**
  * fm_dnd_unset_dest_auto_scroll
- * @drag_dest_widget drag destination widget.
+ * @drag_dest_widget: drag destination widget.
  *
  * Unsets what has been done by fm_dnd_set_dest_auto_scroll()
  */

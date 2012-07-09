@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmDirTreeModel</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="FmCellRendererPixbuf.html" title="FmCellRendererPixbuf">
-<link rel="next" href="FmTabLabel.html" title="FmTabLabel">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="libfm-fm-clipboard.html" title="fm-clipboard">
+<link rel="next" href="FmDirTreeView.html" title="FmDirTreeView">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="FmCellRendererPixbuf.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-fm-clipboard.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmTabLabel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="FmDirTreeView.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmDirTreeModel.synopsis" class="shortcut">Top</a>
@@ -28,6 +28,8 @@
                   <a href="#FmDirTreeModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
                    | 
                   <a href="#FmDirTreeModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#FmDirTreeModel.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
 <div class="refentry">
@@ -35,7 +37,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmDirTreeModel.top_of_page"></a>FmDirTreeModel</span></h2>
-<p>FmDirTreeModel</p>
+<p>FmDirTreeModel — A model for directory tree view</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -43,22 +45,30 @@
 <a name="FmDirTreeModel.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="FmDirTreeModel.html#FmDirTreeModel-struct" title="struct FmDirTreeModel">FmDirTreeModel</a>;
 struct              <a class="link" href="FmDirTreeModel.html#FmDirTreeModelClass" title="struct FmDirTreeModelClass">FmDirTreeModelClass</a>;
-<span class="returnvalue">guint</span>               <a class="link" href="FmDirTreeModel.html#fm-dir-tree-get-icon-size" title="fm_dir_tree_get_icon_size ()">fm_dir_tree_get_icon_size</a>           (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);
+enum                <a class="link" href="FmDirTreeModel.html#FmDirTreeModelCol" title="enum FmDirTreeModelCol">FmDirTreeModelCol</a>;
 <span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-add-root" title="fm_dir_tree_model_add_root ()">fm_dir_tree_model_add_root</a>          (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *root</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-collapse-row" title="fm_dir_tree_model_collapse_row ()">fm_dir_tree_model_collapse_row</a>      (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> *root</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);
+<span class="returnvalue">guint</span>               <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-get-icon-size" title="fm_dir_tree_model_get_icon_size ()">fm_dir_tree_model_get_icon_size</a>     (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-load-row" title="fm_dir_tree_model_load_row ()">fm_dir_tree_model_load_row</a>          (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
                                                          <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
                                                          <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-expand-row" title="fm_dir_tree_model_expand_row ()">fm_dir_tree_model_expand_row</a>        (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-get-show-hidden" title="fm_dir_tree_model_get_show_hidden ()">fm_dir_tree_model_get_show_hidden</a>   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);
 <a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="returnvalue">FmDirTreeModel</span></a> *    <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-new" title="fm_dir_tree_model_new ()">fm_dir_tree_model_new</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-set-icon-size" title="fm_dir_tree_model_set_icon_size ()">fm_dir_tree_model_set_icon_size</a>     (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
                                                          <em class="parameter"><code><span class="type">guint</span> icon_size</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-set-show-hidden" title="fm_dir_tree_model_set_show_hidden ()">fm_dir_tree_model_set_show_hidden</a>   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-unload-row" title="fm_dir_tree_model_unload_row ()">fm_dir_tree_model_unload_row</a>        (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="FmDirTreeModel.html#fm-dir-tree-row-get-disp-name" title="fm_dir_tree_row_get_disp_name ()">fm_dir_tree_row_get_disp_name</a>       (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);
+<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        <a class="link" href="FmDirTreeModel.html#fm-dir-tree-row-get-file-info" title="fm_dir_tree_row_get_file_info ()">fm_dir_tree_row_get_file_info</a>       (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);
+<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            <a class="link" href="FmDirTreeModel.html#fm-dir-tree-row-get-file-path" title="fm_dir_tree_row_get_file_path ()">fm_dir_tree_row_get_file_path</a>       (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);
+<span class="returnvalue">GdkPixbuf</span> *         <a class="link" href="FmDirTreeModel.html#fm-dir-tree-row-get-icon" title="fm_dir_tree_row_get_icon ()">fm_dir_tree_row_get_icon</a>            (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="FmDirTreeModel.html#fm-dir-tree-row-is-loaded" title="fm_dir_tree_row_is_loaded ()">fm_dir_tree_row_is_loaded</a>           (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -75,7 +85,20 @@ FmDirTreeModel implements
  GtkTreeModel.</p>
 </div>
 <div class="refsect1">
+<a name="FmDirTreeModel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="FmDirTreeModel.html#FmDirTreeModel-row-loaded" title='The "row-loaded" signal'>row-loaded</a>"                                     : <code class="literal">Run First</code>
+</pre>
+</div>
+<div class="refsect1">
 <a name="FmDirTreeModel.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-dir-tree-model.h
+</p>
+<p>
+The <a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> represents tree of folders which can be used by
+<a class="link" href="FmDirTreeView.html" title="FmDirTreeView"><span class="type">FmDirTreeView</span></a> to create tree-like expandable list of directories.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmDirTreeModel.details"></a><h2>Details</h2>
@@ -88,56 +111,417 @@ FmDirTreeModel implements
 <a name="FmDirTreeModelClass"></a><h3>struct FmDirTreeModelClass</h3>
 <pre class="programlisting">struct FmDirTreeModelClass {
     GObjectClass parent_class;
+    void (*row_loaded)(FmDirTreeModel* model, GtkTreePath* row);
 };
 </pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">GObjectClass</span> <em class="structfield"><code><a name="FmDirTreeModelClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>the parent class</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="FmDirTreeModelClass.row-loaded"></a>row_loaded</code></em> ()</span></p></td>
+<td>the class closure for the <a class="link" href="FmDirTreeModel.html#FmDirTreeModel-row-loaded" title='The "row-loaded" signal'><span class="type">"row-loaded"</span></a> signal</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-dir-tree-get-icon-size"></a><h3>fm_dir_tree_get_icon_size ()</h3>
-<pre class="programlisting"><span class="returnvalue">guint</span>               fm_dir_tree_get_icon_size           (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);</pre>
+<a name="FmDirTreeModelCol"></a><h3>enum FmDirTreeModelCol</h3>
+<pre class="programlisting">typedef enum {
+    FM_DIR_TREE_MODEL_COL_ICON,
+    FM_DIR_TREE_MODEL_COL_DISP_NAME,
+    FM_DIR_TREE_MODEL_COL_INFO,
+    FM_DIR_TREE_MODEL_COL_PATH,
+    FM_DIR_TREE_MODEL_COL_FOLDER,
+} FmDirTreeModelCol;
+</pre>
+<p>
+Columns of dir tree model
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="FM-DIR-TREE-MODEL-COL-ICON:CAPS"></a><span class="term"><code class="literal">FM_DIR_TREE_MODEL_COL_ICON</code></span></p></td>
+<td>(<span class="type">GdkPixbuf</span> *) icon
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DIR-TREE-MODEL-COL-DISP-NAME:CAPS"></a><span class="term"><code class="literal">FM_DIR_TREE_MODEL_COL_DISP_NAME</code></span></p></td>
+<td>(<span class="type">char</span> *) displayed name
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DIR-TREE-MODEL-COL-INFO:CAPS"></a><span class="term"><code class="literal">FM_DIR_TREE_MODEL_COL_INFO</code></span></p></td>
+<td>(<a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> *) file info
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DIR-TREE-MODEL-COL-PATH:CAPS"></a><span class="term"><code class="literal">FM_DIR_TREE_MODEL_COL_PATH</code></span></p></td>
+<td>(<a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *) file path
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DIR-TREE-MODEL-COL-FOLDER:CAPS"></a><span class="term"><code class="literal">FM_DIR_TREE_MODEL_COL_FOLDER</code></span></p></td>
+<td>(<a class="link" href="FmFolder.html" title="FmFolder"><span class="type">FmFolder</span></a> *) folder object
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-dir-tree-model-add-root"></a><h3>fm_dir_tree_model_add_root ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_add_root          (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="struct FmFileInfo"><span class="type">FmFileInfo</span></a> *root</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> *root</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
+<p>
+Adds a root node for file <em class="parameter"><code>root</code></em> into <em class="parameter"><code>model</code></em>. If <em class="parameter"><code>iter</code></em> is not <code class="literal">NULL</code>
+then on return it will be set to new row data.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>root</code></em> :</span></p></td>
+<td>a root path to add</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>pointer to iterator to set. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-dir-tree-model-collapse-row"></a><h3>fm_dir_tree_model_collapse_row ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_collapse_row      (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+<a name="fm-dir-tree-model-get-icon-size"></a><h3>fm_dir_tree_model_get_icon_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               fm_dir_tree_model_get_icon_size     (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);</pre>
+<p>
+Retrieves size of icons which are associated with rows.
+</p>
+<p>
+Before 1.0.0 this API had name fm_dir_tree_get_icon_size.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>preferrable icom size for the <em class="parameter"><code>model</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-model-load-row"></a><h3>fm_dir_tree_model_load_row ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_load_row          (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
                                                          <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
                                                          <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-dir-tree-model-expand-row"></a><h3>fm_dir_tree_model_expand_row ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_expand_row        (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
-                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="fm-dir-tree-model-get-show-hidden"></a><h3>fm_dir_tree_model_get_show_hidden ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_dir_tree_model_get_show_hidden   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>);</pre>
+<p>
+If row with iterator <em class="parameter"><code>it</code></em> has its children already retrieved then
+does nothing. Else starts retrieving of list of children for row
+with iterator <em class="parameter"><code>it</code></em> and path <em class="parameter"><code>tp</code></em>. When children are loaded then a
+<a class="link" href="FmDirTreeModel.html#FmDirTreeModel-row-loaded" title='The "row-loaded" signal'><span class="type">"row-loaded"</span></a> signal will be emitted. The folder
+associated with the row will be monitored for changes in children
+after that.
+This API is used when the row is expanded in the view.
+</p>
+<p>
+Before 1.0.0 this API had name fm_dir_tree_model_expand_row.
+</p>
+<p>
+See also: <a class="link" href="FmDirTreeModel.html#fm-dir-tree-row-is-loaded" title="fm_dir_tree_row_is_loaded ()"><code class="function">fm_dir_tree_row_is_loaded()</code></a>, <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-unload-row" title="fm_dir_tree_model_unload_row ()"><code class="function">fm_dir_tree_model_unload_row()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>it</code></em> :</span></p></td>
+<td>iterator of row to load</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tp</code></em> :</span></p></td>
+<td>path of row to load</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-dir-tree-model-new"></a><h3>fm_dir_tree_model_new ()</h3>
 <pre class="programlisting"><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="returnvalue">FmDirTreeModel</span></a> *    fm_dir_tree_model_new               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates new <a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> instance.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> object.</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-dir-tree-model-set-icon-size"></a><h3>fm_dir_tree_model_set_icon_size ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_set_icon_size     (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
                                                          <em class="parameter"><code><span class="type">guint</span> icon_size</code></em>);</pre>
+<p>
+Sets size of icons which are associated with rows.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>icon_size</code></em> :</span></p></td>
+<td>new preferrable icon size</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="fm-dir-tree-model-set-show-hidden"></a><h3>fm_dir_tree_model_set_show_hidden ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_set_show_hidden   (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> show_hidden</code></em>);</pre>
+<a name="fm-dir-tree-model-unload-row"></a><h3>fm_dir_tree_model_unload_row ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                fm_dir_tree_model_unload_row        (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *it</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreePath</span> *tp</code></em>);</pre>
+<p>
+If children of row with iterator <em class="parameter"><code>it</code></em> are retrieved or monitored
+then stops monitoring the folder and forgets children of the row.
+This API is used when the row is collapsed in the view.
+</p>
+<p>
+Before 1.0.0 this API had name fm_dir_tree_model_collapse_row.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>it</code></em> :</span></p></td>
+<td>iterator of row to unload</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tp</code></em> :</span></p></td>
+<td>path of row to unload</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-row-get-disp-name"></a><h3>fm_dir_tree_row_get_disp_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        fm_dir_tree_row_get_disp_name       (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
+<p>
+Retrieves display name of file associated with row of <em class="parameter"><code>iter</code></em> in <em class="parameter"><code>model</code></em>.
+Returned data are owned by <em class="parameter"><code>model</code></em> and should be not freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>the iterator of row to retrieve data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the file display name for the row. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-row-get-file-info"></a><h3>fm_dir_tree_row_get_file_info ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="returnvalue">FmFileInfo</span></a> *        fm_dir_tree_row_get_file_info       (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
+<p>
+Retrieves info for file associated with row of <em class="parameter"><code>iter</code></em> in <em class="parameter"><code>model</code></em>.
+Returned data are owned by <em class="parameter"><code>model</code></em> and should be not freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>the iterator of row to retrieve data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the file info for the row. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-row-get-file-path"></a><h3>fm_dir_tree_row_get_file_path ()</h3>
+<pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            fm_dir_tree_row_get_file_path       (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
+<p>
+Retrieves <a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> for file associated with row of <em class="parameter"><code>iter</code></em> in <em class="parameter"><code>model</code></em>.
+Returned data are owned by <em class="parameter"><code>model</code></em> and should be not freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>the iterator of row to retrieve data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the file path for the row. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-row-get-icon"></a><h3>fm_dir_tree_row_get_icon ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkPixbuf</span> *         fm_dir_tree_row_get_icon            (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
+<p>
+Retrieves an icon associated with row of <em class="parameter"><code>iter</code></em> in <em class="parameter"><code>model</code></em>. Returned
+data are owned by <em class="parameter"><code>model</code></em> and should be not freed by caller.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>the iterator of row to retrieve data</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the icon for the row. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-dir-tree-row-is-loaded"></a><h3>fm_dir_tree_row_is_loaded ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_dir_tree_row_is_loaded           (<em class="parameter"><code><a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model</code></em>,
+                                                         <em class="parameter"><code><span class="type">GtkTreeIter</span> *iter</code></em>);</pre>
+<p>
+Checks if the row has its children already retrieved. This check may
+need be done since any duplicate calls to <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-load-row" title="fm_dir_tree_model_load_row ()"><code class="function">fm_dir_tree_model_load_row()</code></a>
+will not emit any duplicate <a class="link" href="FmDirTreeModel.html#FmDirTreeModel-row-loaded" title='The "row-loaded" signal'><span class="type">"row-loaded"</span></a> signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>the model instance</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>the iterator of row to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">TRUE</code> if the row has children already loaded.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="FmDirTreeModel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="FmDirTreeModel-row-loaded"></a><h3>The <code class="literal">"row-loaded"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="FmDirTreeModel.html" title="FmDirTreeModel"><span class="type">FmDirTreeModel</span></a> *model,
+                                                        <span class="type">GtkTreePath</span>    *row,
+                                                        <span class="type">gpointer</span>        user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="FmDirTreeModel.html#FmDirTreeModel-row-loaded" title='The "row-loaded" signal'><span class="type">"row-loaded"</span></a> signal is emitted when content of
+folder <em class="parameter"><code>row</code></em> is completely retrieved. It may happen either
+after call to <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-load-row" title="fm_dir_tree_model_load_row ()"><code class="function">fm_dir_tree_model_load_row()</code></a>
+or in time of that call (in case if the folder was already cached in
+memory).
+</p>
+<p>
+See also: <a class="link" href="FmDirTreeModel.html#fm-dir-tree-model-unload-row" title="fm_dir_tree_model_unload_row ()"><code class="function">fm_dir_tree_model_unload_row()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>dir tree model instance that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>row</code></em> :</span></p></td>
+<td>path to folder row that is ready</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 1.0.0</p>
 </div>
 </div>
 </div>

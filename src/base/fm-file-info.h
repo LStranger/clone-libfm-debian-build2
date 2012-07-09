@@ -1,7 +1,8 @@
 /*
  *      fm-file-info.h
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -50,43 +51,9 @@ enum _FmFileInfoFlag
 typedef enum _FmFileInfoFlag FmFileInfoFlag;
 
 typedef struct _FmFileInfo FmFileInfo;
-typedef FmList FmFileInfoList;
+//typedef struct _FmFileInfoList FmFileInfoList; // defined in fm-path.h
 
-struct _FmFileInfo
-{
-    FmPath* path; /* path of the file */
-
-    mode_t mode;
-    union {
-        const char* fs_id;
-        dev_t dev;
-    };
-    uid_t uid;
-    gid_t gid;
-    goffset size;
-    time_t mtime;
-    time_t atime;
-
-    gulong blksize;
-    goffset blocks;
-
-    char* disp_name;  /* displayed name (in UTF-8) */
-
-    /* FIXME: caching the collate key can greatly speed up sorting.
-     *        However, memory usage is greatly increased!.
-     *        Is there a better alternative solution?
-     */
-    char* collate_key; /* used to sort files by name */
-    char* disp_size;  /* displayed human-readable file size */
-    char* disp_mtime; /* displayed last modification time */
-    FmMimeType* type;
-    FmIcon* icon;
-
-    char* target; /* target of shortcut or mountable. */
-
-    /*<private>*/
-    int n_ref;
-};
+struct _MenuCacheItem;/* forward declaration for MenuCacheItem */
 
 /* intialize the file info system */
 void _fm_file_info_init();
@@ -96,11 +63,17 @@ FmFileInfo* fm_file_info_new();
 FmFileInfo* fm_file_info_new_from_gfileinfo(FmPath* path, GFileInfo* inf);
 void fm_file_info_set_from_gfileinfo(FmFileInfo* fi, GFileInfo* inf);
 
+FmFileInfo* fm_file_info_new_from_menu_cache_item(FmPath* path, struct _MenuCacheItem* item);
+void fm_file_info_set_from_menu_cache_item(FmFileInfo* fi, struct _MenuCacheItem* item);
+
+gboolean fm_file_info_set_from_native_file(FmFileInfo* fi, const char* path, GError** err);
+
 FmFileInfo* fm_file_info_ref( FmFileInfo* fi );
 void fm_file_info_unref( FmFileInfo* fi );
 
-void fm_file_info_copy(FmFileInfo* fi, FmFileInfo* src);
+void fm_file_info_update(FmFileInfo* fi, FmFileInfo* src);
 
+/** returned FmPath shouldn't be unref by caller */
 FmPath* fm_file_info_get_path( FmFileInfo* fi );
 const char* fm_file_info_get_name( FmFileInfo* fi );
 const char* fm_file_info_get_disp_name( FmFileInfo* fi );
@@ -114,6 +87,9 @@ const char* fm_file_info_get_disp_size( FmFileInfo* fi );
 goffset fm_file_info_get_blocks( FmFileInfo* fi );
 
 mode_t fm_file_info_get_mode( FmFileInfo* fi );
+
+gboolean fm_file_info_is_native(FmFileInfo* fi);
+
 gboolean fm_file_info_is_dir( FmFileInfo* fi );
 
 FmMimeType* fm_file_info_get_mime_type( FmFileInfo* fi );
@@ -144,15 +120,76 @@ const char* fm_file_info_get_target( FmFileInfo* fi );
 const char* fm_file_info_get_collate_key( FmFileInfo* fi );
 const char* fm_file_info_get_desc( FmFileInfo* fi );
 const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
-time_t* fm_file_info_get_mtime( FmFileInfo* fi );
-time_t* fm_file_info_get_atime( FmFileInfo* fi );
+time_t fm_file_info_get_mtime( FmFileInfo* fi );
+time_t fm_file_info_get_atime( FmFileInfo* fi );
+FmIcon* fm_file_info_get_icon( FmFileInfo* fi );
+uid_t fm_file_info_get_uid( FmFileInfo* fi );
+gid_t fm_file_info_get_gid( FmFileInfo* fi );
+const char* fm_file_info_get_fs_id( FmFileInfo* fi );
+dev_t fm_file_info_get_dev( FmFileInfo* fi );
 
 gboolean fm_file_info_can_thumbnail(FmFileInfo* fi);
 
 FmFileInfoList* fm_file_info_list_new();
-FmFileInfoList* fm_file_info_list_new_from_glist();
+//FmFileInfoList* fm_file_info_list_new_from_glist();
 
-gboolean fm_list_is_file_info_list(FmList* list);
+#ifndef __GTK_DOC_IGNORE__
+static inline FmFileInfoList* fm_file_info_list_ref(FmFileInfoList* list)
+{
+    return list ? (FmFileInfoList*)fm_list_ref((FmList*)list) : NULL;
+}
+static inline void fm_file_info_list_unref(FmFileInfoList* list)
+{
+    if(list == NULL) return;
+    fm_list_unref((FmList*)list);
+}
+
+static inline gboolean fm_file_info_list_is_empty(FmFileInfoList* list)
+{
+    return fm_list_is_empty((FmList*)list);
+}
+static inline guint fm_file_info_list_get_length(FmFileInfoList* list)
+{
+    return fm_list_get_length((FmList*)list);
+}
+static inline FmFileInfo* fm_file_info_list_peek_head(FmFileInfoList* list)
+{
+    return (FmFileInfo*)fm_list_peek_head((FmList*)list);
+}
+static inline GList* fm_file_info_list_peek_head_link(FmFileInfoList* list)
+{
+    return fm_list_peek_head_link((FmList*)list);
+}
+
+static inline void fm_file_info_list_push_tail(FmFileInfoList* list, FmFileInfo* d)
+{
+    fm_list_push_tail((FmList*)list,d);
+}
+static inline void fm_file_info_list_push_tail_link(FmFileInfoList* list, GList* d)
+{
+    fm_list_push_tail_link((FmList*)list,d);
+}
+static inline void fm_file_info_list_push_tail_noref(FmFileInfoList* list, FmFileInfo* d)
+{
+    fm_list_push_tail_noref((FmList*)list,d);
+}
+static inline FmFileInfo* fm_file_info_list_pop_head(FmFileInfoList* list)
+{
+    return fm_list_pop_head((FmList*)list);
+}
+static inline void fm_file_info_list_delete_link(FmFileInfoList* list, GList* _l)
+{
+    fm_list_delete_link((FmList*)list,_l);
+}
+static inline void fm_file_info_list_delete_link_nounref(FmFileInfoList* list, GList* _l)
+{
+    fm_list_delete_link_nounref((FmList*)list,_l);
+}
+static inline void fm_file_info_list_clear(FmFileInfoList* list)
+{
+    fm_list_clear((FmList*)list);
+}
+#endif /* __GTK_DOC_IGNORE__ */
 
 /* return TRUE if all files in the list are of the same type */
 gboolean fm_file_info_list_is_same_type(FmFileInfoList* list);

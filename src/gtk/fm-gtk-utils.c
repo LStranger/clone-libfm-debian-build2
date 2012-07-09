@@ -2,6 +2,7 @@
  *      fm-gtk-utils.c
  *
  *      Copyright 2009 PCMan <pcman@debian>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -41,43 +42,50 @@ void fm_show_error(GtkWindow* parent, const char* title, const char* msg)
 {
     GtkWidget* dlg = gtk_message_dialog_new(parent, 0,
                                             GTK_MESSAGE_ERROR,
-                                            GTK_BUTTONS_OK, msg);
-    gtk_window_set_title((GtkWindow*)dlg, title ? title : _("Error"));
-    gtk_dialog_run((GtkDialog*)dlg);
+                                            GTK_BUTTONS_OK, "%s", msg);
+    gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Error"));
+    gtk_dialog_run(GTK_DIALOG(dlg));
     gtk_widget_destroy(dlg);
 }
 
 gboolean fm_yes_no(GtkWindow* parent, const char* title, const char* question, gboolean default_yes)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
-                                GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, question);
+    GtkDialog* dlg = GTK_DIALOG(gtk_message_dialog_new_with_markup(parent, 0,
+                                                        GTK_MESSAGE_QUESTION,
+                                                        GTK_BUTTONS_YES_NO,
+                                                        "%s", question));
     gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Confirm"));
-    gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
-    ret = gtk_dialog_run((GtkDialog*)dlg);
-    gtk_widget_destroy(dlg);
+    gtk_dialog_set_default_response(dlg, default_yes ? GTK_RESPONSE_YES : GTK_RESPONSE_NO);
+    ret = gtk_dialog_run(dlg);
+    gtk_widget_destroy((GtkWidget*)dlg);
     return ret == GTK_RESPONSE_YES;
 }
 
 gboolean fm_ok_cancel(GtkWindow* parent, const char* title, const char* question, gboolean default_ok)
 {
     int ret;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
-                                GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, question);
+    GtkDialog* dlg = GTK_DIALOG(gtk_message_dialog_new_with_markup(parent, 0,
+                                                        GTK_MESSAGE_QUESTION,
+                                                        GTK_BUTTONS_OK_CANCEL,
+                                                        "%s", question));
     gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Confirm"));
-    gtk_dialog_set_default_response(GTK_DIALOG(dlg), default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
-    ret = gtk_dialog_run((GtkDialog*)dlg);
-    gtk_widget_destroy(dlg);
+    gtk_dialog_set_default_response(dlg, default_ok ? GTK_RESPONSE_OK : GTK_RESPONSE_CANCEL);
+    ret = gtk_dialog_run(dlg);
+    gtk_widget_destroy((GtkWidget*)dlg);
     return ret == GTK_RESPONSE_OK;
 }
 
 /**
  * fm_ask
- * Ask the user a question with several options provided.
  * @parent: toplevel parent widget
+ * @title: title for the window with question
  * @question: the question to show to the user
  * @...: a NULL terminated list of button labels
- * Returns: the index of selected button, or -1 if the dialog is closed.
+ *
+ * Ask the user a question with several options provided.
+ *
+ * Return value: the index of selected button, or -1 if the dialog is closed.
  */
 int fm_ask(GtkWindow* parent, const char* title, const char* question, ...)
 {
@@ -91,44 +99,52 @@ int fm_ask(GtkWindow* parent, const char* title, const char* question, ...)
 
 /**
  * fm_askv
- * Ask the user a question with several options provided.
  * @parent: toplevel parent widget
+ * @title: title for the window with question
  * @question: the question to show to the user
  * @options: a NULL terminated list of button labels
- * Returns: the index of selected button, or -1 if the dialog is closed.
+ *
+ * Ask the user a question with several options provided.
+ *
+ * Return value: the index of selected button, or -1 if the dialog is closed.
  */
-int fm_askv(GtkWindow* parent, const char* title, const char* question, const char** options)
+int fm_askv(GtkWindow* parent, const char* title, const char* question, char* const* options)
 {
     int ret;
     guint id = 1;
-    GtkWidget* dlg = gtk_message_dialog_new_with_markup(parent, 0,
-                                GTK_MESSAGE_QUESTION, 0, question);
+    GtkDialog* dlg = GTK_DIALOG(gtk_message_dialog_new_with_markup(parent, 0,
+                                                        GTK_MESSAGE_QUESTION, 0,
+                                                        "%s", question));
     gtk_window_set_title(GTK_WINDOW(dlg), title ? title : _("Question"));
     /* FIXME: need to handle defualt button and alternative button
      * order problems. */
     while(*options)
     {
         /* FIXME: handle button image and stock buttons */
-        GtkWidget* btn = gtk_dialog_add_button(GTK_DIALOG( dlg ), *options, id);
+        /*GtkWidget* btn =*/
+        gtk_dialog_add_button(dlg, *options, id);
         ++options;
         ++id;
     }
-    ret = gtk_dialog_run((GtkDialog*)dlg);
+    ret = gtk_dialog_run(dlg);
     if(ret >= 1)
         ret -= 1;
     else
         ret = -1;
-    gtk_widget_destroy(dlg);
+    gtk_widget_destroy((GtkWidget*)dlg);
     return ret;
 }
 
 /**
  * fm_ask_valist
- * Ask the user a question with several options provided.
  * @parent: toplevel parent widget
+ * @title: title for the window with question
  * @question: the question to show to the user
- * @options: a NULL terminated list of button labels
- * Returns: the index of selected button, or -1 if the dialog is closed.
+ * @options: va_arg list of button labels
+ *
+ * Ask the user a question with several options provided.
+ *
+ * Return value: the index of selected button, or -1 if the dialog is closed.
  */
 int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va_list options)
 {
@@ -140,7 +156,7 @@ int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va
         g_array_append_val(opts, opt);
         opt = va_arg (options, const char *);
     }
-    ret = fm_askv(parent, title, question, opts->data);
+    ret = fm_askv(parent, title, question, &opts->data);
     g_array_free(opts, TRUE);
     return ret;
 }
@@ -150,32 +166,32 @@ int fm_ask_valist(GtkWindow* parent, const char* title, const char* question, va
 gchar* fm_get_user_input(GtkWindow* parent, const char* title, const char* msg, const char* default_text)
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
-    GtkWidget* entry = gtk_entry_new();
-    gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
+    GtkEntry* entry = GTK_ENTRY(gtk_entry_new());
+    gtk_entry_set_activates_default(entry, TRUE);
 
     if(default_text && default_text[0])
-        gtk_entry_set_text(GTK_ENTRY( entry ), default_text);
+        gtk_entry_set_text(entry, default_text);
 
-    return _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );
+    return _fm_user_input_dialog_run(dlg, entry);
 }
 
 FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char* msg, FmPath* default_path)
 {
 
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
-    GtkWidget* entry = gtk_entry_new();
+    GtkEntry* entry = GTK_ENTRY(gtk_entry_new());
     char *str, *path_str = NULL;
     FmPath* path;
 
-    gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
+    gtk_entry_set_activates_default(entry, TRUE);
 
     if(default_path)
     {
         path_str = fm_path_display_name(default_path, FALSE);
-        gtk_entry_set_text(GTK_ENTRY( entry ), path_str);
+        gtk_entry_set_text(entry, path_str);
     }
 
-    str = _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );
+    str = _fm_user_input_dialog_run(dlg, entry);
     path = fm_path_new_for_str(str);
 
     g_free(path_str);
@@ -187,12 +203,12 @@ FmPath* fm_get_user_input_path(GtkWindow* parent, const char* title, const char*
 gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char* msg, const char* default_text)
 {
     GtkDialog* dlg = _fm_get_user_input_dialog( parent, title, msg);
-    GtkWidget* entry = gtk_entry_new();
-    gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
+    GtkEntry* entry = GTK_ENTRY(gtk_entry_new());
+    gtk_entry_set_activates_default(entry, TRUE);
 
     if(default_text && default_text[0])
     {
-        gtk_entry_set_text(GTK_ENTRY( entry ), default_text);
+        gtk_entry_set_text(entry, default_text);
         /* only select filename part without extension name. */
         if(default_text[1])
         {
@@ -223,30 +239,31 @@ gchar* fm_get_user_input_rename(GtkWindow* parent, const char* title, const char
         }
     }
 
-    return _fm_user_input_dialog_run( dlg,  GTK_ENTRY( entry ) );
+    return _fm_user_input_dialog_run(dlg, entry);
 }
 
 static GtkDialog* _fm_get_user_input_dialog(GtkWindow* parent, const char* title, const char* msg)
 {
-    GtkWidget* dlg = gtk_dialog_new_with_buttons(title, parent, GTK_DIALOG_NO_SEPARATOR,
+    GtkDialog* dlg = GTK_DIALOG(gtk_dialog_new_with_buttons(title, parent,
+                                GTK_DIALOG_NO_SEPARATOR,
                                 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+                                GTK_STOCK_OK, GTK_RESPONSE_OK, NULL));
     GtkWidget* label = gtk_label_new(msg);
     gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
 
-    gtk_dialog_set_alternative_button_order(GTK_DIALOG(dlg), GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
-    gtk_box_set_spacing((GtkBox*)gtk_dialog_get_content_area(GTK_DIALOG(dlg)), 6);
-    gtk_box_pack_start((GtkBox*)gtk_dialog_get_content_area(GTK_DIALOG(dlg)), label, FALSE, TRUE, 6);
+    gtk_dialog_set_alternative_button_order(dlg, GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
+    gtk_box_set_spacing((GtkBox*)gtk_dialog_get_content_area(dlg), 6);
+    gtk_box_pack_start((GtkBox*)gtk_dialog_get_content_area(dlg), label, FALSE, TRUE, 6);
 
-    gtk_container_set_border_width(GTK_CONTAINER((GtkBox*)gtk_dialog_get_content_area(GTK_DIALOG(dlg))), 12);
+    gtk_container_set_border_width(GTK_CONTAINER((GtkBox*)gtk_dialog_get_content_area(dlg)), 12);
     gtk_container_set_border_width(GTK_CONTAINER(dlg), 5);
-    gtk_dialog_set_default_response(GTK_DIALOG(dlg), GTK_RESPONSE_OK);
+    gtk_dialog_set_default_response(dlg, GTK_RESPONSE_OK);
     gtk_window_set_default_size(GTK_WINDOW(dlg), 480, -1);
 
     return dlg;
 }
 
-static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
+static gchar* _fm_user_input_dialog_run(GtkDialog* dlg, GtkEntry *entry)
 {
     char* str = NULL;
     int sel_start, sel_end;
@@ -255,7 +272,7 @@ static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
     /* FIXME: this workaround is used to overcome bug of gtk+.
      * gtk+ seems to ignore select region and select all text for entry in dialog. */
     has_sel = gtk_editable_get_selection_bounds(GTK_EDITABLE(entry), &sel_start, &sel_end);
-    gtk_box_pack_start(GTK_BOX( GTK_DIALOG(dlg)->vbox ), GTK_WIDGET( entry ), FALSE, TRUE, 6);
+    gtk_box_pack_start(GTK_BOX(dlg->vbox), GTK_WIDGET(entry), FALSE, TRUE, 6);
     gtk_widget_show_all(GTK_WIDGET(dlg));
 
     if(has_sel)
@@ -274,6 +291,89 @@ static gchar* _fm_user_input_dialog_run( GtkDialog* dlg, GtkEntry *entry)
     return str;
 }
 
+static void on_update_img_preview( GtkFileChooser *chooser, GtkImage* img )
+{
+    char* file = gtk_file_chooser_get_preview_filename(chooser);
+    GdkPixbuf* pix = NULL;
+    if(file)
+    {
+        pix = gdk_pixbuf_new_from_file_at_scale( file, 128, 128, TRUE, NULL );
+        g_free( file );
+    }
+    if(pix)
+    {
+        gtk_file_chooser_set_preview_widget_active(chooser, TRUE);
+        gtk_image_set_from_pixbuf(img, pix);
+        g_object_unref(pix);
+    }
+    else
+    {
+        gtk_image_clear(img);
+        gtk_file_chooser_set_preview_widget_active(chooser, FALSE);
+    }
+}
+
+static gulong fm_add_image_preview_to_file_chooser(GtkFileChooser* chooser)
+{
+    GtkWidget* img_preview = gtk_image_new();
+    gtk_misc_set_alignment(GTK_MISC(img_preview), 0.5, 0.0);
+    gtk_widget_set_size_request(img_preview, 128, 128);
+    gtk_file_chooser_set_preview_widget(chooser, img_preview);
+    return g_signal_connect(chooser, "update-preview", G_CALLBACK(on_update_img_preview), img_preview);
+}
+
+/* TODO: support selecting multiple files */
+FmPath* fm_select_file(GtkWindow* parent, 
+                        const char* title, 
+                        const char* default_folder,
+                        gboolean local_only,
+                        gboolean show_preview,
+                        /* filter1, filter2, ..., NULL */ ...)
+{
+    FmPath* path;
+    GtkFileChooser* chooser;
+    GtkFileFilter* filter;
+    gulong handler_id = 0;
+    va_list args;
+
+    chooser = (GtkFileChooser*)gtk_file_chooser_dialog_new(
+                                        title, parent, GTK_FILE_CHOOSER_ACTION_OPEN,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+    gtk_dialog_set_alternative_button_order(GTK_DIALOG(chooser),
+                                        GTK_RESPONSE_CANCEL,
+                                        GTK_RESPONSE_OK, NULL);
+    if(local_only)
+        gtk_file_chooser_set_local_only(chooser, TRUE);
+
+    if(default_folder)
+        gtk_file_chooser_set_current_folder(chooser, default_folder);
+
+    va_start(args, show_preview);
+    while((filter = va_arg(args, GtkFileFilter*)))
+    {
+        gtk_file_chooser_add_filter(chooser, filter);
+    }
+    va_end (args);
+
+    if(show_preview)
+        handler_id = fm_add_image_preview_to_file_chooser(chooser);
+
+    if(gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_OK)
+    {
+        GFile* file = gtk_file_chooser_get_file(chooser);
+        path = fm_path_new_for_gfile(file);
+        g_object_unref(file);
+    }
+    else
+        path = NULL;
+    if(handler_id > 0)
+        g_signal_handler_disconnect(chooser, handler_id);
+    gtk_widget_destroy(GTK_WIDGET(chooser));
+    return path;
+}
+
 FmPath* fm_select_folder(GtkWindow* parent, const char* title)
 {
     FmPath* path;
@@ -284,10 +384,10 @@ FmPath* fm_select_folder(GtkWindow* parent, const char* title)
                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
                                         NULL);
-    gtk_dialog_set_alternative_button_order((GtkDialog*)chooser,
+    gtk_dialog_set_alternative_button_order(GTK_DIALOG(chooser),
                                         GTK_RESPONSE_CANCEL,
                                         GTK_RESPONSE_OK, NULL);
-    if( gtk_dialog_run((GtkDialog*)chooser) == GTK_RESPONSE_OK )
+    if( gtk_dialog_run(GTK_DIALOG(chooser)) == GTK_RESPONSE_OK )
     {
         GFile* file = gtk_file_chooser_get_file(chooser);
         path = fm_path_new_for_gfile(file);
@@ -295,7 +395,7 @@ FmPath* fm_select_folder(GtkWindow* parent, const char* title)
     }
     else
         path = NULL;
-    gtk_widget_destroy((GtkWidget*)chooser);
+    gtk_widget_destroy(GTK_WIDGET(chooser));
     return path;
 }
 
@@ -319,7 +419,7 @@ struct MountData
 static void on_mount_action_finished(GObject* src, GAsyncResult *res, gpointer user_data)
 {
     struct MountData* data = user_data;
-g_debug("on_mount_action_finished");
+
     switch(data->action)
     {
     case MOUNT_VOLUME:
@@ -329,25 +429,13 @@ g_debug("on_mount_action_finished");
         data->ret = g_file_mount_enclosing_volume_finish(G_FILE(src), res, &data->err);
         break;
     case UMOUNT_MOUNT:
-#if GLIB_CHECK_VERSION(2, 22, 0)
         data->ret = g_mount_unmount_with_operation_finish(G_MOUNT(src), res, &data->err);
-#else
-        data->ret = g_mount_unmount_finish(G_MOUNT(src), res, &data->err);
-#endif
         break;
     case EJECT_MOUNT:
-#if GLIB_CHECK_VERSION(2, 22, 0)
         data->ret = g_mount_eject_with_operation_finish(G_MOUNT(src), res, &data->err);
-#else
-        data->ret = g_mount_eject_finish(G_MOUNT(src), res, &data->err);
-#endif
         break;
     case EJECT_VOLUME:
-#if GLIB_CHECK_VERSION(2, 22, 0)
         data->ret = g_volume_eject_with_operation_finish(G_VOLUME(src), res, &data->err);
-#else
-        data->ret = g_volume_eject_finish(G_VOLUME(src), res, &data->err);
-#endif
         break;
     }
     g_main_loop_quit(data->loop);
@@ -514,37 +602,53 @@ gboolean fm_eject_volume(GtkWindow* parent, GVolume* vol, gboolean interactive)
 
 void fm_copy_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
 {
-    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
-    fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
-    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
+    FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_COPY, files);
+    fm_file_ops_job_set_dest(job, dest_dir);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 void fm_move_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
 {
-    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
-    fm_file_ops_job_set_dest(FM_FILE_OPS_JOB(job), dest_dir);
-    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
+    FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_MOVE, files);
+    fm_file_ops_job_set_dest(job, dest_dir);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
+}
+
+/**
+ * fm_link_files
+ * @parent:   window to base progress dialog over it
+ * @files:    list of files to make symbolic links to
+ * @dest_dir: directory where symbolic links should be created
+ *
+ * Create symbolic links for some files in the target directory with
+ * progress dialog.
+ */
+void fm_link_files(GtkWindow* parent, FmPathList* files, FmPath* dest_dir)
+{
+    FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_LINK, files);
+    fm_file_ops_job_set_dest(job, dest_dir);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 void fm_trash_files(GtkWindow* parent, FmPathList* files)
 {
     if(!fm_config->confirm_del || fm_yes_no(parent, NULL, _("Do you want to move the selected files to trash can?"), TRUE))
     {
-        FmJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
-        fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
+        FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_TRASH, files);
+        fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
     }
 }
 
 void fm_untrash_files(GtkWindow* parent, FmPathList* files)
 {
-    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_UNTRASH, files);
-    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
+    FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_UNTRASH, files);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 static void fm_delete_files_internal(GtkWindow* parent, FmPathList* files)
 {
-    FmJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
-    fm_file_ops_job_run_with_progress(parent, FM_FILE_OPS_JOB(job));
+    FmFileOpsJob* job = fm_file_ops_job_new(FM_FILE_OP_DELETE, files);
+    fm_file_ops_job_run_with_progress(parent, job); /* it eats reference! */
 }
 
 void fm_delete_files(GtkWindow* parent, FmPathList* files)
@@ -555,12 +659,12 @@ void fm_delete_files(GtkWindow* parent, FmPathList* files)
 
 void fm_trash_or_delete_files(GtkWindow* parent, FmPathList* files)
 {
-    if( !fm_list_is_empty(files) )
+    if( !fm_path_list_is_empty(files) )
     {
         gboolean all_in_trash = TRUE;
         if(fm_config->use_trash)
         {
-            GList* l = fm_list_peek_head_link(files);
+            GList* l = fm_path_list_peek_head_link(files);
             for(;l;l=l->next)
             {
                 FmPath* path = FM_PATH(l->data);
@@ -593,11 +697,15 @@ void fm_move_or_copy_files_to(GtkWindow* parent, FmPathList* files, gboolean is_
 
 void fm_rename_file(GtkWindow* parent, FmPath* file)
 {
-    GFile* gf = fm_path_to_gfile(file), *parent_gf, *dest;
+    GFile *gf, *parent_gf, *dest;
     GError* err = NULL;
-    gchar* new_name = fm_get_user_input_rename( parent, _("Rename File"), _("Please enter a new name:"), file->name);
+    gchar* new_name;
+    new_name = fm_get_user_input_rename(parent, _("Rename File"),
+                                        _("Please enter a new name:"),
+                                        fm_path_get_basename(file));
     if( !new_name )
         return;
+    gf = fm_path_to_gfile(file);
     parent_gf = g_file_get_parent(gf);
     dest = g_file_get_child(G_FILE(parent_gf), new_name);
     g_object_unref(parent_gf);
@@ -620,8 +728,32 @@ void fm_empty_trash(GtkWindow* parent)
     if(fm_yes_no(parent, NULL, _("Are you sure you want to empty the trash can?"), TRUE))
     {
         FmPathList* paths = fm_path_list_new();
-        fm_list_push_tail(paths, fm_path_get_trash());
+        fm_path_list_push_tail(paths, fm_path_get_trash());
         fm_delete_files_internal(parent, paths);
-        fm_list_unref(paths);
+        fm_path_list_unref(paths);
+    }
+}
+
+void fm_set_busy_cursor(GtkWidget* widget)
+{
+    if(GTK_WIDGET_REALIZED(widget))
+    {
+        GdkWindow* window = gtk_widget_get_window(widget);
+        GdkCursor* cursor = gdk_cursor_new(GDK_WATCH);
+        gdk_window_set_cursor(window, cursor);
+    }
+    else
+    {
+        /* FIXME: how to handle this case? */
+        /* g_debug("not realized"); */
+    }
+}
+
+void fm_unset_busy_cursor(GtkWidget* widget)
+{
+    if(GTK_WIDGET_REALIZED(widget))
+    {
+        GdkWindow* window = gtk_widget_get_window(widget);
+        gdk_window_set_cursor(window, NULL);
     }
 }

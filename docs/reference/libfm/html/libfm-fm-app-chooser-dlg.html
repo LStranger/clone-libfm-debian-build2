@@ -3,10 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>fm-app-chooser-dlg</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm-clipboard.html" title="fm-clipboard">
+<link rel="up" href="libfm-gtk.html" title="Libfm Gtk+ Widgets and Objects.">
+<link rel="prev" href="libfm-fm-app-chooser-combo-box.html" title="fm-app-chooser-combo-box">
 <link rel="next" href="libfm-fm-app-menu-view.html" title="fm-app-menu-view">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -14,8 +14,8 @@
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm-clipboard.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-fm-app-chooser-combo-box.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-gtk.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
 <td><a accesskey="n" href="libfm-fm-app-menu-view.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
@@ -37,9 +37,9 @@
 </tr></table></div>
 <div class="refsynopsisdiv">
 <a name="libfm-fm-app-chooser-dlg.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><span class="returnvalue">GAppInfo</span> *          <a class="link" href="libfm-fm-app-chooser-dlg.html#fm-app-chooser-dlg-get-selected-app" title="fm_app_chooser_dlg_get_selected_app ()">fm_app_chooser_dlg_get_selected_app</a> (<em class="parameter"><code><span class="type">GtkDialog</span> *dlg</code></em>,
+<pre class="synopsis"><span class="returnvalue">GAppInfo</span> *          <a class="link" href="libfm-fm-app-chooser-dlg.html#fm-app-chooser-dlg-dup-selected-app" title="fm_app_chooser_dlg_dup_selected_app ()">fm_app_chooser_dlg_dup_selected_app</a> (<em class="parameter"><code><span class="type">GtkDialog</span> *dlg</code></em>,
                                                          <em class="parameter"><code><span class="type">gboolean</span> *set_default</code></em>);
-<span class="returnvalue">GtkWidget</span> *         <a class="link" href="libfm-fm-app-chooser-dlg.html#fm-app-chooser-dlg-new" title="fm_app_chooser_dlg_new ()">fm_app_chooser_dlg_new</a>              (<em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="struct FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
+<span class="returnvalue">GtkDialog</span> *         <a class="link" href="libfm-fm-app-chooser-dlg.html#fm-app-chooser-dlg-new" title="fm_app_chooser_dlg_new ()">fm_app_chooser_dlg_new</a>              (<em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="struct FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
                                                          <em class="parameter"><code><span class="type">gboolean</span> can_set_default</code></em>);
 <span class="returnvalue">GAppInfo</span> *          <a class="link" href="libfm-fm-app-chooser-dlg.html#fm-choose-app-for-mime-type" title="fm_choose_app_for_mime_type ()">fm_choose_app_for_mime_type</a>         (<em class="parameter"><code><span class="type">GtkWindow</span> *parent</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="struct FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
@@ -52,14 +52,14 @@
 <div class="refsect1">
 <a name="libfm-fm-app-chooser-dlg.details"></a><h2>Details</h2>
 <div class="refsect2">
-<a name="fm-app-chooser-dlg-get-selected-app"></a><h3>fm_app_chooser_dlg_get_selected_app ()</h3>
-<pre class="programlisting"><span class="returnvalue">GAppInfo</span> *          fm_app_chooser_dlg_get_selected_app (<em class="parameter"><code><span class="type">GtkDialog</span> *dlg</code></em>,
+<a name="fm-app-chooser-dlg-dup-selected-app"></a><h3>fm_app_chooser_dlg_dup_selected_app ()</h3>
+<pre class="programlisting"><span class="returnvalue">GAppInfo</span> *          fm_app_chooser_dlg_dup_selected_app (<em class="parameter"><code><span class="type">GtkDialog</span> *dlg</code></em>,
                                                          <em class="parameter"><code><span class="type">gboolean</span> *set_default</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-app-chooser-dlg-new"></a><h3>fm_app_chooser_dlg_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         fm_app_chooser_dlg_new              (<em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="struct FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
+<pre class="programlisting"><span class="returnvalue">GtkDialog</span> *         fm_app_chooser_dlg_new              (<em class="parameter"><code><a class="link" href="libfm-fm-mime-type.html#FmMimeType" title="struct FmMimeType"><span class="type">FmMimeType</span></a> *mime_type</code></em>,
                                                          <em class="parameter"><code><span class="type">gboolean</span> can_set_default</code></em>);</pre>
 </div>
 <hr>

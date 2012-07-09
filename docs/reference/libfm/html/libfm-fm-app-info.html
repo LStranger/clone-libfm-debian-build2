@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>fm-app-info</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Libfm Reference Manual">
+<link rel="up" href="libfm-core.html" title="Libfm Core Reference.">
+<link rel="prev" href="libfm-fm.html" title="fm">
+<link rel="next" href="libfm-fm-archiver.html" title="fm-archiver">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libfm-fm.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-core.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Libfm Reference Manual</th>
+<td><a accesskey="n" href="libfm-fm-archiver.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libfm-fm-app-info.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libfm-fm-app-info.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="libfm-fm-app-info"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libfm-fm-app-info.top_of_page"></a>fm-app-info</span></h2>
+<p>fm-app-info</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libfm-fm-app-info.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">GAppInfo</span> *          <a class="link" href="libfm-fm-app-info.html#fm-app-info-create-from-commandline" title="fm_app_info_create_from_commandline ()">fm_app_info_create_from_commandline</a> (<em class="parameter"><code>const <span class="type">char</span> *commandline</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *application_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppInfoCreateFlags</span> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-fm-app-info.html#fm-app-info-launch" title="fm_app_info_launch ()">fm_app_info_launch</a>                  (<em class="parameter"><code><span class="type">GAppInfo</span> *appinfo</code></em>,
+                                                         <em class="parameter"><code><span class="type">GList</span> *files</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppLaunchContext</span> *launch_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-fm-app-info.html#fm-app-info-launch-default-for-uri" title="fm_app_info_launch_default_for_uri ()">fm_app_info_launch_default_for_uri</a>  (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppLaunchContext</span> *launch_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="libfm-fm-app-info.html#fm-app-info-launch-uris" title="fm_app_info_launch_uris ()">fm_app_info_launch_uris</a>             (<em class="parameter"><code><span class="type">GAppInfo</span> *appinfo</code></em>,
+                                                         <em class="parameter"><code><span class="type">GList</span> *uris</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppLaunchContext</span> *launch_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="libfm-fm-app-info.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libfm-fm-app-info.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="fm-app-info-create-from-commandline"></a><h3>fm_app_info_create_from_commandline ()</h3>
+<pre class="programlisting"><span class="returnvalue">GAppInfo</span> *          fm_app_info_create_from_commandline (<em class="parameter"><code>const <span class="type">char</span> *commandline</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *application_name</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppInfoCreateFlags</span> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-app-info-launch"></a><h3>fm_app_info_launch ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_app_info_launch                  (<em class="parameter"><code><span class="type">GAppInfo</span> *appinfo</code></em>,
+                                                         <em class="parameter"><code><span class="type">GList</span> *files</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppLaunchContext</span> *launch_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-app-info-launch-default-for-uri"></a><h3>fm_app_info_launch_default_for_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_app_info_launch_default_for_uri  (<em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppLaunchContext</span> *launch_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="fm-app-info-launch-uris"></a><h3>fm_app_info_launch_uris ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            fm_app_info_launch_uris             (<em class="parameter"><code><span class="type">GAppInfo</span> *appinfo</code></em>,
+                                                         <em class="parameter"><code><span class="type">GList</span> *uris</code></em>,
+                                                         <em class="parameter"><code><span class="type">GAppLaunchContext</span> *launch_context</code></em>,
+                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

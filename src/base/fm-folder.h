@@ -46,33 +46,6 @@ G_BEGIN_DECLS
 typedef struct _FmFolder            FmFolder;
 typedef struct _FmFolderClass       FmFolderClass;
 
-struct _FmFolder
-{
-    GObject parent;
-
-    /* private */
-    FmPath* dir_path;
-    GFile* gf;
-    GFileMonitor* mon;
-    FmDirListJob* job;
-    FmFileInfo* dir_fi;
-    FmFileInfoList* files;
-
-    /* for file monitor */
-    guint idle_handler;
-    GSList* files_to_add;
-    GSList* files_to_update;
-    GSList* files_to_del;
-    GSList* pending_jobs;
-
-    /* filesystem info */
-    guint64 fs_total_size;
-    guint64 fs_free_size;
-    GCancellable* fs_size_cancellable;
-    gboolean has_fs_info : 1;
-    gboolean fs_info_not_avail : 1;
-};
-
 struct _FmFolderClass
 {
     GObjectClass parent_class;
@@ -80,30 +53,39 @@ struct _FmFolderClass
     void (*files_added)(FmFolder* dir, GSList* files);
     void (*files_removed)(FmFolder* dir, GSList* files);
     void (*files_changed)(FmFolder* dir, GSList* files);
-    void (*loaded)(FmFolder* dir);
+    void (*start_loading)(FmFolder* dir);
+    void (*finish_loading)(FmFolder* dir);
     void (*unmount)(FmFolder* dir);
     void (*changed)(FmFolder* dir);
     void (*removed)(FmFolder* dir);
     void (*content_changed)(FmFolder* dir);
     void (*fs_info)(FmFolder* dir);
-    FmJobErrorAction (*error)(FmFolder* dir, GError* err, FmJobErrorSeverity severity);
+    guint (*error)(FmFolder* dir, GError* err, guint severity);
 };
 
 GType       fm_folder_get_type      (void);
-FmFolder*   fm_folder_get(FmPath* path);
-FmFolder*   fm_folder_get_for_gfile(GFile* gf);
-FmFolder*   fm_folder_get_for_path_name(const char* path);
-FmFolder*   fm_folder_get_for_uri(const char* uri);
+FmFolder*   fm_folder_from_path(FmPath* path);
+FmFolder*   fm_folder_from_gfile(GFile* gf);
+FmFolder*   fm_folder_from_path_name(const char* path);
+FmFolder*   fm_folder_from_uri(const char* uri);
+
+FmFileInfo* fm_folder_get_info(FmFolder* folder);
+FmPath* fm_folder_get_path(FmFolder* folder);
 
 FmFileInfoList* fm_folder_get_files (FmFolder* folder);
+gboolean fm_folder_is_empty(FmFolder* folder);
 FmFileInfo* fm_folder_get_file_by_name(FmFolder* folder, const char* name);
 
-gboolean fm_folder_get_is_loaded(FmFolder* folder);
+gboolean fm_folder_is_loaded(FmFolder* folder);
+gboolean fm_folder_is_valid(FmFolder* folder);
 
 void fm_folder_reload(FmFolder* folder);
 
 gboolean fm_folder_get_filesystem_info(FmFolder* folder, guint64* total_size, guint64* free_size);
 void fm_folder_query_filesystem_info(FmFolder* folder);
+
+void _fm_folder_init();
+void _fm_folder_finalize();
 
 G_END_DECLS
 

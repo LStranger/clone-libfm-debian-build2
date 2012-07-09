@@ -19,6 +19,19 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-config
+ * @short_description: Configuration file support for applications that use libfm.
+ * @title: FmConfig
+ *
+ * @include: libfm/fm-config.h
+ *
+ * The #FmConfig represents basic configuration options that are used by
+ * libfm classes and methods. Methods of class #FmConfig allow use either
+ * default file (~/.config/libfm/libfm.conf) or another one to load the
+ * configuration and to save it.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -50,7 +63,14 @@ static void fm_config_class_init(FmConfigClass *klass)
     g_object_class = G_OBJECT_CLASS(klass);
     g_object_class->finalize = fm_config_finalize;
 
-    /* when a config key is changed, the signal can be emitted with detail. */
+    /**
+     * FmConfig::changed:
+     * @config: configuration that was changed
+     *
+     * The #FmConfig::changed signal is emitted when a config key is changed.
+     *
+     * Since: 0.1.0
+     */
     signals[CHANGED]=
         g_signal_new("changed",
                      G_TYPE_FROM_CLASS(klass),
@@ -65,12 +85,17 @@ static void fm_config_class_init(FmConfigClass *klass)
 
 static void fm_config_finalize(GObject *object)
 {
-    FmConfig *self;
-
+    FmConfig* cfg;
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_CONFIG(object));
+    g_return_if_fail(FM_IS_CONFIG(object));
 
-    self = FM_CONFIG(object);
+    cfg = (FmConfig*)object;
+    if(cfg->terminal)
+        g_free(cfg->terminal);
+    if(cfg->archiver)
+        g_free(cfg->archiver);
+    cfg->terminal = NULL;
+    cfg->archiver = NULL;
 
     G_OBJECT_CLASS(fm_config_parent_class)->finalize(object);
 }
@@ -88,29 +113,61 @@ static void fm_config_init(FmConfig *self)
     self->show_thumbnail = FM_CONFIG_DEFAULT_SHOW_THUMBNAIL;
     self->thumbnail_local = FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL;
     self->thumbnail_max = FM_CONFIG_DEFAULT_THUMBNAIL_MAX;
+    self->advanced_mode = FALSE;
 }
 
-
+/**
+ * fm_config_new
+ *
+ * Creates a new configuration structure filled with default values.
+ *
+ * Return value: a new #FmConfig object.
+ *
+ * Since: 0.1.0
+ */
 FmConfig *fm_config_new(void)
 {
     return (FmConfig*)g_object_new(FM_CONFIG_TYPE, NULL);
 }
 
+/**
+ * fm_config_emit_changed
+ * @cfg: pointer to configuration
+ * @changed_key: what was changed
+ *
+ * Causes the #FmConfig::changed signal to be emitted.
+ *
+ * Since: 0.1.0
+ */
 void fm_config_emit_changed(FmConfig* cfg, const char* changed_key)
 {
     GQuark detail = changed_key ? g_quark_from_string(changed_key) : 0;
     g_signal_emit(cfg, signals[CHANGED], detail);
 }
 
+/**
+ * fm_config_load_from_key_file
+ * @cfg: pointer to configuration
+ * @kf: a #GKeyFile with configuration keys and values
+ *
+ * Fills configuration @cfg with data from #GKeyFile @kf.
+ *
+ * Since: 0.1.0
+ */
 void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
 {
     fm_key_file_get_bool(kf, "config", "use_trash", &cfg->use_trash);
     fm_key_file_get_bool(kf, "config", "single_click", &cfg->single_click);
     fm_key_file_get_bool(kf, "config", "confirm_del", &cfg->confirm_del);
+    if(cfg->terminal)
+        g_free(cfg->terminal);
     cfg->terminal = g_key_file_get_string(kf, "config", "terminal", NULL);
+    if(cfg->archiver)
+        g_free(cfg->archiver);
     cfg->archiver = g_key_file_get_string(kf, "config", "archiver", NULL);
     fm_key_file_get_int(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
+    fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -123,9 +180,25 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "ui", "show_thumbnail", &cfg->show_thumbnail);
 }
 
+/**
+ * fm_config_load_from_file
+ * @cfg: pointer to configuration
+ * @name: (allow-none): file name to load configuration
+ *
+ * Fills configuration @cfg with data from configuration file. The file
+ * @name may be %NULL to load default configuration file. If @name is
+ * full path then that file will be loaded. Otherwise @name will be
+ * searched in system config directories and after that in ~/.config/
+ * directory and all found files will be loaded, overwriting existing
+ * data in @cfg.
+ *
+ * See also: fm_config_load_from_key_file()
+ *
+ * Since: 0.1.0
+ */
 void fm_config_load_from_file(FmConfig* cfg, const char* name)
 {
-    char **dirs, **dir;
+    const gchar * const *dirs, * const *dir;
     char *path;
     GKeyFile* kf = g_key_file_new();
 
@@ -141,7 +214,7 @@ void fm_config_load_from_file(FmConfig* cfg, const char* name)
         }
     }
 
-    dirs = g_get_system_config_dirs(), **dir;
+    dirs = g_get_system_config_dirs();
     for(dir=dirs;*dir;++dir)
     {
         path = g_build_filename(*dir, name, NULL);
@@ -159,6 +232,17 @@ _out:
     g_signal_emit(cfg, signals[CHANGED], 0);
 }
 
+/**
+ * fm_config_save
+ * @cfg: pointer to configuration
+ * @name: (allow-none): file name to save configuration
+ *
+ * Saves configuration into configuration file @name. If @name is %NULL
+ * then configuration will be saved into default configuration file.
+ * Otherwise it will be saved into file @name under directory ~/.config.
+ *
+ * Since: 0.1.0
+ */
 void fm_config_save(FmConfig* cfg, const char* name)
 {
     char* path = NULL;;
@@ -179,6 +263,7 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "single_click=%d\n", cfg->single_click);
             fprintf(f, "use_trash=%d\n", cfg->use_trash);
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
+            fprintf(f, "advanced_mode=%d\n", cfg->advanced_mode);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif

@@ -33,11 +33,6 @@
 #include "fm-file-info-job.h"
 #include "fm-app-info.h"
 
-static void launch_files(GAppLaunchContext* ctx, GAppInfo* app, GList* file_infos)
-{
-
-}
-
 gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id, GList* uris, FmFileLauncher* launcher, gpointer user_data)
 {
     gboolean ret = FALSE;
@@ -48,9 +43,9 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
 
     /* Let GDesktopAppInfo try first. */
     if(is_absolute_path)
-        app = g_desktop_app_info_new_from_filename(file_or_id);
+        app = (GAppInfo*)g_desktop_app_info_new_from_filename(file_or_id);
     else
-        app = g_desktop_app_info_new(file_or_id);
+        app = (GAppInfo*)g_desktop_app_info_new(file_or_id);
 
     if(!app) /* gio failed loading it. Let's see what's going on */
     {
@@ -119,8 +114,10 @@ gboolean fm_launch_desktop_entry(GAppLaunchContext* ctx, const char* file_or_id,
         g_key_file_free(kf);
     }
 
-    if(app)
+    if(app) {
         ret = fm_app_info_launch_uris(app, uris, ctx, &err);
+        g_object_unref(app);
+    }
 
     if(err)
     {
@@ -151,25 +148,29 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
     {
         GList* fis;
         fi = (FmFileInfo*)l->data;
-        if(fm_file_info_is_dir(fi))
+        if (launcher->open_folder && fm_file_info_is_dir(fi))
             folders = g_list_prepend(folders, fi);
         else
         {
+            FmPath* path = fm_file_info_get_path(fi);
+            FmMimeType* mime_type;
             /* FIXME: handle shortcuts, such as the items in menu:// */
-            if(fm_path_is_native(fi->path))
+            if(fm_path_is_native(path))
             {
                 char* filename;
                 if(fm_file_info_is_desktop_entry(fi))
                 {
                     /* if it's a desktop entry file, directly launch it. */
-                    filename = fm_path_to_str(fi->path);
+                    filename = fm_path_to_str(path);
                     fm_launch_desktop_entry(ctx, filename, NULL, launcher, user_data);
+                    g_free(filename);
                     continue;
                 }
                 else if(fm_file_info_is_executable_type(fi))
                 {
                     /* if it's an executable file, directly execute it. */
-                    filename = fm_path_to_str(fi->path);
+                    filename = fm_path_to_str(path);
+
                     /* FIXME: we need to use eaccess/euidaccess here. */
                     if(g_file_test(filename, G_FILE_TEST_IS_EXECUTABLE))
                     {
@@ -217,18 +218,24 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 if(fm_file_info_is_shortcut(fi) && !fm_file_info_is_dir(fi))
                 {
                     /* FIXME: special handling for shortcuts */
-                    if(fm_path_is_xdg_menu(fi->path) && fi->target)
+                    if(fm_path_is_xdg_menu(path))
                     {
-                        fm_launch_desktop_entry(ctx, fi->target, NULL, launcher, user_data);
-                        continue;
+                        const char* target = fm_file_info_get_target(fi);
+                        if(target)
+                        {
+                            fm_launch_desktop_entry(ctx, target, NULL, launcher, user_data);
+                            continue;
+                        }
                     }
                 }
             }
-            if(fi->type && fi->type->type)
+
+            mime_type = fm_file_info_get_mime_type(fi);
+            if(mime_type && mime_type->type)
             {
-                fis = g_hash_table_lookup(hash, fi->type->type);
+                fis = g_hash_table_lookup(hash, mime_type->type);
                 fis = g_list_prepend(fis, fi);
-                g_hash_table_insert(hash, fi->type->type, fis);
+                g_hash_table_insert(hash, mime_type->type, fis);
             }
         }
     }
@@ -239,14 +246,14 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
         const char* type;
         GList* fis;
         g_hash_table_iter_init(&it, hash);
-        while(g_hash_table_iter_next(&it, &type, &fis))
+        while(g_hash_table_iter_next(&it, (void**)&type, (void**)&fis))
         {
             GAppInfo* app = g_app_info_get_default_for_type(type, FALSE);
             if(!app)
             {
                 if(launcher->get_app)
                 {
-                    FmMimeType* mime_type = ((FmFileInfo*)fis->data)->type;
+                    FmMimeType* mime_type = fm_file_info_get_mime_type((FmFileInfo*)fis->data);
                     app = launcher->get_app(fis, mime_type, user_data, NULL);
                 }
             }
@@ -256,11 +263,11 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
                 {
                     char* uri;
                     fi = (FmFileInfo*)l->data;
-                    uri = fm_path_to_uri(fi->path);
+                    uri = fm_path_to_uri(fm_file_info_get_path(fi));
                     l->data = uri;
                 }
                 fis = g_list_reverse(fis);
-                fm_app_info_launch_uris(app, fis, ctx, err);
+                fm_app_info_launch_uris(app, fis, ctx, &err);
                 /* free URI strings */
                 g_list_foreach(fis, (GFunc)g_free, NULL);
                 g_object_unref(app);
@@ -291,15 +298,15 @@ gboolean fm_launch_files(GAppLaunchContext* ctx, GList* file_infos, FmFileLaunch
 
 gboolean fm_launch_paths(GAppLaunchContext* ctx, GList* paths, FmFileLauncher* launcher, gpointer user_data)
 {
-    FmJob* job = fm_file_info_job_new(NULL, 0);
+    FmFileInfoJob* job = fm_file_info_job_new(NULL, 0);
     GList* l;
     gboolean ret;
     for(l=paths;l;l=l->next)
-        fm_file_info_job_add(FM_FILE_INFO_JOB(job), (FmPath*)l->data);
-    ret = fm_job_run_sync_with_mainloop(job);
+        fm_file_info_job_add(job, (FmPath*)l->data);
+    ret = fm_job_run_sync_with_mainloop(FM_JOB(job));
     if(ret)
     {
-        GList* file_infos = fm_list_peek_head_link(FM_FILE_INFO_JOB(job)->file_infos);
+        GList* file_infos = fm_file_info_list_peek_head_link(job->file_infos);
         if(file_infos)
             ret = fm_launch_files(ctx, file_infos, launcher, user_data);
         else

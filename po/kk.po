@@ -1,0 +1,887 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-12 18:15+0200\n"
+"PO-Revision-Date: 2012-07-24 17:18+0200\n"
+"Last-Translator: sotrud_nik2 <baurthefirst@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#: ../data/ui/app-chooser.glade.h:1
+msgid "Choose An Application"
+msgstr "Қолданбаны таңдаңыз"
+
+#: ../data/ui/app-chooser.glade.h:2
+msgid "<b>File Type To be Opened:</b>"
+msgstr "<b>Ашылатын файл түрі:</b>"
+
+#: ../data/ui/app-chooser.glade.h:3
+msgid "Installed Application"
+msgstr "Орнатылған қолданбалар"
+
+#: ../data/ui/app-chooser.glade.h:4
+msgid "<b>Command line to execute:</b>"
+msgstr "<b>Орындалатын командалық жол:</b>"
+
+#: ../data/ui/app-chooser.glade.h:5
+msgid "_Browse"
+msgstr "Қара_п шығу"
+
+#: ../data/ui/app-chooser.glade.h:6
+msgid "Execute in terminal emulator"
+msgstr "Терминал эмуляторында орындау"
+
+#: ../data/ui/app-chooser.glade.h:8
+#, no-c-format
+msgid ""
+"<b>These special codes can be used in the command line:</b>\n"
+"  <b>%f</b>: Represents a single file name\n"
+"  <b>%F</b>: Represents multiple file names\n"
+"  <b>%u</b>: Represents a single URI of the file\n"
+"  <b>%U</b>: Represents multiple URIs"
+msgstr ""
+"<b>Бұл арнайы кодтарты командалық жолда қолдануға болады:</b>\n"
+"  <b>%f</b>: Бір файл атын сипаттайды\n"
+"  <b>%F</b>: Бірнеше файлдар аттарын сипаттайды\n"
+"  <b>%u</b>: Файлдың бірлік URI-ін сипаттайды\n"
+"  <b>%U</b>: Бірнеше URI сипаттайды"
+
+#: ../data/ui/app-chooser.glade.h:13
+msgid "Custom Command Line"
+msgstr "Таңдауыңызша командалық жол"
+
+#: ../data/ui/app-chooser.glade.h:14
+msgid "Set selected application as default action of this file type"
+msgstr "Таңдалған қолданбаны файлдардың осы түрі үшін негізгі ретінде орнату"
+
+#: ../data/ui/ask-rename.glade.h:1
+msgid "Confirm to replace files"
+msgstr "Файлдарды алмастыруды растау"
+
+#: ../data/ui/ask-rename.glade.h:2
+msgid ""
+"<b>There is already a file with the same name in this location.</b>\n"
+"\n"
+"Do you want to replace the existing file"
+msgstr ""
+"<b>Бұл жерде осындай аты бар файл бар болып тұр.</b>\n"
+"\n"
+"Бар болып тұрған файлды алмастыруды қалайсыз ба"
+
+#: ../data/ui/ask-rename.glade.h:5
+msgid "with the following file?"
+msgstr "келесі файлмен?"
+
+#: ../data/ui/ask-rename.glade.h:6
+msgid "File Name:"
+msgstr "Файл аты:"
+
+#: ../data/ui/ask-rename.glade.h:7
+msgid "Apply this option to all existing files"
+msgstr "Бұл опцияны барлық бар файлдарға іске асыру"
+
+#: ../data/ui/ask-rename.glade.h:8
+msgid "_Skip"
+msgstr "А_ттап кету"
+
+#: ../data/ui/ask-rename.glade.h:9
+msgid "_Rename"
+msgstr "Атын ауысты_ру"
+
+#: ../data/ui/ask-rename.glade.h:10
+msgid "_Overwrite"
+msgstr "Үстінен _жазу"
+
+#: ../data/ui/file-prop.glade.h:1
+msgid "File Properties"
+msgstr "Файл қасиеттері"
+
+#: ../data/ui/file-prop.glade.h:2
+msgid "<b>File Type:</b>"
+msgstr "<b>Файл түрі:</b>"
+
+#: ../data/ui/file-prop.glade.h:3
+msgid "<b>Total Size of Files:</b>"
+msgstr "<b>Файлдардың сомаланған өлшемі:</b>"
+
+#: ../data/ui/file-prop.glade.h:4
+msgid "<b>Last Modification:</b>"
+msgstr "<b>Соңғы өзгерту:</b>"
+
+#: ../data/ui/file-prop.glade.h:5
+msgid "<b>Last Access:</b>"
+msgstr "<b>Соңғы қатынау:</b>"
+
+#: ../data/ui/file-prop.glade.h:6
+msgid "<b>Location:</b>"
+msgstr "<b>Орналасуы:</b>"
+
+#: ../data/ui/file-prop.glade.h:7
+msgid "<b>Size on Disk:</b>"
+msgstr "<b>Дисктегі өлшемі:</b>"
+
+#: ../data/ui/file-prop.glade.h:8
+msgid "<b>Open _with:</b>"
+msgstr "<b>Кө_мегімен ашу:</b>"
+
+#: ../data/ui/file-prop.glade.h:9
+msgid "Select the application used to open files of this type "
+msgstr "Бұл түрдегі файлдарды ашу үшін қолданбаны көрсетіңіз"
+
+#: ../data/ui/file-prop.glade.h:10
+msgid "<b>Target:</b>"
+msgstr "<b>Мақсаты:</b>"
+
+#: ../data/ui/file-prop.glade.h:11
+msgid "_General"
+msgstr "Жал_пы"
+
+#: ../data/ui/file-prop.glade.h:12
+msgid "<b>_Owner:</b>"
+msgstr "<b>И_есі:</b>"
+
+#: ../data/ui/file-prop.glade.h:13
+msgid "<b>_Group:</b>"
+msgstr "<b>_Тобы:</b>"
+
+#: ../data/ui/file-prop.glade.h:14
+msgid "<b>View content:</b>"
+msgstr "<b>Құрамасын қарау:</b>"
+
+#: ../data/ui/file-prop.glade.h:15
+msgid "<b>Change content:</b>"
+msgstr "<b>Құрамасын түзету:</b>"
+
+#: ../data/ui/file-prop.glade.h:16
+msgid "<b>Execute:</b>"
+msgstr "<b>Орындау:</b>"
+
+#: ../data/ui/file-prop.glade.h:17
+msgid "<b>Special bits:</b>"
+msgstr "<b>Арнайы биттер:</b>"
+
+#: ../data/ui/file-prop.glade.h:18
+msgid "Who can read content of the file/directory"
+msgstr "Файл/бума құрамасын кім оқи алады"
+
+#: ../data/ui/file-prop.glade.h:19
+msgid "Who can change content of the file/directory"
+msgstr "Файл/бума құрамасын кім өзгерте алады"
+
+#: ../data/ui/file-prop.glade.h:20
+msgid "Who can execute the file or enter the directory"
+msgstr "Файлды кім орындай алады не бумаға кім кіре алады"
+
+#: ../data/ui/file-prop.glade.h:21
+msgid "Special flags for file execution"
+msgstr "Файл орындалуы үшін арнайы жалаушалар"
+
+#: ../data/ui/file-prop.glade.h:22
+msgid "Special flags for directory access"
+msgstr "Бумаға қатынау үшін арнайы жалаушалар"
+
+#: ../data/ui/file-prop.glade.h:23
+msgid "<b>Access Control</b>"
+msgstr "<b>Рұқсаттарды басқару</b>"
+
+#: ../data/ui/file-prop.glade.h:24
+msgid "_Permissions"
+msgstr "_Рұқсаттар"
+
+#: ../data/ui/file-prop.glade.h:25
+msgid "---"
+msgstr "---"
+
+#: ../data/ui/file-prop.glade.h:26
+msgid "None"
+msgstr "Ешнәрсе"
+
+#: ../data/ui/file-prop.glade.h:27
+msgid "Sticky"
+msgstr "Sticky"
+
+#: ../data/ui/file-prop.glade.h:28
+msgid "Set GID"
+msgstr "Set GID"
+
+#: ../data/ui/file-prop.glade.h:29
+msgid "Sticky & set GID"
+msgstr "Sticky & set GID"
+
+#: ../data/ui/file-prop.glade.h:30
+msgid "Set UID"
+msgstr "Set UID"
+
+#: ../data/ui/file-prop.glade.h:31
+msgid "Set UID & GID"
+msgstr "Set UID & GID"
+
+#: ../data/ui/file-prop.glade.h:32
+msgid "Nobody"
+msgstr "Ешкім"
+
+#: ../data/ui/file-prop.glade.h:33
+msgid "Only owner"
+msgstr "Тек иесі"
+
+#: ../data/ui/file-prop.glade.h:34
+msgid "Only owner and group"
+msgstr "Тек иесі мен тобы"
+
+#: ../data/ui/file-prop.glade.h:35
+msgid "Anyone"
+msgstr "Әркім"
+
+#. Preparing to do some file operation (Copy, Move, Delete...)
+#: ../data/ui/progress.glade.h:2
+msgid "Preparing..."
+msgstr "Дайындау..."
+
+#. Processing: <Name of currently proccesed file>
+#: ../data/ui/progress.glade.h:4
+msgid "<b>Processing:</b>"
+msgstr "<b>Өңделуде:</b>"
+
+#. To: <Destination folder> ex. Copy file to..., Move file to...etc.
+#: ../data/ui/progress.glade.h:6
+msgid "<b>To:</b>"
+msgstr "<b>Қайда:</b>"
+
+#: ../data/ui/progress.glade.h:7
+msgid "<b>Progress:</b>"
+msgstr "<b>Барысы:</b>"
+
+#: ../data/ui/progress.glade.h:8
+msgid "<b>Time remaining:</b>"
+msgstr "<b>Қалған уақыты:</b>"
+
+#: ../data/ui/progress.glade.h:9
+msgid "<b>Some errors occurred:</b>"
+msgstr "<b>Бірнеше қате орын алды:</b>"
+
+#: ../data/ui/preferred-apps.glade.h:1 ../data/libfm-pref-apps.desktop.in.h:1
+msgid "Preferred Applications"
+msgstr "Таңдамалы қолданбалар"
+
+#: ../data/ui/preferred-apps.glade.h:2
+msgid "<b>Web Browser</b>"
+msgstr "<b>Веб браузері</b>"
+
+#: ../data/ui/preferred-apps.glade.h:3
+msgid "The preferred Web Browser will be used to open hyperlinks."
+msgstr "Веб сілтемелерін ашу үшін таңдамалы веб браузері."
+
+#: ../data/ui/preferred-apps.glade.h:4
+msgid "<b>Mail client</b>"
+msgstr "<b>Пошта қолданбасы:</b>"
+
+#: ../data/ui/preferred-apps.glade.h:5
+msgid ""
+"The preferred Mail Client will be used to compose emails when you click on E-"
+"mail addresses."
+msgstr ""
+"Таңдамалы пошта қолданбасы сіз эл. пошта адресіне шерткен кезде эл. хатты "
+"жазу үшін қолданылады."
+
+#: ../data/ui/preferred-apps.glade.h:6
+msgid "<b>Terminal Emulator</b>"
+msgstr "<b>Терминал эмуляторы</b>"
+
+#: ../data/ui/preferred-apps.glade.h:7
+msgid "Command line:"
+msgstr "Командалық жол:"
+
+#: ../data/ui/preferred-apps.glade.h:8
+msgid "System Applications"
+msgstr "Жүйелік қолданбалар"
+
+#: ../data/ui/preferred-apps.glade.h:9
+msgid "File Associations"
+msgstr "Файлдар сәйкестіктері"
+
+#: ../data/ui/exec-file.glade.h:1
+msgid "Execute File"
+msgstr "Файлды орындау"
+
+#: ../data/ui/exec-file.glade.h:2
+msgid "Execute in _Terminal"
+msgstr "Тер_миналды орындау"
+
+#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "%u байт"
+
+#: ../src/base/fm-utils.c:65
+msgid "KB"
+msgstr "КБ"
+
+#: ../src/base/fm-utils.c:70
+msgid "MB"
+msgstr "МБ"
+
+#: ../src/base/fm-utils.c:75
+msgid "GB"
+msgstr "ГБ"
+
+#: ../src/base/fm-utils.c:80
+msgid "TB"
+msgstr "ТБ"
+
+#: ../src/base/fm-utils.c:96
+msgid "KiB"
+msgstr "КиБ"
+
+#: ../src/base/fm-utils.c:101
+msgid "MiB"
+msgstr "МиБ"
+
+#: ../src/base/fm-utils.c:106
+msgid "GiB"
+msgstr "ГиБ"
+
+#: ../src/base/fm-utils.c:111
+msgid "TiB"
+msgstr "ТиБ"
+
+#: ../src/base/fm-path.c:730
+msgid "Trash Can"
+msgstr "Қоқыс шелегі"
+
+#: ../src/base/fm-path.c:732
+msgid "My Computer"
+msgstr "Менің компьютерім"
+
+#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
+msgid "Applications"
+msgstr "Қолданбалар"
+
+#: ../src/base/fm-path.c:743
+msgid "Network"
+msgstr "Желі"
+
+#: ../src/base/fm-mime-type.c:60
+msgid "Shortcuts"
+msgstr "Жарлықтар"
+
+#: ../src/base/fm-mime-type.c:63
+msgid "Mount Point"
+msgstr "Тіркелу нүктесі"
+
+#: ../src/gtk/fm-progress-dlg.c:150
+msgid ": "
+msgstr ": "
+
+#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#, c-format
+msgid ""
+"Type: %s\n"
+"Size: %s\n"
+"Modified: %s"
+msgstr ""
+"Түрі: %s\n"
+"Өлшемі: %s\n"
+"Өзгертілген: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#, c-format
+msgid ""
+"Type: %s\n"
+"Modified: %s"
+msgstr ""
+"Түрі: %s\n"
+"Өзгертілген: %s"
+
+#: ../src/gtk/fm-progress-dlg.c:327
+msgid "The file operation is cancelled and there are some errors."
+msgstr "Файлдар әрекетінен бас тартылды және бірнеше қателер бар."
+
+#: ../src/gtk/fm-progress-dlg.c:329
+msgid "Cancelled"
+msgstr "Бас тартылған"
+
+#: ../src/gtk/fm-progress-dlg.c:333
+msgid "The file operation is finished, but there are some errors."
+msgstr "Файлдар әрекеті аяқталды, бірак бірнеше қателер бар."
+
+#: ../src/gtk/fm-progress-dlg.c:335
+msgid "Finished"
+msgstr "Аяқталған"
+
+#: ../src/gtk/fm-progress-dlg.c:357
+msgid ""
+"Some files cannot be moved to trash can because the underlying file systems "
+"don't support this operation.\n"
+"Do you want to delete them instead?"
+msgstr ""
+"Бірнеше файлдарды қоқыс шелегіне тастау мүмкін емес, өйткені олар орналасқан "
+"файлдық жүйе бұл әрекетті қолдамайды.\n"
+"Оларды өшіруді қалайсыз ба?"
+
+#: ../src/gtk/fm-progress-dlg.c:472
+msgid ", "
+msgstr ", "
+
+#: ../src/gtk/fm-progress-dlg.c:488
+msgid "Moving files"
+msgstr "Файлдарды жылжыту"
+
+#: ../src/gtk/fm-progress-dlg.c:491
+msgid "Copying files"
+msgstr "Файлдарды көшіру"
+
+#: ../src/gtk/fm-progress-dlg.c:494
+msgid "Trashing files"
+msgstr "Файлдарды қоқыс шелегіне тастау"
+
+#: ../src/gtk/fm-progress-dlg.c:497
+msgid "Deleting files"
+msgstr "Файлдарды өшіру"
+
+#: ../src/gtk/fm-progress-dlg.c:500
+msgid "Creating symlinks"
+msgstr "Сілтемелерді жасау"
+
+#: ../src/gtk/fm-progress-dlg.c:503
+msgid "Changing file attributes"
+msgstr "Файлдар атрибуттарын өзгерту"
+
+#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+msgid "byte"
+msgid_plural "bytes"
+msgstr[0] "байт"
+
+#: ../src/gtk/fm-file-properties.c:224
+msgid "Please enter a valid user name or numeric id."
+msgstr "Дұрыс пайдаланушы атын не сандық id енгізіңіз."
+
+#: ../src/gtk/fm-file-properties.c:254
+msgid "Please enter a valid group name or numeric id."
+msgstr "Дұрыс топ атын не сандық id енгізіңіз."
+
+#. FIXME: may special bits and exec flags still be messed up?
+#: ../src/gtk/fm-file-properties.c:444
+msgid ""
+"Do you want to recursively apply these changes to all files and sub-folders?"
+msgstr ""
+"Бұз өзгерістерді рекурсивті түрде барлық ішкі файлдар мен бумаларға іске "
+"асыруды қалайсыз ба?"
+
+#: ../src/gtk/fm-file-properties.c:624
+msgid "<b>Access content:</b>"
+msgstr "<b>Құрамаға қатынау:</b>"
+
+#: ../src/gtk/fm-file-properties.c:739
+msgid "Files of different types"
+msgstr "Әр түрлі түрдегі файлдар"
+
+#: ../src/gtk/fm-file-properties.c:776
+msgid "Multiple Files"
+msgstr "Бірнеше файлдар"
+
+#: ../src/gtk/fm-places-view.c:99
+msgid "Mount Volume"
+msgstr "Бөлімді тіркеу"
+
+#: ../src/gtk/fm-places-view.c:100
+msgid "Unmount Volume"
+msgstr "Бөлімді тіркеуден босату"
+
+#: ../src/gtk/fm-places-view.c:101
+msgid "Eject Removable Media"
+msgstr "Ауыстырмалы тасушыны шығару"
+
+#. FIXME: we need to set a proper parent window for the dialog
+#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+msgid "Rename Bookmark Item"
+msgstr "Бетбелгі атауын өзгерту"
+
+#: ../src/gtk/fm-places-view.c:115
+msgid "Remove from Bookmark"
+msgstr "Бетбелгілерден өшіру"
+
+#: ../src/gtk/fm-places-view.c:127
+msgid "Empty Trash"
+msgstr "Қоқыс шелегін тазарту"
+
+#: ../src/gtk/fm-places-view.c:840
+msgid "Enter a new name:"
+msgstr "Жаңа атын енгізіңіз:"
+
+#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+msgid "Places"
+msgstr "Орындар"
+
+#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+msgid "Directory Tree"
+msgstr "Бумалар ағашы"
+
+#: ../src/gtk/fm-side-pane.c:62
+msgid "Remote"
+msgstr "Кашықтағы"
+
+#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
+msgid "Open With..."
+msgstr "Көмегімен ашу..."
+
+#: ../src/gtk/fm-file-menu.c:114
+msgid "Rename"
+msgstr "Атын ауыстыру"
+
+#: ../src/gtk/fm-file-menu.c:115
+msgid "Create Symlink"
+msgstr "Сілтемені жасау"
+
+#: ../src/gtk/fm-file-menu.c:116
+msgid "Send To"
+msgstr "Қайда жіберу"
+
+#: ../src/gtk/fm-file-menu.c:117
+msgid "Compress..."
+msgstr "Сығу..."
+
+#: ../src/gtk/fm-file-menu.c:118
+msgid "Extract Here"
+msgstr "Осында тарқату"
+
+#: ../src/gtk/fm-file-menu.c:119
+msgid "Extract To..."
+msgstr "Қайда тарқату..."
+
+#: ../src/gtk/fm-file-menu.c:385
+msgid "_Restore"
+msgstr "Қал_пына келтіру"
+
+#: ../src/gtk/fm-file-menu.c:386
+msgid "Restore trashed files to original paths"
+msgstr "Қоқыс шелегіндегі файлдарды бастапқы орындарына қайтару"
+
+#: ../src/gtk/fm-dnd-dest.c:520
+msgid "XDirectSave failed."
+msgstr "XDirectSave сәтсіз."
+
+#: ../src/gtk/fm-app-chooser-dlg.c:102
+msgid "Use selected application to open files"
+msgstr "Таңдалған қолданбаны файлдарды ашу үшін қолдану"
+
+#: ../src/gtk/fm-app-chooser-dlg.c:109
+msgid "Execute custom command line to open files"
+msgstr "Файлдарды ашу үшін таңдауыңызша командалық жолды орындау"
+
+#: ../src/gtk/fm-app-chooser-combo-box.c:188
+msgid "Customize"
+msgstr "Баптау"
+
+#: ../src/gtk/fm-folder-view.c:640
+msgid "Name"
+msgstr "Аты"
+
+#: ../src/gtk/fm-folder-view.c:659
+msgid "Description"
+msgstr "Сипаттамасы"
+
+#: ../src/gtk/fm-folder-view.c:666
+msgid "Size"
+msgstr "Өлшемі"
+
+#: ../src/gtk/fm-folder-view.c:672
+msgid "Modified"
+msgstr "Өзгертілген"
+
+#: ../src/gtk/fm-app-menu-view.c:157
+msgid "Installed Applications"
+msgstr "Орнатылған қолданбалар"
+
+#: ../src/gtk/fm-gtk-utils.c:46
+msgid "Error"
+msgstr "Қате"
+
+#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+msgid "Confirm"
+msgstr "Растау"
+
+#: ../src/gtk/fm-gtk-utils.c:118
+msgid "Question"
+msgstr "Сұрақ"
+
+#: ../src/gtk/fm-gtk-utils.c:382
+msgid "Please select a folder"
+msgstr "Буманы таңдаңыз"
+
+#: ../src/gtk/fm-gtk-utils.c:540
+msgid "Only system administrators have the permission to do this."
+msgstr "Бұны тек жүйелік әкімшілер жасай алады."
+
+#: ../src/gtk/fm-gtk-utils.c:635
+msgid "Do you want to move the selected files to trash can?"
+msgstr "Ерекшеленген файлдарды қоқыс шелегіне тастауды шынымен қалайсыз ба?"
+
+#: ../src/gtk/fm-gtk-utils.c:656
+msgid "Do you want to delete the selected files?"
+msgstr "Ерекшеленген файлдарды өшіруді шынымен қалайсыз ба?"
+
+#: ../src/gtk/fm-gtk-utils.c:703
+msgid "Rename File"
+msgstr "Файл атын ауыстыру"
+
+#: ../src/gtk/fm-gtk-utils.c:704
+msgid "Please enter a new name:"
+msgstr "Жаңа атын енгізіңіз:"
+
+#: ../src/gtk/fm-gtk-utils.c:728
+msgid "Are you sure you want to empty the trash can?"
+msgstr "Қоқыс шелегін тазартуды шынымен қалайсыз ба?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:100
+#, c-format
+msgid ""
+"This text file '%s' seems to be an executable script.\n"
+"What do you want to do with it?"
+msgstr ""
+"'%s' мәтіндік файлы орындалатын скрипт сияқты.\n"
+"Онымен не жасауды қалайсыз?"
+
+#: ../src/gtk/fm-gtk-file-launcher.c:107
+#, c-format
+msgid "This file '%s' is executable. Do you want to execute it?"
+msgstr "'%s' файлы - орындалатын файл. Оны жөнелтуді қалайсыз ба?"
+
+#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+msgid "<No Sub Folder>"
+msgstr "<Ішкі бумасы жоқ>"
+
+#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+msgid "Loading..."
+msgstr "Жүктелуде..."
+
+#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
+#: ../src/job/fm-dir-list-job.c:381
+#, c-format
+msgid "The specified directory is not valid"
+msgstr "Көрсетілген бума қате"
+
+#: ../src/job/fm-file-ops-job-xfer.c:54
+msgid "Source and destination are the same."
+msgstr "Қайнар көзі мен мақсаты бірдей болып тұр."
+
+#: ../src/job/fm-file-ops-job-xfer.c:61
+msgid "Cannot move a folder into its sub folder"
+msgstr "Буманы оның ішкі бумасына жылжыту мүмкін емес"
+
+#: ../src/job/fm-file-ops-job-xfer.c:63
+msgid "Cannot copy a folder into its sub folder"
+msgstr "Буманы оның ішкі бумасына көшіру мүмкін емес"
+
+#: ../src/job/fm-file-ops-job-xfer.c:65
+msgid "Destination is a sub folder of source"
+msgstr "Мақсат бумасы қайнар көздің ішкі бумасы болып тұр"
+
+#: ../src/gtk/fm-places-model.c:615
+msgid "Trash"
+msgstr "Қоқыс шелегі"
+
+#: ../src/gtk/fm-places-model.c:671
+msgid "Desktop"
+msgstr "Жұмыс үстелі"
+
+#. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
+#: ../src/udisks/g-udisks-device.c:41
+msgid "CD-ROM Disc"
+msgstr "CD-ROM дискі"
+
+#: ../src/udisks/g-udisks-device.c:41
+msgid "Blank CD-ROM Disc"
+msgstr "Таза CD-ROM дискі"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "CD-R Disc"
+msgstr "CD-R дискі"
+
+#: ../src/udisks/g-udisks-device.c:42
+msgid "Blank CD-R Disc"
+msgstr "Таза CD-R дискі"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "CD-RW Disc"
+msgstr "CD-RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:43
+msgid "Blank CD-RW Disc"
+msgstr "Таза CD-RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "DVD-ROM Disc"
+msgstr "DVD-ROM дискі"
+
+#: ../src/udisks/g-udisks-device.c:44 ../src/udisks/g-udisks-device.c:45
+msgid "Blank DVD-ROM Disc"
+msgstr "Таза DVD-ROM дискі"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "DVD-RW Disc"
+msgstr "DVD-RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:46
+msgid "Blank DVD-RW Disc"
+msgstr "Таза DVD-RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "DVD-RAM Disc"
+msgstr "DVD-RAM дискі"
+
+#: ../src/udisks/g-udisks-device.c:47
+msgid "Blank DVD-RAM Disc"
+msgstr "Таза DVD-RAM дискі"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "DVD+R Disc"
+msgstr "DVD+R дискі"
+
+#: ../src/udisks/g-udisks-device.c:48
+msgid "Blank DVD+R Disc"
+msgstr "Таза DVD+R дискі"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "DVD+RW Disc"
+msgstr "DVD+RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:49
+msgid "Blank DVD+RW Disc"
+msgstr "Таза DVD+RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "DVD+R DL Disc"
+msgstr "DVD+R DL дискі"
+
+#: ../src/udisks/g-udisks-device.c:50
+msgid "Blank DVD+R DL Disc"
+msgstr "Таза DVD+R DL дискі"
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "DVD+RW DL Disc"
+msgstr "DVD+RW DL дискі"
+
+#: ../src/udisks/g-udisks-device.c:51
+msgid "Blank DVD+RW DL Disc"
+msgstr "Таза DVD+RW DL дискі"
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blu-Ray Disc"
+msgstr "Blu-Ray дискі"
+
+#: ../src/udisks/g-udisks-device.c:52
+msgid "Blank Blu-Ray Disc"
+msgstr "Таза Blu-Ray дискі"
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blu-Ray R Disc"
+msgstr "Blu-Ray R дискі"
+
+#: ../src/udisks/g-udisks-device.c:53
+msgid "Blank Blu-Ray R Disc"
+msgstr "Таза Blu-Ray R дискі"
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blu-Ray RW Disc"
+msgstr "Blu-Ray RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:54
+msgid "Blank Blu-Ray RW Disc"
+msgstr "Таза Blu-Ray RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "HD DVD Disc"
+msgstr "HD DVD дискі"
+
+#: ../src/udisks/g-udisks-device.c:55
+msgid "Blank HD DVD Disc"
+msgstr "Таза HD DVD дискі"
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "HD DVD-R Disc"
+msgstr "HD DVD-R дискі"
+
+#: ../src/udisks/g-udisks-device.c:56
+msgid "Blank HD DVD-R Disc"
+msgstr "Таза HD DVD-R дискі"
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "HD DVD-RW Disc"
+msgstr "HD DVD-RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:57
+msgid "Blank HD DVD-RW Disc"
+msgstr "Таза HD DVD-RW дискі"
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "MO Disc"
+msgstr "MO дискі"
+
+#: ../src/udisks/g-udisks-device.c:58
+msgid "Blank MO Disc"
+msgstr "Таза MO дискі"
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "MRW Disc"
+msgstr "MRW дискі"
+
+#: ../src/udisks/g-udisks-device.c:59
+msgid "Blank MRW Disc"
+msgstr "Таза MRW дискі"
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "MRW/W Disc"
+msgstr "MRW/W дискі"
+
+#: ../src/udisks/g-udisks-device.c:60
+msgid "Blank MRW/W Disc"
+msgstr "Таза MRW/W дискі"
+
+#: ../src/udisks/g-udisks-device.c:299
+msgid "Blank Optical Disc"
+msgstr "Таза оптикалық дискі"
+
+#: ../src/udisks/g-udisks-device.c:301
+msgid "Optical Disc"
+msgstr "Оптикалық дискі"
+
+#~ msgid "<b>Group:</b>"
+#~ msgstr "<b>Тобы:</b>"
+
+#~ msgid "<b>Owner:</b>"
+#~ msgstr "<b>Иесі:</b>"
+
+#~ msgid "Make the file executable"
+#~ msgstr "Файлды орындалатын етіп белгілеу"
+
+#~ msgid "Operations that all other users can do"
+#~ msgstr "Барлық басқа пайдаланушылар жасай алатын әрекеттер"
+
+#~ msgid "Operations that the owner of the file can do"
+#~ msgstr "Файл иесі жасай алатын әрекеттер"
+
+#~ msgid ""
+#~ "Operations that users in the same group as the owner of the file can do"
+#~ msgstr ""
+#~ "Файл иесімен бір топқа жататын пайдаланушылар жасай алатын әрекеттер"
+
+#~ msgid "Read and Write"
+#~ msgstr "Оқу мен жазу"
+
+#~ msgid "Read only"
+#~ msgstr "Тек оқу"
+
+#~ msgid "Write only"
+#~ msgstr "Тек жазу"

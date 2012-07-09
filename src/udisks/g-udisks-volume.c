@@ -105,12 +105,12 @@ static void g_udisks_volume_init(GUDisksVolume *self)
 }
 
 
-GVolume *g_udisks_volume_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+GUDisksVolume *g_udisks_volume_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
 {
     GUDisksVolume* vol = (GUDisksVolume*)g_object_new(G_TYPE_UDISKS_VOLUME, NULL);
     vol->dev = g_object_ref(dev);
     vol->mon = mon;
-    return (GVolume*)vol;
+    return vol;
 }
 
 static gboolean g_udisks_volume_can_eject (GVolume* base)
@@ -128,7 +128,7 @@ static gboolean g_udisks_volume_can_mount (GVolume* base)
 
 static void g_udisks_volume_eject (GVolume* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     g_udisks_volume_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
@@ -143,7 +143,7 @@ static void on_drive_ejected(GObject* drive, GAsyncResult* res, gpointer user_da
 {
     EjectData* data = (EjectData*)user_data;
     if(data->callback)
-        data->callback(data->vol, res, data->user_data);
+        data->callback(G_OBJECT(data->vol), res, data->user_data);
     g_object_unref(data->vol);
     g_slice_free(EjectData, data);
 }
@@ -151,7 +151,7 @@ static void on_drive_ejected(GObject* drive, GAsyncResult* res, gpointer user_da
 static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
-    if(vol->drive && g_drive_can_eject(vol->drive))
+    if(vol->drive && g_drive_can_eject(G_DRIVE(vol->drive)))
     {
         EjectData* data = g_slice_new(EjectData);
         data->vol = g_object_ref(vol);
@@ -163,7 +163,7 @@ static void g_udisks_volume_eject_with_operation (GVolume* base, GMountUnmountFl
 
 static char** g_udisks_volume_enumerate_identifiers (GVolume* base)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     char** kinds = g_new0(char*, 4);
     kinds[0] = g_strdup(G_VOLUME_IDENTIFIER_KIND_LABEL);
     kinds[1] = g_strdup(G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE);
@@ -176,7 +176,7 @@ static GFile* g_udisks_volume_get_activation_root (GVolume* base)
 {
     GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     /* FIXME: is this corrcet? */
-    return vol->mount ? g_mount_get_root(vol->mount) : NULL;
+    return vol->mount ? g_mount_get_root((GMount*)vol->mount) : NULL;
 }
 
 static GDrive* g_udisks_volume_get_drive (GVolume* base)
@@ -274,7 +274,7 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
     if(error)
     {
         error = g_udisks_error_to_gio_error(error);
-        res = g_simple_async_result_new_from_error(data->vol,
+        res = g_simple_async_result_new_from_error(G_OBJECT(data->vol),
                                                    data->callback,
                                                    data->user_data,
                                                    error);
@@ -282,7 +282,7 @@ static void mount_callback(DBusGProxy *proxy, char * OUT_mount_path, GError *err
     }
     else
     {
-        res = g_simple_async_result_new(data->vol,
+        res = g_simple_async_result_new(G_OBJECT(data->vol),
                                         data->callback,
                                         data->user_data,
                                         NULL);
@@ -351,7 +351,7 @@ static void g_udisks_volume_mount_fn(GVolume* base, GMountMountFlags flags, GMou
 
 static gboolean g_udisks_volume_mount_finish(GVolume* base, GAsyncResult* res, GError** error)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
@@ -370,7 +370,7 @@ static gboolean g_udisks_volume_eject_with_operation_finish (GVolume* base, GAsy
 
 static gboolean g_udisks_volume_eject_finish (GVolume* base, GAsyncResult* res, GError** error)
 {
-    GUDisksVolume* vol = G_UDISKS_VOLUME(base);
+    //GUDisksVolume* vol = G_UDISKS_VOLUME(base);
     return g_udisks_volume_eject_with_operation_finish(base, res, error);
 }
 

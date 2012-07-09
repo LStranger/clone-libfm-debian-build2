@@ -63,70 +63,55 @@ static gboolean on_launch_error(GAppLaunchContext* ctx, GError* err, gpointer us
 static gboolean on_open_folder(GAppLaunchContext* ctx, GList* folder_infos, gpointer user_data, GError** err)
 {
     LaunchData* data = (LaunchData*)user_data;
-    return data->folder_func(ctx, folder_infos, data->user_data, err);
+    if (data->folder_func)
+        return data->folder_func(ctx, folder_infos, data->user_data, err);
+    else
+        return FALSE;
 }
 
-static int on_launch_ask(const char* msg, const char** btn_labels, int default_btn, gpointer user_data)
+static int on_launch_ask(const char* msg, char* const* btn_labels, int default_btn, gpointer user_data)
 {
     LaunchData* data = (LaunchData*)user_data;
     /* FIXME: set default button properly */
     return fm_askv(data->parent, NULL, msg, btn_labels);
 }
 
-static gboolean file_is_executable_script(FmFileInfo* file)
-{
-    /* We don't execute remote files */
-    if(fm_path_is_local(file->path) && fm_file_info_is_text(file) && fm_file_info_get_size(file) > 2)
-    {
-        /* check if the first two bytes of the file is #! */
-        char* path = fm_path_to_str(file->path);
-        int fd = open(path, O_RDONLY);
-        g_free(path);
-        if(fd != -1)
-        {
-            char buf[4];
-            ssize_t r = read(fd, buf, 2);
-            close(fd);
-            if(r == 2 && buf[0] == '#' && buf[1] == '!')
-                return TRUE; /* the file contains #! in first two bytes */
-        }
-    }
-    return FALSE;
-}
-
 static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_data)
 {
-    LaunchData* data = (LaunchData*)user_data;
     GtkBuilder* b = gtk_builder_new();
-    GtkWidget* dlg, *msg, *icon;
+    GtkDialog* dlg;
+    GtkLabel *msg;
+    GtkImage *icon;
     char* msg_str;
     int res;
+    FmIcon* fi_icon = fm_file_info_get_icon(file);
     gtk_builder_set_translation_domain(b, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(b, PACKAGE_UI_DIR "/exec-file.ui", NULL);
-    dlg = gtk_builder_get_object(b, "dlg");
-    msg = gtk_builder_get_object(b, "msg");
-    icon = gtk_builder_get_object(b, "icon");
-    gtk_image_set_from_gicon(GTK_IMAGE(icon), file->icon->gicon, GTK_ICON_SIZE_DIALOG);
-    gtk_box_set_homogeneous(GTK_BOX(gtk_dialog_get_action_area(GTK_DIALOG(dlg))), FALSE);
+    dlg = GTK_DIALOG(gtk_builder_get_object(b, "dlg"));
+    msg = GTK_LABEL(gtk_builder_get_object(b, "msg"));
+    icon = GTK_IMAGE(gtk_builder_get_object(b, "icon"));
+    gtk_image_set_from_gicon(icon, fi_icon->gicon, GTK_ICON_SIZE_DIALOG);
+    gtk_box_set_homogeneous(GTK_BOX(gtk_dialog_get_action_area(dlg)), FALSE);
 
+    /* If we reached this point then file is executable: either script or binary */
     /* If it's a script, ask the user first. */
-    if(file_is_executable_script(file)) /* if this is an executable script file */
+    if(fm_file_info_is_text(file))
     {
         msg_str = g_strdup_printf(_("This text file '%s' seems to be an executable script.\nWhat do you want to do with it?"), fm_file_info_get_disp_name(file));
-        gtk_dialog_set_default_response(GTK_DIALOG(dlg), FM_FILE_LAUNCHER_EXEC_IN_TERMINAL);
+        gtk_dialog_set_default_response(dlg, FM_FILE_LAUNCHER_EXEC_IN_TERMINAL);
     }
     else
     {
-        GtkWidget* open = gtk_builder_get_object(b, "open");
+        GtkWidget* open = GTK_WIDGET(gtk_builder_get_object(b, "open"));
         gtk_widget_destroy(open);
         msg_str = g_strdup_printf(_("This file '%s' is executable. Do you want to execute it?"), fm_file_info_get_disp_name(file));
-        gtk_dialog_set_default_response(GTK_DIALOG(dlg), FM_FILE_LAUNCHER_EXEC);
+        gtk_dialog_set_default_response(dlg, FM_FILE_LAUNCHER_EXEC);
     }
-    gtk_label_set_text(GTK_LABEL(msg), msg_str);
+    gtk_label_set_text(msg, msg_str);
     g_free(msg_str);
 
-    res = gtk_dialog_run(GTK_DIALOG(dlg));
-    gtk_widget_destroy(dlg);
+    res = gtk_dialog_run(dlg);
+    gtk_widget_destroy(GTK_WIDGET(dlg));
     g_object_unref(b);
 
     if(res <=0)
@@ -138,21 +123,26 @@ static FmFileLauncherExecAction on_exec_file(FmFileInfo* file, gpointer user_dat
 gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* file_infos, FmLaunchFolderFunc func, gpointer user_data)
 {
     FmFileLauncher launcher = {
-        choose_app,
-        on_open_folder,
-        on_exec_file,
-        on_launch_error,
-        on_launch_ask
+        .get_app = choose_app,
+        .open_folder = on_open_folder,
+        .exec_file = on_exec_file,
+        .error = on_launch_error,
+        .ask = on_launch_ask
     };
     LaunchData data = {parent, func, user_data};
-    GAppLaunchContext* _ctx = NULL;
+    GdkAppLaunchContext* _ctx = NULL;
     gboolean ret;
+
+    if (!func)
+        launcher.open_folder = NULL;
+
     if(ctx == NULL)
     {
-        _ctx = ctx = gdk_app_launch_context_new();
-        gdk_app_launch_context_set_screen(GDK_APP_LAUNCH_CONTEXT(ctx), parent ? gtk_widget_get_screen(GTK_WIDGET(parent)) : gdk_screen_get_default());
-        gdk_app_launch_context_set_timestamp(GDK_APP_LAUNCH_CONTEXT(ctx), gtk_get_current_event_time());
+        _ctx = gdk_app_launch_context_new();
+        gdk_app_launch_context_set_screen(_ctx, parent ? gtk_widget_get_screen(GTK_WIDGET(parent)) : gdk_screen_get_default());
+        gdk_app_launch_context_set_timestamp(_ctx, gtk_get_current_event_time());
         /* FIXME: how to handle gdk_app_launch_context_set_icon? */
+        ctx = G_APP_LAUNCH_CONTEXT(_ctx);
     }
     ret = fm_launch_files(ctx, file_infos, &launcher, &data);
     if(_ctx)
@@ -163,19 +153,22 @@ gboolean fm_launch_files_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList
 gboolean fm_launch_paths_simple(GtkWindow* parent, GAppLaunchContext* ctx, GList* paths, FmLaunchFolderFunc func, gpointer user_data)
 {
     FmFileLauncher launcher = {
-        choose_app,
-        on_open_folder,
-        on_launch_error
+        .get_app = choose_app,
+        .open_folder = on_open_folder,
+        .exec_file = on_exec_file,
+        .error = on_launch_error,
+        .ask = on_launch_ask
     };
     LaunchData data = {parent, func, user_data};
-    GAppLaunchContext* _ctx = NULL;
+    GdkAppLaunchContext* _ctx = NULL;
     gboolean ret;
     if(ctx == NULL)
     {
-        _ctx = ctx = gdk_app_launch_context_new();
-        gdk_app_launch_context_set_screen(GDK_APP_LAUNCH_CONTEXT(ctx), parent ? gtk_widget_get_screen(GTK_WIDGET(parent)) : gdk_screen_get_default());
-        gdk_app_launch_context_set_timestamp(GDK_APP_LAUNCH_CONTEXT(ctx), gtk_get_current_event_time());
+        _ctx = gdk_app_launch_context_new();
+        gdk_app_launch_context_set_screen(_ctx, parent ? gtk_widget_get_screen(GTK_WIDGET(parent)) : gdk_screen_get_default());
+        gdk_app_launch_context_set_timestamp(_ctx, gtk_get_current_event_time());
         /* FIXME: how to handle gdk_app_launch_context_set_icon? */
+        ctx = G_APP_LAUNCH_CONTEXT(_ctx);
     }
     ret = fm_launch_paths(ctx, paths, &launcher, &data);
     if(_ctx)

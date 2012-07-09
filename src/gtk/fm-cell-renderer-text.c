@@ -19,6 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-cell-renderer-text
+ * @short_description: An implementation of cell text renderer.
+ * @title: FmCellRendererText
+ *
+ * @include: libfm/fm-cell-renderer-text.h
+ *
+ * The #FmCellRendererText can be used to render text in cell.
+ */
+
 #include "fm-cell-renderer-text.h"
 
 G_DEFINE_TYPE(FmCellRendererText, fm_cell_renderer_text, GTK_TYPE_CELL_RENDERER_TEXT);
@@ -43,13 +53,21 @@ static void fm_cell_renderer_text_init(FmCellRendererText *self)
 	
 }
 
-
+/**
+ * fm_cell_renderer_text_new
+ *
+ * Creates new #GtkCellRenderer object for #FmCellRendererText.
+ *
+ * Returns: a new #GtkCellRenderer object.
+ *
+ * Since: 0.1.0
+ */
 GtkCellRenderer *fm_cell_renderer_text_new(void)
 {
 	return (GtkCellRenderer*)g_object_new(FM_CELL_RENDERER_TEXT_TYPE, NULL);
 }
 
-void fm_cell_renderer_text_render(GtkCellRenderer *cell, 
+static void fm_cell_renderer_text_render(GtkCellRenderer *cell, 
 								GdkDrawable *window,
 								GtkWidget *widget,
 								GdkRectangle *background_area,
@@ -57,7 +75,7 @@ void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 								GdkRectangle *expose_area,
 								GtkCellRendererState flags)
 {
-	GtkCellRendererText* celltext = (GtkCellRendererText*)cell;
+	FmCellRendererText* celltext = FM_CELL_RENDERER_TEXT(cell);
 	GtkStateType state;
 	gint text_width;
 	gint text_height;
@@ -76,7 +94,7 @@ void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 
 	PangoLayout* layout = pango_layout_new(context);
 
-	g_object_get((GObject*)cell,
+	g_object_get(G_OBJECT(cell),
 	             "wrap-mode" , &wrap_mode,
 	             "wrap-width", &wrap_width,
 	             "alignment" , &alignment,
@@ -96,7 +114,7 @@ void fm_cell_renderer_text_render(GtkCellRenderer *cell,
 		pango_layout_set_wrap(layout, wrap_mode);
 	}
 
-	pango_layout_set_text(layout, celltext->text, -1);
+	pango_layout_set_text(layout, celltext->parent.text, -1);
 
 	pango_layout_set_auto_dir(layout, TRUE);
 

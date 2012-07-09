@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmFileInfoJob</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="libfm-fm.html" title="fm">
-<link rel="next" href="FmDeepCountJob.html" title="FmDeepCountJob">
+<link rel="up" href="libfm-jobs.html" title="Libfm Jobs.">
+<link rel="prev" href="FmDirListJob.html" title="FmDirListJob">
+<link rel="next" href="FmFileOpsJob.html" title="FmFileOpsJob">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="libfm-fm.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="FmDirListJob.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-jobs.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmDeepCountJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="FmFileOpsJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmFileInfoJob.synopsis" class="shortcut">Top</a>
@@ -33,7 +33,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmFileInfoJob.top_of_page"></a>FmFileInfoJob</span></h2>
-<p>FmFileInfoJob</p>
+<p>FmFileInfoJob — Job to gather information about files.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -41,13 +41,14 @@
 <a name="FmFileInfoJob.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="FmFileInfoJob.html#FmFileInfoJob-struct" title="struct FmFileInfoJob">FmFileInfoJob</a>;
 struct              <a class="link" href="FmFileInfoJob.html#FmFileInfoJobClass" title="struct FmFileInfoJobClass">FmFileInfoJobClass</a>;
+enum                <a class="link" href="FmFileInfoJob.html#FmFileInfoJobFlags" title="enum FmFileInfoJobFlags">FmFileInfoJobFlags</a>;
 <span class="returnvalue">void</span>                <a class="link" href="FmFileInfoJob.html#fm-file-info-job-add" title="fm_file_info_job_add ()">fm_file_info_job_add</a>                (<em class="parameter"><code><a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmFileInfoJob.html#fm-file-info-job-add-gfile" title="fm_file_info_job_add_gfile ()">fm_file_info_job_add_gfile</a>          (<em class="parameter"><code><a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);
 <a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            <a class="link" href="FmFileInfoJob.html#fm-file-info-job-get-current" title="fm_file_info_job_get_current ()">fm_file_info_job_get_current</a>        (<em class="parameter"><code><a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> *job</code></em>);
-<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             <a class="link" href="FmFileInfoJob.html#fm-file-info-job-new" title="fm_file_info_job_new ()">fm_file_info_job_new</a>                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files_to_query</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfoJobFlags</span> flags</code></em>);
+<a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="returnvalue">FmFileInfoJob</span></a> *     <a class="link" href="FmFileInfoJob.html#fm-file-info-job-new" title="fm_file_info_job_new ()">fm_file_info_job_new</a>                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files_to_query</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmFileInfoJob.html#FmFileInfoJobFlags" title="enum FmFileInfoJobFlags"><span class="type">FmFileInfoJobFlags</span></a> flags</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -60,19 +61,56 @@ struct              <a class="link" href="FmFileInfoJob.html#FmFileInfoJobClass"
 </div>
 <div class="refsect1">
 <a name="FmFileInfoJob.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-file-info-job.h
+</p>
+<p>
+The <a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> can be used to get filled <a class="link" href="libfm-fm-file-info.html#FmFileInfo" title="FmFileInfo"><span class="type">FmFileInfo</span></a> for some files.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmFileInfoJob.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="FmFileInfoJob-struct"></a><h3>struct FmFileInfoJob</h3>
-<pre class="programlisting">struct FmFileInfoJob;</pre>
+<pre class="programlisting">struct FmFileInfoJob {
+    FmJob parent;
+    FmFileInfoJobFlags flags;
+    FmFileInfoList* file_infos;
+};
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> <em class="structfield"><code><a name="FmFileInfoJob-struct.parent"></a>parent</code></em>;</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="FmFileInfoJob.html#FmFileInfoJobFlags" title="enum FmFileInfoJobFlags"><span class="type">FmFileInfoJobFlags</span></a> <em class="structfield"><code><a name="FmFileInfoJob-struct.flags"></a>flags</code></em>;</span></p></td>
+<td>flags for the job</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libfm-fm-path.html#FmFileInfoList" title="FmFileInfoList"><span class="type">FmFileInfoList</span></a> *<em class="structfield"><code><a name="FmFileInfoJob-struct.file-infos"></a>file_infos</code></em>;</span></p></td>
+<td>gathered data</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmFileInfoJobClass"></a><h3>struct FmFileInfoJobClass</h3>
 <pre class="programlisting">struct FmFileInfoJobClass {
-	FmJobClass parent_class;
 };
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="FmFileInfoJobFlags"></a><h3>enum FmFileInfoJobFlags</h3>
+<pre class="programlisting">typedef enum {
+    FM_FILE_INFO_JOB_NONE = 0,
+    FM_FILE_INFO_JOB_FOLLOW_SYMLINK = 1 &lt;&lt; 0, /* FIXME: not yet implemented */
+    FM_FILE_INFO_JOB_EMIT_FOR_EACH_FILE = 1 &lt;&lt; 1 /* FIXME: not yet implemented */
+} FmFileInfoJobFlags;
 </pre>
 </div>
 <hr>
@@ -80,23 +118,108 @@ struct              <a class="link" href="FmFileInfoJob.html#FmFileInfoJobClass"
 <a name="fm-file-info-job-add"></a><h3>fm_file_info_job_add ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_file_info_job_add                (<em class="parameter"><code><a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> *path</code></em>);</pre>
+<p>
+Adds a <em class="parameter"><code>path</code></em> to query list for the <em class="parameter"><code>job</code></em>.
+</p>
+<p>
+This API may only be called before starting the <em class="parameter"><code>job</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>job</code></em> :</span></p></td>
+<td>a job to add file</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>a path to add to query list</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-file-info-job-add-gfile"></a><h3>fm_file_info_job_add_gfile ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_file_info_job_add_gfile          (<em class="parameter"><code><a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> *job</code></em>,
                                                          <em class="parameter"><code><span class="type">GFile</span> *gf</code></em>);</pre>
+<p>
+Adds a path <em class="parameter"><code>gf</code></em> to query list for the <em class="parameter"><code>job</code></em>.
+</p>
+<p>
+This API may only be called before starting the <em class="parameter"><code>job</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>job</code></em> :</span></p></td>
+<td>a job to add file</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gf</code></em> :</span></p></td>
+<td>a file descriptor to add to query list</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-file-info-job-get-current"></a><h3>fm_file_info_job_get_current ()</h3>
 <pre class="programlisting"><a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="returnvalue">FmPath</span></a> *            fm_file_info_job_get_current        (<em class="parameter"><code><a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> *job</code></em>);</pre>
+<p>
+Retrieves current the <a class="link" href="libfm-fm-path.html#FmPath" title="struct FmPath"><span class="type">FmPath</span></a> which caused the error.
+Returned data are owned by <em class="parameter"><code>job</code></em> and shouldn't be freed by caller.
+</p>
+<p>
+This API may only be called in error handler.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>job</code></em> :</span></p></td>
+<td>the job to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the current processing file path. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.10</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="fm-file-info-job-new"></a><h3>fm_file_info_job_new ()</h3>
-<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             fm_file_info_job_new                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files_to_query</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmFileInfoJobFlags</span> flags</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="returnvalue">FmFileInfoJob</span></a> *     fm_file_info_job_new                (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *files_to_query</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmFileInfoJob.html#FmFileInfoJobFlags" title="enum FmFileInfoJobFlags"><span class="type">FmFileInfoJobFlags</span></a> flags</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> which can be used by <a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> API.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>files_to_query</code></em> :</span></p></td>
+<td>list of paths to query informatiom. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>modificators of query mode</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmFileInfoJob.html" title="FmFileInfoJob"><span class="type">FmFileInfoJob</span></a> object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 </div>

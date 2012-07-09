@@ -1,7 +1,7 @@
 /*
  *      fm-deep-count-job.c
  *
- *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2009 - 2012 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -19,11 +19,25 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-deep-count-job
+ * @short_description: Job to gather information about file sizes.
+ * @title: FmDeepCountJob
+ *
+ * @include: libfm/fm-deep-count-job.h
+ *
+ * The #FmDeepCountJob can be used to recursively gather information about
+ * some files and directories content before copy or move. It counts total
+ * size of all given files and directories, and size on disk for them.
+ * If flags for the job include FM_DC_JOB_PREPARE_MOVE then also count of
+ * files to move between volumes will be counted as well.
+ */
+
 #include "fm-deep-count-job.h"
 #include <glib/gstdio.h>
 #include <errno.h>
 
-static void fm_deep_count_job_finalize              (GObject *object);
+static void fm_deep_count_job_dispose              (GObject *object);
 G_DEFINE_TYPE(FmDeepCountJob, fm_deep_count_job, FM_TYPE_JOB);
 
 static gboolean fm_deep_count_job_run(FmJob* job);
@@ -36,36 +50,37 @@ static const char query_str[] =
                 G_FILE_ATTRIBUTE_STANDARD_NAME","
                 G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL","
                 G_FILE_ATTRIBUTE_STANDARD_SIZE","
-                G_FILE_ATTRIBUTE_UNIX_BLOCKS","
-                G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE","
+                G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE","
                 G_FILE_ATTRIBUTE_ID_FILESYSTEM;
-
 
 static void fm_deep_count_job_class_init(FmDeepCountJobClass *klass)
 {
     GObjectClass *g_object_class;
     FmJobClass* job_class;
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_deep_count_job_finalize;
+    g_object_class->dispose = fm_deep_count_job_dispose;
+    /* use finalize from parent class */
 
     job_class = FM_JOB_CLASS(klass);
     job_class->run = fm_deep_count_job_run;
-    job_class->finished = NULL;
 }
 
 
-static void fm_deep_count_job_finalize(GObject *object)
+static void fm_deep_count_job_dispose(GObject *object)
 {
     FmDeepCountJob *self;
 
     g_return_if_fail(object != NULL);
-    g_return_if_fail(IS_FM_DEEP_COUNT_JOB(object));
+    g_return_if_fail(FM_IS_DEEP_COUNT_JOB(object));
 
-    self = FM_DEEP_COUNT_JOB(object);
+    self = (FmDeepCountJob*)object;
 
     if(self->paths)
-        fm_list_unref(self->paths);
-    G_OBJECT_CLASS(fm_deep_count_job_parent_class)->finalize(object);
+    {
+        fm_path_list_unref(self->paths);
+        self->paths = NULL;
+    }
+    G_OBJECT_CLASS(fm_deep_count_job_parent_class)->dispose(object);
 }
 
 
@@ -74,21 +89,31 @@ static void fm_deep_count_job_init(FmDeepCountJob *self)
     fm_job_init_cancellable(FM_JOB(self));
 }
 
-
-FmJob *fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags)
+/**
+ * fm_deep_count_job_new
+ * @paths: list of files and directories to count sizes
+ * @flags: flags of the counting behavior
+ *
+ * Creates a new #FmDeepCountJob which can be ran via #FmJob API.
+ *
+ * Returns: (transfer full): a new #FmDeepCountJob object.
+ *
+ * Since: 0.1.0
+ */
+FmDeepCountJob *fm_deep_count_job_new(FmPathList* paths, FmDeepCountJobFlags flags)
 {
     FmDeepCountJob* job = (FmDeepCountJob*)g_object_new(FM_DEEP_COUNT_JOB_TYPE, NULL);
-    job->paths = fm_list_ref(paths);
+    job->paths = fm_path_list_ref(paths);
     job->flags = flags;
-    return (FmJob*)job;
+    return job;
 }
 
-gboolean fm_deep_count_job_run(FmJob* job)
+static gboolean fm_deep_count_job_run(FmJob* job)
 {
     FmDeepCountJob* dc = (FmDeepCountJob*)job;
     GList* l;
 
-    l = fm_list_peek_head_link(dc->paths);
+    l = fm_path_list_peek_head_link(dc->paths);
     for(; !fm_job_is_cancelled(job) && l; l=l->next)
     {
         FmPath* path = FM_PATH(l->data);
@@ -104,9 +129,9 @@ gboolean fm_deep_count_job_run(FmJob* job)
     return TRUE;
 }
 
-gboolean deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
+static gboolean deep_count_posix(FmDeepCountJob* job, FmPath* fm_path)
 {
-    FmJob* fmjob = (FmJob*)job;
+    FmJob* fmjob = FM_JOB(job);
     char* path = fm_path_to_str(fm_path);
     struct stat st;
     int ret;
@@ -121,7 +146,7 @@ _retry_stat:
     {
         ++job->count;
         job->total_size += (goffset)st.st_size;
-        job->total_block_size += (st.st_blocks * st.st_blksize);
+        job->total_ondisk_size += (st.st_blocks * 512);
 
         /* NOTE: if job->dest_dev is 0, that means our destination
          * folder is not on native UNIX filesystem. Hence it's not
@@ -143,8 +168,8 @@ _retry_stat:
     }
     else
     {
-        GError* err = g_error_new(G_IO_ERROR, g_io_error_from_errno(errno), g_strerror(errno));
-        FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+        GError* err = g_error_new(G_IO_ERROR, g_io_error_from_errno(errno), "%s", g_strerror(errno));
+        FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
         g_error_free(err);
         err = NULL;
         if(act == FM_JOB_RETRY)
@@ -173,7 +198,7 @@ _retry_stat:
                         if(job->flags & FM_DC_JOB_PREPARE_MOVE)
                         {
                             ++job->total_size;
-                            ++job->total_block_size;
+                            ++job->total_ondisk_size;
                             ++job->count;
                         }
                     }
@@ -187,13 +212,11 @@ _retry_stat:
     return TRUE;
 }
 
-gboolean deep_count_gio(FmDeepCountJob* job, GFileInfo* inf, GFile* gf)
+static gboolean deep_count_gio(FmDeepCountJob* job, GFileInfo* inf, GFile* gf)
 {
     FmJob* fmjob = FM_JOB(job);
     GError* err = NULL;
     GFileType type;
-    guint64 blk;
-    guint32 blk_size;
     const char* fs_id;
     gboolean descend;
 
@@ -207,7 +230,7 @@ _retry_query_info:
                     fm_job_get_cancellable(fmjob), &err);
         if(!inf)
         {
-            FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+            FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
             g_error_free(err);
             err = NULL;
             if(act == FM_JOB_RETRY)
@@ -217,19 +240,16 @@ _retry_query_info:
     }
     if(fm_job_is_cancelled(fmjob))
     {
-        g_object_unref(gf);
         g_object_unref(inf);
         return FALSE;
     }
 
     type = g_file_info_get_file_type(inf);
-    blk = g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_UNIX_BLOCKS);
-    blk_size= g_file_info_get_attribute_uint32(inf, G_FILE_ATTRIBUTE_UNIX_BLOCK_SIZE);
     descend = TRUE;
 
     ++job->count;
     job->total_size += g_file_info_get_size(inf);
-    job->total_block_size += (blk * blk_size);
+    job->total_ondisk_size += g_file_info_get_attribute_uint64(inf, G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE);
 
     /* prepare for moving across different devices */
     if( job->flags & FM_DC_JOB_PREPARE_MOVE )
@@ -239,7 +259,7 @@ _retry_query_info:
         {
             /* files on different device requires an additional 'delete' for the source file. */
             ++job->total_size; /* this is for the additional delete */
-            ++job->total_block_size;
+            ++job->total_ondisk_size;
             ++job->count;
         }
         else
@@ -284,13 +304,15 @@ _retry_query_info:
                         deep_count_gio(job, inf, child);
                         g_object_unref(child);
                         g_object_unref(inf);
+                        inf = NULL;
                     }
                     else
                     {
                         if(err) /* error! */
                         {
                             /* FM_JOB_RETRY is not supported */
-                            FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                            /*FmJobErrorAction act = */
+                            fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                             g_error_free(err);
                             err = NULL;
                         }
@@ -306,7 +328,7 @@ _retry_query_info:
             }
             else
             {
-                FmJobErrorAction act = fm_job_emit_error(FM_JOB(job), err, FM_JOB_ERROR_MILD);
+                FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
                 if(act == FM_JOB_RETRY)
@@ -320,7 +342,19 @@ _retry_query_info:
     return TRUE;
 }
 
-/* dev is UNIX device ID. fs_id is filesystem id in gio format (can be NULL). */
+/**
+ * fm_deep_count_job_set_dest
+ * @dc: a job to set the destination
+ * @dev: UNIX device ID
+ * @fs_id: (allow-none): filesystem id in gio format
+ *
+ * Sets destination for the job @dc that will be used when the job is
+ * ran with any of flags FM_DC_JOB_SAME_FS or FM_DC_JOB_PREPARE_MOVE.
+ * If @dev is 0 (and @fs_id is NULL) then destination device is non on
+ * native filesystem.
+ *
+ * Since: 0.1.0
+ */
 void fm_deep_count_job_set_dest(FmDeepCountJob* dc, dev_t dev, const char* fs_id)
 {
     dc->dest_dev = dev;

@@ -34,15 +34,20 @@ G_BEGIN_DECLS
             FM_BOOKMARKS_TYPE, FmBookmarks))
 #define FM_BOOKMARKS_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass),\
             FM_BOOKMARKS_TYPE, FmBookmarksClass))
-#define IS_FM_BOOKMARKS(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_BOOKMARKS(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
             FM_BOOKMARKS_TYPE))
-#define IS_FM_BOOKMARKS_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_BOOKMARKS_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_BOOKMARKS_TYPE))
 
 typedef struct _FmBookmarks         FmBookmarks;
 typedef struct _FmBookmarksClass        FmBookmarksClass;
 typedef struct _FmBookmarkItem       FmBookmarkItem;
 
+/**
+ * FmBookmarkItem
+ * @name: display name of bookmark
+ * @path: path to bookmarked directory
+ */
 struct _FmBookmarkItem
 {
     char* name;
@@ -52,18 +57,24 @@ struct _FmBookmarkItem
 struct _FmBookmarks
 {
     GObject parent;
+    /*< private >*/
     GFileMonitor* mon;
     GList* items;
 };
 
+/**
+ * FmBookmarksClass
+ * @parent_class: the parent class
+ * @changed: the class closure for #FmBookmarks::changed signal
+ */
 struct _FmBookmarksClass
 {
     GObjectClass parent_class;
-    void (*changed)();
+    void (*changed)(FmBookmarks*);
 };
 
 GType fm_bookmarks_get_type(void);
-FmBookmarks* fm_bookmarks_get(void);
+FmBookmarks* fm_bookmarks_dup(void);
 
 #define fm_bookmarks_append(bookmarks, path, name)  fm_bookmarks_insert(bookmarks, path, name, -1)
 FmBookmarkItem* fm_bookmarks_insert(FmBookmarks* bookmarks, FmPath* path, const char* name, int pos);
@@ -72,7 +83,7 @@ void fm_bookmarks_reorder(FmBookmarks* bookmarks, FmBookmarkItem* item, int pos)
 void fm_bookmarks_rename(FmBookmarks* bookmarks, FmBookmarkItem* item, const char* new_name);
 
 /* list all bookmark items in current bookmarks */
-GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
+const GList* fm_bookmarks_list_all(FmBookmarks* bookmarks);
 
 G_END_DECLS
 

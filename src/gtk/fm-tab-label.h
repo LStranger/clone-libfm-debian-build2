@@ -42,20 +42,22 @@ typedef struct _FmTabLabelClass		FmTabLabelClass;
 
 struct _FmTabLabel
 {
-	GtkEventBox parent;
-    GtkWidget* label;
-    GtkWidget* close_btn;
+    GtkEventBox parent;
+    GtkLabel* label;
+    GtkButton* close_btn;
 };
 
 struct _FmTabLabelClass
 {
+    /*< private >*/
 	GtkEventBoxClass parent_class;
 };
 
 GType fm_tab_label_get_type(void);
-GtkWidget* fm_tab_label_new(const char* text);
+FmTabLabel* fm_tab_label_new(const char* text);
 
 void fm_tab_label_set_text(FmTabLabel* label, const char* text);
+void fm_tab_label_set_tooltip_text(FmTabLabel* label, const char* text);
 
 G_END_DECLS
 

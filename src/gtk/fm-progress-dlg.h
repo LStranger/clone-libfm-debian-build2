@@ -33,7 +33,7 @@ typedef struct _FmProgressDisplay FmProgressDisplay;
 /* Run the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
  * when it's not needed anymore.
- */
+ * NOTE: INCONSISTENCY: it takes a reference from job */
 FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job);
 
 G_END_DECLS

@@ -77,21 +77,21 @@ static gboolean g_udisks_drive_can_poll_for_media (GDrive* base)
 
 static gboolean g_udisks_drive_can_start (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
 
 static gboolean g_udisks_drive_can_start_degraded (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
 
 static gboolean g_udisks_drive_can_stop (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
@@ -140,7 +140,7 @@ static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
     if(error)
     {
         error = g_udisks_error_to_gio_error(error);
-        res = g_simple_async_result_new_from_error(data->drv,
+        res = g_simple_async_result_new_from_error(G_OBJECT(data->drv),
                                                    data->callback,
                                                    data->user_data,
                                                    error);
@@ -148,7 +148,7 @@ static void on_ejected(DBusGProxy *proxy, GError *error, gpointer user_data)
     }
     else
     {
-        res = g_simple_async_result_new(data->drv,
+        res = g_simple_async_result_new(G_OBJECT(data->drv),
                                         data->callback,
                                         data->user_data,
                                         NULL);
@@ -169,12 +169,13 @@ static void do_eject(EjectData* data)
 
 static void unmount_before_eject(EjectData* data);
 
-static void on_unmounted(GMount* mnt, GAsyncResult* res, EjectData* data)
+static void on_unmounted(GObject* mnt, GAsyncResult* res, gpointer input_data)
 {
+#define data ((EjectData*)input_data)
     GError* err = NULL;
     /* FIXME: with this approach, we could have racing condition.
      * Someone may mount other volumes before we finishing unmounting them all. */
-    gboolean success = g_mount_unmount_finish(mnt, res, &err);
+    gboolean success = g_mount_unmount_finish(G_MOUNT(mnt), res, &err);
     if(success)
     {
         if(data->mounts) /* we still have some volumes on this drive mounted */
@@ -187,13 +188,14 @@ static void on_unmounted(GMount* mnt, GAsyncResult* res, EjectData* data)
         GSimpleAsyncResult* res;
         GError* error = g_udisks_error_to_gio_error(err);
         g_error_free(err);
-        res = g_simple_async_result_new_from_error(data->drv,
+        res = g_simple_async_result_new_from_error(G_OBJECT(data->drv),
                                                    data->callback,
                                                    data->user_data,
                                                    err);
         finish_eject(res, data);
         g_error_free(error);
     }
+#undef data
 }
 
 static void unmount_before_eject(EjectData* data)
@@ -266,19 +268,19 @@ static void g_udisks_drive_eject_with_operation (GDrive* base, GMountUnmountFlag
 
 static gboolean g_udisks_drive_eject_with_operation_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return !g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(res), error);
 }
 
 static void g_udisks_drive_eject (GDrive* base, GMountUnmountFlags flags, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     g_udisks_drive_eject_with_operation(base, flags, NULL, cancellable, callback, user_data);
 }
 
 static gboolean g_udisks_drive_eject_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return g_udisks_drive_eject_with_operation_finish(base, res, error);
 }
 
@@ -320,14 +322,14 @@ static char* g_udisks_drive_get_identifier (GDrive* base, const char* kind)
 
 static char* g_udisks_drive_get_name (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return g_strdup("");
 }
 
 static GDriveStartStopType g_udisks_drive_get_start_stop_type (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return G_DRIVE_START_STOP_TYPE_UNKNOWN;
 }
@@ -340,7 +342,7 @@ static gboolean g_udisks_drive_has_media (GDrive* base)
 
 static gboolean g_udisks_drive_has_volumes (GDrive* base)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return FALSE;
 }
 
@@ -359,38 +361,38 @@ static gboolean g_udisks_drive_is_media_removable (GDrive* base)
 
 static void g_udisks_drive_poll_for_media (GDrive* base, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
 }
 
 static gboolean g_udisks_drive_poll_for_media_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     return FALSE;
 }
 
 static void g_udisks_drive_start (GDrive* base, GDriveStartFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
 }
 
 static gboolean g_udisks_drive_start_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
 
 static void g_udisks_drive_stop (GDrive* base, GMountUnmountFlags flags, GMountOperation* mount_operation, GCancellable* cancellable, GAsyncReadyCallback callback, gpointer user_data)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
 }
 
 static gboolean g_udisks_drive_stop_finish (GDrive* base, GAsyncResult* res, GError** error)
 {
-    GUDisksDrive* drv = G_UDISKS_DRIVE(base);
+    //GUDisksDrive* drv = G_UDISKS_DRIVE(base);
     /* TODO */
     return FALSE;
 }
@@ -452,12 +454,12 @@ static void g_udisks_drive_init(GUDisksDrive *self)
 
 }
 
-GDrive *g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
+GUDisksDrive *g_udisks_drive_new(GUDisksVolumeMonitor* mon, GUDisksDevice* dev)
 {
     GUDisksDrive* drv = (GUDisksDrive*)g_object_new(G_TYPE_UDISKS_DRIVE, NULL);
     drv->dev = g_object_ref(dev);
     drv->mon = mon;
-    return (GDrive*)drv;
+    return drv;
 }
 
 

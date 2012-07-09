@@ -2,6 +2,7 @@
  *      fm-path.h
  *
  *      Copyright 2009 PCMan <pcman.tw@gmail.com>
+ *      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
  *
  *      This program is free software; you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -33,9 +34,9 @@ G_BEGIN_DECLS
 #define FM_PATH(path)   ((FmPath*)path)
 
 typedef struct _FmPath FmPath;
-typedef FmList FmPathList;
+typedef struct _FmPathList FmPathList;
 
-enum _FmPathFlags
+typedef enum
 {
     FM_PATH_NONE = 0,
     FM_PATH_IS_NATIVE = 1<<0, /* This is a native path to UNIX, like /home */
@@ -48,8 +49,9 @@ enum _FmPathFlags
     FM_PATH_IS_RESERVED1 = 1<<5,
     FM_PATH_IS_RESERVED2 = 1<<6,
     FM_PATH_IS_RESERVED3 = 1<<7,
-};
-typedef enum _FmPathFlags FmPathFlags;
+} FmPathFlags;
+
+typedef struct _FmFileInfoList FmFileInfoList; /* fm-file-info.h includes this too */
 
 struct _FmPath
 {
@@ -59,10 +61,8 @@ struct _FmPath
     char name[1];
 };
 
-void _fm_path_init();
-
-/* fm_path_new is deprecated. Use fm_path_new_for_str */
-#define fm_path_new(path)   fm_path_new_for_str(path)
+void _fm_path_init(void);
+void _fm_path_finalize(void);
 
 FmPath* fm_path_new_for_path(const char* path_name);
 FmPath* fm_path_new_for_uri(const char* uri);
@@ -72,15 +72,15 @@ FmPath* fm_path_new_for_commandline_arg(const char* arg);
 
 FmPath* fm_path_new_child(FmPath* parent, const char* basename);
 FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len);
-FmPath* fm_path_new_relative(FmPath* parent, const char* relative_path);
+FmPath* fm_path_new_relative(FmPath* parent, const char* rel);
 FmPath* fm_path_new_for_gfile(GFile* gf);
 
 /* predefined paths */
-FmPath* fm_path_get_root(); /* / */
-FmPath* fm_path_get_home(); /* home directory */
-FmPath* fm_path_get_desktop(); /* $HOME/Desktop */
-FmPath* fm_path_get_trash(); /* trash:/// */
-FmPath* fm_path_get_apps_menu(); /* menu://applications.menu/ */
+FmPath* fm_path_get_root(void); /* / */
+FmPath* fm_path_get_home(void); /* home directory */
+FmPath* fm_path_get_desktop(void); /* $HOME/Desktop */
+FmPath* fm_path_get_trash(void); /* trash:/// */
+FmPath* fm_path_get_apps_menu(void); /* menu://applications.menu/ */
 
 FmPath* fm_path_ref(FmPath* path);
 void fm_path_unref(FmPath* path);
@@ -90,12 +90,12 @@ const char* fm_path_get_basename(FmPath* path);
 FmPathFlags fm_path_get_flags(FmPath* path);
 gboolean fm_path_has_prefix(FmPath* path, FmPath* prefix);
 
-#define fm_path_is_native(path) (fm_path_get_flags(path)&FM_PATH_IS_NATIVE)
-#define fm_path_is_trash(path) (fm_path_get_flags(path)&FM_PATH_IS_TRASH)
+#define fm_path_is_native(path) ((fm_path_get_flags(path)&FM_PATH_IS_NATIVE)!=0)
+#define fm_path_is_trash(path) ((fm_path_get_flags(path)&FM_PATH_IS_TRASH)!=0)
 #define fm_path_is_trash_root(path) (path == fm_path_get_trash())
-#define fm_path_is_virtual(path) (fm_path_get_flags(path)&FM_PATH_IS_VIRTUAL)
-#define fm_path_is_local(path) (fm_path_get_flags(path)&FM_PATH_IS_LOCAL)
-#define fm_path_is_xdg_menu(path) (fm_path_get_flags(path)&FM_PATH_IS_XDG_MENU)
+#define fm_path_is_virtual(path) ((fm_path_get_flags(path)&FM_PATH_IS_VIRTUAL)!=0)
+#define fm_path_is_local(path) ((fm_path_get_flags(path)&FM_PATH_IS_LOCAL)!=0)
+#define fm_path_is_xdg_menu(path) ((fm_path_get_flags(path)&FM_PATH_IS_XDG_MENU)!=0)
 
 char* fm_path_to_str(FmPath* path);
 char* fm_path_to_uri(FmPath* path);
@@ -115,14 +115,46 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n);
 int fm_path_depth(FmPath* path);
 
 /* path list */
-FmPathList* fm_path_list_new();
+FmPathList* fm_path_list_new(void);
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list);
-FmPathList* fm_path_list_new_from_uris(const char** uris);
-FmPathList* fm_path_list_new_from_file_info_list(FmList* fis);
+FmPathList* fm_path_list_new_from_uris(char* const* uris);
+FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis);
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis);
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis);
 
-gboolean fm_list_is_path_list(FmList* list);
+#ifndef __GTK_DOC_IGNORE__
+static inline FmPathList* fm_path_list_ref(FmPathList* list)
+{
+    return list ? (FmPathList*)fm_list_ref((FmList*)list) : NULL;
+}
+static inline void fm_path_list_unref(FmPathList* list)
+{
+    g_return_if_fail(list);
+    fm_list_unref((FmList*)list);
+}
+
+static inline guint fm_path_list_get_length(FmPathList* list)
+{
+    return fm_list_get_length((FmList*)list);
+}
+static inline gboolean fm_path_list_is_empty(FmPathList* list)
+{
+    return fm_list_is_empty((FmList*)list);
+}
+static inline FmPath* fm_path_list_peek_head(FmPathList* list)
+{
+    return fm_list_peek_head((FmList*)list);
+}
+static inline GList* fm_path_list_peek_head_link(FmPathList* list)
+{
+    return fm_list_peek_head_link((FmList*)list);
+}
+
+static inline void fm_path_list_push_tail(FmPathList* list, FmPath* d)
+{
+    fm_list_push_tail((FmList*)list,d);
+}
+#endif /* __GTK_DOC_IGNORE__ */
 
 char* fm_path_list_to_uri_list(FmPathList* pl);
 /* char** fm_path_list_to_uris(FmPathList* pl); */

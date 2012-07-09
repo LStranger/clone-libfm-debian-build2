@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FmDeepCountJob</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Libfm Reference Manual">
-<link rel="up" href="libfm.html" title="Libfm Overview">
-<link rel="prev" href="FmFileInfoJob.html" title="FmFileInfoJob">
-<link rel="next" href="FmFileOpsJob.html" title="FmFileOpsJob">
+<link rel="up" href="libfm-jobs.html" title="Libfm Jobs.">
+<link rel="prev" href="libfm-jobs.html" title="Libfm Jobs.">
+<link rel="next" href="FmDirListJob.html" title="FmDirListJob">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="FmFileInfoJob.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="libfm.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libfm-jobs.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="libfm-jobs.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Libfm Reference Manual</th>
-<td><a accesskey="n" href="FmFileOpsJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="FmDirListJob.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#FmDeepCountJob.synopsis" class="shortcut">Top</a>
@@ -33,7 +33,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="FmDeepCountJob.top_of_page"></a>FmDeepCountJob</span></h2>
-<p>FmDeepCountJob</p>
+<p>FmDeepCountJob — Job to gather information about file sizes.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -42,8 +42,9 @@
 <pre class="synopsis">#define             <a class="link" href="FmDeepCountJob.html#FM-DEEP-COUNT-JOB-TYPE:CAPS" title="FM_DEEP_COUNT_JOB_TYPE">FM_DEEP_COUNT_JOB_TYPE</a>
 struct              <a class="link" href="FmDeepCountJob.html#FmDeepCountJob-struct" title="struct FmDeepCountJob">FmDeepCountJob</a>;
 struct              <a class="link" href="FmDeepCountJob.html#FmDeepCountJobClass" title="struct FmDeepCountJobClass">FmDeepCountJobClass</a>;
-<a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             <a class="link" href="FmDeepCountJob.html#fm-deep-count-job-new" title="fm_deep_count_job_new ()">fm_deep_count_job_new</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmDeepCountJobFlags</span> flags</code></em>);
+enum                <a class="link" href="FmDeepCountJob.html#FmDeepCountJobFlags" title="enum FmDeepCountJobFlags">FmDeepCountJobFlags</a>;
+<a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="returnvalue">FmDeepCountJob</span></a> *    <a class="link" href="FmDeepCountJob.html#fm-deep-count-job-new" title="fm_deep_count_job_new ()">fm_deep_count_job_new</a>               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmDeepCountJob.html#FmDeepCountJobFlags" title="enum FmDeepCountJobFlags"><span class="type">FmDeepCountJobFlags</span></a> flags</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="FmDeepCountJob.html#fm-deep-count-job-set-dest" title="fm_deep_count_job_set_dest ()">fm_deep_count_job_set_dest</a>          (<em class="parameter"><code><a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="type">FmDeepCountJob</span></a> *dc</code></em>,
                                                          <em class="parameter"><code><span class="type">dev_t</span> dev</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *fs_id</code></em>);
@@ -59,32 +60,142 @@ struct              <a class="link" href="FmDeepCountJob.html#FmDeepCountJobClas
 </div>
 <div class="refsect1">
 <a name="FmDeepCountJob.description"></a><h2>Description</h2>
+<p>
+<em class="parameter"><code>include</code></em>: libfm/fm-deep-count-job.h
+</p>
+<p>
+The <a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="type">FmDeepCountJob</span></a> can be used to recursively gather information about
+some files and directories content before copy or move. It counts total
+size of all given files and directories, and size on disk for them.
+If flags for the job include FM_DC_JOB_PREPARE_MOVE then also count of
+files to move between volumes will be counted as well.
+</p>
 </div>
 <div class="refsect1">
 <a name="FmDeepCountJob.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="FM-DEEP-COUNT-JOB-TYPE:CAPS"></a><h3>FM_DEEP_COUNT_JOB_TYPE</h3>
-<pre class="programlisting">#define FM_DEEP_COUNT_JOB_TYPE				(fm_deep_count_job_get_type())
+<pre class="programlisting">#define FM_DEEP_COUNT_JOB_TYPE              (fm_deep_count_job_get_type())
 </pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmDeepCountJob-struct"></a><h3>struct FmDeepCountJob</h3>
-<pre class="programlisting">struct FmDeepCountJob;</pre>
+<pre class="programlisting">struct FmDeepCountJob {
+    FmJob parent;
+    FmPathList* paths;
+    FmDeepCountJobFlags flags;
+    goffset total_size;
+    goffset total_ondisk_size;
+    guint count;
+};
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> <em class="structfield"><code><a name="FmDeepCountJob-struct.parent"></a>parent</code></em>;</span></p></td>
+<td>the parent object</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *<em class="structfield"><code><a name="FmDeepCountJob-struct.paths"></a>paths</code></em>;</span></p></td>
+<td>list of paths to count</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="FmDeepCountJob.html#FmDeepCountJobFlags" title="enum FmDeepCountJobFlags"><span class="type">FmDeepCountJobFlags</span></a> <em class="structfield"><code><a name="FmDeepCountJob-struct.flags"></a>flags</code></em>;</span></p></td>
+<td>flags for counting</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">goffset</span> <em class="structfield"><code><a name="FmDeepCountJob-struct.total-size"></a>total_size</code></em>;</span></p></td>
+<td>counted total file size</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">goffset</span> <em class="structfield"><code><a name="FmDeepCountJob-struct.total-ondisk-size"></a>total_ondisk_size</code></em>;</span></p></td>
+<td>counted total file size on disk</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">guint</span> <em class="structfield"><code><a name="FmDeepCountJob-struct.count"></a>count</code></em>;</span></p></td>
+<td>number of files to be moved between devices</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="FmDeepCountJobClass"></a><h3>struct FmDeepCountJobClass</h3>
 <pre class="programlisting">struct FmDeepCountJobClass {
-	FmJobClass parent_class;
 };
 </pre>
 </div>
 <hr>
 <div class="refsect2">
+<a name="FmDeepCountJobFlags"></a><h3>enum FmDeepCountJobFlags</h3>
+<pre class="programlisting">typedef enum {
+    FM_DC_JOB_DEFAULT = 0,
+    FM_DC_JOB_FOLLOW_LINKS = 1&lt;&lt;0,
+    FM_DC_JOB_SAME_FS = 1&lt;&lt;1,
+    FM_DC_JOB_PREPARE_MOVE = 1&lt;&lt;2,
+    FM_DC_JOB_PREPARE_DELETE = 1 &lt;&lt;3
+} FmDeepCountJobFlags;
+</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><a name="FM-DC-JOB-DEFAULT:CAPS"></a><span class="term"><code class="literal">FM_DC_JOB_DEFAULT</code></span></p></td>
+<td>do deep count for all files/folders
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DC-JOB-FOLLOW-LINKS:CAPS"></a><span class="term"><code class="literal">FM_DC_JOB_FOLLOW_LINKS</code></span></p></td>
+<td>don't follow symlinks
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DC-JOB-SAME-FS:CAPS"></a><span class="term"><code class="literal">FM_DC_JOB_SAME_FS</code></span></p></td>
+<td>only do deep count for files on the same devices. what's the use case of this?
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DC-JOB-PREPARE-MOVE:CAPS"></a><span class="term"><code class="literal">FM_DC_JOB_PREPARE_MOVE</code></span></p></td>
+<td>special handling for moving files. only do deep count for files on different devices
+</td>
+</tr>
+<tr>
+<td><p><a name="FM-DC-JOB-PREPARE-DELETE:CAPS"></a><span class="term"><code class="literal">FM_DC_JOB_PREPARE_DELETE</code></span></p></td>
+<td>special handling for deleting files
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
 <a name="fm-deep-count-job-new"></a><h3>fm_deep_count_job_new ()</h3>
-<pre class="programlisting"><a class="link" href="FmJob.html" title="FmJob"><span class="returnvalue">FmJob</span></a> *             fm_deep_count_job_new               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
-                                                         <em class="parameter"><code><span class="type">FmDeepCountJobFlags</span> flags</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="returnvalue">FmDeepCountJob</span></a> *    fm_deep_count_job_new               (<em class="parameter"><code><a class="link" href="libfm-fm-path.html#FmPathList" title="FmPathList"><span class="type">FmPathList</span></a> *paths</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="FmDeepCountJob.html#FmDeepCountJobFlags" title="enum FmDeepCountJobFlags"><span class="type">FmDeepCountJobFlags</span></a> flags</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="type">FmDeepCountJob</span></a> which can be ran via <a class="link" href="FmJob.html" title="FmJob"><span class="type">FmJob</span></a> API.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>paths</code></em> :</span></p></td>
+<td>list of files and directories to count sizes</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>flags of the counting behavior</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="type">FmDeepCountJob</span></a> object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 <hr>
 <div class="refsect2">
@@ -92,6 +203,31 @@ struct              <a class="link" href="FmDeepCountJob.html#FmDeepCountJobClas
 <pre class="programlisting"><span class="returnvalue">void</span>                fm_deep_count_job_set_dest          (<em class="parameter"><code><a class="link" href="FmDeepCountJob.html" title="FmDeepCountJob"><span class="type">FmDeepCountJob</span></a> *dc</code></em>,
                                                          <em class="parameter"><code><span class="type">dev_t</span> dev</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *fs_id</code></em>);</pre>
+<p>
+Sets destination for the job <em class="parameter"><code>dc</code></em> that will be used when the job is
+ran with any of flags FM_DC_JOB_SAME_FS or FM_DC_JOB_PREPARE_MOVE.
+If <em class="parameter"><code>dev</code></em> is 0 (and <em class="parameter"><code>fs_id</code></em> is NULL) then destination device is non on
+native filesystem.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dc</code></em> :</span></p></td>
+<td>a job to set the destination</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dev</code></em> :</span></p></td>
+<td>UNIX device ID</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fs_id</code></em> :</span></p></td>
+<td>filesystem id in gio format. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.1.0</p>
 </div>
 </div>
 </div>

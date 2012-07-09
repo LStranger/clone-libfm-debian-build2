@@ -1,6 +1,7 @@
 //      fm-dir-tree-model.c
 //
 //      Copyright 2010 Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
+//      Copyright 2012 Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>
 //
 //      This program is free software; you can redistribute it and/or modify
 //      it under the terms of the GNU General Public License as published by
@@ -16,6 +17,17 @@
 //      along with this program; if not, write to the Free Software
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
+
+/**
+ * SECTION:fm-dir-tree-model
+ * @short_description: A model for directory tree view
+ * @title: FmDirTreeModel
+ *
+ * @include: libfm/fm-dir-tree-model.h
+ *
+ * The #FmDirTreeModel represents tree of folders which can be used by
+ * #FmDirTreeView to create tree-like expandable list of directories.
+ */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -35,7 +47,8 @@ struct _FmDirTreeItem
     FmFileInfo* fi;
     FmFolder* folder;
     GdkPixbuf* icon;
-    guint n_expand;
+    gboolean expanded;
+    gboolean loaded;
     GList* parent; /* parent node */
     GList* children; /* child items */
     GList* hidden_children;
@@ -43,9 +56,20 @@ struct _FmDirTreeItem
 
 static GType column_types[N_FM_DIR_TREE_MODEL_COLS];
 
-static void fm_dir_tree_model_finalize            (GObject *object);
+enum
+{
+    ROW_LOADED,
+    N_SIGNALS
+};
+
+static guint signals[N_SIGNALS];
+
+static void fm_dir_tree_model_dispose            (GObject *object);
 static void fm_dir_tree_model_tree_model_init(GtkTreeModelIface *iface);
 static GtkTreePath *fm_dir_tree_model_get_path ( GtkTreeModel *tree_model, GtkTreeIter *iter );
+
+static inline void item_to_tree_iter(FmDirTreeModel* model, GList* item_l, GtkTreeIter* it);
+static inline GtkTreePath* item_to_tree_path(FmDirTreeModel* model, GList* item_l);
 
 G_DEFINE_TYPE_WITH_CODE( FmDirTreeModel, fm_dir_tree_model, G_TYPE_OBJECT,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_TREE_MODEL, fm_dir_tree_model_tree_model_init)
@@ -69,16 +93,21 @@ static inline void _g_list_foreach_l(GList* list, GFunc func, gpointer user_data
 static void item_queue_subdir_check(FmDirTreeModel* model, GList* item_l);
 */
 
-static void item_reload_icon(FmDirTreeModel* model, FmDirTreeItem* item, GtkTreePath* tp)
+static void item_reload_icon(FmDirTreeModel* model, GList* item_l, GtkTreePath* tp)
 {
     GtkTreeIter it;
     GList* l;
-    FmDirTreeItem* child;
+    FmDirTreeItem *item, *child;
+
+    g_return_if_fail(item_l && tp);
+    item = item_l->data;
+    g_return_if_fail(item);
 
     if(item->icon)
     {
         g_object_unref(item->icon);
         item->icon = NULL;
+        item_to_tree_iter(model, item_l, &it);
         gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
     }
 
@@ -109,7 +138,32 @@ static void fm_dir_tree_model_class_init(FmDirTreeModelClass *klass)
 {
     GObjectClass *g_object_class;
     g_object_class = G_OBJECT_CLASS(klass);
-    g_object_class->finalize = fm_dir_tree_model_finalize;
+    g_object_class->dispose = fm_dir_tree_model_dispose;
+    /* use finalize from parent class */
+
+    /**
+     * FmDirTreeModel::row-loaded:
+     * @model: dir tree model instance that received the signal
+     * @row:   path to folder row that is ready
+     *
+     * The #FmDirTreeModel::row-loaded signal is emitted when content of
+     * folder @row is completely retrieved. It may happen either
+     * after call to fm_dir_tree_model_load_row()
+     * or in time of that call (in case if the folder was already cached in
+     * memory).
+     *
+     * See also: fm_dir_tree_model_unload_row().
+     *
+     * Since: 1.0.0
+     */
+    signals[ROW_LOADED] =
+        g_signal_new("row-loaded",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_FIRST,
+                     G_STRUCT_OFFSET(FmDirTreeModelClass, row_loaded),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__BOXED,
+                     G_TYPE_NONE, 1, GTK_TYPE_TREE_PATH);
 }
 
 
@@ -121,20 +175,21 @@ static inline FmDirTreeItem* fm_dir_tree_item_new(FmDirTreeModel* model, GList* 
     return item;
 }
 
-static inline void item_free_folder(GList* item_l);
-static void fm_dir_tree_item_free_l(GList* item_l);
+static inline void item_free_folder(FmFolder* item, GList* item_l);
 
-/* Most of time fm_dir_tree_item_free_l() should be called instead. */
-static inline void fm_dir_tree_item_free(FmDirTreeItem* item)
+/* Free the GList* element along with its associated FmDirTreeItem */
+static void fm_dir_tree_item_free_l(GList* item_l)
 {
+    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
+
+    if(!item) /* is it possible? */
+        return;
+    if(item->folder)
+        item_free_folder(item->folder, item_l);
     if(item->fi)
         fm_file_info_unref(item->fi);
     if(item->icon)
         g_object_unref(item->icon);
-
-    if(item->folder) /* most of cases this should have been freed in item_free_folder() */
-        g_object_unref(item->folder);
-
     if(item->children)
     {
         _g_list_foreach_l(item->children, (GFunc)fm_dir_tree_item_free_l, NULL);
@@ -142,18 +197,10 @@ static inline void fm_dir_tree_item_free(FmDirTreeItem* item)
     }
     if(item->hidden_children)
     {
-        g_list_foreach(item->hidden_children, (GFunc)fm_dir_tree_item_free, NULL);
+        _g_list_foreach_l(item->hidden_children, (GFunc)fm_dir_tree_item_free_l, NULL);
         g_list_free(item->hidden_children);
     }
     g_slice_free(FmDirTreeItem, item);
-}
-
-/* Free the GList* element along with its associated FmDirTreeItem */
-static void fm_dir_tree_item_free_l(GList* item_l)
-{
-    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-    item_free_folder(item_l);
-    fm_dir_tree_item_free(item);
 }
 
 static inline void item_to_tree_iter(FmDirTreeModel* model, GList* item_l, GtkTreeIter* it)
@@ -168,7 +215,7 @@ static inline GtkTreePath* item_to_tree_path(FmDirTreeModel* model, GList* item_
 {
     GtkTreeIter it;
     item_to_tree_iter(model, item_l, &it);
-    return fm_dir_tree_model_get_path(model, &it);
+    return fm_dir_tree_model_get_path((GtkTreeModel*)model, &it);
 }
 
 static void on_theme_changed(GtkIconTheme* theme, FmDirTreeModel* model)
@@ -183,24 +230,28 @@ static void on_theme_changed(GtkIconTheme* theme, FmDirTreeModel* model)
     gtk_tree_path_free(tp);
 }
 
-static void fm_dir_tree_model_finalize(GObject *object)
+static void fm_dir_tree_model_dispose(GObject *object)
 {
     FmDirTreeModel *model;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DIR_TREE_MODEL(object));
 
-    model = FM_DIR_TREE_MODEL(object);
+    model = (FmDirTreeModel*)object;
 
     g_signal_handlers_disconnect_by_func(gtk_icon_theme_get_default(),
                                          on_theme_changed, model);
 
-    _g_list_foreach_l(model->roots, (GFunc)fm_dir_tree_item_free_l, NULL);
-    g_list_free(model->roots);
+    if(model->roots)
+    {
+        _g_list_foreach_l(model->roots, (GFunc)fm_dir_tree_item_free_l, NULL);
+        g_list_free(model->roots);
+        model->roots = NULL;
+    }
 
     /* TODO: g_object_unref(model->subdir_cancellable); */
 
-    G_OBJECT_CLASS(fm_dir_tree_model_parent_class)->finalize(object);
+    G_OBJECT_CLASS(fm_dir_tree_model_parent_class)->dispose(object);
 }
 
 static void fm_dir_tree_model_init(FmDirTreeModel *model)
@@ -228,7 +279,7 @@ static gint fm_dir_tree_model_get_n_columns(GtkTreeModel *tree_model)
 
 static GType fm_dir_tree_model_get_column_type(GtkTreeModel *tree_model, gint index)
 {
-    g_return_val_if_fail( index < G_N_ELEMENTS(column_types) && index >= 0, G_TYPE_INVALID );
+    g_return_val_if_fail( index >= 0 && (guint)index < G_N_ELEMENTS(column_types), G_TYPE_INVALID );
     return column_types[index];
 }
 
@@ -238,12 +289,12 @@ static gboolean fm_dir_tree_model_get_iter(GtkTreeModel *tree_model,
 {
     FmDirTreeModel *model;
     gint *indices, i, depth;
-    GList *children, *child;
+    GList *children, *child = NULL;
 
     g_assert(FM_IS_DIR_TREE_MODEL(tree_model));
     g_assert(path!=NULL);
 
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
     if( G_UNLIKELY(!model || !model->roots) )
         return FALSE;
 
@@ -272,9 +323,10 @@ static GtkTreePath *fm_dir_tree_model_get_path(GtkTreeModel *tree_model,
     FmDirTreeItem* item;
     GtkTreePath* path;
     int i;
-    FmDirTreeModel* model = FM_DIR_TREE_MODEL(tree_model);
+    FmDirTreeModel* model;
 
-    g_return_val_if_fail (model, NULL);
+    g_return_val_if_fail (FM_IS_DIR_TREE_MODEL(tree_model), NULL);
+    model = (FmDirTreeModel*)tree_model;
     g_return_val_if_fail (iter->stamp == model->stamp, NULL);
     g_return_val_if_fail (iter != NULL, NULL);
     g_return_val_if_fail (iter->user_data != NULL, NULL);
@@ -320,23 +372,26 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
                               gint column,
                               GValue *value )
 {
-    FmDirTreeModel* model = FM_DIR_TREE_MODEL(tree_model);
+    FmDirTreeModel* model;
     GList* item_l;
     FmDirTreeItem* item;
+    FmIcon* icon;
 
+    g_return_if_fail (FM_IS_DIR_TREE_MODEL(tree_model));
+    model = (FmDirTreeModel*)tree_model;
     g_return_if_fail (iter->stamp == model->stamp);
 
     g_value_init (value, column_types[column] );
     item_l = (GList*)iter->user_data;
     item = (FmDirTreeItem*)item_l->data;
 
-    switch(column)
+    switch((FmDirTreeModelCol)column)
     {
     case FM_DIR_TREE_MODEL_COL_ICON:
-        if(item->fi && item->fi->icon)
+        if(item->fi && (icon = fm_file_info_get_icon(item->fi)))
         {
             if(!item->icon)
-                item->icon = fm_icon_get_pixbuf(item->fi->icon, model->icon_size);
+                item->icon = fm_pixbuf_from_icon(icon, model->icon_size);
             g_value_set_object(value, item->icon);
         }
         else
@@ -349,21 +404,22 @@ static void fm_dir_tree_model_get_value ( GtkTreeModel *tree_model,
         {
             /* parent is always non NULL. otherwise it's a bug. */
             FmDirTreeItem* parent = (FmDirTreeItem*)item->parent->data;
-            if(parent->folder && fm_folder_get_is_loaded(parent->folder))
+            if(parent->folder && fm_folder_is_loaded(parent->folder))
                 g_value_set_string( value, _("<No Sub Folder>"));
             else
                 g_value_set_string( value, _("Loading..."));
         }
         break;
     case FM_DIR_TREE_MODEL_COL_INFO:
-        g_value_set_pointer( value, item->fi);
+        g_value_set_pointer(value, item->fi);
         break;
     case FM_DIR_TREE_MODEL_COL_PATH:
-        g_value_set_pointer( value, item->fi ? item->fi->path : NULL);
+        g_value_set_pointer(value, item->fi ? fm_file_info_get_path(item->fi) : NULL);
         break;
     case FM_DIR_TREE_MODEL_COL_FOLDER:
-        g_value_set_pointer( value, item->folder);
+        g_value_set_pointer(value, item->folder);
         break;
+    case N_FM_DIR_TREE_MODEL_COLS: ; /* not a column */
     }
 }
 
@@ -378,11 +434,12 @@ static gboolean fm_dir_tree_model_iter_next(GtkTreeModel *tree_model,
 
     item_l = (GList*)iter->user_data;
     /* Is this the last child in the parent node? */
-    if(!item_l->next)
+    item_l = item_l->next;
+    if(!item_l)
         return FALSE;
 
-    model = FM_DIR_TREE_MODEL(tree_model);
-    item_to_tree_iter(model, item_l->next, iter);
+    model = (FmDirTreeModel*)tree_model;
+    item_to_tree_iter(model, item_l, iter);
     return TRUE;
 }
 
@@ -395,7 +452,7 @@ static gboolean fm_dir_tree_model_iter_children(GtkTreeModel *tree_model,
 
     g_return_val_if_fail(parent == NULL || parent->user_data != NULL, FALSE);
     g_return_val_if_fail(FM_IS_DIR_TREE_MODEL(tree_model), FALSE);
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
 
     if(parent)
     {
@@ -437,7 +494,7 @@ static gint fm_dir_tree_model_iter_n_children(GtkTreeModel *tree_model,
     GList* children;
     g_return_val_if_fail(FM_IS_DIR_TREE_MODEL(tree_model), -1);
 
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
     /* special case: if iter == NULL, return number of top-level rows */
     if(!iter)
         children = model->roots;
@@ -460,7 +517,7 @@ static gboolean fm_dir_tree_model_iter_nth_child(GtkTreeModel *tree_model,
     GList *child_l;
 
     g_return_val_if_fail (FM_IS_DIR_TREE_MODEL (tree_model), FALSE);
-    model = FM_DIR_TREE_MODEL(tree_model);
+    model = (FmDirTreeModel*)tree_model;
 
     if(G_LIKELY(parent))
     {
@@ -521,12 +578,21 @@ static void fm_dir_tree_model_tree_model_init(GtkTreeModelIface *iface)
     column_types[FM_DIR_TREE_MODEL_COL_FOLDER] = G_TYPE_POINTER;
 }
 
+/**
+ * fm_dir_tree_model_new
+ *
+ * Creates new #FmDirTreeModel instance.
+ *
+ * Returns: a new #FmDirTreeModel object.
+ *
+ * Since: 0.1.16
+ */
 FmDirTreeModel *fm_dir_tree_model_new(void)
 {
     return (FmDirTreeModel*)g_object_new(FM_TYPE_DIR_TREE_MODEL, NULL);
 }
 
-static void add_place_holder_child_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* tp, gboolean emit_signal)
+static void add_place_holder_child_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* parent_tp, gboolean emit_signal)
 {
     FmDirTreeItem* parent_item = (FmDirTreeItem*)parent_l->data;
     FmDirTreeItem* item = fm_dir_tree_item_new(model, parent_l);
@@ -535,24 +601,25 @@ static void add_place_holder_child_item(FmDirTreeModel* model, GList* parent_l, 
     if(emit_signal)
     {
         GtkTreeIter it;
+        GtkTreePath* ph_tp;
         item_to_tree_iter(model, parent_item->children, &it);
-        gtk_tree_path_append_index(tp, 0);
-        gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), tp, &it);
-        gtk_tree_path_up(tp);
+        ph_tp = gtk_tree_path_copy(parent_tp);
+        gtk_tree_path_append_index(ph_tp, 0);
+        gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), ph_tp, &it);
+        gtk_tree_path_free(ph_tp);
     }
 }
 
 /* Add a new node to parent node to proper position.
  * GtkTreePath tp is the tree path of parent node.
- * Note that value of tp will be changed inside the function temporarily
- * to generate GtkTreePath for child nodes, and then restored to its
- * original value before returning from the function. */
+ * Returns GList item where new_item is incapsulated */
 static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* tp, FmDirTreeItem* new_item)
 {
     GList* new_item_l;
     FmDirTreeItem* parent_item = (FmDirTreeItem*)parent_l->data;
     const char* new_key = fm_file_info_get_collate_key(new_item->fi);
-    GList* item_l, *last_l;
+    GList* item_l, *last_l = NULL;
+    GtkTreePath* new_tp;
     GtkTreeIter it;
     int n = 0;
     for(item_l = parent_item->children; item_l; item_l=item_l->next, ++n)
@@ -580,12 +647,13 @@ static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* t
 
     /* emit row-inserted signal for the new item */
     item_to_tree_iter(model, new_item_l, &it);
-    gtk_tree_path_append_index(tp, n);
-    gtk_tree_model_row_inserted(model, tp, &it);
+    new_tp = gtk_tree_path_copy(tp);
+    gtk_tree_path_append_index(new_tp, n);
+    gtk_tree_model_row_inserted(GTK_TREE_MODEL(model), new_tp, &it);
 
     /* add a placeholder child item to make the node expandable */
-    add_place_holder_child_item(model, new_item_l, tp, TRUE);
-    gtk_tree_path_up(tp);
+    add_place_holder_child_item(model, new_item_l, new_tp, TRUE);
+    gtk_tree_path_free(new_tp);
 
     /* TODO: check if the dir has subdirs and make it expandable if needed. */
     /* item_queue_subdir_check(model, new_item_l); */
@@ -594,20 +662,17 @@ static GList* insert_item(FmDirTreeModel* model, GList* parent_l, GtkTreePath* t
 }
 
 /* Add file info to parent node to proper position.
- * GtkTreePath tp is the tree path of parent node.
- * Note that value of tp will be changed inside the function temporarily
- * to generate GtkTreePath for child nodes, and then restored to its
- * original value before returning from the function. */
+ * GtkTreePath tp is the tree path of parent node. */
 static GList* insert_file_info(FmDirTreeModel* model, GList* parent_l, GtkTreePath* tp, FmFileInfo* fi)
 {
-    GtkTreeIter it;
     GList* item_l;
     FmDirTreeItem* parent_item = (FmDirTreeItem*)parent_l->data;
     FmDirTreeItem* item = fm_dir_tree_item_new(model, parent_l);
     item->fi = fm_file_info_ref(fi);
+    FmPath* path = fm_file_info_get_path(fi);
 
     /* fm_file_info_is_hidden() is slower here*/
-    if(!model->show_hidden && fi->path->name[0] == '.') /* hidden folder */
+    if(!model->show_hidden && path->name[0] == '.') /* hidden folder */
     {
         parent_item->hidden_children = g_list_prepend(parent_item->hidden_children, item);
         item_l = parent_item->hidden_children;
@@ -622,10 +687,33 @@ static void remove_item(FmDirTreeModel* model, GList* item_l)
     GtkTreePath* tp = item_to_tree_path(model, item_l);
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeItem* parent_item = (FmDirTreeItem*)item->parent ? item->parent->data : NULL;
-    fm_dir_tree_item_free_l(item_l);
-    if(parent_item)
-        parent_item->children = g_list_delete_link(parent_item->children, item_l);
-    /* signal the view that we removed the placeholder item. */
+    if(item)
+    {
+        fm_dir_tree_item_free_l(item_l);
+        if(parent_item)
+        {
+            /* If the item being removed is the last child item of parent_item,
+             * we need to insert a place holder item to keep it expandable. */
+            if(parent_item->children->next == NULL)
+            {
+                GList* parent_l = item->parent;
+                int idx = gtk_tree_path_get_indices(tp)[gtk_tree_path_get_depth(tp) - 1];
+                gtk_tree_path_up(tp);
+                add_place_holder_child_item(model, parent_l, tp, TRUE);
+                gtk_tree_path_append_index(tp, idx);
+            }
+            parent_item->children = g_list_delete_link(parent_item->children, item_l);
+        }
+        else /* root item */
+        {
+            /* FIXME: this needs more testing. */
+            model->roots = g_list_delete_link(model->roots, item_l);
+        }
+    }
+    else /* fake place holder item */
+    {
+    }
+    /* signal the view that we removed the item. */
     gtk_tree_model_row_deleted(GTK_TREE_MODEL(model), tp);
     gtk_tree_path_free(tp);
 }
@@ -638,8 +726,9 @@ static GList* children_by_name(FmDirTreeModel* model, GList* children, const cha
     for(l = children; l; l=l->next, ++i)
     {
         FmDirTreeItem* item = (FmDirTreeItem*)l->data;
+        FmPath* path;
         if(G_LIKELY(item->fi) &&
-           G_UNLIKELY(strcmp(item->fi->path->name, name) == 0))
+           G_UNLIKELY(strcmp((path = fm_file_info_get_path(item->fi))->name, name) == 0))
         {
             if(idx)
                 *idx = i;
@@ -669,13 +758,24 @@ static void remove_all_children(FmDirTreeModel* model, GList* item_l, GtkTreePat
 
     if(item->hidden_children)
     {
-        g_list_foreach(item->hidden_children, (GFunc)fm_dir_tree_item_free, NULL);
+        _g_list_foreach_l(item->hidden_children, (GFunc)fm_dir_tree_item_free_l, NULL);
         g_list_free(item->hidden_children);
         item->hidden_children = NULL;
     }
     gtk_tree_path_up(tp);
 }
 
+/**
+ * fm_dir_tree_model_add_root
+ * @model: the model instance
+ * @root: a root path to add
+ * @iter: (allow-none): pointer to iterator to set
+ *
+ * Adds a root node for file @root into @model. If @iter is not %NULL
+ * then on return it will be set to new row data.
+ *
+ * Since: 0.1.16
+ */
 void fm_dir_tree_model_add_root(FmDirTreeModel* model, FmFileInfo* root, GtkTreeIter* iter)
 {
     GtkTreeIter it;
@@ -697,14 +797,19 @@ void fm_dir_tree_model_add_root(FmDirTreeModel* model, FmFileInfo* root, GtkTree
     gtk_tree_path_free(tp);
 }
 
-static void on_folder_loaded(FmFolder* folder, GList* item_l)
+static void on_folder_finish_loading(FmFolder* folder, GList* item_l)
 {
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeModel* model = item->model;
     GList* place_holder_l;
+    GtkTreePath* tp = item_to_tree_path(model, item_l);
 
+    /* set 'loaded' flag beforehand as callback may check it */
+    item->loaded = TRUE;
     place_holder_l = item->children;
-    if(item->children->next) /* if we have loaded sub dirs, remove the place holder */
+    /* TODO: 1.1: don't leave expanders if not stated in config */
+//    if(!fm_config->show_empty_dir_expanders || place_holder_l->next)
+    if(place_holder_l->next) /* if we have loaded sub dirs, remove the place holder */
     {
         /* remove the fake placeholder item showing "Loading..." */
         remove_item(model, place_holder_l);
@@ -712,13 +817,23 @@ static void on_folder_loaded(FmFolder* folder, GList* item_l)
     else /* if we have no sub dirs, leave the place holder and let it show "Empty" */
     {
         GtkTreeIter it;
-        GtkTreePath* tp = item_to_tree_path(model, place_holder_l);
         item_to_tree_iter(model, place_holder_l, &it);
         /* if the folder is empty, the place holder item
          * shows "<Empty>" instead of "Loading..." */
-        gtk_tree_model_row_changed(model, tp, &it);
-        gtk_tree_path_free(tp);
+        gtk_tree_path_append_index(tp, 0);
+        gtk_tree_model_row_changed(GTK_TREE_MODEL(model), tp, &it);
+        gtk_tree_path_up(tp);
     }
+    g_signal_emit(model, signals[ROW_LOADED], 0, tp);
+    gtk_tree_path_free(tp);
+    /* FIXME: should we really cease monitoring non-expandable folder? */
+//    if(!item->children)
+//    {
+//        item_free_folder(item->folder, item_l);
+//        item->folder = NULL;
+//        item->expanded = FALSE;
+//        item->loaded = FALSE;
+//    }
 }
 
 static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l)
@@ -734,10 +849,16 @@ static void on_folder_files_added(FmFolder* folder, GSList* files, GList* item_l
          * its first-time loading? Isn't "loaded" signal enough? */
         if(fm_file_info_is_dir(fi)) /* TODO: maybe adding files can be allowed later */
         {
-            /* ensure that the file is not yet in our model */
-            GList* new_item_l = children_by_name(model, item->children, fi->path->name, NULL);
+            /* ensure that the file is not yet in our model
+            FmPath* path = fm_file_info_get_path(fi); */
+            /* 
+            * Ideally FmFolder should not emit files-added signals for files that
+            * already exists. So there is no need to check for duplication here.
+            GList* new_item_l = children_by_name(model, item->children, path->name, NULL);
             if(!new_item_l)
-                new_item_l = insert_file_info(model, item_l, tp, fi);
+
+            GList* new_item_l = */
+            insert_file_info(model, item_l, tp, fi);
         }
     }
     gtk_tree_path_free(tp);
@@ -748,15 +869,16 @@ static void on_folder_files_removed(FmFolder* folder, GSList* files, GList* item
     GSList* l;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeModel* model = item->model;
-    /* GtkTreePath* tp = item_to_tree_path(model, item_l); */
+
     for(l = files; l; l = l->next)
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
-        GList* rm_item_l = children_by_name(model, item->children, fi->path->name, NULL);
+        FmPath* path = fm_file_info_get_path(fi);
+        GList* rm_item_l = children_by_name(model, item->children,
+                                            fm_path_get_basename(path), NULL);
         if(rm_item_l)
             remove_item(model, rm_item_l);
     }
-    /* gtk_tree_path_free(tp); */
 }
 
 static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item_l)
@@ -764,7 +886,7 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
     GSList* l;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     FmDirTreeModel* model = item->model;
-    GtkTreePath* tp = item_to_tree_path(model, item_l);
+    /* GtkTreePath* tp = item_to_tree_path(model, item_l); */
 
     /* g_debug("files changed!!"); */
 
@@ -772,7 +894,9 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
     {
         FmFileInfo* fi = FM_FILE_INFO(l->data);
         int idx;
-        GList* changed_item_l = children_by_name(model, item->children, fi->path->name, &idx);
+        FmPath* path = fm_file_info_get_path(fi);
+        GList* changed_item_l = children_by_name(model, item->children,
+                                                 fm_path_get_basename(path), &idx);
         /* g_debug("changed file: %s", fi->path->name); */
         if(changed_item_l)
         {
@@ -786,49 +910,67 @@ static void on_folder_files_changed(FmFolder* folder, GSList* files, GList* item
             /* item_queue_subdir_check(model, changed_item_l); */
         }
     }
-    gtk_tree_path_free(tp);
+    /* gtk_tree_path_free(tp); */
 }
 
-static inline void item_free_folder(GList* item_l)
+static inline void item_free_folder(FmFolder* folder, GList* item_l)
 {
-    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-    if(item->folder)
-    {
-        FmFolder* folder = item->folder;
-        g_signal_handlers_disconnect_by_func(folder, on_folder_loaded, item_l);
-        g_signal_handlers_disconnect_by_func(folder, on_folder_files_added, item_l);
-        g_signal_handlers_disconnect_by_func(folder, on_folder_files_removed, item_l);
-        g_signal_handlers_disconnect_by_func(folder, on_folder_files_changed, item_l);
-        g_object_unref(folder);
-        item->folder = NULL;
-    }
+    g_signal_handlers_disconnect_by_func(folder, on_folder_finish_loading, item_l);
+    g_signal_handlers_disconnect_by_func(folder, on_folder_files_added, item_l);
+    g_signal_handlers_disconnect_by_func(folder, on_folder_files_removed, item_l);
+    g_signal_handlers_disconnect_by_func(folder, on_folder_files_changed, item_l);
+    g_object_unref(folder);
 }
 
-void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
+/**
+ * fm_dir_tree_model_load_row
+ * @model: the model instance
+ * @it: iterator of row to load
+ * @tp: path of row to load
+ *
+ * If row with iterator @it has its children already retrieved then
+ * does nothing. Else starts retrieving of list of children for row
+ * with iterator @it and path @tp. When children are loaded then a
+ * #FmDirTreeModel::row-loaded signal will be emitted. The folder
+ * associated with the row will be monitored for changes in children
+ * after that.
+ * This API is used when the row is expanded in the view.
+ *
+ * Before 1.0.0 this API had name fm_dir_tree_model_expand_row.
+ *
+ * See also: fm_dir_tree_row_is_loaded(), fm_dir_tree_model_unload_row().
+ *
+ * Since: 0.1.16
+ */
+void fm_dir_tree_model_load_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
 {
     GList* item_l = (GList*)it->user_data;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     g_return_if_fail(item != NULL);
-    if(item->n_expand == 0)
+    if(!item->expanded)
     {
         /* dynamically load content of the folder. */
-        FmFolder* folder = fm_folder_get(item->fi->path);
+        FmFolder* folder = fm_folder_from_path(fm_file_info_get_path(item->fi));
         item->folder = folder;
 
         /* associate the data with loaded handler */
-        g_signal_connect(folder, "loaded", G_CALLBACK(on_folder_loaded), item_l);
+        g_signal_connect(folder, "finish-loading", G_CALLBACK(on_folder_finish_loading), item_l);
         g_signal_connect(folder, "files-added", G_CALLBACK(on_folder_files_added), item_l);
         g_signal_connect(folder, "files-removed", G_CALLBACK(on_folder_files_removed), item_l);
         g_signal_connect(folder, "files-changed", G_CALLBACK(on_folder_files_changed), item_l);
 
+        if(!item->children)
+            add_place_holder_child_item(model, item_l, tp, TRUE);
+        /* set 'expanded' flag beforehand as callback may check it */
+        item->expanded = TRUE;
         /* if the folder is already loaded, call "loaded" handler ourselves */
-        if(fm_folder_get_is_loaded(folder)) /* already loaded */
+        if(fm_folder_is_loaded(folder)) /* already loaded */
         {
             FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
             FmDirTreeModel* model = item->model;
-            GtkTreePath* tp = item_to_tree_path(model, item_l);
             GList* file_l;
-            for(file_l = fm_list_peek_head_link(folder->files); file_l; file_l = file_l->next)
+            FmFileInfoList* files = fm_folder_get_files(folder);
+            for(file_l = fm_file_info_list_peek_head_link(files); file_l; file_l = file_l->next)
             {
                 FmFileInfo* fi = file_l->data;
                 if(fm_file_info_is_dir(fi))
@@ -840,21 +982,33 @@ void fm_dir_tree_model_expand_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTre
                     /* g_debug("insert: %s", fi->path->name); */
                 }
             }
-            gtk_tree_path_free(tp);
-            on_folder_loaded(folder, item_l);
+            on_folder_finish_loading(folder, item_l);
         }
     }
-    ++item->n_expand;
 }
 
-void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
+/**
+ * fm_dir_tree_model_unload_row
+ * @model: the model instance
+ * @it: iterator of row to unload
+ * @tp: path of row to unload
+ *
+ * If children of row with iterator @it are retrieved or monitored
+ * then stops monitoring the folder and forgets children of the row.
+ * This API is used when the row is collapsed in the view.
+ *
+ * Before 1.0.0 this API had name fm_dir_tree_model_collapse_row.
+ *
+ * Since: 0.1.16
+ */
+void fm_dir_tree_model_unload_row(FmDirTreeModel* model, GtkTreeIter* it, GtkTreePath* tp)
 {
     GList* item_l = (GList*)it->user_data;
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
     g_return_if_fail(item != NULL);
-    --item->n_expand;
-    if(item->n_expand == 0) /* do some cleanup */
+    if(item->expanded) /* do some cleanup */
     {
+//        GList* had_children = item->children;
         /* remove all children, and replace them with a dummy child
          * item to keep expander in the tree view around. */
         remove_all_children(model, item_l, tp);
@@ -862,10 +1016,26 @@ void fm_dir_tree_model_collapse_row(FmDirTreeModel* model, GtkTreeIter* it, GtkT
         /* now, GtkTreeView think that we have no child since all
          * child items are removed. So we add a place holder child
          * item to keep the expander around. */
+        /* TODO: 1.1: don't leave expanders if not stated in config */
+//        if(had_children)
         add_place_holder_child_item(model, item_l, tp, TRUE);
+        /* deactivate folder since it will be reactivated on expand */
+        item_free_folder(item->folder, item_l);
+        item->folder = NULL;
+        item->expanded = FALSE;
+        item->loaded = FALSE;
     }
 }
 
+/**
+ * fm_dir_tree_model_set_icon_size
+ * @model: the model instance
+ * @icon_size: new preferrable icon size
+ *
+ * Sets size of icons which are associated with rows.
+ *
+ * Since: 0.1.16
+ */
 void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size)
 {
     if(model->icon_size != icon_size)
@@ -882,29 +1052,162 @@ void fm_dir_tree_model_set_icon_size(FmDirTreeModel* model, guint icon_size)
     }
 }
 
-guint fm_dir_tree_get_icon_size(FmDirTreeModel* model)
+/**
+ * fm_dir_tree_model_get_icon_size
+ * @model: the model instance
+ *
+ * Retrieves size of icons which are associated with rows.
+ *
+ * Before 1.0.0 this API had name fm_dir_tree_get_icon_size.
+ *
+ * Returns: preferrable icom size for the @model.
+ *
+ * Since: 0.1.16
+ */
+guint fm_dir_tree_model_get_icon_size(FmDirTreeModel* model)
 {
     return model->icon_size;
 }
 
-/* for FmDirTreeView, called in fm_dir_tree_view_init() */
-gboolean _fm_dir_tree_view_select_function(GtkTreeSelection *selection,
-                                           GtkTreeModel *model,
-                                           GtkTreePath *path,
-                                           gboolean path_currently_selected,
-                                           gpointer data)
+/**
+ * fm_dir_tree_row_get_icon
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves an icon associated with row of @iter in @model. Returned
+ * data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the icon for the row.
+ *
+ * Since: 1.0.0
+ */
+GdkPixbuf* fm_dir_tree_row_get_icon(FmDirTreeModel* model, GtkTreeIter* iter)
 {
-    GtkTreeIter it;
-    GList* l;
-    FmDirTreeItem* item;
-    fm_dir_tree_model_get_iter(model, &it, path);
-    l = (GList*)it.user_data;
-    if(!l)
-        return FALSE;
-    item = (FmDirTreeItem*)l->data;
-    return item->fi != NULL;
+    GList* item_l;
+    FmDirTreeItem *item;
+    FmIcon* icon;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    if(item->icon)
+        return item->icon;
+    if(item->fi && (icon = fm_file_info_get_icon(item->fi)))
+        item->icon = fm_pixbuf_from_icon(icon, model->icon_size);
+    return item->icon;
 }
 
+/**
+ * fm_dir_tree_row_get_file_info
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves info for file associated with row of @iter in @model.
+ * Returned data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the file info for the row.
+ *
+ * Since: 1.0.0
+ */
+FmFileInfo* fm_dir_tree_row_get_file_info(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    return item->fi;
+}
+
+/**
+ * fm_dir_tree_row_get_file_path
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves #FmPath for file associated with row of @iter in @model.
+ * Returned data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the file path for the row.
+ *
+ * Since: 1.0.0
+ */
+FmPath* fm_dir_tree_row_get_file_path(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    return item->fi ? fm_file_info_get_path(item->fi) : NULL;
+}
+
+/**
+ * fm_dir_tree_row_get_disp_name
+ * @model: the model instance
+ * @iter: the iterator of row to retrieve data
+ *
+ * Retrieves display name of file associated with row of @iter in @model.
+ * Returned data are owned by @model and should be not freed by caller.
+ *
+ * Returns: (transfer none): the file display name for the row.
+ *
+ * Since: 1.0.0
+ */
+const char* fm_dir_tree_row_get_disp_name(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item, *parent;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, NULL);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    if(item->fi)
+        return fm_file_info_get_disp_name(item->fi);
+    /* else this is a place holder item */
+    /* parent is always non NULL. otherwise it's a bug. */
+    parent = (FmDirTreeItem*)item->parent->data;
+    if(parent->folder && fm_folder_is_loaded(parent->folder))
+        return _("<No Sub Folder>");
+    return _("Loading...");
+}
+
+/**
+ * fm_dir_tree_row_is_loaded
+ * @model: the model instance
+ * @iter: the iterator of row to inspect
+ *
+ * Checks if the row has its children already retrieved. This check may
+ * need be done since any duplicate calls to fm_dir_tree_model_load_row()
+ * will not emit any duplicate #FmDirTreeModel::row-loaded signal.
+ *
+ * Returns: %TRUE if the row has children already loaded.
+ *
+ * Since: 1.0.0
+ */
+gboolean fm_dir_tree_row_is_loaded(FmDirTreeModel* model, GtkTreeIter* iter)
+{
+    GList* item_l;
+    FmDirTreeItem *item;
+
+    g_return_val_if_fail (iter->stamp == model->stamp, FALSE);
+
+    item_l = (GList*)iter->user_data;
+    item = (FmDirTreeItem*)item_l->data;
+
+    return item->loaded;
+}
+
+#if 0
 static void item_show_hidden_children(FmDirTreeModel* model, GList* item_l, gboolean show_hidden)
 {
     FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
@@ -947,156 +1250,7 @@ gboolean fm_dir_tree_model_get_show_hidden(FmDirTreeModel* model)
     return model->show_hidden;
 }
 
-#if 0
-
-/* TODO: check if dirs contain sub dir in another thread and make
- * the tree nodes expandable when needed.
- *
- * NOTE: Doing this can improve usability, but due to limitation of UNIX-
- * like systems, this can result in great waste of system resources.
- * This requires continuous monitoring of every dir listed in the tree.
- * With Linux, inotify supports this well, and GFileMonitor uses inotify.
- * However, in other UNIX-like systems, monitoring a file uses a file
- * descriptor. So the max number of files which can be monitored is limited
- * by number available file descriptors. This may potentially use up
- * all available file descriptors in the process when there are many
- * directories expanded in the dir tree.
- * So, after considering and experimenting with this, we decided not to
- * support this feature.
- **/
-
-static gboolean subdir_check_finish(FmDirTreeModel* model)
+/* TODO: */ void fm_dir_tree_model_reload(FmDirTreeModel* model)
 {
-    model->current_subdir_check = NULL;
-    if(g_queue_is_empty(&model->subdir_checks))
-    {
-        model->job_running = FALSE;
-        g_debug("all subdir checks are finished!");
-        return FALSE;
-    }
-    else /* still has queued items */
-    {
-        if(g_cancellable_is_cancelled(model->subdir_cancellable))
-            g_cancellable_reset(model->subdir_cancellable);
-    }
-    return TRUE;
 }
-
-static gboolean subdir_check_finish_has_subdir(FmDirTreeModel* model)
-{
-    GList* item_l = model->current_subdir_check;
-    if(!g_cancellable_is_cancelled(model->subdir_cancellable) && item_l)
-    {
-        GtkTreeIter it;
-        FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-        GtkTreePath* tp = item_to_tree_path(model, item_l);
-        add_place_holder_child_item(model, item_l, tp, TRUE);
-        gtk_tree_path_free(tp);
-        g_debug("finished for item with subdir: %s", fm_file_info_get_disp_name(item->fi));
-    }
-    return subdir_check_finish(model);
-}
-
-static gboolean subdir_check_finish_no_subdir(FmDirTreeModel* model)
-{
-    GList* item_l = model->current_subdir_check;
-    if(!g_cancellable_is_cancelled(model->subdir_cancellable) && item_l)
-    {
-        GtkTreeIter it;
-        FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-        if(item->children) /* remove existing subdirs or place holder item if needed. */
-        {
-            GtkTreePath* tp = item_to_tree_path(model, item_l);
-            remove_all_children(model, item_l, tp);
-            gtk_tree_path_free(tp);
-            g_debug("finished for item with no subdir: %s", fm_file_info_get_disp_name(item->fi));
-        }
-    }
-    return subdir_check_finish(model);
-}
-
-static gboolean subdir_check_job(GIOSchedulerJob *job, GCancellable* cancellable, gpointer user_data)
-{
-    FmDirTreeModel* model = FM_DIR_TREE_MODEL(user_data);
-    GList* item_l;
-    FmDirTreeItem* item;
-    GFile* gf;
-    GFileEnumerator* enu;
-    gboolean has_subdir = FALSE;
-
-    g_mutex_lock(model->subdir_checks_mutex);
-    item_l = (GList*)g_queue_pop_head(&model->subdir_checks);
-    item = (FmDirTreeItem*)item_l->data;
-    model->current_subdir_check = item_l;
-    /* check if this item has subdir */
-    gf = fm_path_to_gfile(item->fi->path);
-    g_mutex_unlock(model->subdir_checks_mutex);
-    g_debug("check subdir for: %s", g_file_get_parse_name(gf));
-    enu = g_file_enumerate_children(gf,
-                            G_FILE_ATTRIBUTE_STANDARD_NAME","
-                            G_FILE_ATTRIBUTE_STANDARD_TYPE","
-                            G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN,
-                            0, cancellable, NULL);
-    if(enu)
-    {
-        while(!g_cancellable_is_cancelled(cancellable))
-        {
-            GFileInfo* fi = g_file_enumerator_next_file(enu, cancellable, NULL);
-            if(G_LIKELY(fi))
-            {
-                GFileType type = g_file_info_get_file_type(fi);
-                gboolean is_hidden = g_file_info_get_is_hidden(fi);
-                g_object_unref(fi);
-
-                if(type == G_FILE_TYPE_DIRECTORY)
-                {
-                    if(model->show_hidden || !is_hidden)
-                    {
-                        has_subdir = TRUE;
-                        break;
-                    }
-                }
-            }
-            else
-                break;
-        }
-        g_file_enumerator_close(enu, cancellable, cancellable);
-        g_object_unref(enu);
-    }
-    g_debug("check result - %s has_dir: %d", g_file_get_parse_name(gf), has_subdir);
-    g_object_unref(gf);
-    if(has_subdir)
-        return g_io_scheduler_job_send_to_mainloop(job,
-                        (GSourceFunc)subdir_check_finish_has_subdir,
-                        model, NULL);
-
-    return g_io_scheduler_job_send_to_mainloop(job,
-                        (GSourceFunc)subdir_check_finish_no_subdir,
-                        model, NULL);
-
-}
-
-static void item_queue_subdir_check(FmDirTreeModel* model, GList* item_l)
-{
-    FmDirTreeItem* item = (FmDirTreeItem*)item_l->data;
-    g_return_if_fail(item->fi != NULL);
-
-    g_mutex_lock(model->subdir_checks_mutex);
-    g_queue_push_tail(&model->subdir_checks, item_l);
-    g_debug("queue subdir check for %s", fm_file_info_get_disp_name(item->fi));
-    if(!model->job_running)
-    {
-        model->job_running = TRUE;
-        model->current_subdir_check = (GList*)g_queue_peek_head(&model->subdir_checks);
-        g_cancellable_reset(model->subdir_cancellable);
-        g_io_scheduler_push_job(subdir_check_job,
-                                g_object_ref(model),
-                                (GDestroyNotify)g_object_unref,
-                                G_PRIORITY_DEFAULT,
-                                model->subdir_cancellable);
-        g_debug("push job");
-    }
-    g_mutex_unlock(model->subdir_checks_mutex);
-}
-
 #endif

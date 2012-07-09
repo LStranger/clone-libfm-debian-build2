@@ -32,9 +32,9 @@ G_BEGIN_DECLS
             FM_CONFIG_TYPE, FmConfig))
 #define FM_CONFIG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass),\
             FM_CONFIG_TYPE, FmConfigClass))
-#define IS_FM_CONFIG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
+#define FM_IS_CONFIG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj),\
             FM_CONFIG_TYPE))
-#define IS_FM_CONFIG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
+#define FM_IS_CONFIG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),\
             FM_CONFIG_TYPE))
 
 typedef struct _FmConfig            FmConfig;
@@ -55,20 +55,21 @@ typedef struct _FmConfigClass       FmConfigClass;
 
 struct _FmConfig
 {
+    /*< public >*/
     GObject parent;
 
     gboolean single_click; /* single click to open file */
     gboolean use_trash; /* delete file to trash can */
     gboolean confirm_del; /* ask before deleting files */
 
-    guint big_icon_size;    /* size of big icons */
-    guint small_icon_size;  /* size of small icons */
-    guint pane_icon_size;   /* size of side pane icons */
-    guint thumbnail_size;   /* size of thumbnail icons */
+    gint big_icon_size;    /* size of big icons */
+    gint small_icon_size;  /* size of small icons */
+    gint pane_icon_size;   /* size of side pane icons */
+    gint thumbnail_size;   /* size of thumbnail icons */
 
     gboolean show_thumbnail; /* show thumbnails */
     gboolean thumbnail_local; /* show thumbnails for local files only */
-    guint thumbnail_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
+    gint thumbnail_max;    /* show thumbnails for files smaller than 'thumb_max' KB */
 
     gboolean show_internal_volumes; /* show system internal volumes in side pane. (udisks-only)*/
 
@@ -76,8 +77,20 @@ struct _FmConfig
     gboolean si_unit;   /* use SI prefix for file sizes */
 
     char* archiver; /* desktop_id of the archiver used */
+    gboolean advanced_mode; /* enable advanced features for experienced user */
+
+    /*< private >*/
+    gpointer _reserved1; /* reserved space for updates until next ABI */
+    gpointer _reserved2;
+    gpointer _reserved3;
+    gpointer _reserved4;
 };
 
+/**
+ * FmConfigClass
+ * @parent_class: the parent class
+ * @changed: the class closure for the #FmConfigClass::changed signal
+ */
 struct _FmConfigClass
 {
     GObjectClass parent_class;
