@@ -10,9 +10,16 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 override_dh_auto_configure:
 	autoreconf -i
 
-	dh_auto_configure -- --enable-debug --enable-gtk-doc --enable-udisks
+	dh_auto_configure -- --enable-debug --with-gtk=3.0 --enable-udisks
 
 override_dh_auto_install:
+	$(MAKE) DESTDIR=$(CURDIR)/debian/tmp install-exec
+
+	$(MAKE) distclean
+
+	dh_auto_configure -- --enable-debug --enable-gtk-doc --enable-udisks
+
+	dh_auto_build
 	dh_auto_install
 
 	# removing unused files
@@ -29,5 +36,5 @@ override_dh_install:
 	dh_install --fail-missing
 
 override_dh_strip:
-	dh_strip -plibfm3 -plibfm-gtk3 --dbg-package=libfm-dbg
-	dh_strip -Nlibfm3 -Nlibfm-gtk3
+	dh_strip -plibfm3 -plibfm-gtk3 -plibfm-gtk3-3 --dbg-package=libfm-dbg
+	dh_strip -Nlibfm3 -Nlibfm-gtk3 -Nlibfm-gtk3-3
