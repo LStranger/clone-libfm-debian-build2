@@ -18,7 +18,7 @@ Package: libfm3
 Section: libs
 Architecture: any
 Pre-Depends: multiarch-support
-Depends: ${misc:Depends}, ${shlibs:Depends}, libfm-data, lxmenu-data
+Depends: ${misc:Depends}, ${shlibs:Depends}, libfm-data (>= 1.0.2~), lxmenu-data
 Description: file management support (core library)
  LibFM provides file management functions built on top of Glib/GIO,
  giving a convenient higher-level API.
