@@ -29,5 +29,5 @@ override_dh_install:
 	dh_install --fail-missing
 
 override_dh_strip:
-	dh_strip -plibfm1 -plibfm-gtk3 --dbg-package=libfm-dbg
-	dh_strip -Nlibfm1 -Nlibfm-gtk3
+	dh_strip -plibfm3 -plibfm-gtk3 --dbg-package=libfm-dbg
+	dh_strip -Nlibfm3 -Nlibfm-gtk3
