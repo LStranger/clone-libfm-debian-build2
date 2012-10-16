@@ -1,3 +1,49 @@
+libfm (1.0.2-0.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+
+  [ Daniel Baumann ]
+  * Moving package to priority optional.
+  * Removing cache files if no other gio module is left on purge
+    (Closes: #659925).
+  * Updating GPL blurbs in copyright file.
+
+  [ Martin Bagge ]
+  * Merging upstream version 1.0~rc1.
+  * Adding myself as co-maintainer.
+  * Adding valac to build-depends.
+
+  [ Daniel Baumann ]
+  * Renaming libfm1-dbg to proper unversioned name libfm-dbg.
+  * Bumping soname to 3.
+
+  [ Martin Bagge ]
+  * Enabling debug symbols.
+  * Enabling hardening.
+
+  [ Paul Menzel ]
+  * debian/rules: Enable parallel building.
+
+  [ Andriy Grytsenko ]
+  * Updating to upstream release version 1.0.2:
+    - Correcting dependency for libfm-data: Replaces to Conflicts.
+    - Corrections for symbols files.
+    - Adding libfm-gtk-data package - libfm-gtk3 will crash without it.
+    - Adding version check for libfm-data dependency from libfm3.
+    - Moving /usr/share/apport/package-hooks into libfm-data package.
+    - Adding postinst script for libfm-dev.
+    - Adding a package libfm-gtk3-3 with libfm-gtk3.so.X.X.X library.
+    - Adding build dependency on libexif-dev.
+    - Adding '-f' option for autoreconf.
+    - Replace 'autoreconf -if' with dh_autoreconf.
+    - Package libfm-dev split into libfm-dev and libfm-doc.
+    - Adding libglib2.0-doc and libgtk-3-doc as build-depends.
+    - Adding compatibility with menu-cache package of different ABI.
+    - Adding suggestion from libfm-gtk3 onto libfm-gtk-bin.
+    - Renaming libfm-gtk-bin package into libfm-tools.
+
+ -- Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>  Thu, 25 Oct 2012 12:00:00 +0300
+
 libfm (0.1.17-2) unstable; urgency=low
 
   * Updating maintainer field.
