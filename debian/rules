@@ -8,7 +8,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 	dh ${@} --parallel
 
 override_dh_auto_configure:
-	autoreconf -i
+	autoreconf -if
 
 	dh_auto_configure -- --enable-debug --with-gtk=3.0 --enable-udisks
 
