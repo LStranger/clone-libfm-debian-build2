@@ -104,6 +104,7 @@ Architecture: any
 Pre-Depends: multiarch-support
 Depends: ${misc:Depends}, ${shlibs:Depends}, libfm3 (= ${binary:Version}),
          libfm-gtk-data (>= 1.0.2~)
+Suggests: libfm-gtk-bin
 Description: file management support (GTK+ 2.0 GUI library)
  LibFM provides file management functions built on top of Glib/GIO
  giving a convenient higher-level API.
@@ -116,6 +117,7 @@ Architecture: any
 Pre-Depends: multiarch-support
 Depends: ${misc:Depends}, ${shlibs:Depends}, libfm3 (= ${binary:Version}),
          libfm-gtk-data (>= 1.0.2~)
+Suggests: libfm-gtk-bin
 Description: file management support (GTK+ 3.0 GUI library)
  LibFM provides file management functions built on top of Glib/GIO
  giving a convenient higher-level API.
