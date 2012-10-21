@@ -13,7 +13,10 @@ libfm.so.3 libfm3 #MINVER#
  fm_archiver_get_default@Base 0.1.12
  fm_archiver_is_mime_type_supported@Base 0.1.12
  fm_archiver_set_default@Base 0.1.12
+ fm_bookmark_item_ref@Base 1.0.2
+ fm_bookmark_item_unref@Base 1.0.2
  fm_bookmarks_dup@Base 0.1.99
+ fm_bookmarks_get_all@Base 1.0.2
  fm_bookmarks_get_type@Base 0.1.12
  fm_bookmarks_insert@Base 0.1.12
  fm_bookmarks_list_all@Base 0.1.12
@@ -33,9 +36,12 @@ libfm.so.3 libfm3 #MINVER#
  fm_deep_count_job_set_dest@Base 0.1.12
  fm_desktop_env@Base 0.1.99
  fm_dir_dist_job_get_files@Base 0.1.12
+ fm_dir_list_job_add_found_file@Base 1.0.2
+ fm_dir_list_job_get_files@Base 1.0.2
  fm_dir_list_job_get_type@Base 0.1.12
  fm_dir_list_job_new@Base 0.1.12
  fm_dir_list_job_new_for_gfile@Base 0.1.12
+ fm_dir_list_job_set_incremental@Base 1.0.2
  fm_dummy_monitor_get_type@Base 0.1.12
  fm_dummy_monitor_new@Base 0.1.12
  fm_file_action_capability_get_type@Base 0.1.99
@@ -87,10 +93,13 @@ libfm.so.3 libfm3 #MINVER#
  fm_file_action_target_get_type@Base 0.1.99
  fm_file_action_type_get_type@Base 0.1.99
  fm_file_actions_set_desktop_env@Base 0.1.99
+ fm_file_add_vfs@Base 1.0.2
+ fm_file_get_type@Base 1.0.2
  fm_file_info_can_thumbnail@Base 0.1.12
  fm_file_info_get_atime@Base 0.1.12
  fm_file_info_get_blocks@Base 0.1.12
  fm_file_info_get_collate_key@Base 0.1.12
+ fm_file_info_get_collate_key_nocasefold@Base 1.0.2
  fm_file_info_get_desc@Base 0.1.12
  fm_file_info_get_dev@Base 0.1.99
  fm_file_info_get_disp_mtime@Base 0.1.12
@@ -138,6 +147,8 @@ libfm.so.3 libfm3 #MINVER#
  fm_file_info_set_path@Base 0.1.16
  fm_file_info_unref@Base 0.1.12
  fm_file_info_update@Base 0.1.99
+ fm_file_new_for_commandline_arg@Base 1.0.2
+ fm_file_new_for_uri@Base 1.0.2
  fm_file_ops_job_ask_rename@Base 0.1.12
  fm_file_ops_job_emit_cur_file@Base 0.1.12
  fm_file_ops_job_emit_percent@Base 0.1.12
@@ -150,6 +161,7 @@ libfm.so.3 libfm3 #MINVER#
  fm_file_ops_job_set_dest@Base 0.1.12
  fm_file_ops_job_set_recursive@Base 0.1.12
  fm_file_size_to_str@Base 0.1.12
+ fm_file_wants_incremental@Base 1.0.2
  fm_finalize@Base 0.1.12
  fm_folder_from_gfile@Base 0.1.99
  fm_folder_from_path@Base 0.1.99
@@ -162,11 +174,13 @@ libfm.so.3 libfm3 #MINVER#
  fm_folder_get_path@Base 0.1.99
  fm_folder_get_type@Base 0.1.12
  fm_folder_is_empty@Base 0.1.99
+ fm_folder_is_incremental@Base 1.0.2
  fm_folder_is_loaded@Base 0.1.99
  fm_folder_is_valid@Base 0.1.99
  fm_folder_query_filesystem_info@Base 0.1.16
  fm_folder_reload@Base 0.1.12
  fm_get_actions_for_files@Base 0.1.99
+ fm_get_home_dir@Base 1.0.2
  fm_icon_from_gicon@Base 0.1.12
  fm_icon_from_name@Base 0.1.12
  fm_icon_get_user_data@Base 0.1.12
@@ -233,13 +247,18 @@ libfm.so.3 libfm3 #MINVER#
  fm_nav_history_clear@Base 0.1.12
  fm_nav_history_forward@Base 0.1.12
  fm_nav_history_get_cur@Base 0.1.12
+ fm_nav_history_get_cur_index@Base 1.0.2
  fm_nav_history_get_cur_link@Base 0.1.12
+ fm_nav_history_get_nth_path@Base 1.0.2
+ fm_nav_history_get_scroll_pos@Base 1.0.2
  fm_nav_history_get_type@Base 0.1.12
+ fm_nav_history_go_to@Base 1.0.2
  fm_nav_history_jump@Base 0.1.12
  fm_nav_history_list@Base 0.1.12
  fm_nav_history_new@Base 0.1.12
  fm_nav_history_set_max@Base 0.1.12
  fm_param_spec_file_action_item@Base 0.1.99
+ fm_path_compare@Base 1.0.2
  fm_path_depth@Base 0.1.16
  fm_path_display_basename@Base 0.1.12
  fm_path_display_name@Base 0.1.12
@@ -278,6 +297,7 @@ libfm.so.3 libfm3 #MINVER#
  fm_path_to_uri@Base 0.1.12
  fm_path_unref@Base 0.1.12
  fm_qdata_id@Base 0.1.12
+ fm_run_in_default_main_context@Base 1.0.2
  fm_simple_job_get_type@Base 0.1.12
  fm_simple_job_new@Base 0.1.12
  fm_strdup_replace@Base 0.1.99
