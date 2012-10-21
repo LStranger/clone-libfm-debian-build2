@@ -20,6 +20,7 @@ libfm-gtk.so.3 libfm-gtk3 #MINVER#
  fm_cell_renderer_text_new@Base 0.1.12
  fm_choose_app_for_mime_type@Base 0.1.12
  fm_clipboard_cut_or_copy_files@Base 0.1.12
+ fm_clipboard_have_files@Base 1.0.2
  fm_clipboard_paste_files@Base 0.1.12
  fm_copy_files@Base 0.1.12
  fm_default_dnd_dest_targets@Base 0.1.12
@@ -75,25 +76,35 @@ libfm-gtk.so.3 libfm-gtk3 #MINVER#
  fm_file_menu_set_folder_func@Base 0.1.12
  fm_file_ops_job_run_with_progress@Base 0.1.12
  fm_file_properties_widget_new@Base 0.1.12
+ fm_folder_model_add_filter@Base 1.0.2
+ fm_folder_model_apply_filters@Base 1.0.2
+ fm_folder_model_col_get_name@Base 1.0.2
+ fm_folder_model_col_get_title@Base 1.0.2
+ fm_folder_model_col_is_sortable@Base 1.0.2
  fm_folder_model_file_changed@Base 0.1.12
  fm_folder_model_file_created@Base 0.1.12
  fm_folder_model_file_deleted@Base 0.1.12
  fm_folder_model_find_iter_by_filename@Base 0.1.12
+ fm_folder_model_get_col_by_name@Base 1.0.2
  fm_folder_model_get_folder@Base 0.1.99
  fm_folder_model_get_folder_path@Base 0.1.99
  fm_folder_model_get_icon_size@Base 0.1.12
  fm_folder_model_get_item_userdata@Base 1.0
  fm_folder_model_get_show_hidden@Base 0.1.12
+ fm_folder_model_get_sort@Base 1.0.2
  fm_folder_model_get_type@Base 0.1.12
  fm_folder_model_new@Base 0.1.12
+ fm_folder_model_remove_filter@Base 1.0.2
  fm_folder_model_set_folder@Base 0.1.12
  fm_folder_model_set_icon_size@Base 0.1.12
  fm_folder_model_set_item_userdata@Base 1.0
  fm_folder_model_set_show_hidden@Base 0.1.12
+ fm_folder_model_set_sort@Base 1.0.2
  fm_folder_view_add_popup@Base 1.0.1
  fm_folder_view_bounce_action@Base 1.0.1
  fm_folder_view_dup_selected_file_paths@Base 0.1.99
  fm_folder_view_dup_selected_files@Base 0.1.99
+ fm_folder_view_get_columns@Base 1.0.2
  fm_folder_view_get_cwd@Base 0.1.12
  fm_folder_view_get_cwd_info@Base 0.1.12
  fm_folder_view_get_folder@Base 0.1.16
@@ -114,11 +125,13 @@ libfm-gtk.so.3 libfm-gtk3 #MINVER#
  fm_folder_view_select_file_paths@Base 0.1.12
  fm_folder_view_select_invert@Base 0.1.12
  fm_folder_view_set_active@Base 1.0.1
+ fm_folder_view_set_columns@Base 1.0.2
  fm_folder_view_set_mode@Base 0.1.12
  fm_folder_view_set_model@Base 0.1.99
  fm_folder_view_set_selection_mode@Base 0.1.12
  fm_folder_view_set_show_hidden@Base 0.1.12
  fm_folder_view_sort@Base 0.1.12
+ fm_folder_view_unselect_all@Base 1.0.2
  fm_get_user_input@Base 0.1.12
  fm_get_user_input_path@Base 0.1.12
  fm_gtk_finalize@Base 0.1.12
@@ -128,6 +141,7 @@ libfm-gtk.so.3 libfm-gtk3 #MINVER#
  fm_launch_files_simple@Base 0.1.12
  fm_launch_path_simple@Base 0.1.12
  fm_launch_paths_simple@Base 0.1.12
+ fm_launch_search_simple@Base 1.0.2
  fm_link_files@Base 1.0
  fm_marshal_BOOLEAN__INT_INT_UINT_UINT_POINTER@Base 0.1.16
  fm_marshal_VOID__BOXED_BOXED_POINTER@Base 1.0
@@ -181,6 +195,8 @@ libfm-gtk.so.3 libfm-gtk3 #MINVER#
  fm_side_pane_set_mode@Base 0.1.16
  fm_standard_view_get_mode@Base 1.0.1
  fm_standard_view_get_type@Base 1.0.1
+ fm_standard_view_mode_from_str@Base 1.0.2
+ fm_standard_view_mode_to_str@Base 1.0.2
  fm_standard_view_new@Base 1.0.1
  fm_standard_view_set_mode@Base 1.0.1
  fm_tab_label_get_type@Base 0.1.12
