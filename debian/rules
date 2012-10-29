@@ -5,11 +5,9 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh ${@} --parallel
+	dh ${@} --with autoreconf --parallel
 
 override_dh_auto_configure:
-	autoreconf -if
-
 	dh_auto_configure -- --enable-debug --with-gtk=3.0 --enable-udisks
 
 override_dh_auto_install:
