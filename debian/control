@@ -7,7 +7,7 @@ Uploaders:
  Martin Bagge <brother@bsnet.se>
 Build-Depends:
  debhelper (>= 9), autoconf, automake, autotools-dev, gtk-doc-tools, intltool,
- libdbus-glib-1-dev, libglib2.0-dev, libgtk2.0-dev, libgtk-3-dev,
+ libdbus-glib-1-dev, libglib2.0-dev, libgtk2.0-dev, libgtk-3-dev, libexif-dev,
  libmenu-cache1-dev, libtool, pkg-config, valac
 Standards-Version: 3.9.3
 Homepage: http://pcmanfm.sourceforge.net/
