@@ -1,5 +1,5 @@
 etc/xdg/libfm/libfm.conf
-usr/share/libfm/archivers.list
+usr/share/libfm/*.list
 usr/share/locale/*/LC_MESSAGES/libfm.mo
 usr/share/mime/packages
 
