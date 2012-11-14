@@ -1,4 +1,4 @@
-libfm-gtk.so.3 libfm-gtk3 #MINVER#
+libfm-gtk.so.4 libfm-gtk4 #MINVER#
  fm_app_chooser_combo_box_dup_selected_app@Base 0.1.99
  fm_app_chooser_combo_box_get_custom_apps@Base 0.1.12
  fm_app_chooser_combo_box_setup@Base 0.1.12

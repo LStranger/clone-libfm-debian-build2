@@ -1,4 +1,4 @@
-libfm.so.3 libfm3 #MINVER#
+libfm.so.4 libfm4 #MINVER#
  fm_actions_loaded@Base 0.1.99
  fm_all_actions@Base 0.1.99
  fm_app_command_parse@Base 0.1.99
