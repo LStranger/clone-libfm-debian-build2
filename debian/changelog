@@ -1,3 +1,13 @@
+libfm (0.1.17-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * patches/02-keep_source_when_copying.patch: keep source when
+    cut/pasting a directory across filesystems, avoiding data loss when
+    the copy fails. Next upstream really fixes #593607, but this
+    work-around downgrades its severity from critical to normal in wheezy.
+
+ -- Nicolas Boulenguez <nicolas@debian.org>  Mon, 31 Dec 2012 23:36:03 +0100
+
 libfm (0.1.17-2) unstable; urgency=low
 
   * Updating maintainer field.

@@ -1,0 +1,26 @@
+Author: Ulrik <ulrik.sverdrup@gmail.com>
+Author: Nicolas Boulenguez <nicolas@debian.org>
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=593607
+Forwarded: not-needed
+Description: keep source when copying
+ keep source when cut/pasting a directory across filesystems,
+ avoiding data loss when the copy fails.
+ .
+ Next upstream really fixes #593607, but this
+ work-around downgrades its severity from critical to normal in wheezy.
+
+diff --git a/src/job/fm-file-ops-job-xfer.c b/src/job/fm-file-ops-job-xfer.c
+index 351ff1d..a46d9b9 100644
+--- a/src/job/fm-file-ops-job-xfer.c
++++ b/src/job/fm-file-ops-job-xfer.c
+@@ -440,8 +440,8 @@ _retry_query_src_info:
+     }
+     /* if this is a cross-device move operation, delete source files. */
+     /* ret == TRUE means the copy is successful. */
+-    if( !fm_job_is_cancelled(fmjob) && ret && delete_src )
+-        ret = _fm_file_ops_job_delete_file(FM_JOB(job), src, inf); /* delete the source file. */
++    /* if( !fm_job_is_cancelled(fmjob) && ret && delete_src ) */
++    /*     ret = _fm_file_ops_job_delete_file(FM_JOB(job), src, inf); /\* delete the source file. *\/ */
+ 
+     if(new_dest)
+         g_object_unref(new_dest);
