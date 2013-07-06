@@ -40,14 +40,25 @@ Description: file management support (core library)
 Package: libfm-dev
 Section: libdevel
 Architecture: any
-Depends:
- ${misc:Depends}, libfm3 (= ${binary:Version}), libfm-gtk3 (= ${binary:Version})
+Depends: ${misc:Depends}, libfm3 (= ${binary:Version})
 Suggests: libfm-doc
-Description: file management support (development)
+Description: file management support (core development files)
  LibFM provides file management functions built on top of Glib/GIO,
  giving a convenient higher-level API.
  .
- This package contains the development files.
+ This package contains the development files for GUI-independent build.
+
+Package: libfm-gtk-dev
+Section: libdevel
+Architecture: any
+Depends: ${misc:Depends}, libfm-dev (= ${binary:Version}),
+ libfm-gtk3 (= ${binary:Version})
+Conflicts: libfm-dev (<< 1.0.2)
+Description: file management support (GTK+ GUI development files)
+ LibFM provides file management functions built on top of Glib/GIO,
+ giving a convenient higher-level API.
+ .
+ This package contains the development files for builds using GTK library.
 
 Package: libfm-doc
 Section: doc
