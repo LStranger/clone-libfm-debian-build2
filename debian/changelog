@@ -42,6 +42,7 @@ libfm (1.0.2-0.1) unstable; urgency=low
     - Adding suggestion from libfm-gtk3 onto libfm-gtk-bin.
     - Renaming libfm-gtk-bin package into libfm-tools.
     - Splitting package libfm-dev into libfm-dev and libfm-gtk-dev.
+    - Splitting package libfm-dbg into libfm-dbg and libfm-gtk-dbg.
 
  -- Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>  Thu, 25 Oct 2012 12:00:00 +0300
 
