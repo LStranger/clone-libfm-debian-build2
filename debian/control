@@ -75,15 +75,26 @@ Package: libfm-dbg
 Section: debug
 Priority: extra
 Architecture: any
-Depends:
- ${misc:Depends}, libfm3 (= ${binary:Version}), libfm-gtk3 (= ${binary:Version})
+Depends: ${misc:Depends}, libfm3 (= ${binary:Version})
 Conflicts: libfm1-dbg
 Replaces: libfm1-dbg
-Description: file management support (debug)
+Description: file management support (libfm debug)
  LibFM provides file management functions built on top of Glib/GIO,
  giving a convenient higher-level API.
  .
- This package contains the debugging symbols.
+ This package contains the debugging symbols for GUI independent library.
+
+Package: libfm-gtk-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, libfm-gtk3 (= ${binary:Version})
+Conflicts: libfm-dbg (<< 1.0.2)
+Description: file management support (libfm-gtk debug)
+ LibFM provides file management functions built on top of Glib/GIO,
+ giving a convenient higher-level API.
+ .
+ This package contains the debugging symbols for GTK+ library.
 
 Package: libfm-data
 Section: misc
