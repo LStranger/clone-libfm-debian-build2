@@ -28,4 +28,5 @@ override_dh_install:
 override_dh_strip:
 	dh_strip -plibfm4 -plibfm-extra4 --dbg-package=libfm-dbg
 	dh_strip -plibfm-gtk4 --dbg-package=libfm-gtk-dbg
-	dh_strip -Nlibfm4 -Nlibfm-extra4 -Nlibfm-gtk4
+	dh_strip -plibfm-modules --dbg-package=libfm-modules-dbg
+	dh_strip -Nlibfm4 -Nlibfm-extra4 -Nlibfm-gtk4 -Nlibfm-modules
