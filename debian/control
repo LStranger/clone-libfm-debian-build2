@@ -53,7 +53,7 @@ Section: libdevel
 Architecture: any
 Depends: ${misc:Depends}, libfm-dev (= ${binary:Version}),
  libfm-gtk3 (= ${binary:Version}), libfm-gtk3-3 (= ${binary:Version})
-Conflicts: libfm-dev (<< 1.0.2)
+Breaks: libfm-dev (<< 1.0.2)
 Description: file management support (GTK+ GUI development files)
  LibFM provides file management functions built on top of Glib/GIO,
  giving a convenient higher-level API.
@@ -76,7 +76,7 @@ Section: debug
 Priority: extra
 Architecture: any
 Depends: ${misc:Depends}, libfm3 (= ${binary:Version})
-Conflicts: libfm1-dbg
+Breaks: libfm1-dbg
 Replaces: libfm1-dbg
 Description: file management support (libfm debug)
  LibFM provides file management functions built on top of Glib/GIO,
@@ -90,7 +90,7 @@ Priority: extra
 Architecture: any
 Depends: ${misc:Depends}, libfm-gtk3 (= ${binary:Version}),
  libfm-gtk3-3 (= ${binary:Version})
-Conflicts: libfm-dbg (<< 1.0.2)
+Breaks: libfm-dbg (<< 1.0.2)
 Description: file management support (libfm-gtk debug)
  LibFM provides file management functions built on top of Glib/GIO,
  giving a convenient higher-level API.
@@ -101,7 +101,8 @@ Package: libfm-data
 Section: misc
 Architecture: all
 Depends: ${misc:Depends}
-Conflicts: libfm0, libfm1
+Breaks: libfm0, libfm1
+Replaces: libfm0, libfm1
 Description: file management support (common data)
  LibFM provides file management functions built on top of Glib/GIO,
  giving a convenient higher-level API.
@@ -112,7 +113,8 @@ Package: libfm-gtk-data
 Section: misc
 Architecture: all
 Depends: ${misc:Depends}
-Conflicts: libfm-gtk0, libfm-gtk-bin (<< 1.0)
+Breaks: libfm-gtk0, libfm-gtk-bin (<< 1.0)
+Replaces: libfm-gtk0
 Description: file management support (GTK+ library common data)
  LibFM provides file management functions built on top of Glib/GIO,
  giving a convenient higher-level API.
@@ -149,7 +151,7 @@ Package: libfm-tools
 Section: misc
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Conflicts: libfm-gtk-bin
+Breaks: libfm-gtk-bin
 Replaces: libfm-gtk-bin
 Description: file management support (utilities)
  LibFM provides file management functions built on top of Glib/GIO
