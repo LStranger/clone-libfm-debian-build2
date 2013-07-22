@@ -1,3 +1,12 @@
+libfm (1.1.1-0.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Updating to upstream release version 1.1.1.
+  * Replacing Conflicts with Breaks.
+  * Removing autoreconf from dh parameters.
+
+ -- Andriy Grytsenko (LStranger) <andrej@rep.kiev.ua>  Mon, 22 Jul 2013 18:00:00 +0300
+
 libfm (1.0.2-0.1) unstable; urgency=low
 
   * Non-maintainer upload.
