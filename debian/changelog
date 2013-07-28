@@ -1,3 +1,11 @@
+libfm (0.1.17-2.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * debian/patches/03-automake1.12.patch: Apply patch from upstream to fix
+    automake errors. (Closes: #713194)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 28 Jul 2013 23:45:26 +0200
+
 libfm (0.1.17-2.1) unstable; urgency=low
 
   * Non-maintainer upload.
