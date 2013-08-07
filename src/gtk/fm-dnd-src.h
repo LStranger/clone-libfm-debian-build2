@@ -42,18 +42,24 @@ G_BEGIN_DECLS
  * FmDndSrcTarget
  * @FM_DND_SRC_TARGET_FM_LIST: direct pointer of FmList
  * @FM_DND_SRC_TARGET_URI_LIST: "text/uri-list"
+ * @FM_DND_SRC_TARGET_TEXT: Gtk+ default text targets
+ * @N_FM_DND_SRC_DEFAULT_TARGETS: widget's target indices should start from this
  *
  * default targets of drag source
  */
 typedef enum
 {
-    FM_DND_SRC_TARGET_FM_LIST,
+    FM_DND_SRC_TARGET_FM_LIST = 1,
     FM_DND_SRC_TARGET_URI_LIST,
+    FM_DND_SRC_TARGET_TEXT,
     /*< private >*/
+    FM_DND_SRC_RESERVED2,
+    FM_DND_SRC_RESERVED3,
+    FM_DND_SRC_RESERVED4,
+    FM_DND_SRC_RESERVED5,
+    /*< public >*/
     N_FM_DND_SRC_DEFAULT_TARGETS
 } FmDndSrcTarget;
-
-extern GtkTargetEntry fm_default_dnd_src_targets[];
 
 typedef struct _FmDndSrc			FmDndSrc;
 typedef struct _FmDndSrcClass		FmDndSrcClass;
@@ -84,6 +90,20 @@ void fm_dnd_src_set_widget(FmDndSrc* ds, GtkWidget* w);
 /* FmFileInfoList* fm_dnd_src_get_files(FmDndSrc* ds); */
 void fm_dnd_src_set_files(FmDndSrc* ds, FmFileInfoList* files);
 void fm_dnd_src_set_file(FmDndSrc* ds, FmFileInfo* file);
+
+/**
+ * fm_dnd_src_add_targets
+ * @widget: #GtkWidget to add targets
+ * @targets: pointer to array of #GtkTargetEntry to add
+ * @n: number of targets to add
+ *
+ * Adds drag source targets to existing list for @widget. Convenience API.
+ *
+ * Since: 1.0.1
+ */
+#define fm_dnd_src_add_targets(widget,targets,n) \
+            gtk_target_list_add_table(gtk_drag_source_get_target_list(widget), \
+                                      targets, n)
 
 G_END_DECLS
 

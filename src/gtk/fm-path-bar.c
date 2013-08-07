@@ -49,7 +49,11 @@ static void on_size_allocate(GtkWidget* widget, GtkAllocation* alloc)
 {
     FmPathBar* bar = FM_PATH_BAR(widget);
     GtkRequisition req;
+#if GTK_CHECK_VERSION(3, 0, 0)
+    gtk_widget_get_preferred_size(bar->btn_box, &req, NULL);
+#else
     gtk_widget_size_request(bar->btn_box, &req);
+#endif
     if(req.width > alloc->width) /* required width > allocated */
     {
         /* show scroll buttons */
@@ -128,13 +132,20 @@ static void emit_chdir(FmPathBar* bar, FmPath* path)
 
 static void on_scroll_btn_clicked(GtkButton* btn, FmPathBar* bar)
 {
+#if GTK_CHECK_VERSION(3, 0, 0)
+    GtkAdjustment* hadj = gtk_scrollable_get_hadjustment(GTK_SCROLLABLE(bar->viewport));
+#else
     GtkAdjustment* hadj = gtk_viewport_get_hadjustment(GTK_VIEWPORT(bar->viewport));
-    gdouble value;
+#endif
+    gdouble value = gtk_adjustment_get_value(hadj);
+    gdouble page_increment = gtk_adjustment_get_page_increment(hadj);
+    gdouble lower = gtk_adjustment_get_lower(hadj);
+    gdouble upper = gtk_adjustment_get_upper(hadj) - gtk_adjustment_get_page_size(hadj);
     if(btn == (GtkButton*)bar->left_scroll) /* scroll left */
-        value = hadj->value - hadj->page_increment;
+        value = value - page_increment;
     else
-        value = hadj->value + hadj->page_increment;
-    value = CLAMP (value, hadj->lower, hadj->upper - hadj->page_size);
+        value = value + page_increment;
+    value = CLAMP (value, lower, upper);
     gtk_adjustment_set_value(hadj, value);
 }
 
@@ -155,7 +166,12 @@ static void fm_path_bar_init(FmPathBar *bar)
     gtk_widget_set_size_request(bar->viewport, 100, -1);
 
     gtk_viewport_set_shadow_type(GTK_VIEWPORT(bar->viewport), GTK_SHADOW_NONE);
+#if GTK_CHECK_VERSION(3, 2, 0)
+    /* FIXME: migrate to GtkGrid */
+    bar->btn_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
     bar->btn_box = gtk_hbox_new(FALSE, 0);
+#endif
     gtk_container_add(GTK_CONTAINER(bar->viewport), bar->btn_box);
 
     bar->left_scroll = gtk_button_new();
@@ -208,9 +224,14 @@ static GtkRadioButton* create_btn(FmPathBar* bar, GSList* grp, FmPath* path_elem
 {
     GtkRadioButton* btn;
     char* label = fm_path_display_basename(path_element);
-    if(!path_element->parent) /* this element is root */
+    if(!fm_path_get_parent(path_element)) /* this element is root */
     {
+#if GTK_CHECK_VERSION(3, 2, 0)
+        /* FIXME: migrate to GtkGrid */
+        GtkWidget* hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
+#else
         GtkWidget* hbox = gtk_hbox_new(FALSE, 2);
+#endif
         btn = (GtkRadioButton*)gtk_radio_button_new(grp);
         gtk_container_add(GTK_CONTAINER(btn), hbox);
         gtk_box_pack_start(GTK_BOX(hbox),

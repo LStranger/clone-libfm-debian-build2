@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-icon-pixbuf
+ * @short_description: An icon image creator.
+ * @title: Icon image
+ *
+ * @include: libfm/fm-icon-pixbuf.h
+ *
+ */
+
 #include "fm-icon-pixbuf.h"
 
 //static gboolean init = FALSE;
@@ -46,6 +55,19 @@ static void destroy_pixbufs(gpointer data)
     g_slist_free(pixs);
 }
 
+/**
+ * fm_pixbuf_from_icon
+ * @icon: icon descriptor
+ * @size: size in pixels
+ *
+ * Creates a #GdkPixbuf and draws icon there.
+ *
+ * Before 1.0.0 this call had name fm_icon_get_pixbuf.
+ *
+ * Returns: (transfer full): an image.
+ *
+ * Since: 0.1.0
+ */
 GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
 {
     GtkIconInfo* ii;
@@ -79,12 +101,19 @@ GdkPixbuf* fm_pixbuf_from_icon(FmIcon* icon, int size)
     {
         char* str = g_icon_to_string(icon->gicon);
         g_debug("unable to load icon %s", str);
-        g_free(str);
         /* pix = NULL; */
-        pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "unknown", 
+#if 0
+        if(g_strcmp0(str, "folder-locked") == 0)
+            pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "folder",
+                    size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
+            /* FIXME: create locked icon from "folder" one */
+        else
+#endif
+            pix = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(), "unknown",
                     size, GTK_ICON_LOOKUP_USE_BUILTIN|GTK_ICON_LOOKUP_FORCE_SIZE, NULL);
         if(G_LIKELY(pix))
             g_object_ref(pix);
+        g_free(str);
     }
 
     /* cache this! */

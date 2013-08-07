@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libfm\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
-"PO-Revision-Date: 2012-07-07 09:24+0200\n"
+"POT-Creation-Date: 2012-10-11 00:21+0200\n"
+"PO-Revision-Date: 2012-10-23 22:31+0200\n"
 "Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <sh.yaron@gmail.com>\n"
 "Language: he\n"
@@ -26,8 +26,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>סוג הקובץ לפתיחה:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
-msgstr "יישום מותקן"
+msgid "_Installed Application"
+msgstr "_יישומים מותקנים"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -38,8 +38,8 @@ msgid "_Browse"
 msgstr "_עיון"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
-msgstr "הפעלת הדמיית מסוף"
+msgid "_Execute in terminal emulator"
+msgstr "ה_פעלה בהדמיית מסוף"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -57,18 +57,31 @@ msgstr ""
 "  <b>%U</b>: לייצוג מספר כתובות אחידות"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
-msgstr "שורת פקודה מותאמת אישית"
+msgid "_Custom Command Line"
+msgstr "_פקודה מותאמת אישית"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
-msgstr "הגדרת היישום הנבחר כפעולת בררת המחדל לסוג קובץ זה"
+msgid "_Set selected application as default action of this file type"
+msgstr "ה_גדרת היישום הנבחר כפעולת בררת המחדל לסוג קובץ זה"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
 msgstr "אישור החלפת קבצים"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_דילוג"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "_שינוי שם"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_שכתוב"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -78,29 +91,17 @@ msgstr ""
 "\n"
 "האם להחליף את הקובץ הקיים"
 
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "בקבצים הבאים?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "שם הקובץ:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "יש להחיל אפשרות זו לכל הקבצים הקיימים"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "_דילוג"
-
 #: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "_שינוי שם"
+msgid "_File Name:"
+msgstr "שם ה_קובץ:"
 
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "_שכתוב"
+msgid "_Apply this option to all existing files"
+msgstr "יש לה_חיל אפשרות זו לכל הקבצים הקיימים"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -136,7 +137,7 @@ msgstr "<b>פתיחה _באמצעות:</b>"
 
 #: ../data/ui/file-prop.glade.h:9
 msgid "Select the application used to open files of this type "
-msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה"
+msgstr "יש לבחור את היישום המשמש לפתיחת קבצים מסוג זה "
 
 #: ../data/ui/file-prop.glade.h:10
 msgid "<b>Target:</b>"
@@ -147,24 +148,24 @@ msgid "_General"
 msgstr "_כללי"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
+msgid "<b>O_wner:</b>"
 msgstr "<b>_בעלים:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
+msgid "<b>G_roup:</b>"
 msgstr "<b>_קבוצה:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-msgid "<b>View content:</b>"
-msgstr "<b>צפייה בתוכן</b>"
+msgid "<b>_View content:</b>"
+msgstr "<b>_צפייה בתוכן</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-msgid "<b>Change content:</b>"
-msgstr "<b>שינוי התוכן:</b>"
+msgid "<b>C_hange content:</b>"
+msgstr "<b>_שינוי התוכן:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-msgid "<b>Execute:</b>"
-msgstr "<b>הפעלה:</b>"
+msgid "<b>_Execute:</b>"
+msgstr "<b>ה_פעלה:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -316,74 +317,191 @@ msgstr "הפעלת קובץ"
 msgid "Execute in _Terminal"
 msgstr "הפעלה במ_סוף"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
-#, c-format
-msgid "%u byte"
-msgid_plural "%u bytes"
-msgstr[0] "%u byte"
-msgstr[1] "%u בתים"
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "בתים"
 
-#: ../src/base/fm-utils.c:65
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
 msgid "KB"
 msgstr "ק״ב"
 
-#: ../src/base/fm-utils.c:70
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
 msgid "MB"
 msgstr "מ״ב"
 
-#: ../src/base/fm-utils.c:75
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
 msgid "GB"
 msgstr "ג״ב"
 
-#: ../src/base/fm-utils.c:80
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "נא לבחור בתאריך"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "נא לבחור תאריך מלוח השנה שלהלן"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "חיפוש קבצים"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>_תבנית שם קובץ</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "ללא תלות ב_רישיות"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "_שימוש בביטוי רגולרי"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr "<b>מקומות לחיפוש</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "חיפוש בתיקיות ש_כפופות לזאת"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "חיפוש קבצים _נסתרים"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "שם/מי_קום"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>סוג הקובץ</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr "יש לחפש קבצים אך ורק מהסוגים הבאים"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "קובצי _טקסט"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "קובצי _תמונה"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "קובצי _שמע"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "קובצי וי_דאו"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "מ_סמכים"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "סוג _קובץ"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s</b>"
+msgstr "<b>הקובץ מ_כיל</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "_תוכן"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>גודל הקובץ</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "_קטן מ־:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "_גדול מ־:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>מועד השינוי האחרון</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
+#: ../src/gtk/fm-gtk-file-launcher.c:538
+msgid "(None)"
+msgstr "(אין)"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr "_לפני:"
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "_אחרי:"
+
+#: ../data/ui/filesearch.glade.h:33
+msgid "_Properties"
+msgstr "מא_פיינים"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
+#, c-format
+msgid "%u byte"
+msgid_plural "%u bytes"
+msgstr[0] "בית אחד"
+msgstr[1] "%u בתים"
+
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "ט״ב"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:841 ../src/gtk/fm-places-model.c:624
 msgid "Trash Can"
 msgstr "פח אשפה"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:843
 msgid "My Computer"
 msgstr "המחשב שלי"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "יישומים"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:845
 msgid "Network"
 msgstr "רשת"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "קיצורי דרך"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "נקודת עגינה"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:161
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:234 ../src/gtk/fm-progress-dlg.c:253
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -394,7 +512,7 @@ msgstr ""
 "גודל: %s\n"
 "השתנה: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -403,23 +521,23 @@ msgstr ""
 "סוג: %s\n"
 "השתנה: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
 msgstr "פעולת הקבצים בוטלה וישנן כמה שגיאות."
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid "Cancelled"
 msgstr "בוטלה"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
 msgstr "פעולת הקבצים הסתיימה, אך ישנן כמה שגיאות."
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
 msgstr "הסתיימה"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -429,220 +547,317 @@ msgstr ""
 "תומכות בפעולה זו.\n"
 "האם למחוק אותם במקום?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:482
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:498
 msgid "Moving files"
 msgstr "קבצים מועברים"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:501
 msgid "Copying files"
 msgstr "קבצים מועתקים"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:504
 msgid "Trashing files"
 msgstr "קבצים מועברים לאשפה"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:507
 msgid "Deleting files"
 msgstr "קבצים נמחקים"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:510
 msgid "Creating symlinks"
 msgstr "נוצר קישור סימבולי"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:513
 msgid "Changing file attributes"
 msgstr "שינוי תכונות הקובץ"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "בית"
 msgstr[1] "בתים"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "נא להזין שם משתמש תקני או מזהה מספרי."
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "יש להזין שם קבוצה תקני או מזהה מספרי."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "האם להחל שינוים אלה על כל הקבצים ותת־התיקיות באופן נסוג?"
 
-#: ../src/gtk/fm-file-properties.c:624
-msgid "<b>Access content:</b>"
-msgstr "<b>גישה לתוכן:</b>"
+#: ../src/gtk/fm-file-properties.c:633
+msgid "<b>_Access content:</b>"
+msgstr "<b>_גישה לתוכן</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "קבצים מסוגים שונים"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "מספר קבצים"
 
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
-msgstr "עיגון כרך"
+#: ../src/gtk/fm-places-model.c:680
+msgid "Desktop"
+msgstr "שולחן עבודה"
 
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
-msgstr "ניתוק כרך"
+#: ../src/gtk/fm-places-model.c:690
+msgid "Applications"
+msgstr "יישומים"
 
 #: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
-msgstr "שליפת מדיה נתיקה"
+msgid "_Mount Volume"
+msgstr "_עיגון כרך"
+
+#: ../src/gtk/fm-places-view.c:102
+msgid "_Unmount Volume"
+msgstr "_ניתוק כרך"
+
+#: ../src/gtk/fm-places-view.c:103
+msgid "_Eject Removable Media"
+msgstr "_שליפת מדיה נתיקה"
+
+#: ../src/gtk/fm-places-view.c:116
+msgid "_Rename Bookmark Item"
+msgstr "_שינוי שם לפריט סימנייה"
+
+#: ../src/gtk/fm-places-view.c:117
+msgid "Re_move from Bookmark"
+msgstr "ה_סרה מהסימניות"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "_Empty Trash Can"
+msgstr "_פינוי האשפה"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "שינוי שם לפריט סימנייה"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "הסרה מהסימניות"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "פינוי האשפה"
-
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "הזנת שם חדש:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
+msgstr "ל_כבות"
+
+#: ../src/gtk/fm-side-pane.c:62
+msgid "_Places"
+msgstr "_מיקומים"
+
+#: ../src/gtk/fm-side-pane.c:63
+msgid "_Directory Tree"
+msgstr "_עץ התיקיות"
+
+#: ../src/gtk/fm-side-pane.c:64
+msgid "_Remote"
+msgstr "מ_רוחק"
+
+#: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
 msgstr "מיקומים"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
 msgstr "עץ התיקיות"
 
-#: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
-msgstr "מרוחק"
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr "_פתיחה"
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
-msgid "Open With..."
-msgstr "פתיחה באמצעות..."
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+msgid "Open _With..."
+msgstr "פתיחה _באמצעות..."
 
-#: ../src/gtk/fm-file-menu.c:114
-msgid "Rename"
-msgstr "שינוי שם"
+#: ../src/gtk/fm-file-menu.c:164
+msgid "Create _Symlink"
+msgstr "יצירת קישור _סימבולי"
 
-#: ../src/gtk/fm-file-menu.c:115
-msgid "Create Symlink"
-msgstr "יצירת קישור סימבולי"
+#: ../src/gtk/fm-file-menu.c:165
+msgid "Se_nd To"
+msgstr "שליחה _אל"
 
-#: ../src/gtk/fm-file-menu.c:116
-msgid "Send To"
-msgstr "שליחה אל"
+#: ../src/gtk/fm-file-menu.c:166
+msgid "Co_mpress..."
+msgstr "_דחיסה..."
 
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Compress..."
-msgstr "דחיסה..."
+#: ../src/gtk/fm-file-menu.c:167
+msgid "Extract _Here"
+msgstr "חילוץ ל_כאן"
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Extract Here"
-msgstr "חילוץ לכאן"
+#: ../src/gtk/fm-file-menu.c:168
+msgid "E_xtract To..."
+msgstr "_חילוץ אל..."
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Extract To..."
-msgstr "חילוץ אל..."
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+msgid "Prop_erties"
+msgstr "מ_אפיינים"
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
 msgstr "_שחזור"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
 msgstr "שחזור קבצים שנשלחו לאשפה לתיקיותיהם המקוריות"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
 msgstr "XDirectSave כשלה."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
 msgstr "שימוש ביישום הנבחר לפתיחת קבצים"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
 msgstr "הפעלת שורת פקודה מותאמת אישית לפתיחת קבצים"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "התאמה אישית"
 
-#: ../src/gtk/fm-folder-view.c:640
-msgid "Name"
-msgstr "שם"
+#: ../src/gtk/fm-folder-view.c:167
+msgid "Create _New..."
+msgstr "יצירת _חדש..."
 
-#: ../src/gtk/fm-folder-view.c:659
-msgid "Description"
-msgstr "תיאור"
+#: ../src/gtk/fm-folder-view.c:168
+msgid "Folder"
+msgstr "תיקייה"
 
-#: ../src/gtk/fm-folder-view.c:666
-msgid "Size"
-msgstr "גודל"
+#: ../src/gtk/fm-folder-view.c:171
+msgid "Blank File"
+msgstr "קובץ ריק"
 
-#: ../src/gtk/fm-folder-view.c:672
-msgid "Modified"
-msgstr "מועד השינוי"
+#: ../src/gtk/fm-folder-view.c:172
+msgid "Shortcut"
+msgstr "קיצור דרך"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-folder-view.c:183
+msgid "_Invert Selection"
+msgstr "הי_פוך הבחירה"
+
+#: ../src/gtk/fm-folder-view.c:184
+msgid "_Sort Files"
+msgstr "_סידור הקבצים"
+
+#: ../src/gtk/fm-folder-view.c:196
+msgid "Show _Hidden"
+msgstr "הצגת מו_סתרים"
+
+#: ../src/gtk/fm-folder-view.c:197
+msgid "_Only for this folder"
+msgstr "_רק עבור תיקייה זו"
+
+#: ../src/gtk/fm-folder-view.c:198
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr "יש לסמן כדי לשמור את אופן סידור התיקייה בשונה מההגדרות הכלליות"
+
+#: ../src/gtk/fm-folder-view.c:199
+msgid "Mingle _files and folders"
+msgstr "_ערבוב בין קבצים ותיקיות"
+
+#: ../src/gtk/fm-folder-view.c:200
+msgid "_Ignore name case"
+msgstr "התעלמות מ_שינויי אותיות רישיות בשם"
+
+#: ../src/gtk/fm-folder-view.c:211
+msgid "By _Name"
+msgstr "לפי שם"
+
+#: ../src/gtk/fm-folder-view.c:212
+msgid "By _Modification Time"
+msgstr "לפי מועד ה_שינוי"
+
+#: ../src/gtk/fm-folder-view.c:213
+msgid "By _Size"
+msgstr "לפי _גודל"
+
+#: ../src/gtk/fm-folder-view.c:214
+msgid "By File _Type"
+msgstr "לפי סוג ה_קובץ"
+
+#: ../src/gtk/fm-folder-view.c:785
+msgid "Enter a name for the newly created folder:"
+msgstr "נא להזין שם עבור התיקייה החדשה:"
+
+#: ../src/gtk/fm-folder-view.c:787
+msgid "Enter a name for the newly created file:"
+msgstr "נא להזין שם עבור הקובץ החדש:"
+
+#: ../src/gtk/fm-folder-view.c:788
+msgid "Create New..."
+msgstr "יצירת חדש..."
+
+#: ../src/gtk/fm-folder-view.c:788
+msgid "New"
+msgstr "חדש"
+
+#: ../src/gtk/fm-folder-view.c:880
+msgid "Error, lxshortcut not installed"
+msgstr "שגיאה, lxshortcut אינו מותקן"
+
+#: ../src/gtk/fm-folder-view.c:885
+msgid "Failed to start lxshortcut"
+msgstr "הפעלת lxshortcut נכשלה"
+
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "יישומים מותקנים"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:69
 msgid "Error"
 msgstr "שגיאה"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
 msgstr "אישור"
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
 msgstr "שאלה"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:511
 msgid "Please select a folder"
 msgstr "נא לבחור בתיקייה"
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:657
 msgid "Only system administrators have the permission to do this."
 msgstr "רק למנהל המערכת ישנן ההרשאות לעשות זאת."
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:862
 msgid "Do you want to move the selected files to trash can?"
 msgstr "האם להעביר את הקבצים הנבחרים אל סל האשפה?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to delete the selected files?"
 msgstr "האם למחוק את הקבצים הנבחרים?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:994
 msgid "Rename File"
 msgstr "שינוי שם קובץ"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:995
 msgid "Please enter a new name:"
 msgstr "נא להזין שם חדש:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:1035
 msgid "Are you sure you want to empty the trash can?"
 msgstr "האם לפנות את סל האשפה?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -651,21 +866,59 @@ msgstr ""
 "מסתבר כי קובץ הטקסט '%s' הוא סקריפט הפעלה.\n"
 "מה ברצונך לעשות אתו?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "הקובץ '%s' ניתן להפעלה. האם ברצונך לפהעיל אותו?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:566
+msgid "No folders are specified."
+msgstr "לא צוינו תיקיות."
+
+#: ../src/gtk/fm-gtk-file-launcher.c:605
+msgid "Select a folder"
+msgstr "נא לבחור בתיקייה"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr "<אין תיקיות משנה>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "בטעינה..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#. columns visible to the users
+#: ../src/gtk/fm-folder-model.c:185
+msgid "Name"
+msgstr "שם"
+
+#: ../src/gtk/fm-folder-model.c:186
+msgid "Description"
+msgstr "תיאור"
+
+#: ../src/gtk/fm-folder-model.c:187
+msgid "Size"
+msgstr "גודל"
+
+#: ../src/gtk/fm-folder-model.c:188
+msgid "Permissions"
+msgstr "הרשאות"
+
+#: ../src/gtk/fm-folder-model.c:189
+msgid "Owner"
+msgstr "הבעלים"
+
+#: ../src/gtk/fm-folder-model.c:190
+msgid "Modified"
+msgstr "מועד השינוי"
+
+#: ../src/gtk/fm-folder-model.c:191
+msgid "Location"
+msgstr "מיקום"
+
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "התיקייה שצוינה אינה תקנית"
@@ -685,14 +938,6 @@ msgstr "לא ניתן להעתיק תיקייה אל אחת מתת־התיקיו
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "היעד היא תת־תיקייה של המקור"
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "אשפה"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "שולחן עבודה"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -855,11 +1100,41 @@ msgstr "תקליטור אופטי ריק"
 msgid "Optical Disc"
 msgstr "תקליטור אופטי"
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>קבוצה:</b>"
+#: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
+#: ../src/vfs/fm-vfs-menu.c:618
+msgid "Menu cache error"
+msgstr "שגיאת מטמון תפריט"
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>בעלים:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
+msgid "Operation not supported"
+msgstr "הפעולה לא נתמכת"
+
+#: ../src/vfs/fm-vfs-menu.c:552
+#, c-format
+msgid "Invalid filename %s"
+msgstr "שם הקובץ שגוי %s"
+
+#: ../src/vfs/fm-vfs-menu.c:613
+msgid "Invalid menu directory"
+msgstr "תיקיית התפריט שגויה"
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:959
+msgid "Search"
+msgstr "חיפוש"
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>_בעלים:</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>_קבוצה:</b>"
+
+#~ msgid "Rename"
+#~ msgstr "שינוי שם"
+
+#~ msgid "Trash"
+#~ msgstr "אשפה"
 
 #~ msgid "Make the file executable"
 #~ msgstr "הפיכת הקובץ לניתן להפעלה"
@@ -883,9 +1158,6 @@ msgstr "תקליטור אופטי"
 
 #~ msgid "Write only"
 #~ msgstr "כתיבה בלבד"
-
-#~ msgid "It's not a valid directory"
-#~ msgstr "זו אינה תיקייה תקנית"
 
 #~ msgid "The selection mode"
 #~ msgstr "נא לבחור בתיקייה"

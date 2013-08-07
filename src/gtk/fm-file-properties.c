@@ -20,6 +20,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-file-properties
+ * @short_description: Dialog window for changing properties of file.
+ * @title: File properties dialog
+ *
+ * @include: libfm/fm-file-properties.h
+ *
+ */
+
 #include <config.h>
 #include <glib/gi18n-lib.h>
 
@@ -36,9 +45,7 @@
 #include "fm-file-info.h"
 #include "fm-file-properties.h"
 #include "fm-deep-count-job.h"
-#include "fm-file-ops-job.h"
 #include "fm-utils.h"
-#include "fm-path.h"
 #include "fm-config.h"
 
 #include "fm-progress-dlg.h"
@@ -141,13 +148,20 @@ static gboolean on_timeout(gpointer user_data)
 {
     FmFilePropData* data = (FmFilePropData*)user_data;
     char size_str[128];
-    FmDeepCountJob* dc = data->dc_job;
+    FmDeepCountJob* dc;
 
-
+    GDK_THREADS_ENTER();
+    if(g_source_is_destroyed(g_main_current_source()))
+    {
+        GDK_THREADS_LEAVE();
+        return FALSE;
+    }
+    dc = data->dc_job;
     if(G_LIKELY(dc && !fm_job_is_cancelled(FM_JOB(dc))))
     {
         char* str;
-        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_size, TRUE);
+        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_size,
+                            fm_config->si_unit);
         str = g_strdup_printf("%s (%'llu %s)", size_str,
                               (long long unsigned int)dc->total_size,
                               dngettext(GETTEXT_PACKAGE, "byte", "bytes",
@@ -155,7 +169,8 @@ static gboolean on_timeout(gpointer user_data)
         gtk_label_set_text(data->total_size, str);
         g_free(str);
 
-        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_ondisk_size, TRUE);
+        fm_file_size_to_str(size_str, sizeof(size_str), dc->total_ondisk_size,
+                            fm_config->si_unit);
         str = g_strdup_printf("%s (%'llu %s)", size_str,
                               (long long unsigned int)dc->total_ondisk_size,
                               dngettext(GETTEXT_PACKAGE, "byte", "bytes",
@@ -163,6 +178,7 @@ static gboolean on_timeout(gpointer user_data)
         gtk_label_set_text(data->size_on_disk, str);
         g_free(str);
     }
+    GDK_THREADS_LEAVE();
     return TRUE;
 }
 
@@ -295,7 +311,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
 
         /* check if chmod is needed here. */
         sel = gtk_combo_box_get_active(data->read_perm);
-        if( sel != NO_CHANGE ) /* requested to change read permissions */
+        if( sel > NO_CHANGE ) /* requested to change read permissions */
         {
             g_debug("got selection for read: %d", sel);
             if(data->read_perm_sel != sel) /* new value is different from original */
@@ -320,7 +336,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             data->read_perm_sel = NO_CHANGE;
 
         sel = gtk_combo_box_get_active(data->write_perm);
-        if( sel != NO_CHANGE ) /* requested to change write permissions */
+        if( sel > NO_CHANGE ) /* requested to change write permissions */
         {
             g_debug("got selection for write: %d", sel);
             if(data->write_perm_sel != sel) /* new value is different from original */
@@ -345,7 +361,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             data->write_perm_sel = NO_CHANGE;
 
         sel = gtk_combo_box_get_active(data->exec_perm);
-        if( sel != NO_CHANGE ) /* requested to change exec permissions */
+        if( sel > NO_CHANGE ) /* requested to change exec permissions */
         {
             g_debug("got selection for exec: %d", sel);
             if(data->exec_perm_sel != sel) /* new value is different from original */
@@ -375,7 +391,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             sel = gtk_combo_box_get_active(data->flags_set_file);
         else
             sel = NO_CHANGE;
-        if( sel != NO_CHANGE ) /* requested to change special bits */
+        if( sel > NO_CHANGE ) /* requested to change special bits */
         {
             g_debug("got selection for flags: %d", sel);
             if(data->flags_set_sel != sel) /* new value is different from original */
@@ -452,7 +468,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
         }
 
         /* change default application for the mime-type if needed */
-        if(data->mime_type && data->mime_type->type && data->open_with)
+        if(data->mime_type && fm_mime_type_get_type(data->mime_type) && data->open_with)
         {
             GAppInfo* app;
             gboolean default_app_changed = FALSE;
@@ -462,7 +478,7 @@ static void on_response(GtkDialog* dlg, int response, FmFilePropData* data)
             {
                 if(default_app_changed)
                 {
-                    g_app_info_set_as_default_for_type(app, data->mime_type->type, &err);
+                    g_app_info_set_as_default_for_type(app, fm_mime_type_get_type(data->mime_type), &err);
                     if(err)
                     {
                         fm_show_error(GTK_WINDOW(dlg), NULL, err->message);
@@ -575,8 +591,8 @@ static void update_permissions(FmFilePropData* data)
     /* on local filesystems, only root can do chown. */
     if( data->all_native && geteuid() != 0 )
     {
-        gtk_editable_set_editable(GTK_EDITABLE(data->owner), FALSE);
-        gtk_editable_set_editable(GTK_EDITABLE(data->group), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(data->owner), FALSE);
+        gtk_widget_set_sensitive(GTK_WIDGET(data->group), FALSE);
     }
 
     /* read access chooser */
@@ -621,7 +637,7 @@ static void update_permissions(FmFilePropData* data)
         return;
     }
     if(data->has_dir)
-        gtk_label_set_label(data->exec_label, _("<b>Access content:</b>"));
+        gtk_label_set_label(data->exec_label, _("<b>_Access content:</b>"));
     if(!fm_config->advanced_mode)
     {
         gtk_widget_hide(GTK_WIDGET(data->flags_label));
@@ -756,9 +772,16 @@ static void update_ui(FmFilePropData* data)
         time_t atime;
         struct tm tm;
         gtk_entry_set_text(data->name, fm_file_info_get_disp_name(data->fi));
+        /* FIXME: check if text fits in line */
+        if(strlen(fm_file_info_get_disp_name(data->fi)) > 16)
+            gtk_widget_set_tooltip_text(GTK_WIDGET(data->name),
+                                        fm_file_info_get_disp_name(data->fi));
         if(parent_str)
         {
             gtk_label_set_text(data->dir, parent_str);
+            /* FIXME: check if text fits in line */
+            if(strlen(parent_str) > 16)
+                gtk_widget_set_tooltip_text(GTK_WIDGET(data->dir), parent_str);
             g_free(parent_str);
         }
         else
@@ -770,6 +793,9 @@ static void update_ui(FmFilePropData* data)
         localtime_r(&atime, &tm);
         strftime(buf, sizeof(buf), "%x %R", &tm);
         gtk_label_set_text(data->atime, buf);
+        /* FIXME: changing file name isn't implemented yet, disable entry */
+        gtk_widget_set_can_focus(GTK_WIDGET(data->name), FALSE);
+        gtk_editable_set_editable(GTK_EDITABLE(data->name), FALSE);
     }
     else
     {
@@ -786,7 +812,7 @@ static void init_application_list(FmFilePropData* data)
 {
     if(data->single_type && data->mime_type)
     {
-        if(g_strcmp0(data->mime_type->type, "inode/directory"))
+        if(g_strcmp0(fm_mime_type_get_type(data->mime_type), "inode/directory"))
             fm_app_chooser_combo_box_setup_for_mime_type(data->open_with, data->mime_type);
         else /* shouldn't allow set file association for folders. */
         {
@@ -798,6 +824,17 @@ static void init_application_list(FmFilePropData* data)
     }
 }
 
+/**
+ * fm_file_properties_widget_new
+ * @files: list of files
+ * @toplevel: choose appearance of dialog
+ *
+ * Creates new dialog widget for change properties of @files.
+ *
+ * Returns: (transfer full): a new widget.
+ *
+ * Since: 0.1.0
+ */
 GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean toplevel)
 {
     GtkBuilder* builder=gtk_builder_new();
@@ -874,6 +911,17 @@ GtkDialog* fm_file_properties_widget_new(FmFileInfoList* files, gboolean topleve
     return dlg;
 }
 
+/**
+ * fm_show_file_properties
+ * @parent: a window to put dialog over it
+ * @files:list of files
+ *
+ * Creates and shows file properties dialog for @files.
+ *
+ * Returns: %TRUE.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_show_file_properties(GtkWindow* parent, FmFileInfoList* files)
 {
     GtkDialog* dlg = fm_file_properties_widget_new(files, TRUE);

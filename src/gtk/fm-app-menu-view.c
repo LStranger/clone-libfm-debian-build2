@@ -19,6 +19,16 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-app-menu-view
+ * @short_description: Applications tree for application selection dialogs.
+ * @title: Application chooser tree
+ *
+ * @include: libfm/fm-app-menu-view.h
+ *
+ * The widget to represent known applications as a tree.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -50,6 +60,7 @@ static void destroy_store(gpointer user_data, GObject *obj)
     store = NULL;
 }
 
+/* called with lock held */
 static void add_menu_items(GtkTreeIter* parent_it, MenuCacheDir* dir)
 {
     GtkTreeIter it;
@@ -115,6 +126,15 @@ static void on_menu_cache_reload(gpointer mc, gpointer user_data)
         add_menu_items(NULL, dir);
 }
 
+/**
+ * fm_app_menu_view_new
+ *
+ * Creates new application tree widget.
+ *
+ * Returns: (transfer full): a new widget.
+ *
+ * Since: 0.1.0
+ */
 GtkTreeView *fm_app_menu_view_new(void)
 {
     GtkTreeView* view;
@@ -136,8 +156,13 @@ GtkTreeView *fm_app_menu_view_new(void)
         oldenv = g_strdup(g_getenv("XDG_MENU_PREFIX"));
         g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
         menu_cache = menu_cache_lookup("applications.menu");
-        g_setenv("XDG_MENU_PREFIX", oldenv, TRUE);
-        g_free(oldenv);
+        if(oldenv)
+        {
+            g_setenv("XDG_MENU_PREFIX", oldenv, TRUE);
+            g_free(oldenv);
+        }
+        else
+            g_unsetenv("XDG_MENU_PREFIX");
 
         if(menu_cache)
         {
@@ -168,6 +193,19 @@ GtkTreeView *fm_app_menu_view_new(void)
     return view;
 }
 
+/**
+ * fm_app_menu_view_dup_selected_app
+ * @view: a widget
+ *
+ * Retrieves selected application from the widget.
+ * The returned data should be freed with g_object_unref() after usage.
+ *
+ * Before 1.0.0 this call had name fm_app_menu_view_get_selected_app.
+ *
+ * Returns: (transfer full): selected application descriptor.
+ *
+ * Since: 0.1.0
+ */
 GAppInfo* fm_app_menu_view_dup_selected_app(GtkTreeView* view)
 {
     char* id = fm_app_menu_view_dup_selected_app_desktop_id(view);
@@ -180,24 +218,53 @@ GAppInfo* fm_app_menu_view_dup_selected_app(GtkTreeView* view)
     return NULL;
 }
 
+/**
+ * fm_app_menu_view_dup_selected_app_desktop_id
+ * @view: a widget
+ *
+ * Retrieves name of selected application from the widget.
+ * The returned data should be freed with g_free() after usage.
+ *
+ * Before 1.0.0 this call had name fm_app_menu_view_get_selected_app_desktop_id.
+ *
+ * Returns: (transfer full): selected application name.
+ *
+ * Since: 0.1.0
+ */
 char* fm_app_menu_view_dup_selected_app_desktop_id(GtkTreeView* view)
 {
     GtkTreeIter it;
     GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
+    /* FIXME: this should be checked if it's exactly app menu tree! */
+    char* id = NULL;
     if(gtk_tree_selection_get_selected(sel, NULL, &it))
     {
         MenuCacheItem* item;
         gtk_tree_model_get(GTK_TREE_MODEL(store), &it, COL_ITEM, &item, -1);
         if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-            return g_strdup(menu_cache_item_get_id(item));
+            id = g_strdup(menu_cache_item_get_id(item));
     }
-    return NULL;
+    return id;
 }
 
+/**
+ * fm_app_menu_view_dup_selected_app_desktop_file_path
+ * @view: a widget
+ *
+ * Retrieves file path to selected application from the widget.
+ * The returned data should be freed with g_free() after usage.
+ *
+ * Before 1.0.0 this call had name fm_app_menu_view_get_selected_app_desktop_file.
+ *
+ * Returns: (transfer full): path to selected application file.
+ *
+ * Since: 0.1.0
+ */
 char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view)
 {
     GtkTreeIter it;
     GtkTreeSelection* sel = gtk_tree_view_get_selection(view);
+    /* FIXME: this should be checked if it's exactly app menu tree! */
     if(gtk_tree_selection_get_selected(sel, NULL, &it))
     {
         MenuCacheItem* item;
@@ -211,15 +278,38 @@ char* fm_app_menu_view_dup_selected_app_desktop_file_path(GtkTreeView* view)
     return NULL;
 }
 
+/**
+ * fm_app_menu_view_is_item_app
+ * @view: a widget
+ * @it: tree iterator
+ *
+ * Checks if item at @it is an application.
+ *
+ * Returns: %TRUE if item is an application.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_app_menu_view_is_item_app(GtkTreeView* view, GtkTreeIter* it)
 {
     MenuCacheItem* item;
+    /* FIXME: this should be checked if it's exactly app menu tree! */
+    gboolean ret = FALSE;
     gtk_tree_model_get(GTK_TREE_MODEL(store), it, COL_ITEM, &item, -1);
     if(item && menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP)
-        return TRUE;
-    return FALSE;
+        ret = TRUE;
+    return ret;
 }
 
+/**
+ * fm_app_menu_view_is_app_selected
+ * @view: a widget
+ *
+ * Checks if there is an application selected in @view.
+ *
+ * Returns: %TRUE if there is an application selected.
+ *
+ * Since: 0.1.0
+ */
 gboolean fm_app_menu_view_is_app_selected(GtkTreeView* view)
 {
     GtkTreeIter it;

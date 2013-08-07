@@ -50,6 +50,7 @@ static FmDirTreeModel* dir_tree_model = NULL;
 
 static char menu_xml[] =
 "<popup>"
+//  "<menuitem action='Off'/>"
   "<menuitem action='Places'/>"
   "<menuitem action='DirTree'/>"
 //  "<menuitem action='Remote'/>"
@@ -57,9 +58,10 @@ static char menu_xml[] =
 
 static GtkRadioActionEntry menu_actions[]=
 {
-    {"Places", NULL, N_("Places"), NULL, NULL, FM_SP_PLACES},
-    {"DirTree", NULL, N_("Directory Tree"), NULL, NULL, FM_SP_DIR_TREE},
-    {"Remote", NULL, N_("Remote"), NULL, NULL, FM_SP_REMOTE},
+    {"Off", NULL, N_("_Off"), NULL, NULL, FM_SP_NONE},
+    {"Places", NULL, N_("_Places"), NULL, NULL, FM_SP_PLACES},
+    {"DirTree", NULL, N_("_Directory Tree"), NULL, NULL, FM_SP_DIR_TREE},
+    {"Remote", NULL, N_("_Remote"), NULL, NULL, FM_SP_REMOTE},
 };
 
 
@@ -124,39 +126,47 @@ static void menu_position_func(GtkMenu *menu, gint *x, gint *y, gboolean *push_i
     GtkWidget *widget = GTK_WIDGET(button);
     GtkRequisition menu_req;
     GdkRectangle monitor;
+    GtkAllocation allocation;
     gint monitor_num;
     GdkScreen *screen;
+    GdkWindow *window;
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+    gtk_widget_get_preferred_size(GTK_WIDGET(menu), &menu_req, NULL);
+#else
     gtk_widget_size_request (GTK_WIDGET (menu), &menu_req);
+#endif
 
     /* make the menu as wide as the button when needed */
-    if(menu_req.width < GTK_WIDGET(button)->allocation.width)
+    gtk_widget_get_allocation(widget, &allocation);
+    if(menu_req.width < allocation.width)
     {
-        menu_req.width = GTK_WIDGET(button)->allocation.width;
+        menu_req.width = allocation.width;
         gtk_widget_set_size_request(GTK_WIDGET(menu), menu_req.width, -1);
     }
 
     screen = gtk_widget_get_screen (GTK_WIDGET (menu));
-    monitor_num = gdk_screen_get_monitor_at_window (screen, widget->window);
+    window = gtk_widget_get_window(widget);
+    monitor_num = gdk_screen_get_monitor_at_window (screen, window);
     if (monitor_num < 0)
         monitor_num = 0;
     gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
-    gdk_window_get_origin (widget->window, x, y);
-    *x += widget->allocation.x;
-    *y += widget->allocation.y;
+    gdk_window_get_origin (window, x, y);
+    *x += allocation.x;
+    *y += allocation.y;
 /*
     if (direction == GTK_TEXT_DIR_LTR)
         *x += MAX (widget->allocation.width - menu_req.width, 0);
     else if (menu_req.width > widget->allocation.width)
         *x -= menu_req.width - widget->allocation.width;
 */
-    if ((*y + widget->allocation.height + menu_req.height) <= monitor.y + monitor.height)
-        *y += widget->allocation.height;
+    if ((*y + allocation.height + menu_req.height) <= monitor.y + monitor.height)
+        *y += allocation.height;
     else if ((*y - menu_req.height) >= monitor.y)
         *y -= menu_req.height;
-    else if (monitor.y + monitor.height - (*y + widget->allocation.height) > *y)
-        *y += widget->allocation.height;
+    else if (monitor.y + monitor.height - (*y + allocation.height) > *y)
+        *y += allocation.height;
     else
         *y -= menu_req.height;
     *push_in = FALSE;
@@ -182,11 +192,21 @@ static void fm_side_pane_init(FmSidePane *sp)
     GtkWidget* hbox;
 
     gtk_action_group_set_translation_domain(act_grp, GETTEXT_PACKAGE);
+#if GTK_CHECK_VERSION(3, 2, 0)
+    /* FIXME: migrate to GtkGrid */
+    sp->title_bar = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
     sp->title_bar = gtk_hbox_new(FALSE, 0);
+#endif
     sp->menu_label = gtk_label_new("");
     gtk_misc_set_alignment(GTK_MISC(sp->menu_label), 0.0, 0.5);
     sp->menu_btn = gtk_button_new();
+#if GTK_CHECK_VERSION(3, 2, 0)
+    /* FIXME: migrate to GtkGrid */
+    hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
     hbox = gtk_hbox_new(FALSE, 0);
+#endif
     gtk_box_pack_start(GTK_BOX(hbox), sp->menu_label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(hbox), gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_NONE),
                        FALSE, TRUE, 0);

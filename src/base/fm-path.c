@@ -19,15 +19,35 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-path
+ * @short_description: Path representation for libfm.
+ * @title: FmPath
+ *
+ * @include: libfm/fm-path.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
 #include "fm-path.h"
 #include "fm-file-info.h"
+#include "fm-file.h"
+#include "fm-utils.h"
+
 #include <string.h>
 #include <limits.h>
 #include <glib/gi18n-lib.h>
+
+struct _FmPath
+{
+    gint n_ref;
+    FmPath* parent;
+    guchar flags; /* FmPathFlags flags : 8; */
+    char name[1]; /* basename: in local encoding if native, uri-escaped otherwise */
+};
 
 struct _FmPathList
 {
@@ -77,14 +97,13 @@ static inline FmPath* _fm_path_new_internal(FmPath* parent, const char* name, in
  * This function create a root FmpPath element for scheme://user@host/,
  * and return the remaining part in @remaining.
  */
-static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** remaining, gboolean need_unescape)
+static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** remaining)
 {
     FmPath* path;
     char* buf;
     const char* uri_end = uri + len;
     const char* host;
     const char* host_end;
-    char* unescaped_host = NULL;
     int scheme_len, host_len;
     int flags;
 
@@ -126,12 +145,12 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     }
     else if(scheme_len == 8 && g_ascii_strncasecmp(uri, "computer", 8) == 0)
     {
-        flags |= FM_PATH_IS_VIRTUAL;
+        flags |= FM_PATH_IS_VIRTUAL; /* FIXME: deprecated */
         host_end = host;
     }
     else if(scheme_len == 7 && g_ascii_strncasecmp(uri, "network", 7) == 0)
     {
-        flags |= FM_PATH_IS_VIRTUAL;
+        flags |= FM_PATH_IS_VIRTUAL; /* FIXME: deprecated */
         host_end = host;
     }
     else if(scheme_len == 6 && g_ascii_strncasecmp(uri, "mailto", 6) == 0)
@@ -139,15 +158,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
         /* is any special handling needed? */
         if(remaining)
             *remaining = uri_end;
-        if(need_unescape)
-        {
-            unescaped_host = g_uri_unescape_string(uri, NULL);
-            path = _fm_path_new_internal(NULL, unescaped_host, strlen(unescaped_host), 0);
-            g_free(unescaped_host);
-        }
-        else
-            path = _fm_path_new_internal(NULL, uri, len, 0);
-        return path;
+        return _fm_path_new_internal(NULL, uri, len, 0);
     }
     else /* it's a normal remote URI */
     {
@@ -156,6 +167,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
         while(host_end < uri_end && *host_end != '/') /* find the end of host name */
             ++host_end;
         host_len = (host_end - host);
+        /* FIXME: is this ever needed? VFS should handle it */
         if(scheme_len == 4 && g_ascii_strncasecmp(uri, "menu", 4) == 0)
         {
             if(host_len == 0) /* fallback to applications */
@@ -172,14 +184,7 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
                     *remaining = host_end;
                 return fm_path_ref(apps_root_path);
             }
-            flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU);
-        }
-
-        if(need_unescape)
-        {
-            unescaped_host = g_uri_unescape_segment(host, host_end, NULL);
-            host = unescaped_host;
-            host_len = strlen(host);
+            flags |= (FM_PATH_IS_VIRTUAL|FM_PATH_IS_XDG_MENU); /* FIXME: deprecated */
         }
     }
 
@@ -201,8 +206,6 @@ static FmPath* _fm_path_new_uri_root(const char* uri, int len, const char** rema
     }
     buf[0] = '/'; /* the trailing / */
     buf[1] = '\0';
-
-    g_free(unescaped_host);
 
     return path;
 
@@ -235,18 +238,21 @@ static inline FmPath* _fm_path_reuse_existing_paths(FmPath* parent, const char* 
 
 /**
  * fm_path_new_child_len
- * @parent: a parent path
- * @basename: basename of a direct child of @parent directory
+ * @parent: (allow-none): a parent path
+ * @basename: (allow-none): basename of a direct child of @parent directory
  * @name_len: length of @basename
  *
  * Creates new #FmPath for child of @parent directory which have name
  * @basename. The string length of @basename is @name_len. @basename is
- * in glib filename encoding (can be non-UTF-8).
+ * in glib filename encoding (can be non-UTF-8) of target filesystem.
+ * If @parent is %NULL then @basename assumed to be root of some file
+ * system.
  *
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
-FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
+FmPath* _fm_path_new_child_len(FmPath* parent, const char* basename, int name_len,
+                               gboolean dont_escape)
 {
     FmPath* path;
     gboolean append_slash = FALSE;
@@ -297,7 +303,7 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
         if(G_UNLIKELY(basename[0] == '/')) /* this is a posix path */
             return fm_path_ref(root_path);
         else /* This is something like: trash:///, computer:/// sftp://user@host/ */
-            return _fm_path_new_uri_root(basename, name_len, NULL, FALSE);
+            return _fm_path_new_uri_root(basename, name_len, NULL);
     }
 
     /* remove tailing slashes */
@@ -307,8 +313,23 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
     if(name_len == 0)
         return parent ? fm_path_ref(parent) : NULL;
 
-    path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
-    memcpy(path->name, basename, name_len);
+    if(dont_escape)
+    {
+        path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
+        memcpy(path->name, basename, name_len);
+    }
+    else
+    {
+        GString *str = g_string_new_len(basename, name_len);
+        /* remote file names don't come escaped from gvfs; isn't that a bug of gvfs? */
+        char *escaped = g_uri_escape_string(str->str, "/", TRUE);
+        /* g_debug("got child %s", escaped); */
+        name_len = strlen(escaped);
+        path = _fm_path_alloc(parent, (G_UNLIKELY(append_slash) ? name_len + 1 : name_len), flags);
+        memcpy(path->name, escaped, name_len);
+        g_free(escaped);
+        g_string_free(str, TRUE);
+    }
     if(G_UNLIKELY(append_slash))
     {
         path->name[name_len] = '/';
@@ -319,13 +340,20 @@ FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len
     return path;
 }
 
+FmPath* fm_path_new_child_len(FmPath* parent, const char* basename, int name_len)
+{
+    return _fm_path_new_child_len(parent, basename, name_len,
+                                  parent && fm_path_is_native(parent));
+}
+
 /**
  * fm_path_new_child
- * @parent: a parent path
- * @basename: basename of a direct child of @parent directory
+ * @parent: (allow-none): a parent path
+ * @basename: (allow-none): basename of a direct child of @parent directory
  *
  * Creates new #FmPath for child of @parent directory which have name
- * @basename. @basename is in glib filename encoding (can be non-UTF-8).
+ * @basename. @basename is in glib filename encoding (can be non-UTF-8)
+ * of target filesystem.
  *
  * Returns: (transfer full): a new #FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -335,7 +363,8 @@ FmPath* fm_path_new_child(FmPath* parent, const char* basename)
     if(G_LIKELY(basename && *basename))
     {
         int baselen = strlen(basename);
-        return fm_path_new_child_len(parent, basename, baselen);
+        return _fm_path_new_child_len(parent, basename, baselen,
+                                      parent && fm_path_is_native(parent));
     }
     return G_LIKELY(parent) ? fm_path_ref(parent) : NULL;
 }
@@ -369,18 +398,15 @@ FmPath* fm_path_new_for_gfile(GFile* gf)
 
 /**
  * fm_path_new_relative
- * @parent: a parent path
- * @rel: a path relative to @parent
+ * @parent: (allow-none): a parent path
+ * @rel: (allow-none): a path relative to @parent
  *
  * Creates new #FmPath which is relative to @parent directory by the
- * relative path string @rel. @rel is in glib filename encoding. (can be
- * non-UTF-8). However this should not be a escaped ASCII string used in
- * URI. If you're building a relative path for a URI, and the relative
- * path is escaped, you have to unescape it first.
- *
- * For example, if @parent is "http://wiki.lxde.org/" and @rel is
- * "zh/%E9%A6%96%E9%A0%81", you have to unescape the relative path
- * prior to passing it to fm_path_new_relative().
+ * relative path string @rel. @rel is in glib filename encoding (can be
+ * non-UTF-8) if @parent is native and should be escaped URI subpath
+ * otherwise. For example, if @parent is "http://wiki.lxde.org/" and
+ * @rel is "zh/\%E9\%A6\%96\%E9\%A0\%81", the resulting path will be
+ * "http://wiki.lxde.org/zh/\%E9\%A6\%96\%E9\%A0\%81".
  *
  * If @parent is NULL, this works the same as fm_path_new_for_str(@rel)
  *
@@ -417,13 +443,13 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
             sep = strchr(rel, '/');
             if(sep)
             {
-                FmPath* new_parent = fm_path_new_child_len(parent, rel, sep - rel);
+                FmPath* new_parent = _fm_path_new_child_len(parent, rel, sep - rel, TRUE);
                 path = fm_path_new_relative(new_parent, sep + 1);
                 fm_path_unref(new_parent);
             }
             else
             {
-                path = fm_path_new_child(parent, rel);
+                path = _fm_path_new_child_len(parent, rel, strlen(rel), TRUE);
             }
         }
     }
@@ -434,7 +460,7 @@ FmPath* fm_path_new_relative(FmPath* parent, const char* rel)
 
 /**
  * fm_path_new_for_path
- * @path_name: a POSIX path.
+ * @path_name: (allow-none): a POSIX path.
  *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -460,57 +486,44 @@ FmPath* fm_path_new_for_path(const char* path_name)
 
 /**
  * fm_path_new_for_uri
- * @path_name: a URI with special characters escaped.
- * Encoded URI such as http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81
- * will be unescaped.
+ * @uri: (allow-none): a URI with special characters escaped.
+ *
+ * Creates new #FmPath by given @uri. You have to call
+ * fm_path_unref() when it's no longer needed.
  *
  * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
  * string.
  *
- * Returns: a newly created FmPath for the path. You have to call
- * fm_path_unref() when it's no longer needed.
+ * Returns: (transfer full): a new #FmPath for the @uri.
  */
-static FmPath* _fm_path_new_for_uri_internal(const char* uri, gboolean need_unescape)
+FmPath* fm_path_new_for_uri(const char* uri)
 {
     FmPath* path, *root;
     const char* rel_path;
     if(!uri || !*uri)
         return fm_path_ref(root_path);
 
-    root = _fm_path_new_uri_root(uri, strlen(uri), &rel_path, need_unescape);
+    root = _fm_path_new_uri_root(uri, strlen(uri), &rel_path);
     if(*rel_path)
     {
-        if(need_unescape)
-            rel_path = g_uri_unescape_string(rel_path, NULL);
-        path = fm_path_new_relative(root, rel_path);
+        if(root == root_path)
+        {
+            /* handle file:// URIs */
+            char *filename = g_filename_from_uri(uri, NULL, NULL);
+            /* FIXME: handle inconvertable URIs - its translated into '/' now */
+            path = fm_path_new_relative(root, filename);
+            g_free(filename);
+        }
+        else
+            path = fm_path_new_relative(root, rel_path);
         fm_path_unref(root);
-        if(need_unescape)
-            g_free((char*)rel_path);
     }
     else
         path = root;
     return path;
 }
 
-/**
- * fm_path_new_for_uri
- * @uri: a URI with special characters escaped.
- *
- * Creates new #FmPath by given @uri.
- * Encoded URI such as http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81
- * will be unescaped.
- *
- * You can call fm_path_to_uri() to convert a FmPath to a escaped URI
- * string.
- *
- * Returns: (transfer full): a new #FmPath for the path. You have to call
- * fm_path_unref() when it's no longer needed.
- */
-FmPath* fm_path_new_for_uri(const char* uri)
-{
-    return _fm_path_new_for_uri_internal(uri, TRUE);
-}
-
+#ifndef FM_DISABLE_DEPRECATED
 /**
  * fm_path_new_for_display_name
  * @path_name: a UTF-8 encoded display name for the path
@@ -523,6 +536,9 @@ FmPath* fm_path_new_for_uri(const char* uri)
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
  */
+/* FIXME: this is completely invalid way to do this. Display name may be
+   fully unrelated to it's path name.
+   The only correct way is to use g_file_get_child_for_display_name() */
 FmPath* fm_path_new_for_display_name(const char* path_name)
 {
     FmPath* path;
@@ -542,14 +558,15 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
     else /* this is an URI */
     {
         /* UTF-8 should be allowed, I think. */
-        path = _fm_path_new_for_uri_internal(path_name, FALSE);
+        path = fm_path_new_for_uri(path_name);
     }
     return path;
 }
+#endif /* FM_DISABLE_DEPRECATED */
 
 /**
  * fm_path_new_for_str
- * @path_str: a string representing the file path in its native
+ * @path_str: (allow-none): a string representing the file path in its native
  * encoding (can be non-UTF-8). It can either be a native path or an
  * unescaped URI (can contain non-ASCII characters and spaces).
  * The function will try to figure out what to do.
@@ -562,12 +579,22 @@ FmPath* fm_path_new_for_display_name(const char* path_name)
  */
 FmPath* fm_path_new_for_str(const char* path_str)
 {
+    char *escaped;
+    FmPath *path;
+
     if(!path_str || !*path_str)
         return fm_path_ref(root_path);
     if(path_str[0] == '/')
         return fm_path_new_for_path(path_str);
+    /* FIXME: add a support for relative path from FmPathEntry */
     /* UTF-8 should be allowed, I think. */
-    return _fm_path_new_for_uri_internal(path_str, FALSE);
+    escaped = g_uri_escape_string(path_str,
+                                  G_URI_RESERVED_CHARS_GENERIC_DELIMITERS
+                                  G_URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS,
+                                  TRUE);
+    path = fm_path_new_for_uri(escaped);
+    g_free(escaped);
+    return path;
 }
 
 /**
@@ -575,7 +602,7 @@ FmPath* fm_path_new_for_str(const char* path_str)
  * @arg: a file path passed in command line argv to the program. The @arg
  * can be a POSIX path in glib filename encoding (can be non-UTTF-8) and
  * can be a URI with non-ASCII characters escaped, like
- * http://wiki.lxde.org/zh/%E9%A6%96%E9%A0%81.
+ * http://wiki.lxde.org/zh/\%E9\%A6\%96\%E9\%A0\%81.
  *
  * Returns: a newly created FmPath for the path. You have to call
  * fm_path_unref() when it's no longer needed.
@@ -586,10 +613,17 @@ FmPath* fm_path_new_for_commandline_arg(const char* arg)
         return fm_path_ref(root_path);
     if(arg[0] == '/')
         return fm_path_new_for_path(arg);
-    return _fm_path_new_for_uri_internal(arg, TRUE);
+    return fm_path_new_for_uri(arg);
 }
 
-
+/**
+ * fm_path_ref
+ * @path: an existing #FmPath
+ *
+ * Increases reference count on @path.
+ *
+ * Returns: @path.
+ */
 FmPath* fm_path_ref(FmPath* path)
 {
     g_return_val_if_fail(path != NULL, NULL);
@@ -597,6 +631,13 @@ FmPath* fm_path_ref(FmPath* path)
     return path;
 }
 
+/**
+ * fm_path_unref
+ * @path: an existing #FmPath
+ *
+ * Decreases reference count on @path. When reference count becomes 0
+ * the @path will be destroyed.
+ */
 void fm_path_unref(FmPath* path)
 {
     g_return_if_fail(path != NULL);
@@ -609,16 +650,48 @@ void fm_path_unref(FmPath* path)
     }
 }
 
+/**
+ * fm_path_get_parent
+ * @path: a path
+ *
+ * Retrieves path of directory containing @path.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: (transfer none): path of parent directory or %NULL if @path is root path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_parent(FmPath* path)
 {
     return path->parent;
 }
 
+/**
+ * fm_path_get_basename
+ * @path: a path
+ *
+ * Retrieves basename of @path.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: basename of path.
+ *
+ * Since: 0.1.0
+ */
 const char* fm_path_get_basename(FmPath* path)
 {
     return path->name;
 }
 
+/**
+ * fm_path_get_flags
+ * @path: a path
+ *
+ * Retrieves attributes of @path.
+ *
+ * Returns: attributes of path.
+ *
+ * Since: 0.1.0
+ */
 FmPathFlags fm_path_get_flags(FmPath* path)
 {
     return path->flags;
@@ -667,6 +740,17 @@ static gchar* fm_path_to_str_int(FmPath* path, gchar** ret, gint str_len)
     return pbuf + name_len;
 }
 
+/**
+ * fm_path_to_str
+ * @path: a path
+ *
+ * Creates string representation of @path. It can be either file path in
+ * local encoding or URI with non-ASCII characters escaped (RFC 3986).
+ *
+ * Returns: (transfer full): path string.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: handle display name and real file name (maybe non-UTF8) issue */
 char* fm_path_to_str(FmPath* path)
 {
@@ -675,6 +759,16 @@ char* fm_path_to_str(FmPath* path)
     return ret;
 }
 
+/**
+ * fm_path_to_uri
+ * @path: a path
+ *
+ * Creates URI representation of @path.
+ *
+ * Returns: path URI.
+ *
+ * Since: 0.1.0
+ */
 char* fm_path_to_uri(FmPath* path)
 {
     char* uri = NULL;
@@ -683,16 +777,26 @@ char* fm_path_to_uri(FmPath* path)
     {
         if(str[0] == '/') /* absolute path */
             uri = g_filename_to_uri(str, NULL, NULL);
-        else
-        {
-            /* FIXME: is this correct? */
-            uri = g_uri_escape_string(str, G_URI_RESERVED_CHARS_ALLOWED_IN_PATH, FALSE);
-        }
+        else /* it's already an URI */
+            return str;
         g_free(str);
     }
     return uri;
 }
 
+/**
+ * fm_path_display_name
+ * @path: a path
+ * @human_readable: %TRUE to generate simple text
+ *
+ * Creates string representation of @path as displayable name.
+ * The conversion is the most probably unreversible so returned value
+ * should be used only for displaying purposes.
+ *
+ * Returns: (transfer full): path string.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: maybe we can support different encoding for different mount points? */
 char* fm_path_display_name(FmPath* path, gboolean human_readable)
 {
@@ -719,33 +823,46 @@ char* fm_path_display_name(FmPath* path, gboolean human_readable)
     return disp;
 }
 
+/**
+ * fm_path_display_basename
+ * @path: a path
+ *
+ * Creates displayable basename of @path.
+ *
+ * Returns: displayable basename of path.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: maybe we can support different encoding for different mount points? */
 char* fm_path_display_basename(FmPath* path)
 {
     if(G_UNLIKELY(!path->parent)) /* root_path element */
     {
-        if( !fm_path_is_native(path) && fm_path_is_virtual(path) )
+        if( !fm_path_is_native(path) )
         {
             if(fm_path_is_trash_root(path))
                 return g_strdup(_("Trash Can"));
             if(g_str_has_prefix(path->name, "computer:/"))
                 return g_strdup(_("My Computer"));
-            if(g_str_has_prefix(path->name, "menu:/"))
-            {
-                /* FIXME: this should be more flexible */
-                const char* p = path->name + 5;
-                while(*p == '/')
-                    ++p;
-                if(g_str_has_prefix(p, "applications.menu"))
-                    return g_strdup(_("Applications"));
-            }
             if(g_str_has_prefix(path->name, "network:/"))
                 return g_strdup(_("Network"));
         }
     }
+    if(!fm_path_is_native(path))
+        return g_uri_unescape_string(path->name, NULL);
     return g_filename_display_name(path->name);
 }
 
+/**
+ * fm_path_to_gfile
+ * @path: a path
+ *
+ * Creates #GFile representation of @path.
+ *
+ * Returns: (transfer full): a #GFile object.
+ *
+ * Since: 0.1.0
+ */
 GFile* fm_path_to_gfile(FmPath* path)
 {
     GFile* gf;
@@ -754,31 +871,81 @@ GFile* fm_path_to_gfile(FmPath* path)
     if(fm_path_is_native(path))
         gf = g_file_new_for_path(str);
     else
-        gf = g_file_new_for_uri(str);
+        gf = fm_file_new_for_uri(str);
     g_free(str);
     return gf;
 }
 
+/**
+ * fm_path_get_root
+ *
+ * Retrieves #FmPath for root directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_root()
 {
     return root_path;
 }
 
+/**
+ * fm_path_get_home
+ *
+ * Retrieves #FmPath for home directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_home()
 {
     return home_path;
 }
 
+/**
+ * fm_path_get_desktop
+ *
+ * Retrieves #FmPath for desktop directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_desktop()
 {
     return desktop_path;
 }
 
+/**
+ * fm_path_get_trash
+ *
+ * Retrieves #FmPath for Trash can.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_trash()
 {
     return trash_root_path;
 }
 
+/**
+ * fm_path_get_apps_menu
+ *
+ * Retrieves #FmPath for menu:// virtual directory.
+ * Returned data are owned by @path and should be not freed by caller.
+ *
+ * Returns: a path.
+ *
+ * Since: 0.1.0
+ */
 FmPath* fm_path_get_apps_menu()
 {
     return apps_root_path;
@@ -791,7 +958,7 @@ void _fm_path_init()
 
     /* path object of root_path dir */
     root_path = _fm_path_new_internal(NULL, "/", 1, FM_PATH_IS_LOCAL|FM_PATH_IS_NATIVE);
-    home_dir = g_get_home_dir();
+    home_dir = fm_get_home_dir();
     home_len = strlen(home_dir);
     while(home_dir[home_len - 1] == '/')
         --home_len;
@@ -859,6 +1026,16 @@ void _fm_path_finalize(void)
 
 /* For used in hash tables */
 
+/**
+ * fm_path_hash
+ * @path: a path key
+ *
+ * Converts a path to a hash value.
+ *
+ * Returns: a hash value corresponding to the key.
+ *
+ * Since: 0.1.0
+ */
 /* FIXME: is this good enough? */
 guint fm_path_hash(FmPath* path)
 {
@@ -873,6 +1050,28 @@ guint fm_path_hash(FmPath* path)
     return hash;
 }
 
+/**
+ * fm_path_equal
+ * @p1: first path
+ * @p2: second path
+ *
+ * Compares two paths and returns %TRUE if they are equal.
+ *
+ * Note that this function is primarily meant as a hash table comparison
+ * function.
+ *
+ * See also: fm_path_compare().
+ *
+ * Returns: %TRUE if paths are equal.
+ *
+ * Since: 0.1.0
+ */
+/* this is not equal to fm_path_compare()==0
+ * fm_path_equal is optimized for equality
+ * while fm_path_compare() needs to determine
+ * orders of two items, which is slower.
+ * When you only care about equality, not orders,
+ * use this. */
 gboolean fm_path_equal(FmPath* p1, FmPath* p2)
 {
     if(p1 == p2)
@@ -886,6 +1085,51 @@ gboolean fm_path_equal(FmPath* p1, FmPath* p2)
     return fm_path_equal( p1->parent, p2->parent);
 }
 
+/*
+ * fm_path_compare
+ * @p1: path 1
+ * @p2: path 2
+ *
+ * Compare two paths to determine their orders.
+ *
+ * Note that this function is primarily meant for sorting and therefore
+ * is slow. If you need only know if paths are equal then use
+ * fm_path_equal() instead.
+ *
+ * See also: fm_path_equal().
+ *
+ * Returns: -1 if @p1 is less than @p2, 0 if they're equal, and +1 if
+ * @p1 is greater than @p2.
+ *
+ * Since: 1.0.2
+ */
+int fm_path_compare(FmPath* p1, FmPath* p2)
+{
+    int result;
+    if(p1 == p2)
+        return 0;
+    if(!p1) /* if p2 is also NULL then p1==p2 and that is handled above */
+        return -1;
+    if(!p2) /* case of p1==NULL handled above */
+        return 1;
+    result = fm_path_compare(p1->parent, p2->parent);
+    if(result == 0) /* if parent paths are equal, compare children */
+        result = strcmp(p1->name, p2->name);
+    return result;
+}
+
+/**
+ * fm_path_equal_str
+ * @path: a path
+ * @str: a string
+ * @n: length of @string
+ *
+ * Compares path string representation with @string.
+ *
+ * Returns: %TRUE if path and string are equal.
+ *
+ * Since: 0.1.0
+ */
 /* Check if this path contains absolute pathname str*/
 gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
 {
@@ -917,7 +1161,16 @@ gboolean fm_path_equal_str(FmPath *path, const gchar *str, int n)
     return fm_path_equal_str( path->parent, str, n - strlen(path->name) - 1 );
 }
 
-/* calculate how many elements are in this path. */
+/**
+ * fm_path_depth
+ * @path: a path
+ *
+ * Calculates how many elements are in this path.
+ *
+ * Returns: %TRUE if paths are equal.
+ *
+ * Since: 1.0.0
+ */
 int fm_path_depth(FmPath* path)
 {
     int depth = 1;
@@ -943,6 +1196,16 @@ FmPathList* fm_path_list_new()
     return (FmPathList*)fm_list_new(&funcs);
 }
 
+/**
+ * fm_path_list_new_from_uris
+ * @uris: NULL-terminated list of URIs
+ *
+ * Creates a #FmPathList from @uris.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_uris(char* const* uris)
 {
     char* const* uri;
@@ -965,6 +1228,16 @@ FmPathList* fm_path_list_new_from_uris(char* const* uris)
     return pl;
 }
 
+/**
+ * fm_path_list_new_from_uri_list
+ * @uri_list: list of URIs separated by newline characters
+ *
+ * Creates a #FmPathList from @uri_list.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
 {
     char** uris = g_strsplit(uri_list, "\r\n", -1);
@@ -973,6 +1246,17 @@ FmPathList* fm_path_list_new_from_uri_list(const char* uri_list)
     return pl;
 }
 
+/**
+ * fm_path_list_to_uri_list
+ * @pl: a path list
+ *
+ * Creates newline-separated list from @pl. Returned data should be freed
+ * with g_free() after usage.
+ *
+ * Returns: (transfer full): string representation of @pl.
+ *
+ * Since: 0.1.0
+ */
 char* fm_path_list_to_uri_list(FmPathList* pl)
 {
     GString* buf = g_string_sized_new(4096);
@@ -999,6 +1283,16 @@ char** fm_path_list_to_uris(FmPathList* pl)
 }
 */
 
+/**
+ * fm_path_list_new_from_file_info_list
+ * @fis: a file info list
+ *
+ * Creates a #FmPathList from @fis.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
 {
     FmPathList* list = fm_path_list_new();
@@ -1011,6 +1305,16 @@ FmPathList* fm_path_list_new_from_file_info_list(FmFileInfoList* fis)
     return list;
 }
 
+/**
+ * fm_path_list_new_from_file_info_glist
+ * @fis: (element-type FmFileInfo): list of file infos
+ *
+ * Creates a #FmPathList from @fis.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
 {
     FmPathList* list = fm_path_list_new();
@@ -1023,6 +1327,16 @@ FmPathList* fm_path_list_new_from_file_info_glist(GList* fis)
     return list;
 }
 
+/**
+ * fm_path_list_new_from_file_info_gslist
+ * @fis: (element-type FmFileInfo): list of file infos
+ *
+ * Creates a #FmPathList from @fis.
+ *
+ * Returns: (transfer full): new #FmPathList.
+ *
+ * Since: 0.1.0
+ */
 FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
 {
     FmPathList* list = fm_path_list_new();
@@ -1035,6 +1349,15 @@ FmPathList* fm_path_list_new_from_file_info_gslist(GSList* fis)
     return list;
 }
 
+/**
+ * fm_path_list_write_uri_list
+ * @pl: a path list
+ * @buf: (out): a storage for resulting list
+ *
+ * Creates newline-separated list of URIs from @pl.
+ *
+ * Since: 0.1.0
+ */
 void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
 {
     GList* l;
@@ -1045,6 +1368,6 @@ void fm_path_list_write_uri_list(FmPathList* pl, GString* buf)
         g_string_append(buf, uri);
         g_free(uri);
         if(l->next)
-            g_string_append(buf, "\r\n");
+            g_string_append_c(buf, '\n');
     }
 }

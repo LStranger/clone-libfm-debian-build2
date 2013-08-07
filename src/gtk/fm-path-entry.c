@@ -28,12 +28,19 @@
  * @include: libfm/fm-path-entry.h
  *
  * The #FmPathEntry represents a widget to enter folder path for changing
- * current directory.
+ * current directory. The path entry supports completion and can be used
+ * for both UNIX path or file URI entering. The path is represented in
+ * the entry unescaped therefore there is no way to enter escape sequence
+ * (such as \%23) into entry.
  */
+
+#include "gtk-compat.h"
 
 #include "fm-path-entry.h"
 /* for completion */
 #include "fm-folder-model.h"
+#include "fm-file.h"
+#include "fm-utils.h"
 
 #include <string.h>
 #include <gio/gio.h>
@@ -62,8 +69,11 @@ struct _FmPathEntryPrivate
     /* length of parent dir */
     gint parent_len;
 
-    gboolean highlight_completion_match;
+    gboolean folder_loaded : 1;
+    gboolean highlight_completion_match : 1;
+    //gboolean complete_on_load :1;
     GtkEntryCompletion* completion;
+    guint id_changed;
 
     /* cancellable for dir listing */
     GCancellable* cancellable;
@@ -80,14 +90,10 @@ typedef struct
     GCancellable* cancellable;
 }ListSubDirNames;
 
-static void      fm_path_entry_activate(GtkEntry *entry, gpointer user_data);
-static gboolean  fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data);
-static void      fm_path_entry_class_init(FmPathEntryClass *klass);
-static void  fm_path_entry_editable_init(GtkEditableClass *iface);
+//static gboolean  fm_path_entry_grab_focus(GtkWidget *widget);
 static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEventFocus *event);
 static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEventFocus *event);
 static void      fm_path_entry_changed(GtkEditable *editable, gpointer user_data);
-static void      fm_path_entry_init(FmPathEntry *entry);
 static void      fm_path_entry_dispose(GObject *object);
 static void      fm_path_entry_finalize(GObject *object);
 static gboolean  fm_path_entry_match_func(GtkEntryCompletion   *completion,
@@ -108,9 +114,7 @@ static void fm_path_entry_get_property(GObject *object,
                                        GValue *value,
                                        GParamSpec *pspec);
 
-G_DEFINE_TYPE_EXTENDED( FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY,
-                       0, G_IMPLEMENT_INTERFACE(GTK_TYPE_EDITABLE, fm_path_entry_editable_init) );
-
+G_DEFINE_TYPE(FmPathEntry, fm_path_entry, GTK_TYPE_ENTRY)
 
 /* customized model used for entry completion to save memory.
  * GtkEntryCompletion requires that we store full paths in the model
@@ -148,17 +152,56 @@ G_DEFINE_TYPE_EXTENDED( FmPathEntryModel, fm_path_entry_model, GTK_TYPE_LIST_STO
 
 /* end declaration of the customized model. */
 
-/* static GtkEditableClass *parent_editable_interface = NULL; */
 static GtkTreeModelIface *parent_tree_model_interface = NULL;
+
+#if 0
+static void fm_path_entry_dispatch_properties_changed(GObject *object,
+                                                      guint n_pspecs,
+                                                      GParamSpec **pspecs)
+{
+    FmPathEntry *entry = FM_PATH_ENTRY(object);
+    //FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
+    guint i;
+
+    G_OBJECT_CLASS(fm_path_entry_parent_class)->dispatch_properties_changed(object, n_pspecs, pspecs);
+
+    /* What we are after: The text in front of the cursor was modified.
+     * Unfortunately, there's no other way to catch this. */
+
+    for(i = 0; i < n_pspecs; i++)
+    {
+        if(pspecs[i]->name == g_intern_static_string("cursor-position") ||
+           pspecs[i]->name == g_intern_static_string("selection-bound") ||
+           pspecs[i]->name == g_intern_static_string("text"))
+        {
+            //priv->complete_on_load = FALSE;
+            break;
+        }
+    }
+}
+#endif
 
 static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event, gpointer user_data)
 {
     FmPathEntry *entry = FM_PATH_ENTRY(widget);
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
+    GdkModifierType state;
+
+    if(gtk_get_current_event_state(&state) &&
+       (state & GDK_CONTROL_MASK) == GDK_CONTROL_MASK)
+        return FALSE;
+
     switch( event->keyval )
     {
-    case GDK_Tab:
+    case GDK_KEY_Tab:
         {
+#if 0
+            gtk_editable_get_selection_bounds(editable, &start, &end);
+            if(start != end)
+                gtk_editable_set_position(editable, MAX(start, end));
+            else
+                start_explicit_completion(entry);
+#endif
             gtk_entry_completion_insert_prefix(priv->completion);
             gtk_editable_set_position(GTK_EDITABLE(entry), -1);
             return TRUE;
@@ -167,11 +210,35 @@ static gboolean fm_path_entry_key_press(GtkWidget   *widget, GdkEventKey *event,
     return FALSE;
 }
 
-static void  fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
+static void _set_entry_text_from_path(GtkEntry *entry, FmPathEntryPrivate *priv)
+{
+    char *disp_name, *escaped;
+    FmPath *path = priv->path;
+
+    if(fm_path_is_native(path))
+        disp_name = fm_path_display_name(path, FALSE);
+    else
+    {
+        /* URIs are escaped there */
+        escaped = fm_path_to_str(path);
+        disp_name = g_uri_unescape_string(escaped, NULL);
+        g_free(escaped);
+    }
+    /* block our handler for "changed" signal, we'll update it below */
+    if(priv->id_changed > 0)
+        g_signal_handler_block(entry, priv->id_changed);
+    gtk_entry_set_text(entry, disp_name);
+    if(priv->id_changed > 0)
+        g_signal_handler_unblock(entry, priv->id_changed);
+    /* update list of items now */
+    fm_path_entry_changed(GTK_EDITABLE(entry), NULL);
+    g_free(disp_name);
+}
+
+static void fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
 {
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
     const char* full_path;
-    char* disp_name;
     /* convert current path string to FmPath here */
 
     full_path = gtk_entry_get_text(entry);
@@ -186,9 +253,7 @@ static void  fm_path_entry_activate(GtkEntry *entry, gpointer user_data)
     else
         priv->path = fm_path_new_for_str(full_path);
 
-    disp_name = fm_path_display_name(priv->path, FALSE);
-    gtk_entry_set_text(entry, disp_name);
-    g_free(disp_name);
+    _set_entry_text_from_path(entry, priv);
 
     gtk_editable_set_position(GTK_EDITABLE(entry), -1);
 }
@@ -216,29 +281,29 @@ static void fm_path_entry_class_init(FmPathEntryClass *klass)
                                                          TRUE, G_PARAM_READWRITE) );
     object_class->dispose = fm_path_entry_dispose;
     object_class->finalize = fm_path_entry_finalize;
-    /* entry_class->activate = fm_path_entry_activate; */
+    /* object_class->dispatch_properties_changed = fm_path_entry_dispatch_properties_changed; */
 
     widget_class->focus_in_event = fm_path_entry_focus_in_event;
+    /* widget_class->grab_focus = fm_path_entry_grab_focus; */
     widget_class->focus_out_event = fm_path_entry_focus_out_event;
 
     g_type_class_add_private( klass, sizeof (FmPathEntryPrivate) );
 }
 
-static void fm_path_entry_editable_init(GtkEditableClass *iface)
+static inline void update_inline_completion(FmPathEntryPrivate* priv)
 {
-    /* parent_editable_interface = g_type_interface_peek_parent(iface); */
-    /* iface->changed = fm_path_entry_changed; */
-    /* iface->do_insert_text = fm_path_entry_do_insert_text; */
+    gtk_entry_completion_set_inline_completion(priv->completion,
+                                               priv->folder_loaded);
 }
 
 static void clear_completion(FmPathEntryPrivate* priv)
 {
-    if(priv->parent_dir && priv->model)
+    if(priv->model)
     {
         priv->parent_len = 0;
+        fm_path_entry_model_set_parent_dir(priv->model, NULL);
         g_free(priv->parent_dir);
         priv->parent_dir = NULL;
-        fm_path_entry_model_set_parent_dir(priv->model, NULL);
         /* cancel running dir-listing jobs */
         if(priv->cancellable)
         {
@@ -248,6 +313,7 @@ static void clear_completion(FmPathEntryPrivate* priv)
         }
         /* clear current model */
         gtk_list_store_clear(GTK_LIST_STORE(priv->model));
+        update_inline_completion(priv);
     }
     priv->typed_basename_len = 0;
 }
@@ -256,26 +322,30 @@ static gboolean  fm_path_entry_focus_in_event(GtkWidget *widget, GdkEventFocus *
 {
     FmPathEntry *entry = FM_PATH_ENTRY(widget);
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    /* activate auto-completion */
-    gtk_entry_set_completion(GTK_ENTRY(entry), priv->completion);
 
     /* listen to 'changed' signal for auto-completion */
-    g_signal_connect(entry, "changed", G_CALLBACK(fm_path_entry_changed), NULL);
+    priv->id_changed = g_signal_connect(entry, "changed",
+                                        G_CALLBACK(fm_path_entry_changed), NULL);
+
     return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_in_event(widget, event);
 }
 
-static gboolean  fm_path_entry_focus_out_event(GtkWidget *widget, GdkEventFocus *event)
+#if 0
+static void gtk_file_chooser_entry_grab_focus(GtkWidget *widget)
+{
+    GTK_WIDGET_CLASS(fm_path_entry_parent_class)->grab_focus(widget);
+    gtk_editable_select_region(GTK_EDITABLE(widget), 0, (gint)-1);
+}
+#endif
+
+static gboolean fm_path_entry_focus_out_event(GtkWidget *widget, GdkEventFocus *event)
 {
     FmPathEntry *entry = FM_PATH_ENTRY(widget);
     FmPathEntryPrivate *priv  = FM_PATH_ENTRY_GET_PRIVATE(entry);
-    /* de-activate auto-completion */
-    gtk_entry_set_completion(GTK_ENTRY(entry), NULL);
-
-    /* release all resources allocated for completion. */
-    clear_completion(priv);
 
     /* disconnect from 'changed' signal since we don't do auto-completion
      * when we have no keyboard focus. */
+    priv->id_changed = 0;
     g_signal_handlers_disconnect_by_func(entry, fm_path_entry_changed, NULL);
 
     return GTK_WIDGET_CLASS(fm_path_entry_parent_class)->focus_out_event(widget, event);
@@ -292,6 +362,7 @@ static gboolean on_dir_list_finished(gpointer user_data)
     /* final chance to check cancellable */
     if(g_cancellable_is_cancelled(data->cancellable))
         return TRUE;
+    /* FIXME: check errors! */
 
     new_model = fm_path_entry_model_new(priv->parent_dir);
     /* g_debug("dir list is finished!"); */
@@ -302,11 +373,17 @@ static gboolean on_dir_list_finished(gpointer user_data)
         char* name = l->data;
         gtk_list_store_insert_with_values((GtkListStore*)new_model, NULL, -1, COL_BASENAME, name, -1);
     }
+    priv->folder_loaded = TRUE;
 
+    gtk_entry_completion_set_model(priv->completion, GTK_TREE_MODEL(new_model));
     if(priv->model)
         g_object_unref(priv->model);
     priv->model = new_model;
-    gtk_entry_completion_set_model(priv->completion, GTK_TREE_MODEL(new_model));
+    //if(entry->complete_on_load)
+        //explicitly_complete(entry);
+    update_inline_completion(priv);
+    gtk_entry_completion_insert_prefix(priv->completion);
+    gtk_entry_completion_complete(priv->completion);
 
     /* NOTE: after the content of entry gets changed, by default gtk+ installs
      * an timeout handler with timeout 300 ms to popup completion list.
@@ -318,7 +395,6 @@ static gboolean on_dir_list_finished(gpointer user_data)
     /* trigger completion popup. FIXME: this is a little bit dirty.
      * A even more dirty thing to do is to check if we finished after
      * 300 ms timeout happens. */
-    g_signal_emit_by_name(entry, "changed", 0);
     return TRUE;
 }
 
@@ -398,7 +474,8 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
         {
             /* parent dir has been changed, reload dir list */
             ListSubDirNames* data = g_slice_new0(ListSubDirNames);
-            g_free(priv->parent_dir);
+            priv->folder_loaded = FALSE;
+            clear_completion(priv);
             priv->parent_dir = g_strndup(path_str, parent_len);
             priv->parent_len = parent_len;
             fm_path_entry_model_set_parent_dir(priv->model, priv->parent_dir);
@@ -408,22 +485,12 @@ static void fm_path_entry_changed(GtkEditable *editable, gpointer user_data)
             data->entry = entry;
             if(priv->parent_dir[0] == '~') /* special case for home dir */
             {
-                char* expand = g_strconcat(g_get_home_dir(), priv->parent_dir + 1, NULL);
-                data->dir = g_file_new_for_commandline_arg(expand);
+                char* expand = g_strconcat(fm_get_home_dir(), priv->parent_dir + 1, NULL);
+                data->dir = fm_file_new_for_commandline_arg(expand);
                 g_free(expand);
             }
             else
-                data->dir = g_file_new_for_commandline_arg(priv->parent_dir);
-
-            /* clear current model */
-            gtk_list_store_clear(GTK_LIST_STORE(priv->model));
-
-            /* cancel running dir-listing jobs */
-            if(priv->cancellable)
-            {
-                g_cancellable_cancel(priv->cancellable);
-                g_object_unref(priv->cancellable);
-            }
+                data->dir = fm_file_new_for_commandline_arg(priv->parent_dir);
 
             /* launch a new job to do dir listing */
             data->cancellable = g_cancellable_new();
@@ -492,9 +559,11 @@ fm_path_entry_init(FmPathEntry *entry)
     gtk_entry_completion_set_match_func(completion, fm_path_entry_match_func, NULL, NULL);
     g_object_set(completion, "text_column", COL_FULL_PATH, NULL);
     gtk_entry_completion_set_model(completion, GTK_TREE_MODEL(priv->model));
+    gtk_entry_set_completion(GTK_ENTRY(entry), completion);
 
     render = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(completion), render, TRUE);
+    gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(completion), render, "text", COL_BASENAME);
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(completion), render, fm_path_entry_completion_render_func, entry, NULL);
 
     /* NOTE: this is to avoid a bug of gtk+.
@@ -506,11 +575,11 @@ fm_path_entry_init(FmPathEntry *entry)
      * Please see gtk_entry_completion_key_press() of gtk/gtkentry.c
      * and look for completion->priv->completion_prefix.
      */
-    gtk_entry_completion_set_inline_selection(completion, FALSE);
+    /* gtk_entry_completion_set_inline_selection(completion, FALSE); */
 
-    gtk_entry_completion_set_inline_completion(completion, TRUE);
+    /* gtk_entry_completion_set_inline_completion(completion, TRUE); */
     gtk_entry_completion_set_popup_set_width(completion, TRUE);
-    /* gtk_entry_completion_set_popup_single_match(completion, FALSE); */
+    gtk_entry_completion_set_popup_single_match(completion, FALSE);
 
     /* connect to these signals rather than overriding default handlers since
      * we want to invoke our handlers before the default ones provided by Gtk. */
@@ -555,8 +624,12 @@ static void fm_path_entry_dispose(GObject *object)
     g_signal_handlers_disconnect_by_func(object, fm_path_entry_key_press, NULL);
     g_signal_handlers_disconnect_by_func(object, fm_path_entry_activate, NULL);
 
+    gtk_entry_set_completion(GTK_ENTRY(object), NULL);
+    clear_completion(priv);
+
     if(priv->completion)
     {
+        gtk_entry_completion_set_model(priv->completion, NULL);
         g_object_unref(priv->completion);
         priv->completion = NULL;
     }
@@ -625,11 +698,8 @@ void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path)
 
     if(path)
     {
-        char* disp_path = fm_path_display_name(path, FALSE);
         priv->path = fm_path_ref(path);
-        /* FIXME: blocks changed signal */
-        gtk_entry_set_text(GTK_ENTRY(entry), disp_path);
-        g_free(disp_path);
+        _set_entry_text_from_path(GTK_ENTRY(entry), priv);
     }
     else
     {
@@ -637,7 +707,6 @@ void fm_path_entry_set_path(FmPathEntry *entry, FmPath* path)
         gtk_entry_set_text(GTK_ENTRY(entry), "");
     }
 }
-
 
 static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
                                          const gchar          *key,
@@ -655,7 +724,10 @@ static gboolean fm_path_entry_match_func(GtkEntryCompletion   *completion,
     gtk_tree_model_get(model, iter, COL_BASENAME, &model_basename, -1);
 
     if(model_basename[0] == '.' && typed_basename[0] != '.')
-        ret = FALSE; /* ignore hidden files when needed. */
+        ret = FALSE; /* ignore hidden files when not requested. */
+    else if(typed_basename[0] == '\0' /* "/xxx/" - no names here yet */
+           || (typed_basename[0] == '.' && typed_basename[1] == '\0')) /* "/xxx/." */
+        ret = FALSE;
     else
         ret = g_str_has_prefix(model_basename, typed_basename); /* FIXME: should we be case insensitive here? */
     g_free(model_basename);
@@ -680,7 +752,10 @@ FmPath* fm_path_entry_get_path(FmPathEntry *entry)
     return priv->path;
 }
 
-/* custom tree model implementation. */
+
+/* ------------------------------------------------------------------------
+ * custom tree model implementation. */
+
 static void fm_path_entry_model_init(FmPathEntryModel *model)
 {
     GType cols[] = {G_TYPE_STRING, G_TYPE_STRING};

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
-"PO-Revision-Date: 2012-07-08 22:38+0200\n"
+"POT-Creation-Date: 2012-10-11 00:21+0200\n"
+"PO-Revision-Date: 2012-10-12 01:05+0200\n"
 "Last-Translator: Necdet <necdetyucel@gmail.com>\n"
 "Language-Team: tr <tr@li.org>\n"
 "Language: tr\n"
@@ -28,8 +28,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Açılacak Dosya Türü:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
-msgstr "Kurulu Uygulama"
+msgid "_Installed Application"
+msgstr "_Kurulu Uygulama"
 
 #: ../data/ui/app-chooser.glade.h:4
 msgid "<b>Command line to execute:</b>"
@@ -40,8 +40,8 @@ msgid "_Browse"
 msgstr "_Tara"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
-msgstr "Uçbirimde çalıştır"
+msgid "_Execute in terminal emulator"
+msgstr "_Uçbirimde çalıştır"
 
 #: ../data/ui/app-chooser.glade.h:8
 #, no-c-format
@@ -59,18 +59,31 @@ msgstr ""
 "  <b>%U</b>: Birden fazla dosya URI'sini temsil eder"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
-msgstr "Özel Komut Satırı"
+msgid "_Custom Command Line"
+msgstr "_Özel Komut Satırı"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
-msgstr "Seçili uygulamayı bu dosya türü için varsayılan olarak ayarla"
+msgid "_Set selected application as default action of this file type"
+msgstr "_Seçili uygulamayı bu dosya türü için varsayılan olarak ayarla"
 
 #: ../data/ui/ask-rename.glade.h:1
 msgid "Confirm to replace files"
 msgstr "Dosyayı değiştirmeyi onayla"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Atla"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "_Yeniden Adlandır"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "Ü_zerine Yaz"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -80,29 +93,17 @@ msgstr ""
 "değiştirmek istiyor musunuz"
 
 # Doesn't this line need some explanation?
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "şu dosyayla?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
-msgstr "Dosya Adı:"
-
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "Bu seçeneği bütün dosyalar için uygula"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "_Atla"
-
 #: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "_Yeniden Adlandır"
+msgid "_File Name:"
+msgstr "Dosya _Adı:"
 
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "Ü_zerine Yaz"
+msgid "_Apply this option to all existing files"
+msgstr "Bu seçeneği bütün dosyalar için _uygula"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -149,24 +150,24 @@ msgid "_General"
 msgstr "_Genel"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
+msgid "<b>O_wner:</b>"
 msgstr "<b>_Sahibi:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
-msgstr "<b>_Grubu:</b>"
+msgid "<b>G_roup:</b>"
+msgstr "<b>Gr_ubu:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
-msgid "<b>View content:</b>"
-msgstr "<b>İçeriği göster:</b>"
+msgid "<b>_View content:</b>"
+msgstr "<b>İçe_riği göster:</b>"
 
 #: ../data/ui/file-prop.glade.h:15
-msgid "<b>Change content:</b>"
-msgstr "<b>İçeriği değiştir:</b>"
+msgid "<b>C_hange content:</b>"
+msgstr "<b>İçeriği _değiştir:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
-msgid "<b>Execute:</b>"
-msgstr "<b>Çalıştır:</b>"
+msgid "<b>_Execute:</b>"
+msgstr "<b>_Çalıştır:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
 msgid "<b>Special bits:</b>"
@@ -320,73 +321,190 @@ msgstr "Dosyayı Çalıştır"
 msgid "Execute in _Terminal"
 msgstr "Uçbirimde Çalıştır"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr "Bytes"
+
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "MB"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "GB"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr "Bir tarih seçin"
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr "Aşağıdaki takvimden bir tarih seçin"
+
+#: ../data/ui/filesearch.glade.h:7
+msgid "Search Files"
+msgstr "_Dosyaları Ara"
+
+#: ../data/ui/filesearch.glade.h:8
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>Dosya Adı _Kalıpları:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr "*"
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr "Büyük _küçük harfe duyarlı"
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr "Düzenli _ifade kullan"
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr "<b>Arama Alanları</b>"
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr "_Alt dizinlerde ara"
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr "_Gizli dosyaları ara"
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr "İsim/_Konum"
+
+#: ../data/ui/filesearch.glade.h:16
+msgid "<b>File Type</b>"
+msgstr "<b>Dosya Türü:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr "Sadece aşağıdaki dosya türleri için ara"
+
+#: ../data/ui/filesearch.glade.h:18
+msgid "Te_xt files"
+msgstr "_Metin dosyaları"
+
+#: ../data/ui/filesearch.glade.h:19
+msgid "_Image files"
+msgstr "_Resim dosyaları"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr "_Ses dosyaları"
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr "_Video dosyaları"
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr "_Belgeler"
+
+#: ../data/ui/filesearch.glade.h:23
+msgid "File _Type"
+msgstr "Dosya _Türü"
+
+#: ../data/ui/filesearch.glade.h:24
+msgid "<b>File Contain_s</b>"
+msgstr "<b>Do_sya İçeriği</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr "İç_erik"
+
+#: ../data/ui/filesearch.glade.h:26
+msgid "<b>File Size</b>"
+msgstr "<b>Dosya Boyutu</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr "En _fazla:"
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr "En _az:"
+
+#: ../data/ui/filesearch.glade.h:29
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Son Düzenlenme Zamanı:</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
+#: ../src/gtk/fm-gtk-file-launcher.c:538
+msgid "(None)"
+msgstr "(Hiç)"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr "_En geç:"
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr "E_n erken:"
+
+#: ../data/ui/filesearch.glade.h:33
+msgid "_Properties"
+msgstr "_Özellikler"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u bayt"
 
-#: ../src/base/fm-utils.c:65
-msgid "KB"
-msgstr "KB"
-
-#: ../src/base/fm-utils.c:70
-msgid "MB"
-msgstr "MB"
-
-#: ../src/base/fm-utils.c:75
-msgid "GB"
-msgstr "GB"
-
-#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "TB"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "KiB"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "MiB"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "GiB"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "TiB"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:841 ../src/gtk/fm-places-model.c:624
 msgid "Trash Can"
 msgstr "Çöp Kutusu"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:843
 msgid "My Computer"
 msgstr "Bilgisayarım"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "Uygulamalar"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:845
 msgid "Network"
 msgstr "Ağ"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "Kısayollar"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "Bağlama Noktası"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:161
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:234 ../src/gtk/fm-progress-dlg.c:253
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -397,7 +515,7 @@ msgstr ""
 "Boyutu: %s\n"
 "Son değişiklik: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -406,23 +524,23 @@ msgstr ""
 "Türü: %s\n"
 "Son değişiklik: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Eylem iptal edildi ve bazı hatalar ortaya çıktı."
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid "Cancelled"
 msgstr "İptal edildi"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
 msgstr "Eylem tamamlandı ve bazı hatalar ortaya çıktı."
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
 msgstr "Tamamlandı"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -432,220 +550,317 @@ msgstr ""
 "gönderilemiyor.\n"
 "Bunun yerine kalıcı olarak silmek ister misiniz?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:482
 msgid ", "
 msgstr ","
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:498
 msgid "Moving files"
 msgstr "Dosyalar taşınıyor"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:501
 msgid "Copying files"
 msgstr "Dosyalar kopyalanıyor"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:504
 msgid "Trashing files"
 msgstr "Dosyalar çöpe taşınıyor"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:507
 msgid "Deleting files"
 msgstr "Dosyalar siliniyor"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:510
 msgid "Creating symlinks"
 msgstr "Bağlantı Oluşturuluyor"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:513
 msgid "Changing file attributes"
 msgstr "Dosya öznitelikleri değiştiriliyor"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "bayt"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "Lütfen geçerli bir kullanıcı adı ya da sayısal kimliği giriniz."
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "Lütfen geçerli bir grup adı ya da sayısal kimliği giriniz."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr ""
 "Bu değişiklikleri bütüm dosyalara ve alt dizinlere uygulamak istiyor musunuz?"
 
-#: ../src/gtk/fm-file-properties.c:624
-msgid "<b>Access content:</b>"
-msgstr "<b>Erişim içeriği:</b>"
+#: ../src/gtk/fm-file-properties.c:633
+msgid "<b>_Access content:</b>"
+msgstr "<b>_Erişim içeriği:</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "Farklı türlerdeki dosyalar"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "Birden Çok Dosya"
 
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
-msgstr "Bölümü Bağla"
+#: ../src/gtk/fm-places-model.c:680
+msgid "Desktop"
+msgstr "Masaüstü"
 
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
-msgstr "Bölümü Ayır"
+#: ../src/gtk/fm-places-model.c:690
+msgid "Applications"
+msgstr "Uygulamalar"
 
 #: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
-msgstr "Kaldırılabilir Aygıtı Çıkar"
+msgid "_Mount Volume"
+msgstr "Hac_mi Bağla"
+
+#: ../src/gtk/fm-places-view.c:102
+msgid "_Unmount Volume"
+msgstr "Hacmi _Ayır"
+
+#: ../src/gtk/fm-places-view.c:103
+msgid "_Eject Removable Media"
+msgstr "_Çıkarılabilir Aygıtı Çıkar"
+
+#: ../src/gtk/fm-places-view.c:116
+msgid "_Rename Bookmark Item"
+msgstr "Yer İmini Yeniden Adlandı_r"
+
+#: ../src/gtk/fm-places-view.c:117
+msgid "Re_move from Bookmark"
+msgstr "Yer İ_mlerinden Çıkar"
+
+#: ../src/gtk/fm-places-view.c:129
+msgid "_Empty Trash Can"
+msgstr "Çöp Kutusunu _Boşalt"
 
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "Yer İmini Yeniden Adlandır"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "Yer İmlerinden Kaldır"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "Çöp Kutusunu Boşalt"
-
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "Yeni bir isim girin:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
+msgstr "_Kapalı"
+
+#: ../src/gtk/fm-side-pane.c:62
+msgid "_Places"
+msgstr "_Yerler"
+
+#: ../src/gtk/fm-side-pane.c:63
+msgid "_Directory Tree"
+msgstr "_Dizin Ağacı"
+
+#: ../src/gtk/fm-side-pane.c:64
+msgid "_Remote"
+msgstr "_Uzak"
+
+#: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
 msgstr "Yerler"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
 msgstr "Dizin Ağacı"
 
-#: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
-msgstr "Uzak"
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr "_Aç"
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
-msgid "Open With..."
-msgstr "Birlikte Aç..."
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+msgid "Open _With..."
+msgstr "_Birlikte Aç..."
 
-#: ../src/gtk/fm-file-menu.c:114
-msgid "Rename"
-msgstr "Yeniden Adlandır"
+#: ../src/gtk/fm-file-menu.c:164
+msgid "Create _Symlink"
+msgstr "Bağlantı _Oluştur"
 
-#: ../src/gtk/fm-file-menu.c:115
-msgid "Create Symlink"
-msgstr "Bağlantı Oluştur"
+#: ../src/gtk/fm-file-menu.c:165
+msgid "Se_nd To"
+msgstr "_Gönder"
 
-#: ../src/gtk/fm-file-menu.c:116
-msgid "Send To"
-msgstr "Gönder"
+#: ../src/gtk/fm-file-menu.c:166
+msgid "Co_mpress..."
+msgstr "_Sıkıştır..."
 
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Compress..."
-msgstr "Sıkıştır..."
+#: ../src/gtk/fm-file-menu.c:167
+msgid "Extract _Here"
+msgstr "Buraya _Çıkar"
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Extract Here"
-msgstr "Buraya çıkar"
+#: ../src/gtk/fm-file-menu.c:168
+msgid "E_xtract To..."
+msgstr "Çıkarılacak _Konum..."
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Extract To..."
-msgstr "Çıkarılacak konum..."
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+msgid "Prop_erties"
+msgstr "_Özellikler"
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
 msgstr "_Geri al"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
 msgstr "Çöpteki dosyaları yerlerine al"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
 msgstr "XDirectSave başarısız."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
 msgstr "Dosyaları seçilen uygulamayla aç"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
 msgstr "Dosyaları açmak için özel bir komut çalıştır"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "Özelleştir"
 
-#: ../src/gtk/fm-folder-view.c:640
-msgid "Name"
-msgstr "İsim"
+#: ../src/gtk/fm-folder-view.c:167
+msgid "Create _New..."
+msgstr "Yeni _Oluştur..."
 
-#: ../src/gtk/fm-folder-view.c:659
-msgid "Description"
-msgstr "Tanım"
+#: ../src/gtk/fm-folder-view.c:168
+msgid "Folder"
+msgstr "Dizin"
 
-#: ../src/gtk/fm-folder-view.c:666
-msgid "Size"
-msgstr "Boyut"
+#: ../src/gtk/fm-folder-view.c:171
+msgid "Blank File"
+msgstr "Boş Dosya"
 
-#: ../src/gtk/fm-folder-view.c:672
-msgid "Modified"
-msgstr "Son Değişiklik"
+#: ../src/gtk/fm-folder-view.c:172
+msgid "Shortcut"
+msgstr "Kısayol"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-folder-view.c:183
+msgid "_Invert Selection"
+msgstr "_Seçimi Tersine Çevir"
+
+#: ../src/gtk/fm-folder-view.c:184
+msgid "_Sort Files"
+msgstr "_Dosyaları Sırala"
+
+#: ../src/gtk/fm-folder-view.c:196
+msgid "Show _Hidden"
+msgstr "Gizlileri _Göster"
+
+#: ../src/gtk/fm-folder-view.c:197
+msgid "_Only for this folder"
+msgstr "_Sadece bu dizin için"
+
+#: ../src/gtk/fm-folder-view.c:198
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr "Ayarın genel değil sadece dizin için olmasını istiyorsanız işaretleyin"
+
+#: ../src/gtk/fm-folder-view.c:199
+msgid "Mingle _files and folders"
+msgstr "Dos_ya ve dizinleri karıştır"
+
+#: ../src/gtk/fm-folder-view.c:200
+msgid "_Ignore name case"
+msgstr "_Büyük küçük harfi önemseme"
+
+#: ../src/gtk/fm-folder-view.c:211
+msgid "By _Name"
+msgstr "_İsme göre"
+
+#: ../src/gtk/fm-folder-view.c:212
+msgid "By _Modification Time"
+msgstr "_Düzenlenme zamanına göre"
+
+#: ../src/gtk/fm-folder-view.c:213
+msgid "By _Size"
+msgstr "_Boyuta göre"
+
+#: ../src/gtk/fm-folder-view.c:214
+msgid "By File _Type"
+msgstr "Dosya _Türüne göre"
+
+#: ../src/gtk/fm-folder-view.c:785
+msgid "Enter a name for the newly created folder:"
+msgstr "Yeni oluşturulan dizin için bir isim girin:"
+
+#: ../src/gtk/fm-folder-view.c:787
+msgid "Enter a name for the newly created file:"
+msgstr "Yeni oluşturulan dosya için bir isim girin:"
+
+#: ../src/gtk/fm-folder-view.c:788
+msgid "Create New..."
+msgstr "Yeni Oluştur..."
+
+#: ../src/gtk/fm-folder-view.c:788
+msgid "New"
+msgstr "Yeni"
+
+#: ../src/gtk/fm-folder-view.c:880
+msgid "Error, lxshortcut not installed"
+msgstr "Hata, lxshortcut kurulu değil"
+
+#: ../src/gtk/fm-folder-view.c:885
+msgid "Failed to start lxshortcut"
+msgstr "lxshortcut başlatılamadı"
+
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "Kurulu Uygulamalar"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:69
 msgid "Error"
 msgstr "Hata"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
 msgstr "Onayla"
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
 msgstr "Soru"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:511
 msgid "Please select a folder"
 msgstr "Lütfen bir dizin seçin"
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:657
 msgid "Only system administrators have the permission to do this."
 msgstr "Bunu sadece sistem yöneticisinin yapmaya yetkisi var."
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:862
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Seçilen dosyaları çöp kutusuna göndermek istiyor musunuz?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to delete the selected files?"
 msgstr "Seçilen dosyaları silmek istiyor musunuz?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:994
 msgid "Rename File"
 msgstr "Dosyayı Yeniden Adlandır"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:995
 msgid "Please enter a new name:"
 msgstr "Lütfen yeni bir isim girin:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:1035
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Çöp kutusunu gerçekten boşaltmak istiyor musunuz?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -654,21 +869,59 @@ msgstr ""
 "Bu metin dosyası '%s' çalıştırılabilir olarak görünüyor.\n"
 "Dosya ile ne yapmak istiyorsunuz?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "'%s' çalıştırılabilir bir dosya. Çalıştırmak istiyor musunuz?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:566
+msgid "No folders are specified."
+msgstr "Dizin belirtilmedi."
+
+#: ../src/gtk/fm-gtk-file-launcher.c:605
+msgid "Select a folder"
+msgstr "Bir dizin seçin"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr "<Alt Dizin Yok>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "Yükleniyor..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#. columns visible to the users
+#: ../src/gtk/fm-folder-model.c:185
+msgid "Name"
+msgstr "İsim"
+
+#: ../src/gtk/fm-folder-model.c:186
+msgid "Description"
+msgstr "Tanım"
+
+#: ../src/gtk/fm-folder-model.c:187
+msgid "Size"
+msgstr "Boyut"
+
+#: ../src/gtk/fm-folder-model.c:188
+msgid "Permissions"
+msgstr "İzinler"
+
+#: ../src/gtk/fm-folder-model.c:189
+msgid "Owner"
+msgstr "Sahibi"
+
+#: ../src/gtk/fm-folder-model.c:190
+msgid "Modified"
+msgstr "Son Değişiklik"
+
+#: ../src/gtk/fm-folder-model.c:191
+msgid "Location"
+msgstr "Konum"
+
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Belirtilen dizin geçerli bir dizin değil"
@@ -688,14 +941,6 @@ msgstr "Dizin kendi alt-dizinine kopyalanamaz"
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "Hedef kaynağa ait bir alt-dizin"
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "Çöp Kutusu"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "Masaüstü"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -858,11 +1103,41 @@ msgstr "Boş Optik Disk"
 msgid "Optical Disc"
 msgstr "Optik Disk"
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>Grubu:</b>"
+#: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
+#: ../src/vfs/fm-vfs-menu.c:618
+msgid "Menu cache error"
+msgstr "Menü önbellek hatası"
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>Sahibi:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
+msgid "Operation not supported"
+msgstr "İşlem desteklenmiyor"
+
+#: ../src/vfs/fm-vfs-menu.c:552
+#, c-format
+msgid "Invalid filename %s"
+msgstr "Geçersiz dosya adı %s"
+
+#: ../src/vfs/fm-vfs-menu.c:613
+msgid "Invalid menu directory"
+msgstr "Geçersiz menü dizini"
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:959
+msgid "Search"
+msgstr "Ara"
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>_Sahibi:</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>_Grubu:</b>"
+
+#~ msgid "Rename"
+#~ msgstr "Yeniden Adlandır"
+
+#~ msgid "Trash"
+#~ msgstr "Çöp Kutusu"
 
 #~ msgid "Make the file executable"
 #~ msgstr "Dosya çalıştırılabilir yap"

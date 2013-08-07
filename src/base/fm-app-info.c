@@ -17,16 +17,48 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+/**
+ * SECTION:fm-app-info
+ * @short_description: FM application launch handlers
+ * @title: GAppInfo extensions
+ *
+ * @include: libfm/fm-app-info.h
+ *
+ */
+
 #include "fm-app-info.h"
 #include "fm-config.h"
 #include "fm-utils.h"
+#include "fm-file.h"
+
 #include <string.h>
 #include <gio/gdesktopappinfo.h>
 
 static void append_file_to_cmd(GFile* gf, GString* cmd)
 {
     char* file = g_file_get_path(gf);
-    char* quote = g_shell_quote(file);
+    char* quote;
+    if(file == NULL) /* trash:// gvfs is incomplete in resolving it */
+    {
+        /* we can retrieve real path from GVFS >= 1.13.3 */
+        if(g_file_has_uri_scheme(gf, "trash"))
+        {
+            GFileInfo *inf;
+            const char *orig_path;
+
+            inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI,
+                                    G_FILE_QUERY_INFO_NONE, NULL, NULL);
+            if(inf == NULL) /* failed */
+                return;
+            orig_path = g_file_info_get_attribute_string(inf, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI);
+            if(orig_path != NULL) /* success */
+                file = g_filename_from_uri(orig_path, NULL, NULL);
+            g_object_unref(inf);
+        }
+        if(file == NULL)
+            return;
+    }
+    quote = g_shell_quote(file);
     g_string_append(cmd, quote);
     g_string_append_c(cmd, ' ');
     g_free(quote);
@@ -147,7 +179,7 @@ const char* expand_terminal_s(char opt, gpointer unused)
     return fm_config->terminal;
 }
 
-FmAppCommandParseOption expand_terminal_options[] =
+static FmAppCommandParseOption expand_terminal_options[] =
 {
     {'s', &expand_terminal_s },
     { 0, NULL }
@@ -210,20 +242,19 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
         if(ctx)
         {
             gboolean use_sn;
-            if(G_LIKELY(kf))
+            if(G_LIKELY(kf) && g_key_file_has_key(kf, "Desktop Entry", "StartupNotify", NULL))
                 use_sn = g_key_file_get_boolean(kf, "Desktop Entry", "StartupNotify", NULL);
-            else
-                use_sn = TRUE;
-            data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
-
-            if(!use_sn)
+            else if(fm_config->force_startup_notify)
             {
                 /* if the app doesn't explicitly ask us not to use sn,
+                 * and fm_config->force_startup_notify is TRUE, then
                  * use it by default, unless it's a console app. */
-                if(!kf || !g_key_file_has_key(kf, "Desktop Entry", "StartupNotify", NULL))
-                    use_sn = !use_terminal; /* we only use sn for GUI apps by default */
+                use_sn = !use_terminal; /* we only use sn for GUI apps by default */
                 /* FIXME: console programs should use sn_id of terminal emulator instead. */
             }
+            else
+                use_sn = FALSE;
+            data.display = g_app_launch_context_get_display(ctx, appinfo, gfiles);
 
             if(use_sn)
                 data.sn_id = g_app_launch_context_get_startup_notify_id(ctx, appinfo, gfiles);
@@ -255,6 +286,19 @@ static gboolean do_launch(GAppInfo* appinfo, const char* full_desktop_path, GKey
     return ret;
 }
 
+/**
+ * fm_app_info_launch
+ * @appinfo: application info to launch
+ * @files: (element-type GFile): files to use in run substitutions
+ * @launch_context: (allow-none): a launch context
+ * @error: (out) (allow-none): location to store error
+ *
+ * Launches desktop application doing substitutions in application info.
+ *
+ * Returns: %TRUE if application was launched.
+ *
+ * Since: 0.1.15
+ */
 gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
                             GAppLaunchContext *launch_context, GError **error)
 {
@@ -279,6 +323,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
         }
         else
         {
+#if GLIB_CHECK_VERSION(2,24,0)
             const char* file = g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(appinfo));
             if(file) /* this is a desktop entry file */
             {
@@ -290,6 +335,7 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
                 g_key_file_free(kf);
             }
             else
+#endif
             {
                 /* If this is created with fm_app_info_create_from_commandline() */
                 if(g_object_get_data(G_OBJECT(appinfo), "flags"))
@@ -308,6 +354,19 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
     return ret;
 }
 
+/**
+ * fm_app_info_launch_uris
+ * @appinfo: application info to launch
+ * @uris: (element-type char *): URIs to use in run substitutions
+ * @launch_context: (allow-none): a launch context
+ * @error: (out) (allow-none): location to store error
+ *
+ * Launches desktop application doing substitutions in application info.
+ *
+ * Returns: %TRUE if application was launched.
+ *
+ * Since: 0.1.15
+ */
 gboolean fm_app_info_launch_uris(GAppInfo *appinfo, GList *uris,
                                  GAppLaunchContext *launch_context, GError **error)
 {
@@ -316,7 +375,7 @@ gboolean fm_app_info_launch_uris(GAppInfo *appinfo, GList *uris,
 
     for(;uris; uris = uris->next)
     {
-        GFile* gf = g_file_new_for_uri((char*)uris->data);
+        GFile* gf = fm_file_new_for_uri((char*)uris->data);
         if(gf)
             gfiles = g_list_prepend(gfiles, gf);
     }
@@ -329,6 +388,21 @@ gboolean fm_app_info_launch_uris(GAppInfo *appinfo, GList *uris,
     return ret;
 }
 
+/**
+ * fm_app_info_launch_default_for_uri
+ * @uri: the uri to show
+ * @launch_context: (allow-none): a launch context
+ * @error: (out) (allow-none): location to store error
+ *
+ * Utility function that launches the default application
+ * registered to handle the specified uri. Synchronous I/O
+ * is done on the uri to detect the type of the file if
+ * required.
+ *
+ * Returns: %TRUE if application was launched.
+ *
+ * Since: 0.1.15
+ */
 gboolean fm_app_info_launch_default_for_uri(const char *uri,
                                             GAppLaunchContext *launch_context,
                                             GError **error)
@@ -337,6 +411,25 @@ gboolean fm_app_info_launch_default_for_uri(const char *uri,
     return g_app_info_launch_default_for_uri(uri, launch_context, error);
 }
 
+/**
+ * fm_app_info_create_from_commandline
+ * @commandline: the commandline to use
+ * @application_name: (allow-none): the application name, or %NULL to use @commandline
+ * @flags: flags that can specify details of the created #GAppInfo
+ * @error: (out) (allow-none): location to store error
+ *
+ * Creates a new #GAppInfo from the given information.
+ *
+ * Note that for @commandline, the quoting rules of the Exec key of the
+ * <ulink url="http://freedesktop.org/Standards/desktop-entry-spec">freedesktop.org Desktop
+ * Entry Specification</ulink> are applied. For example, if the @commandline contains
+ * percent-encoded URIs, the percent-character must be doubled in order to prevent it from
+ * being swallowed by Exec key unquoting. See the specification for exact quoting rules.
+ *
+ * Returns: (transfer full): new #GAppInfo for given command.
+ *
+ * Since: 0.1.15
+ */
 GAppInfo* fm_app_info_create_from_commandline(const char *commandline,
                                               const char *application_name,
                                               GAppInfoCreateFlags flags,

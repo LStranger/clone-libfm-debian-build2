@@ -191,25 +191,51 @@ static void fm_dir_tree_view_class_init(FmDirTreeViewClass *klass)
                      G_TYPE_NONE, 2, G_TYPE_UINT, G_TYPE_POINTER);
 }
 
+/* note: cancel_pending_chdir() should be called before this! */
 static void emit_chdir_if_needed(FmDirTreeView* view, GtkTreeSelection* tree_sel, guint button)
 {
     GtkTreeIter it;
     GtkTreeModel* model;
     if(gtk_tree_selection_get_selected(tree_sel, &model, &it))
     {
-        FmPath* path = fm_dir_tree_row_get_file_path(FM_DIR_TREE_MODEL(model), &it);
+        FmFileInfo *fi = fm_dir_tree_row_get_file_info(FM_DIR_TREE_MODEL(model), &it);
+        FmPath *path;
+        GtkTreePath *tp;
+
+        if(fi == NULL)
+            return;
+        path = fm_file_info_get_path(fi);
         if(path && view->cwd && fm_path_equal(path, view->cwd))
+            return;
+        if(!fm_file_info_is_accessible(fi))
             return;
         if(view->cwd)
             fm_path_unref(view->cwd);
         view->cwd = G_LIKELY(path) ? fm_path_ref(path) : NULL;
         g_signal_emit(view, signals[CHDIR], 0, button, view->cwd);
+        /* preload row if it is not expanded, it will actualize expander too */
+        tp = gtk_tree_model_get_path(model, &it);
+        fm_dir_tree_model_load_row(FM_DIR_TREE_MODEL(model), &it, tp);
+        view->current_row = gtk_tree_row_reference_new(model, tp);
+        gtk_tree_path_free(tp);
     }
 }
 
 static void on_sel_changed(GtkTreeSelection* tree_sel, FmDirTreeView* view)
 {
     GtkTreeModel* model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
+
+    /* unload row of old selection if it's not expanded */
+    if(view->current_row)
+    {
+        GtkTreePath *tp = gtk_tree_row_reference_get_path(view->current_row);
+        GtkTreeIter it;
+        if(tp != NULL && !gtk_tree_view_row_expanded(GTK_TREE_VIEW(view), tp)
+           && gtk_tree_model_get_iter(model, &it, tp))
+            fm_dir_tree_model_unload_row(FM_DIR_TREE_MODEL(model), &it, tp);
+        if(tp != NULL)
+            gtk_tree_path_free(tp);
+    }
 
     /* if a pending selection via previous call to chdir is in progress, cancel it. */
     cancel_pending_chdir(model, view);
@@ -416,7 +442,7 @@ void fm_dir_tree_view_chdir(FmDirTreeView* view, FmPath* path)
         view->paths_to_expand = g_slist_prepend(view->paths_to_expand, fm_path_ref(path));
         if(fm_path_equal(path, root))
             break;
-        path = path->parent;
+        path = fm_path_get_parent(path);
     }while(path);
 
     expand_pending_path(view, model, NULL);

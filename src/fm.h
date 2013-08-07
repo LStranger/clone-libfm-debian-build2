@@ -22,6 +22,15 @@
 #ifndef __LIBFM_FM_H__
 #define __LIBFM_FM_H__
 
+#define FM_VERSION_MAJOR 1
+#define FM_VERSION_MINOR 1
+#define FM_VERSION_MICRO 1
+
+#define FM_CHECK_VERSION(_a,_b,_c) \
+    (FM_VERSION_MAJOR > _a || \
+    (FM_VERSION_MAJOR == _a && FM_VERSION_MINOR > _b) || \
+    (FM_VERSION_MAJOR == _a && FM_VERSION_MINOR == _b && FM_VERSION_MICRO >= _c))
+
 #include "fm-app-info.h"
 #include "fm-archiver.h"
 #include "fm-bookmarks.h"
@@ -39,6 +48,7 @@
 #include "fm-utils.h"
 #include "fm-file-launcher.h"
 #include "fm-thumbnailer.h"
+#include "fm-file.h"
 #include "fm-deep-count-job.h"
 #include "fm-dir-list-job.h"
 #include "fm-file-info-job.h"

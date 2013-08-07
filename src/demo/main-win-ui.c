@@ -54,6 +54,8 @@ static const char main_menu_xml[] =
     "<menuitem action='Trash'/>"
     "<menuitem action='Network'/>"
     "<menuitem action='Apps'/>"
+    "<separator/>"
+    "<menuitem action='Search'/>"
   "</menu>"
   "<menu action='BookmarksMenu'>"
     "<menuitem action='AddBookmark'/>"
@@ -86,24 +88,6 @@ static const char main_menu_xml[] =
     "<toolitem action='Home'/>"
     "<toolitem action='Go'/>"
 "</toolbar>"
-"<popup>"
-  "<menu action='CreateNew'>"
-    "<menuitem action='NewFolder'/>"
-    "<menuitem action='NewBlank'/>"
-  "</menu>"
-  "<separator/>"
-  "<menuitem action='Paste'/>"
-  "<menu action='Sort'>"
-    "<menuitem action='Desc'/>"
-    "<menuitem action='Asc'/>"
-    "<separator/>"
-    "<menuitem action='ByName'/>"
-    "<menuitem action='ByMTime'/>"
-  "</menu>"
-  "<menuitem action='ShowHidden'/>"
-  "<separator/>"
-  "<menuitem action='Prop'/>"
-"</popup>"
 "<accelerator action='Location'/>"
 "<accelerator action='Location2'/>";
 
@@ -113,16 +97,16 @@ static GtkActionEntry main_win_actions[]=
         {"New", GTK_STOCK_NEW, N_("_New Window"), "<Ctrl>N", NULL, G_CALLBACK(on_new_win)},
         {"Close", GTK_STOCK_CLOSE, N_("_Close Window"), "<Ctrl>W", NULL, G_CALLBACK(on_close_win)},
     {"EditMenu", NULL, N_("_Edit"), NULL, NULL, NULL},
-        {"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK(on_cut)},
-        {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(on_copy)},
-        {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(on_paste)},
-        {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(on_del)},
+        {"Cut", GTK_STOCK_CUT, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"Copy", GTK_STOCK_COPY, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"Paste", GTK_STOCK_PASTE, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"Del", GTK_STOCK_DELETE, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
         {"Rename", NULL, N_("Rename"), "F2", NULL, G_CALLBACK(on_rename)},
         {"Link", NULL, N_("Create Symlink"), NULL, NULL, NULL},
         {"MoveTo", NULL, N_("Move To..."), NULL, NULL, G_CALLBACK(on_move_to)},
         {"CopyTo", NULL, N_("Copy To..."), NULL, NULL, G_CALLBACK(on_copy_to)},
-        {"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, G_CALLBACK(on_select_all)},
-        {"InvSel", NULL, N_("Invert Selection"), NULL, NULL, G_CALLBACK(on_invert_select)},
+        {"SelAll", GTK_STOCK_SELECT_ALL, NULL, NULL, NULL, G_CALLBACK(bounce_action)},
+        {"InvSel", NULL, N_("Invert Selection"), NULL, NULL, G_CALLBACK(bounce_action)},
         {"Pref", GTK_STOCK_PREFERENCES, NULL, NULL, NULL, NULL},
     {"ViewMenu", NULL, N_("_View"), NULL, NULL, NULL},
         {"Reload", NULL, N_("Reload"), "F5", NULL, G_CALLBACK(on_reload)},
@@ -140,16 +124,12 @@ static GtkActionEntry main_win_actions[]=
         {"Network", GTK_STOCK_NETWORK, N_("Network Drives"), NULL, NULL, G_CALLBACK(on_go_network)},
         {"Apps", "system-software-install", N_("Applications"), NULL, N_("Installed Applications"), G_CALLBACK(on_go_apps)},
         {"Go", GTK_STOCK_JUMP_TO, NULL, NULL, NULL, G_CALLBACK(on_go)},
+        {"Search", GTK_STOCK_FIND, N_("Find Files"), "", NULL, G_CALLBACK(on_search)},
     {"BookmarksMenu", NULL, N_("_Bookmarks"), NULL, NULL, NULL},
         {"AddBookmark", GTK_STOCK_ADD, N_("Add To Bookmarks"), NULL, N_("Add To Bookmarks"), NULL},
     /* for accelerators */
     {"Location", NULL, NULL, "<Alt>d", NULL, G_CALLBACK(on_location)},
     {"Location2", NULL, NULL, "<Ctrl>L", NULL, G_CALLBACK(on_location)},
-    /* for popup menu */
-    {"CreateNew", GTK_STOCK_NEW, NULL, NULL, NULL, NULL},
-    {"NewFolder", "folder", N_("Folder"), NULL, NULL, G_CALLBACK(on_create_new)},
-    {"NewBlank", "text-x-generic", N_("Blank FIle"), NULL, NULL, G_CALLBACK(on_create_new)},
-    {"Prop", GTK_STOCK_PROPERTIES, NULL, NULL, NULL, G_CALLBACK(on_prop)}
 };
 
 static GtkToggleActionEntry main_win_toggle_actions[]=
@@ -173,8 +153,8 @@ static GtkRadioActionEntry main_win_sort_type_actions[]=
 
 static GtkRadioActionEntry main_win_sort_by_actions[]=
 {
-    {"ByName", NULL, N_("By _Name"), NULL, NULL, COL_FILE_NAME},
-    {"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, COL_FILE_MTIME}
+    {"ByName", NULL, N_("By _Name"), NULL, NULL, FM_FOLDER_MODEL_COL_NAME},
+    {"ByMTime", NULL, N_("By _Modification Time"), NULL, NULL, FM_FOLDER_MODEL_COL_MTIME}
 };
 
 

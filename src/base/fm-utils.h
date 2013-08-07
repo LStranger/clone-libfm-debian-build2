@@ -28,13 +28,35 @@
 
 G_BEGIN_DECLS
 
+/**
+ * FmAppCommandParseCallback:
+ * @opt: key character
+ * @user_data: data passed from caller of fm_app_command_parse()
+ *
+ * The handler which converts key char into string representation.
+ *
+ * See also: fm_app_command_parse().
+ *
+ * Returns: string representation.
+ *
+ * Since: 1.0.0
+ */
 typedef const char* (*FmAppCommandParseCallback)(char opt, gpointer user_data);
 
-typedef struct
+typedef struct _FmAppCommandParseOption FmAppCommandParseOption;
+
+/**
+ * FmAppCommandParseOption:
+ * @opt: key character
+ * @callback: subroutine to get string for substitution
+ *
+ * Element of correspondence for substitutions by fm_app_command_parse().
+ */
+struct _FmAppCommandParseOption
 {
     char opt;
     FmAppCommandParseCallback callback;
-} FmAppCommandParseOption;
+};
 
 int fm_app_command_parse(const char* cmd, const FmAppCommandParseOption* opts,
                          char** ret, gpointer user_data);
@@ -46,7 +68,11 @@ gboolean fm_key_file_get_bool(GKeyFile* kf, const char* grp, const char* key, gb
 
 char* fm_canonicalize_filename(const char* filename, const char* cwd);
 
-char* fm_strdup_replace(char* str, char* old, char* new);
+char* fm_strdup_replace(char* str, char* old_str, char* new_str);
+
+gboolean fm_run_in_default_main_context(GSourceFunc func, gpointer data);
+
+const char *fm_get_home_dir(void);
 
 G_END_DECLS
 

@@ -19,8 +19,13 @@
  *      MA 02110-1301, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-job.h"
 #include "fm-marshal.h"
+#include "glib-compat.h"
 
 /**
  * SECTION:fm-job
@@ -126,7 +131,7 @@ static void fm_job_class_init(FmJobClass *klass)
      * @job: a job that emitted the signal
      *
      * The #FmJob::finished signal is emitted after the job is finished.
-     * The signal is never emitted if the fm_job_run_XXX() function
+     * The signal is never emitted if the fm_job_run_XXX function
      * returned %FALSE, in that case the #FmJob::cancelled signal will be
      * emitted instead.
      *
@@ -147,7 +152,8 @@ static void fm_job_class_init(FmJobClass *klass)
      * @error: an error descriptor
      * @severity: #FmJobErrorSeverity of the error
      *
-     * The #FmJob::error signal is emitted when errors happen.
+     * The #FmJob::error signal is emitted when errors happen. A case if
+     * more than one handler is connected to this signal is ambiguous.
      *
      * Return value: #FmJobErrorAction that should be performed on that error.
      *
@@ -159,11 +165,12 @@ static void fm_job_class_init(FmJobClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, error ),
                       NULL /*fm_job_error_accumulator*/, NULL,
-                      fm_marshal_UINT__BOXED_UINT,
 #if GLIB_CHECK_VERSION(2,26,0)
+                      fm_marshal_UINT__BOXED_UINT,
                       G_TYPE_UINT, 2, G_TYPE_ERROR, G_TYPE_UINT );
 #else
-                      G_TYPE_UINT, 2, G_TYPE_BOXED, G_TYPE_UINT );
+                      fm_marshal_INT__POINTER_INT,
+                      G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_INT );
 #endif
 
     /**
@@ -192,7 +199,8 @@ static void fm_job_class_init(FmJobClass *klass)
      *
      * The #FmJob::ask signal is emitted when the job asks for some
      * user interactions. The user then will have a list of available
-     * @options.
+     * @options. If there is more than one handler connected to the
+     * signal then only one of them will receive it.
      *
      * Return value: user's choice.
      *
@@ -203,7 +211,7 @@ static void fm_job_class_init(FmJobClass *klass)
                       G_TYPE_FROM_CLASS ( klass ),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmJobClass, ask ),
-                      NULL, NULL,
+                      g_signal_accumulator_first_wins, NULL,
                       fm_marshal_INT__POINTER_POINTER,
                       G_TYPE_INT, 2, G_TYPE_POINTER, G_TYPE_POINTER );
 }
@@ -214,6 +222,10 @@ static void fm_job_init(FmJob *self)
     if( G_UNLIKELY(!thread_pool) )
         thread_pool = g_thread_pool_new((GFunc)job_thread, NULL, -1, FALSE, NULL);
     ++n_jobs;
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_init(&self->mutex);
+    g_cond_init(&self->cond);
+#endif
 }
 
 /**
@@ -240,11 +252,16 @@ static void fm_job_finalize(GObject *object)
 
     self = (FmJob*)object;
 
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_clear(&self->mutex);
+    g_cond_clear(&self->cond);
+#else
     if(self->mutex)
         g_mutex_free(self->mutex);
 
     if(self->cond)
         g_cond_free(self->cond);
+#endif
 
     if (G_OBJECT_CLASS(fm_job_parent_class)->finalize)
         (* G_OBJECT_CLASS(fm_job_parent_class)->finalize)(object);
@@ -257,6 +274,7 @@ static void fm_job_finalize(GObject *object)
     }
 }
 
+#if !GLIB_CHECK_VERSION(2, 32, 0)
 static inline void init_mutex(FmJob* job)
 {
     if(!job->mutex)
@@ -265,6 +283,7 @@ static inline void init_mutex(FmJob* job)
         job->cond = g_cond_new();
     }
 }
+#endif
 
 static gboolean fm_job_real_run_async(FmJob* job)
 {
@@ -397,9 +416,15 @@ static gboolean on_idle_call(gpointer input_data)
 {
     FmIdleCall* data = (FmIdleCall*)input_data;
     data->ret = data->func(data->job, data->user_data);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_lock(&data->job->mutex);
+    g_cond_broadcast(&data->job->cond);
+    g_mutex_unlock(&data->job->mutex);
+#else
     g_mutex_lock(data->job->mutex);
     g_cond_broadcast(data->job->cond);
     g_mutex_unlock(data->job->mutex);
+#endif
     return FALSE;
 }
 
@@ -426,14 +451,23 @@ gpointer fm_job_call_main_thread(FmJob* job,
                                  FmJobCallMainThreadFunc func, gpointer user_data)
 {
     FmIdleCall data;
-    init_mutex(job);
     data.job = job;
     data.func = func;
     data.user_data = user_data;
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_mutex_lock(&job->mutex);
+#else
+    init_mutex(job);
     g_mutex_lock(job->mutex);
+#endif
     g_idle_add(on_idle_call, &data);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    g_cond_wait(&job->cond, &job->mutex);
+    g_mutex_unlock(&job->mutex);
+#else
     g_cond_wait(job->cond, job->mutex);
     g_mutex_unlock(job->mutex);
+#endif
     return data.ret;
 }
 

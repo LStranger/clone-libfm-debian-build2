@@ -113,7 +113,14 @@ static void fm_config_init(FmConfig *self)
     self->show_thumbnail = FM_CONFIG_DEFAULT_SHOW_THUMBNAIL;
     self->thumbnail_local = FM_CONFIG_DEFAULT_THUMBNAIL_LOCAL;
     self->thumbnail_max = FM_CONFIG_DEFAULT_THUMBNAIL_MAX;
+    /* show_internal_volumes defaulted to FALSE */
+    /* si_unit defaulted to FALSE */
+    /* terminal and archiver defaulted to NULL */
     self->advanced_mode = FALSE;
+    self->force_startup_notify = FM_CONFIG_DEFAULT_FORCE_S_NOTIFY;
+    self->backup_as_hidden = FM_CONFIG_DEFAULT_BACKUP_HIDDEN;
+    self->no_usb_trash = FM_CONFIG_DEFAULT_NO_USB_TRASH;
+    self->no_child_non_expandable = FM_CONFIG_DEFAULT_NO_EXPAND_EMPTY;
 }
 
 /**
@@ -168,6 +175,11 @@ void fm_config_load_from_key_file(FmConfig* cfg, GKeyFile* kf)
     fm_key_file_get_int(kf, "config", "thumbnail_local", &cfg->thumbnail_local);
     fm_key_file_get_int(kf, "config", "thumbnail_max", &cfg->thumbnail_max);
     fm_key_file_get_bool(kf, "config", "advanced_mode", &cfg->advanced_mode);
+    fm_key_file_get_bool(kf, "config", "si_unit", &cfg->si_unit);
+    fm_key_file_get_bool(kf, "config", "force_startup_notify", &cfg->force_startup_notify);
+    fm_key_file_get_bool(kf, "config", "backup_as_hidden", &cfg->backup_as_hidden);
+    fm_key_file_get_bool(kf, "config", "no_usb_trash", &cfg->no_usb_trash);
+    fm_key_file_get_bool(kf, "config", "no_child_non_expandable", &cfg->no_child_non_expandable);
 
 #ifdef USE_UDISKS
     fm_key_file_get_bool(kf, "config", "show_internal_volumes", &cfg->show_internal_volumes);
@@ -264,6 +276,11 @@ void fm_config_save(FmConfig* cfg, const char* name)
             fprintf(f, "use_trash=%d\n", cfg->use_trash);
             fprintf(f, "confirm_del=%d\n", cfg->confirm_del);
             fprintf(f, "advanced_mode=%d\n", cfg->advanced_mode);
+            fprintf(f, "si_unit=%d\n", cfg->si_unit);
+            fprintf(f, "force_startup_notify=%d\n", cfg->force_startup_notify);
+            fprintf(f, "backup_as_hidden=%d\n", cfg->backup_as_hidden);
+            fprintf(f, "no_usb_trash=%d\n", cfg->no_usb_trash);
+            fprintf(f, "no_child_non_expandable=%d\n", cfg->no_child_non_expandable);
 #ifdef USE_UDISKS
             fprintf(f, "show_internal_volumes=%d\n", cfg->show_internal_volumes);
 #endif

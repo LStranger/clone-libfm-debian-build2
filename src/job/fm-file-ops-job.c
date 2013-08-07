@@ -31,12 +31,17 @@
  * copy, delete, change file attributes, etc.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "fm-file-ops-job.h"
 #include "fm-file-ops-job-xfer.h"
 #include "fm-file-ops-job-delete.h"
 #include "fm-file-ops-job-change-attr.h"
 #include "fm-marshal.h"
 #include "fm-file-info-job.h"
+#include "glib-compat.h"
 
 enum
 {
@@ -161,7 +166,8 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
      * The #FmFileOpsJob::ask-rename signal is emitted when file operation
      * raises a conflict because file with the same name already exists
      * in the directory @dest. Signal handler should find a decision how
-     * to resolve the situation.
+     * to resolve the situation. If there is more than one handler connected
+     * to the signal then only one of them will receive it.
      *
      * Return value: a #FmFileOpOption decision.
      *
@@ -172,7 +178,7 @@ static void fm_file_ops_job_class_init(FmFileOpsJobClass *klass)
                       G_TYPE_FROM_CLASS ( klass ),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET ( FmFileOpsJobClass, ask_rename ),
-                      NULL, NULL,
+                      g_signal_accumulator_first_wins, NULL,
                       fm_marshal_INT__POINTER_POINTER_POINTER,
                       G_TYPE_INT, 3, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER );
 
@@ -313,8 +319,8 @@ void fm_file_ops_job_set_chmod(FmFileOpsJob* job, mode_t new_mode, mode_t new_mo
  * @gid: group id to set as file group
  *
  * Sets that files for file operation FM_FILE_OP_CHANGE_ATTR should have
- * owner or group changed. If @uid >= %0 then @job will try to change
- * owner of files. If @gid >= %0 then @job will try to change group of
+ * owner or group changed. If @uid >= 0 then @job will try to change
+ * owner of files. If @gid >= 0 then @job will try to change group of
  * files.
  *
  * This API may be used only before @job is started.
@@ -453,7 +459,7 @@ static gpointer emit_ask_rename(FmJob* job, gpointer input_data)
  *
  * Asks the user in main thread how to resolve conflict if file being
  * copied or moved already exists in destination directory. Ask is done
- * by emitting the #FmFileOpsJob::ask signal.
+ * by emitting the #FmFileOpsJob::ask-rename signal.
  *
  * This API is private to #FmFileOpsJob and should not be used outside
  * of libfm implementation.
@@ -537,7 +543,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
     }
 
     job->total = fm_path_list_get_length(job->srcs);
-    g_debug("total files to link: %lu", (ulong)job->total);
+    g_debug("total files to link: %lu", (gulong)job->total);
 
     fm_file_ops_job_emit_prepared(job);
 
@@ -547,7 +553,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
         FmPath* path = FM_PATH(l->data);
         char* src = fm_path_to_str(path);
         GFile* dest = g_file_get_child(dest_dir, fm_path_get_basename(path));
-        GError* err;
+        GError* err = NULL;
         char* dname;
 
         /* showing currently processed file. */
@@ -560,6 +566,7 @@ static gboolean _fm_file_ops_job_link_run(FmFileOpsJob* job)
             FmJobErrorAction act = FM_JOB_CONTINUE;
             if(err)
             {
+                /* FIXME: ask user to choose another filename for creation */
                 act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MODERATE);
                 g_error_free(err);
                 err = NULL;

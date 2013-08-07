@@ -19,6 +19,15 @@
  *      MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:fm-progress-dlg
+ * @short_description: A dialog to show progress indicator for file operations.
+ * @title: File progress dialog
+ *
+ * @include: libfm/fm-progress-dlg.h
+ *
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -59,7 +68,7 @@ struct _FmProgressDisplay
     FmFileOpOption default_opt;
 
     char* cur_file;
-    const char* old_cur_file;
+    char* old_cur_file;
 
     guint delay_timeout;
     guint update_timeout;
@@ -146,12 +155,14 @@ static FmJobErrorAction on_error(FmFileOpsJob* job, GError* err, FmJobErrorSever
 */
 
     gtk_text_buffer_get_end_iter(data->error_buf, &it);
-    gtk_text_buffer_insert_with_tags(data->error_buf, &it, data->cur_file, -1, data->bold_tag, NULL);
+    gtk_text_buffer_insert_with_tags(data->error_buf, &it,
+                                     data->cur_file ? data->cur_file : data->old_cur_file,
+                                     -1, data->bold_tag, NULL);
     gtk_text_buffer_insert(data->error_buf, &it, _(": "), -1);
     gtk_text_buffer_insert(data->error_buf, &it, err->message, -1);
     gtk_text_buffer_insert(data->error_buf, &it, "\n", 1);
 
-    if(!GTK_WIDGET_VISIBLE(data->error_pane))
+    if(!gtk_widget_get_visible(data->error_pane))
         gtk_widget_show(data->error_pane);
 
     if(data->timer)
@@ -254,7 +265,7 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
     gtk_label_set_text(dest_fi, tmp);
     g_free(tmp);
 
-    tmp = g_filename_display_name(path->name);
+    tmp = g_filename_display_name(fm_path_get_basename(path));
     gtk_entry_set_text(filename, tmp);
     g_free(tmp);
     tmp = (char*)fm_file_info_get_disp_name(dest); /* FIXME: cast const to char */
@@ -297,11 +308,6 @@ static gint on_ask_rename(FmFileOpsJob* job, FmFileInfo* src, FmFileInfo* dest, 
 static void on_finished(FmFileOpsJob* job, FmProgressDisplay* data)
 {
     GtkWindow* parent = NULL;
-    if(data->update_timeout)
-    {
-        g_source_remove(data->update_timeout);
-        data->update_timeout = 0;
-    }
 
     /* preserve pointers that fm_progress_display_destroy() will unreference
        as they may be requested by trash support below */
@@ -394,11 +400,17 @@ static void on_response(GtkDialog* dlg, gint id, FmProgressDisplay* data)
 static gboolean on_update_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
-    if(data->old_cur_file != data->cur_file)
+    /* the g_strdup very probably returns the same pointer that was g_free'd
+       so we cannot just compare data->old_cur_file with data->cur_file */
+    GDK_THREADS_ENTER();
+    if(!g_source_is_destroyed(g_main_current_source()) && data->cur_file)
     {
         gtk_label_set_text(data->current, data->cur_file);
+        g_free(data->old_cur_file);
         data->old_cur_file = data->cur_file;
+        data->cur_file = NULL;
     }
+    GDK_THREADS_LEAVE();
     return TRUE;
 }
 
@@ -415,13 +427,19 @@ static void on_progress_dialog_destroy(gpointer user_data, GObject* dlg)
 static gboolean on_show_dlg(gpointer user_data)
 {
     FmProgressDisplay* data = (FmProgressDisplay*)user_data;
-    GtkBuilder* builder = gtk_builder_new();
+    GtkBuilder* builder;
     GtkLabel* to;
     GtkWidget *to_label;
     FmPath* dest;
     const char* title = NULL;
-    GtkTextTagTable* tag_table = gtk_text_tag_table_new();
+    GtkTextTagTable* tag_table;
 
+    GDK_THREADS_ENTER();
+    if(g_source_is_destroyed(g_main_current_source()))
+        goto _end;
+
+    builder = gtk_builder_new();
+    tag_table = gtk_text_tag_table_new();
     gtk_builder_set_translation_domain(builder, GETTEXT_PACKAGE);
     gtk_builder_add_from_file(builder, PACKAGE_UI_DIR "/progress.ui", NULL);
 
@@ -525,10 +543,13 @@ static gboolean on_show_dlg(gpointer user_data)
         gtk_widget_destroy(to_label);
     }
 
+    gtk_window_set_transient_for(GTK_WINDOW(data->dlg), data->parent);
     gtk_window_present(GTK_WINDOW(data->dlg));
     data->update_timeout = g_timeout_add(500, on_update_dlg, data);
 
     data->delay_timeout = 0;
+_end:
+    GDK_THREADS_LEAVE();
     return FALSE;
 }
 
@@ -551,7 +572,7 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
 /**
  * fm_file_ops_job_run_with_progress
  * @parent: parent window to show dialog over it
- * @job: job descriptor to run
+ * @job: (transfer full): job descriptor to run
  *
  * Runs the file operation job with a progress dialog.
  * The returned data structure will be freed in idle handler automatically
@@ -559,7 +580,11 @@ static void on_prepared(FmFileOpsJob* job, FmProgressDisplay* data)
  *
  * NOTE: INCONSISTENCY: it takes a reference from job
  *
+ * Before 0.1.15 this call had different arguments.
+ *
  * Return value: (transfer none): progress data; not usable; caller should not free it either.
+ *
+ * Since: 0.1.0
  */
 FmProgressDisplay* fm_file_ops_job_run_with_progress(GtkWindow* parent, FmFileOpsJob* job)
 {
@@ -610,6 +635,7 @@ static void fm_progress_display_destroy(FmProgressDisplay* data)
         g_object_unref(data->parent);
 
     g_free(data->cur_file);
+    g_free(data->old_cur_file);
 
     if(data->delay_timeout)
         g_source_remove(data->delay_timeout);

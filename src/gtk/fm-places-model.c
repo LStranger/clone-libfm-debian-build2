@@ -37,7 +37,13 @@
 #endif
 
 #include "fm-places-model.h"
+#include "fm-file.h"
+
 #include <glib/gi18n-lib.h>
+
+#include "fm-config.h"
+#include "fm-monitor.h"
+#include "fm-file-info-job.h"
 
 struct _FmPlacesItem
 {
@@ -84,6 +90,9 @@ static void place_item_free(FmPlacesItem* item)
         g_object_unref(item->mount);
         break;
     case FM_PLACES_ITEM_PATH:
+        if(item->bm_item)
+            fm_bookmark_item_unref(item->bm_item);
+        break;
     case FM_PLACES_ITEM_NONE:
         ;
     }
@@ -408,12 +417,12 @@ static void on_mount_removed(GVolumeMonitor* vm, GMount* mount, gpointer user_da
 static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
 {
     FmPlacesItem* item;
-    const GList *bms, *l;
+    GList *bms, *l;
     FmIcon* icon = fm_icon_from_name("folder");
     FmIcon* remote_icon = NULL;
     GdkPixbuf* folder_pix = fm_pixbuf_from_icon(icon, fm_config->pane_icon_size);
     GdkPixbuf* remote_pix = NULL;
-    bms = fm_bookmarks_list_all(model->bookmarks);
+    bms = fm_bookmarks_get_all(model->bookmarks);
     for(l=bms;l;l=l->next)
     {
         FmBookmarkItem* bm = (FmBookmarkItem*)l->data;
@@ -444,6 +453,7 @@ static void add_bookmarks(FmPlacesModel* model, FmFileInfoJob* job)
                            FM_PLACES_MODEL_COL_ICON, pix,
                            FM_PLACES_MODEL_COL_LABEL, bm->name, -1);
     }
+    g_list_free(bms);
     g_object_unref(folder_pix);
     fm_icon_unref(icon);
     if(remote_icon)
@@ -479,9 +489,11 @@ static void on_bookmarks_changed(FmBookmarks* bm, gpointer user_data)
 static gboolean update_trash_item(gpointer user_data)
 {
     FmPlacesModel* model = FM_PLACES_MODEL(user_data);
-    if(fm_config->use_trash && model->trash)
+    GDK_THREADS_ENTER();
+    if(!g_source_is_destroyed(g_main_current_source()) &&
+       fm_config->use_trash && model->trash)
     {
-        GFile* gf = g_file_new_for_uri("trash:///");
+        GFile* gf = fm_file_new_for_uri("trash:///");
         GFileInfo* inf = g_file_query_info(gf, G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT, 0, NULL, NULL);
         g_object_unref(gf);
         if(inf)
@@ -511,6 +523,7 @@ static gboolean update_trash_item(gpointer user_data)
             gtk_tree_path_free(tp);
         }
     }
+    GDK_THREADS_LEAVE();
     return FALSE;
 }
 
@@ -598,8 +611,13 @@ static void create_trash_item(FmPlacesModel* model)
     FmPlacesItem* item;
     GdkPixbuf* pix;
     GFile* gf;
+    FmFileInfoJob* job = fm_file_info_job_new(NULL, FM_FILE_INFO_JOB_NONE);
 
-    gf = g_file_new_for_uri("trash:///");
+    gf = fm_file_new_for_uri("trash:///");
+    fm_file_info_job_add(job, fm_path_get_trash());
+    g_signal_connect(job, "finished", G_CALLBACK(on_file_info_job_finished), model);
+    model->jobs = g_slist_prepend(model->jobs, job);
+    fm_job_run_async(FM_JOB(job));
     model->trash_monitor = fm_monitor_directory(gf, NULL);
     g_signal_connect(model->trash_monitor, "changed", G_CALLBACK(on_trash_changed), model);
     g_object_unref(gf);
@@ -612,7 +630,7 @@ static void create_trash_item(FmPlacesModel* model)
     pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(GTK_LIST_STORE(model), &it,
                        FM_PLACES_MODEL_COL_ICON, pix,
-                       FM_PLACES_MODEL_COL_LABEL, _("Trash"), -1);
+                       FM_PLACES_MODEL_COL_LABEL, _("Trash Can"), -1);
     g_object_unref(pix);
     model->trash = gtk_tree_row_reference_new(GTK_TREE_MODEL(model), trash_path);
     gtk_tree_path_free(trash_path);
@@ -655,7 +673,7 @@ static void fm_places_model_init(FmPlacesModel *self)
     item->icon = fm_icon_from_name("user-home");
     pix = fm_pixbuf_from_icon(item->icon, fm_config->pane_icon_size);
     gtk_list_store_set(model, &it, FM_PLACES_MODEL_COL_ICON, pix,
-                       FM_PLACES_MODEL_COL_LABEL, path->name, -1);
+                       FM_PLACES_MODEL_COL_LABEL, fm_path_get_basename(path), -1);
     g_object_unref(pix);
     fm_file_info_job_add(job, path);
 
@@ -798,7 +816,7 @@ gboolean fm_places_model_iter_is_separator(FmPlacesModel* model, GtkTreeIter* it
  * @model: a places model instance
  * @tp: the row path to inspect
  *
- * Checks if the row by @tp is a separator.
+ * Checks if the row by @tp is a separator between places and bookmarks.
  *
  * Returns: %TRUE if the row is a separator.
  *
@@ -823,7 +841,7 @@ gboolean fm_places_model_path_is_separator(FmPlacesModel* model, GtkTreePath* tp
  * @model: a places model instance
  * @tp: the row path to inspect
  *
- * Checks if the row by @tp is a bookmark item.
+ * Checks if the row by @tp lies within bookmark items.
  *
  * Returns: %TRUE if the row is a bookmark item.
  *
@@ -848,7 +866,7 @@ gboolean fm_places_model_path_is_bookmark(FmPlacesModel* model, GtkTreePath* tp)
  * @model: a places model instance
  * @tp: the row path to inspect
  *
- * Checks if the row by @tp is not a bookmark.
+ * Checks if the row by @tp lies above separator, i.e. within "places".
  *
  * Returns: %TRUE if the row is a places item.
  *

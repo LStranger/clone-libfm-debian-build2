@@ -114,10 +114,12 @@ gboolean fm_file_info_is_hidden(FmFileInfo* fi);
 
 /* if the mime-type is executable, such as shell script, python script, ... */
 gboolean fm_file_info_is_executable_type( FmFileInfo* fi);
+gboolean fm_file_info_is_accessible(FmFileInfo* fi);
 
 const char* fm_file_info_get_target( FmFileInfo* fi );
 
 const char* fm_file_info_get_collate_key( FmFileInfo* fi );
+const char* fm_file_info_get_collate_key_nocasefold(FmFileInfo* fi);
 const char* fm_file_info_get_desc( FmFileInfo* fi );
 const char* fm_file_info_get_disp_mtime( FmFileInfo* fi );
 time_t fm_file_info_get_mtime( FmFileInfo* fi );

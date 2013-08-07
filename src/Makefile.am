@@ -1,11 +1,11 @@
 # for use in libtool -version-info
-ABI_VERSION=3:1:0
+ABI_VERSION=4:2:1
 
 NULL=
 
 # current dir needs to be built before tests
 SUBDIRS= \
-	actions \
+	$(ACTIONS_SUBDIR) \
 	. \
 	tests \
 	$(NULL)
@@ -72,7 +72,10 @@ base_SOURCES = \
 	base/fm-archiver.c \
 	base/fm-app-info.c \
 	base/fm-thumbnailer.c \
+	base/fm-file.c \
 	base/fm-marshal.c \
+	vfs/fm-vfs-menu.c \
+	vfs/fm-vfs-search.c \
 	$(NULL)
 
 job_SOURCES = \
@@ -113,6 +116,7 @@ libfm_gtk_SOURCES = \
 	$(gtk_compat_SOURCES) \
 	$(exo_SOURCES) \
 	gtk/fm-folder-view.c \
+	gtk/fm-standard-view.c \
 	gtk/fm-folder-model.c \
 	gtk/fm-places-view.c \
 	gtk/fm-places-model.c \
@@ -141,7 +145,7 @@ libfm_gtk_SOURCES = \
 	gtk/fm-gtk-marshal.c \
 	$(NULL)
 
-libfmincludedir = $(includedir)/libfm/libfm
+libfmincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfminclude_HEADERS = \
 	fm.h \
 	base/fm-config.h \
@@ -160,6 +164,7 @@ libfminclude_HEADERS = \
 	base/fm-archiver.h \
 	base/fm-app-info.h \
 	base/fm-thumbnailer.h \
+	base/fm-file.h \
 	base/fm-marshal.h \
 	job/fm-job.h \
 	job/fm-simple-job.h \
@@ -172,10 +177,11 @@ libfminclude_HEADERS = \
 	job/fm-file-ops-job-change-attr.h \
 	$(NULL)
 
-libfmgtkincludedir = $(includedir)/libfm/libfm
+libfmgtkincludedir = $(includedir)/@PACKAGE@-@FMLIBVER@
 libfmgtkinclude_HEADERS = \
 	fm-gtk.h \
 	gtk/fm-folder-view.h \
+	gtk/fm-standard-view.h \
 	gtk/fm-folder-model.h \
 	gtk/fm-places-view.h \
 	gtk/fm-places-model.h \
@@ -201,6 +207,7 @@ libfmgtkinclude_HEADERS = \
 	gtk/fm-thumbnail.h \
 	gtk/fm-tab-label.h \
 	gtk/fm-path-bar.h \
+	gtk/fm-sortable.h \
 	gtk/fm-gtk-marshal.h \
 	$(NULL)
 
@@ -209,7 +216,9 @@ pkginclude_HEADERS = \
 	$(LIBFM_GTK_INCLUDES) \
 	$(NULL)
 
-lib_LTLIBRARIES = libfm.la libfm-gtk.la
+EXTRA_LTLIBRARIES = libfm-gtk.la libfm-gtk3.la
+
+lib_LTLIBRARIES = libfm.la @LIBFM_GTK_LTLIBRARIES@
 libfm_la_SOURCES = \
 	$(libfm_SOURCES) \
 	$(NULL)
@@ -226,7 +235,7 @@ libfm_la_LIBADD = \
 	$(MENU_CACHE_LIBS) \
 	$(DBUS_LIBS) \
 	$(INTLLIBS) \
-	$(srcdir)/actions/libfmactions.la \
+	$(LIBFMACTIONS) \
 	$(NULL)
 
 libfm_la_LDFLAGS = \
@@ -235,48 +244,54 @@ libfm_la_LDFLAGS = \
 	-version-info $(ABI_VERSION) \
 	$(NULL)
 
-
 libfm_gtk_la_SOURCES = \
 	$(libfm_gtk_SOURCES) \
 	$(NULL)
+libfm_gtk3_la_SOURCES = $(libfm_gtk_la_SOURCES)
 
 libfm_gtk_la_CFLAGS = \
 	$(GTK_CFLAGS) \
-	$(GIO_CFLAGS) \
-	$(PANGO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	$(EXIF_CFLAGS) \
 	-I$(srcdir) \
 	-I$(srcdir)/base \
 	-I$(srcdir)/job \
 	-Werror-implicit-function-declaration
+libfm_gtk3_la_CFLAGS = $(libfm_gtk_la_CFLAGS)
 
 libfm_gtk_la_LIBADD = \
 	$(GTK_LIBS) \
-	$(GIO_LIBS) \
-	$(PANGO_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(EXIF_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
 	$(NULL)
+libfm_gtk3_la_LIBADD = $(libfm_gtk_la_LIBADD)
 
 libfm_gtk_la_LDFLAGS = \
 	-no-undefined \
 	-export-symbols-regex ^fm \
 	-version-info $(ABI_VERSION) \
+	-rpath $(libdir) \
 	$(NULL)
+libfm_gtk3_la_LDFLAGS = $(libfm_gtk_la_LDFLAGS)
 
-bin_PROGRAMS = libfm-pref-apps
+EXTRA_PROGRAMS = libfm-pref-apps
+
+bin_PROGRAMS = @LIBFM_PREF_APPS@
 
 libfm_pref_apps_SOURCES = \
 	$(gtk_compat_SOURCES) \
 	tools/libfm-pref-apps.c \
 	$(NULL)
 
+libfm_pref_apps_DEPENDENCIES = \
+	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
+	$(NULL)
+
 libfm_pref_apps_CFLAGS = \
 	$(GTK_CFLAGS) \
-	$(GIO_CFLAGS) \
 	$(MENU_CACHE_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
@@ -285,28 +300,47 @@ libfm_pref_apps_LDADD = \
 	$(GTK_LIBS) \
 	$(MENU_CACHE_LIBS) \
 	$(INTLLIBS) \
-	libfm-gtk.la \
 	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
 	$(NULL)
 
 
 if ENABLE_DEMO
-bin_PROGRAMS += libfm-demo
+bin_PROGRAMS += libfm-demo libfm-file-search-cli-demo
 libfm_demo_SOURCES = \
 	$(gtk_compat_SOURCES) \
 	demo/libfm-demo.c \
 	demo/main-win.c demo/main-win.h \
 	$(NULL)
 
+libfm_demo_DEPENDENCIES = \
+	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
+	$(NULL)
+
 libfm_demo_CFLAGS = \
 	$(GTK_CFLAGS) \
-	$(MENU_CACHE_CFLAGS) \
 	-Werror-implicit-function-declaration \
 	$(NULL)
 
 libfm_demo_LDADD = \
 	$(GTK_LIBS) \
-	$(MENU_CACHE_LIBS) \
+	$(INTLLIBS) \
+	libfm.la \
+	@LIBFM_GTK_LTLIBRARIES@ \
+	$(NULL)
+
+libfm_file_search_cli_demo_SOURCES = \
+	demo/libfm-file-search-cli-demo.c \
+	$(NULL)
+
+libfm_file_search_cli_demo_CFLAGS = \
+	$(GTK_CFLAGS) \
+	-Werror-implicit-function-declaration \
+	$(NULL)
+
+libfm_file_search_cli_demo_LDADD = \
+	$(GTK_LIBS) \
 	$(INTLLIBS) \
 	libfm.la \
 	libfm-gtk.la \
@@ -353,16 +387,16 @@ endif
 
 # GObject marshallers
 base/fm-marshal.h: base/fm-marshal.list
-	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --header --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 base/fm-marshal.c: base/fm-marshal.list
-	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --body --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 gtk/fm-gtk-marshal.h: gtk/fm-gtk-marshal.list
-	glib-genmarshal --header --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --header --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 gtk/fm-gtk-marshal.c: gtk/fm-gtk-marshal.list
-	glib-genmarshal --body --prefix=fm_marshal $^ > $@.tmp && mv $@.tmp $@
+	glib-genmarshal --body --prefix=fm_marshal $? > $@.tmp && mv $@.tmp $@
 
 # Workarounds to force the build
 BUILT_SOURCES= \
@@ -380,11 +414,14 @@ VAPI_FILES = \
 EXTRA_DIST = \
 	base/fm-marshal.list \
 	gtk/fm-gtk-marshal.list \
+	gtk/fm-file-search-ui.c \
 	gtk/exo/README \
 	demo/main-win-ui.c \
 	udisks/gen-binding \
 	udisks/udisks.h \
 	udisks/udisks-device.h \
+	vfs/fm-vfs-menu.h \
+	vfs/fm-vfs-search.h \
 	$(VAPI_FILES) \
 	$(NULL)
 
@@ -410,3 +447,18 @@ noinst_PROGRAMS=xml-purge
 xml_purge_SOURCES=xml-purge.c
 xml_purge_CFLAGS=$(GIO_CFLAGS)
 xml_purge_LDADD=$(GIO_LIBS)
+
+install-data-local:
+	@if test -e "$(DESTDIR)$(includedir)/@PACKAGE@"; then \
+		echo rm -rf "$(DESTDIR)$(includedir)/@PACKAGE@"; \
+		rm -rf "$(DESTDIR)$(includedir)/@PACKAGE@"; \
+	fi
+	test -z "$(includedir)" || $(MKDIR_P) "$(DESTDIR)$(includedir)"
+	@LN_S@ @PACKAGE@-@FMLIBVER@ "$(DESTDIR)$(includedir)/@PACKAGE@"
+
+uninstall-local:
+	@if test -L "$(DESTDIR)$(includedir)/@PACKAGE@"; then \
+		echo rm -f "$(DESTDIR)$(includedir)/@PACKAGE@"; \
+		rm -f "$(DESTDIR)$(includedir)/@PACKAGE@"; \
+	fi
+	-rmdir "$(DESTDIR)$(libfmincludedir)"

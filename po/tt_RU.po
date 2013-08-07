@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-12 18:15+0200\n"
+"POT-Creation-Date: 2012-10-11 00:21+0200\n"
 "PO-Revision-Date: 2011-08-18 01:13+0400\n"
 "Last-Translator: Ainur Shakirov <ainur.shakirov.tt@gmail.com>\n"
 "Language: tt_RU\n"
@@ -25,7 +25,8 @@ msgid "<b>File Type To be Opened:</b>"
 msgstr "<b>Ачыла торган файлның төре:</b>"
 
 #: ../data/ui/app-chooser.glade.h:3
-msgid "Installed Application"
+#, fuzzy
+msgid "_Installed Application"
 msgstr "Урнаштырылган кушымта"
 
 #: ../data/ui/app-chooser.glade.h:4
@@ -37,7 +38,8 @@ msgid "_Browse"
 msgstr "_Карау"
 
 #: ../data/ui/app-chooser.glade.h:6
-msgid "Execute in terminal emulator"
+#, fuzzy
+msgid "_Execute in terminal emulator"
 msgstr "Терминал эмуляторында үтәү"
 
 #: ../data/ui/app-chooser.glade.h:8
@@ -56,11 +58,13 @@ msgstr ""
 "  <b>%U</b>: Берничә файл юлын чагылдыра"
 
 #: ../data/ui/app-chooser.glade.h:13
-msgid "Custom Command Line"
+#, fuzzy
+msgid "_Custom Command Line"
 msgstr "Куланнучы команда юлы"
 
 #: ../data/ui/app-chooser.glade.h:14
-msgid "Set selected application as default action of this file type"
+#, fuzzy
+msgid "_Set selected application as default action of this file type"
 msgstr "Бу файл төрен ачу өчен кушымтаны сайлагыз"
 
 #: ../data/ui/ask-rename.glade.h:1
@@ -68,6 +72,19 @@ msgid "Confirm to replace files"
 msgstr "Файл алыштыруны раслау"
 
 #: ../data/ui/ask-rename.glade.h:2
+msgid "_Skip"
+msgstr "_Сикерү"
+
+#: ../data/ui/ask-rename.glade.h:3 ../src/gtk/fm-file-menu.c:163
+#: ../src/gtk/fm-folder-view.c:185
+msgid "_Rename"
+msgstr "_Икенче исем кушу"
+
+#: ../data/ui/ask-rename.glade.h:4
+msgid "_Overwrite"
+msgstr "_Алыштыру"
+
+#: ../data/ui/ask-rename.glade.h:5
 msgid ""
 "<b>There is already a file with the same name in this location.</b>\n"
 "\n"
@@ -77,29 +94,19 @@ msgstr ""
 "\n"
 "Бу файлны алыштырыргамы?"
 
-#: ../data/ui/ask-rename.glade.h:5
+#: ../data/ui/ask-rename.glade.h:8
 msgid "with the following file?"
 msgstr "бу файл беләнме?"
 
-#: ../data/ui/ask-rename.glade.h:6
-msgid "File Name:"
+#: ../data/ui/ask-rename.glade.h:9
+#, fuzzy
+msgid "_File Name:"
 msgstr "Файл исеме:"
 
-#: ../data/ui/ask-rename.glade.h:7
-msgid "Apply this option to all existing files"
-msgstr "Барлык файлларга бу көйләүне куллану"
-
-#: ../data/ui/ask-rename.glade.h:8
-msgid "_Skip"
-msgstr "_Сикерү"
-
-#: ../data/ui/ask-rename.glade.h:9
-msgid "_Rename"
-msgstr "_Икенче исем кушу"
-
 #: ../data/ui/ask-rename.glade.h:10
-msgid "_Overwrite"
-msgstr "_Алыштыру"
+#, fuzzy
+msgid "_Apply this option to all existing files"
+msgstr "Барлык файлларга бу көйләүне куллану"
 
 #: ../data/ui/file-prop.glade.h:1
 msgid "File Properties"
@@ -146,26 +153,28 @@ msgid "_General"
 msgstr "_Төп"
 
 #: ../data/ui/file-prop.glade.h:12
-msgid "<b>_Owner:</b>"
-msgstr "<b>_Хуҗа:</b>"
+#, fuzzy
+msgid "<b>O_wner:</b>"
+msgstr "<b>Хуҗа:</b>"
 
 #: ../data/ui/file-prop.glade.h:13
-msgid "<b>_Group:</b>"
-msgstr "<b>_Төркем:</b>"
+#, fuzzy
+msgid "<b>G_roup:</b>"
+msgstr "<b>Төркем:</b>"
 
 #: ../data/ui/file-prop.glade.h:14
 #, fuzzy
-msgid "<b>View content:</b>"
+msgid "<b>_View content:</b>"
 msgstr "<b>Почта клиенты</b>"
 
 #: ../data/ui/file-prop.glade.h:15
 #, fuzzy
-msgid "<b>Change content:</b>"
+msgid "<b>C_hange content:</b>"
 msgstr "<b>Максат:</b>"
 
 #: ../data/ui/file-prop.glade.h:16
 #, fuzzy
-msgid "<b>Execute:</b>"
+msgid "<b>_Execute:</b>"
 msgstr "<b>Башкалар:</b>"
 
 #: ../data/ui/file-prop.glade.h:17
@@ -320,73 +329,201 @@ msgstr "Файлны җибәрү"
 msgid "Execute in _Terminal"
 msgstr "_Терминалда җибәрү"
 
-#: ../src/base/fm-utils.c:57 ../src/base/fm-utils.c:88
+#: ../data/ui/filesearch.glade.h:1
+msgid "Bytes"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:2 ../src/base/fm-utils.c:88
+msgid "KB"
+msgstr "кБ"
+
+#: ../data/ui/filesearch.glade.h:3 ../src/base/fm-utils.c:93
+msgid "MB"
+msgstr "МБ"
+
+#: ../data/ui/filesearch.glade.h:4 ../src/base/fm-utils.c:98
+msgid "GB"
+msgstr "ГБ"
+
+#: ../data/ui/filesearch.glade.h:5
+msgid "Choose a date"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:6
+msgid "Choose a date from the following calendar"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:7
+#, fuzzy
+msgid "Search Files"
+msgstr "Файл исемем үзгәртү"
+
+#: ../data/ui/filesearch.glade.h:8
+#, fuzzy
+msgid "<b>File _Name Patterns</b>"
+msgstr "<b>Файл төре:</b>"
+
+#: ../data/ui/filesearch.glade.h:9
+msgid "*"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:10
+msgid "Case insensiti_ve"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:11
+msgid "_Use regular expression"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:12
+msgid "<b>Places to Search</b>"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:13
+msgid "_Search in sub directories"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:14
+msgid "Search _hidden files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:15
+msgid "Name/_Location"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:16
+#, fuzzy
+msgid "<b>File Type</b>"
+msgstr "<b>Файл төре:</b>"
+
+#: ../data/ui/filesearch.glade.h:17
+msgid "Only search for files of following types"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:18
+#, fuzzy
+msgid "Te_xt files"
+msgstr "Файлны бетерү"
+
+#: ../data/ui/filesearch.glade.h:19
+#, fuzzy
+msgid "_Image files"
+msgstr "Файлларны чүп чиләгенә күчерү"
+
+#: ../data/ui/filesearch.glade.h:20
+msgid "_Audio files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:21
+msgid "_Video files"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:22
+msgid "_Documents"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:23
+#, fuzzy
+msgid "File _Type"
+msgstr "<b>Файл төре:</b>"
+
+#: ../data/ui/filesearch.glade.h:24
+#, fuzzy
+msgid "<b>File Contain_s</b>"
+msgstr "<b>Дисктагы зурлык:</b>"
+
+#: ../data/ui/filesearch.glade.h:25
+msgid "C_ontent"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:26
+#, fuzzy
+msgid "<b>File Size</b>"
+msgstr "<b>Файл төре:</b>"
+
+#: ../data/ui/filesearch.glade.h:27
+msgid "_Smaller than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:28
+msgid "_Bigger than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:29
+#, fuzzy
+msgid "<b>Last Modified Time</b>"
+msgstr "<b>Ахыргы үзгәреш:</b>"
+
+#: ../data/ui/filesearch.glade.h:30 ../src/gtk/fm-gtk-file-launcher.c:531
+#: ../src/gtk/fm-gtk-file-launcher.c:538
+#, fuzzy
+msgid "(None)"
+msgstr "Юк"
+
+#: ../data/ui/filesearch.glade.h:31
+msgid "_Earlier than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:32
+msgid "L_ater than:"
+msgstr ""
+
+#: ../data/ui/filesearch.glade.h:33
+#, fuzzy
+msgid "_Properties"
+msgstr "Файл сыйфатлары"
+
+#: ../src/base/fm-utils.c:80 ../src/base/fm-utils.c:111
 #, c-format
 msgid "%u byte"
 msgid_plural "%u bytes"
 msgstr[0] "%u байт"
 
-#: ../src/base/fm-utils.c:65
-msgid "KB"
-msgstr "кБ"
-
-#: ../src/base/fm-utils.c:70
-msgid "MB"
-msgstr "МБ"
-
-#: ../src/base/fm-utils.c:75
-msgid "GB"
-msgstr "ГБ"
-
-#: ../src/base/fm-utils.c:80
+#: ../src/base/fm-utils.c:103
 msgid "TB"
 msgstr "ТБ"
 
-#: ../src/base/fm-utils.c:96
+#: ../src/base/fm-utils.c:119
 msgid "KiB"
 msgstr "КиБ"
 
-#: ../src/base/fm-utils.c:101
+#: ../src/base/fm-utils.c:124
 msgid "MiB"
 msgstr "МиБ"
 
-#: ../src/base/fm-utils.c:106
+#: ../src/base/fm-utils.c:129
 msgid "GiB"
 msgstr "ГиБ"
 
-#: ../src/base/fm-utils.c:111
+#: ../src/base/fm-utils.c:134
 msgid "TiB"
 msgstr "ТиБ"
 
-#: ../src/base/fm-path.c:730
+#: ../src/base/fm-path.c:841 ../src/gtk/fm-places-model.c:624
 msgid "Trash Can"
 msgstr "Чүп чиләге"
 
-#: ../src/base/fm-path.c:732
+#: ../src/base/fm-path.c:843
 msgid "My Computer"
 msgstr "Минем компьютер"
 
-#: ../src/base/fm-path.c:740 ../src/gtk/fm-places-model.c:681
-msgid "Applications"
-msgstr "Кушымталар"
-
-#: ../src/base/fm-path.c:743
+#: ../src/base/fm-path.c:845
 msgid "Network"
 msgstr "Челтәр"
 
-#: ../src/base/fm-mime-type.c:60
+#: ../src/base/fm-mime-type.c:81
 msgid "Shortcuts"
 msgstr "Сылтамалар"
 
-#: ../src/base/fm-mime-type.c:63
+#: ../src/base/fm-mime-type.c:84
 msgid "Mount Point"
 msgstr "Кору ноктасы"
 
-#: ../src/gtk/fm-progress-dlg.c:150
+#: ../src/gtk/fm-progress-dlg.c:161
 msgid ": "
 msgstr ": "
 
-#: ../src/gtk/fm-progress-dlg.c:223 ../src/gtk/fm-progress-dlg.c:242
+#: ../src/gtk/fm-progress-dlg.c:234 ../src/gtk/fm-progress-dlg.c:253
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -397,7 +534,7 @@ msgstr ""
 "Зурлык: %s\n"
 "Үзгәргән: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:230 ../src/gtk/fm-progress-dlg.c:249
+#: ../src/gtk/fm-progress-dlg.c:241 ../src/gtk/fm-progress-dlg.c:260
 #, c-format
 msgid ""
 "Type: %s\n"
@@ -406,23 +543,23 @@ msgstr ""
 "Төр: %s\n"
 "Үзгәргән: %s"
 
-#: ../src/gtk/fm-progress-dlg.c:327
+#: ../src/gtk/fm-progress-dlg.c:333
 msgid "The file operation is cancelled and there are some errors."
 msgstr "Файл операциясе хаталар аркасында гамәлдән чыгарылды."
 
-#: ../src/gtk/fm-progress-dlg.c:329
+#: ../src/gtk/fm-progress-dlg.c:335
 msgid "Cancelled"
 msgstr "Гамәлдән чыгарылды"
 
-#: ../src/gtk/fm-progress-dlg.c:333
+#: ../src/gtk/fm-progress-dlg.c:339
 msgid "The file operation is finished, but there are some errors."
 msgstr "Файл операциясе хаталар белән үтәлде."
 
-#: ../src/gtk/fm-progress-dlg.c:335
+#: ../src/gtk/fm-progress-dlg.c:341
 msgid "Finished"
 msgstr "Үтәлде"
 
-#: ../src/gtk/fm-progress-dlg.c:357
+#: ../src/gtk/fm-progress-dlg.c:363
 msgid ""
 "Some files cannot be moved to trash can because the underlying file systems "
 "don't support this operation.\n"
@@ -432,220 +569,340 @@ msgstr ""
 "тотмый.\n"
 "Моннан соң да файлларны бетерергәме?"
 
-#: ../src/gtk/fm-progress-dlg.c:472
+#: ../src/gtk/fm-progress-dlg.c:482
 msgid ", "
 msgstr ", "
 
-#: ../src/gtk/fm-progress-dlg.c:488
+#: ../src/gtk/fm-progress-dlg.c:498
 msgid "Moving files"
 msgstr "Файлларны күчерү"
 
-#: ../src/gtk/fm-progress-dlg.c:491
+#: ../src/gtk/fm-progress-dlg.c:501
 msgid "Copying files"
 msgstr "Файлларның күчермәләрен алу"
 
-#: ../src/gtk/fm-progress-dlg.c:494
+#: ../src/gtk/fm-progress-dlg.c:504
 msgid "Trashing files"
 msgstr "Файлларны чүп чиләгенә күчерү"
 
-#: ../src/gtk/fm-progress-dlg.c:497
+#: ../src/gtk/fm-progress-dlg.c:507
 msgid "Deleting files"
 msgstr "Файлны бетерү"
 
-#: ../src/gtk/fm-progress-dlg.c:500
+#: ../src/gtk/fm-progress-dlg.c:510
 msgid "Creating symlinks"
 msgstr "Символик сылтама өстәү"
 
-#: ../src/gtk/fm-progress-dlg.c:503
+#: ../src/gtk/fm-progress-dlg.c:513
 msgid "Changing file attributes"
 msgstr "Файл аергычларын үзгәртү"
 
-#: ../src/gtk/fm-file-properties.c:153 ../src/gtk/fm-file-properties.c:161
+#: ../src/gtk/fm-file-properties.c:161 ../src/gtk/fm-file-properties.c:170
 msgid "byte"
 msgid_plural "bytes"
 msgstr[0] "байт"
 
-#: ../src/gtk/fm-file-properties.c:224
+#: ../src/gtk/fm-file-properties.c:233
 msgid "Please enter a valid user name or numeric id."
 msgstr "Дөрес булган кулланучы исемен яки тиңләштерү санын кертегез."
 
-#: ../src/gtk/fm-file-properties.c:254
+#: ../src/gtk/fm-file-properties.c:263
 msgid "Please enter a valid group name or numeric id."
 msgstr "Дөрес булган төркем исемен яки тиңләштерү санын кертегез."
 
 #. FIXME: may special bits and exec flags still be messed up?
-#: ../src/gtk/fm-file-properties.c:444
+#: ../src/gtk/fm-file-properties.c:453
 msgid ""
 "Do you want to recursively apply these changes to all files and sub-folders?"
 msgstr "Эчкә аалынган барлыр файлларга һәм каталогларга кулланыргамы?"
 
-#: ../src/gtk/fm-file-properties.c:624
+#: ../src/gtk/fm-file-properties.c:633
 #, fuzzy
-msgid "<b>Access content:</b>"
+msgid "<b>_Access content:</b>"
 msgstr "<b>Керү белән идарә итү</b>"
 
-#: ../src/gtk/fm-file-properties.c:739
+#: ../src/gtk/fm-file-properties.c:748
 msgid "Files of different types"
 msgstr "Төрле файллар"
 
-#: ../src/gtk/fm-file-properties.c:776
+#: ../src/gtk/fm-file-properties.c:785
 msgid "Multiple Files"
 msgstr "Берничә файл"
 
-#: ../src/gtk/fm-places-view.c:99
-msgid "Mount Volume"
-msgstr "Логик дискны кору"
+#: ../src/gtk/fm-places-model.c:680
+msgid "Desktop"
+msgstr "Эш өстәле"
 
-#: ../src/gtk/fm-places-view.c:100
-msgid "Unmount Volume"
-msgstr "Логик дискны корудан чыгару"
+#: ../src/gtk/fm-places-model.c:690
+msgid "Applications"
+msgstr "Кушымталар"
 
 #: ../src/gtk/fm-places-view.c:101
-msgid "Eject Removable Media"
+#, fuzzy
+msgid "_Mount Volume"
+msgstr "Логик дискны кору"
+
+#: ../src/gtk/fm-places-view.c:102
+#, fuzzy
+msgid "_Unmount Volume"
+msgstr "Логик дискны корудан чыгару"
+
+#: ../src/gtk/fm-places-view.c:103
+#, fuzzy
+msgid "_Eject Removable Media"
 msgstr "Алынмалы дискны чыгару"
 
+#: ../src/gtk/fm-places-view.c:116
+#, fuzzy
+msgid "_Rename Bookmark Item"
+msgstr "Кыстыргычның исемен үзгәртү"
+
+#: ../src/gtk/fm-places-view.c:117
+#, fuzzy
+msgid "Re_move from Bookmark"
+msgstr "Кыстыргычлардан бетерү"
+
+#: ../src/gtk/fm-places-view.c:129
+#, fuzzy
+msgid "_Empty Trash Can"
+msgstr "Чүп чиләген чистарту"
+
 #. FIXME: we need to set a proper parent window for the dialog
-#: ../src/gtk/fm-places-view.c:114 ../src/gtk/fm-places-view.c:839
+#: ../src/gtk/fm-places-view.c:868
 msgid "Rename Bookmark Item"
 msgstr "Кыстыргычның исемен үзгәртү"
 
-#: ../src/gtk/fm-places-view.c:115
-msgid "Remove from Bookmark"
-msgstr "Кыстыргычлардан бетерү"
-
-#: ../src/gtk/fm-places-view.c:127
-msgid "Empty Trash"
-msgstr "Чүп чиләген чистарту"
-
-#: ../src/gtk/fm-places-view.c:840
+#: ../src/gtk/fm-places-view.c:869
 msgid "Enter a new name:"
 msgstr "Яңа исем кушыгыз:"
 
-#: ../src/gtk/fm-side-pane.c:60 ../src/gtk/fm-side-pane.c:392
+#: ../src/gtk/fm-side-pane.c:61
+msgid "_Off"
+msgstr ""
+
+#: ../src/gtk/fm-side-pane.c:62
+#, fuzzy
+msgid "_Places"
+msgstr "Урыннар"
+
+#: ../src/gtk/fm-side-pane.c:63
+#, fuzzy
+msgid "_Directory Tree"
+msgstr "Каталоглар агачы"
+
+#: ../src/gtk/fm-side-pane.c:64
+#, fuzzy
+msgid "_Remote"
+msgstr "Челтәр"
+
+#: ../src/gtk/fm-side-pane.c:412
 msgid "Places"
 msgstr "Урыннар"
 
-#: ../src/gtk/fm-side-pane.c:61 ../src/gtk/fm-side-pane.c:402
+#: ../src/gtk/fm-side-pane.c:422
 msgid "Directory Tree"
 msgstr "Каталоглар агачы"
 
-#: ../src/gtk/fm-side-pane.c:62
-msgid "Remote"
-msgstr "Челтәр"
+#: ../src/gtk/fm-file-menu.c:156
+msgid "_Open"
+msgstr ""
 
-#: ../src/gtk/fm-file-menu.c:108 ../src/gtk/fm-file-menu.c:109
-msgid "Open With..."
+#: ../src/gtk/fm-file-menu.c:157 ../src/gtk/fm-file-menu.c:158
+#, fuzzy
+msgid "Open _With..."
 msgstr "... белән ачу"
 
-#: ../src/gtk/fm-file-menu.c:114
-msgid "Rename"
-msgstr "Исемне үзгәртү"
-
-#: ../src/gtk/fm-file-menu.c:115
-msgid "Create Symlink"
+#: ../src/gtk/fm-file-menu.c:164
+#, fuzzy
+msgid "Create _Symlink"
 msgstr "Символик сылтама өстәү"
 
-#: ../src/gtk/fm-file-menu.c:116
-msgid "Send To"
+#: ../src/gtk/fm-file-menu.c:165
+#, fuzzy
+msgid "Se_nd To"
 msgstr "Тапшыру"
 
-#: ../src/gtk/fm-file-menu.c:117
-msgid "Compress..."
+#: ../src/gtk/fm-file-menu.c:166
+#, fuzzy
+msgid "Co_mpress..."
 msgstr "Кысу..."
 
-#: ../src/gtk/fm-file-menu.c:118
-msgid "Extract Here"
+#: ../src/gtk/fm-file-menu.c:167
+#, fuzzy
+msgid "Extract _Here"
 msgstr "Монда тартып чыгару"
 
-#: ../src/gtk/fm-file-menu.c:119
-msgid "Extract To..."
+#: ../src/gtk/fm-file-menu.c:168
+#, fuzzy
+msgid "E_xtract To..."
 msgstr "Монда тартып чыгару..."
 
-#: ../src/gtk/fm-file-menu.c:385
+#: ../src/gtk/fm-file-menu.c:169 ../src/gtk/fm-folder-view.c:186
+#: ../src/gtk/fm-folder-view.c:187
+#, fuzzy
+msgid "Prop_erties"
+msgstr "Файл сыйфатлары"
+
+#: ../src/gtk/fm-file-menu.c:521
 msgid "_Restore"
 msgstr "_Торгызу"
 
-#: ../src/gtk/fm-file-menu.c:386
+#: ../src/gtk/fm-file-menu.c:522
 msgid "Restore trashed files to original paths"
 msgstr "Файлларны чүп чиләгеннән торгызу"
 
-#: ../src/gtk/fm-dnd-dest.c:520
+#: ../src/gtk/fm-dnd-dest.c:710
 msgid "XDirectSave failed."
 msgstr "XDirectSave хатасы."
 
-#: ../src/gtk/fm-app-chooser-dlg.c:102
+#: ../src/gtk/fm-app-chooser-dlg.c:144
 msgid "Use selected application to open files"
 msgstr "Файлларны ачу өчен сайланган кушымтаны куллану"
 
-#: ../src/gtk/fm-app-chooser-dlg.c:109
+#: ../src/gtk/fm-app-chooser-dlg.c:151
 msgid "Execute custom command line to open files"
 msgstr "Файлларны ачу өчен кулланучы командасын башкарырга"
 
-#: ../src/gtk/fm-app-chooser-combo-box.c:188
+#: ../src/gtk/fm-app-chooser-combo-box.c:216
 msgid "Customize"
 msgstr "Көйләү"
 
-#: ../src/gtk/fm-folder-view.c:640
-msgid "Name"
+#: ../src/gtk/fm-folder-view.c:167
+msgid "Create _New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:168
+msgid "Folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:171
+#, fuzzy
+msgid "Blank File"
+msgstr "Буш MO диск"
+
+#: ../src/gtk/fm-folder-view.c:172
+#, fuzzy
+msgid "Shortcut"
+msgstr "Сылтамалар"
+
+#: ../src/gtk/fm-folder-view.c:183
+msgid "_Invert Selection"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:184
+msgid "_Sort Files"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:196
+msgid "Show _Hidden"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:197
+msgid "_Only for this folder"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:198
+msgid "Check to remember sort as folder setting rather than global one"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:199
+#, fuzzy
+msgid "Mingle _files and folders"
+msgstr "Каталогны сайлагыз"
+
+#: ../src/gtk/fm-folder-view.c:200
+msgid "_Ignore name case"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:211
+#, fuzzy
+msgid "By _Name"
 msgstr "Исем"
 
-#: ../src/gtk/fm-folder-view.c:659
-msgid "Description"
-msgstr "Тасвирлама"
+#: ../src/gtk/fm-folder-view.c:212
+msgid "By _Modification Time"
+msgstr ""
 
-#: ../src/gtk/fm-folder-view.c:666
-msgid "Size"
+#: ../src/gtk/fm-folder-view.c:213
+#, fuzzy
+msgid "By _Size"
 msgstr "Зурлык"
 
-#: ../src/gtk/fm-folder-view.c:672
-msgid "Modified"
-msgstr "Үзгәргән"
+#: ../src/gtk/fm-folder-view.c:214
+#, fuzzy
+msgid "By File _Type"
+msgstr "<b>Файл төре:</b>"
 
-#: ../src/gtk/fm-app-menu-view.c:157
+#: ../src/gtk/fm-folder-view.c:785
+msgid "Enter a name for the newly created folder:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:787
+msgid "Enter a name for the newly created file:"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:788
+msgid "Create New..."
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:788
+#, fuzzy
+msgid "New"
+msgstr "Челтәр"
+
+#: ../src/gtk/fm-folder-view.c:880
+msgid "Error, lxshortcut not installed"
+msgstr ""
+
+#: ../src/gtk/fm-folder-view.c:885
+msgid "Failed to start lxshortcut"
+msgstr ""
+
+#: ../src/gtk/fm-app-menu-view.c:182
 msgid "Installed Applications"
 msgstr "Урнаштырылган кушымталар"
 
-#: ../src/gtk/fm-gtk-utils.c:46
+#: ../src/gtk/fm-gtk-utils.c:69
 msgid "Error"
 msgstr "Хата"
 
-#: ../src/gtk/fm-gtk-utils.c:58 ../src/gtk/fm-gtk-utils.c:72
+#: ../src/gtk/fm-gtk-utils.c:96 ../src/gtk/fm-gtk-utils.c:127
 msgid "Confirm"
 msgstr "Раслау"
 
-#: ../src/gtk/fm-gtk-utils.c:118
+#: ../src/gtk/fm-gtk-utils.c:181
 msgid "Question"
 msgstr "Сорау"
 
-#: ../src/gtk/fm-gtk-utils.c:382
+#: ../src/gtk/fm-gtk-utils.c:511
 msgid "Please select a folder"
 msgstr "Каталогны сайлагыз"
 
-#: ../src/gtk/fm-gtk-utils.c:540
+#: ../src/gtk/fm-gtk-utils.c:657
 msgid "Only system administrators have the permission to do this."
 msgstr "Бу эшне үтәү өчен сезгә система администраторы хокуклары кирәк."
 
-#: ../src/gtk/fm-gtk-utils.c:635
+#: ../src/gtk/fm-gtk-utils.c:862
 msgid "Do you want to move the selected files to trash can?"
 msgstr "Сайланган файлларны чүп чиләгенә күчерергәме?"
 
-#: ../src/gtk/fm-gtk-utils.c:656
+#: ../src/gtk/fm-gtk-utils.c:906
 msgid "Do you want to delete the selected files?"
 msgstr "Сайланган файлларны бетерергәме?"
 
-#: ../src/gtk/fm-gtk-utils.c:703
+#: ../src/gtk/fm-gtk-utils.c:994
 msgid "Rename File"
 msgstr "Файл исемем үзгәртү"
 
-#: ../src/gtk/fm-gtk-utils.c:704
+#: ../src/gtk/fm-gtk-utils.c:995
 msgid "Please enter a new name:"
 msgstr "Яңа исем кушыгыз:"
 
-#: ../src/gtk/fm-gtk-utils.c:728
+#: ../src/gtk/fm-gtk-utils.c:1035
 msgid "Are you sure you want to empty the trash can?"
 msgstr "Чүп чиләген чистартыргамы?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:100
+#: ../src/gtk/fm-gtk-file-launcher.c:116
 #, c-format
 msgid ""
 "This text file '%s' seems to be an executable script.\n"
@@ -654,21 +911,62 @@ msgstr ""
 "«%s» текст файлы үтәлүче скрипт булуы ихтимал.\n"
 "Нинди эш корырга телисез?"
 
-#: ../src/gtk/fm-gtk-file-launcher.c:107
+#: ../src/gtk/fm-gtk-file-launcher.c:123
 #, c-format
 msgid "This file '%s' is executable. Do you want to execute it?"
 msgstr "«%s» файлы үтәлүче. Җибәрергәме?"
 
-#: ../src/gtk/fm-dir-tree-model.c:408 ../src/gtk/fm-dir-tree-model.c:1180
+#. show error if no paths are added
+#: ../src/gtk/fm-gtk-file-launcher.c:566
+msgid "No folders are specified."
+msgstr ""
+
+#: ../src/gtk/fm-gtk-file-launcher.c:605
+#, fuzzy
+msgid "Select a folder"
+msgstr "Каталогны сайлагыз"
+
+#: ../src/gtk/fm-dir-tree-model.c:418 ../src/gtk/fm-dir-tree-model.c:1204
 msgid "<No Sub Folder>"
 msgstr "<Үз эченә алган каталоглар юк>"
 
-#: ../src/gtk/fm-dir-tree-model.c:410 ../src/gtk/fm-dir-tree-model.c:1181
+#: ../src/gtk/fm-dir-tree-model.c:420 ../src/gtk/fm-dir-tree-model.c:1205
 msgid "Loading..."
 msgstr "Йөкләү..."
 
-#: ../src/job/fm-dir-list-job.c:270 ../src/job/fm-dir-list-job.c:281
-#: ../src/job/fm-dir-list-job.c:381
+#. columns visible to the users
+#: ../src/gtk/fm-folder-model.c:185
+msgid "Name"
+msgstr "Исем"
+
+#: ../src/gtk/fm-folder-model.c:186
+msgid "Description"
+msgstr "Тасвирлама"
+
+#: ../src/gtk/fm-folder-model.c:187
+msgid "Size"
+msgstr "Зурлык"
+
+#: ../src/gtk/fm-folder-model.c:188
+#, fuzzy
+msgid "Permissions"
+msgstr "_Керү хокуклары"
+
+#: ../src/gtk/fm-folder-model.c:189
+msgid "Owner"
+msgstr ""
+
+#: ../src/gtk/fm-folder-model.c:190
+msgid "Modified"
+msgstr "Үзгәргән"
+
+#: ../src/gtk/fm-folder-model.c:191
+#, fuzzy
+msgid "Location"
+msgstr "<b>Урын:</b>"
+
+#: ../src/job/fm-dir-list-job.c:201 ../src/job/fm-dir-list-job.c:212
+#: ../src/job/fm-dir-list-job.c:307
 #, c-format
 msgid "The specified directory is not valid"
 msgstr "Каталог дөрес күрсәтелмәгән"
@@ -688,14 +986,6 @@ msgstr "Каталогны үз эченә алган каталогына кү�
 #: ../src/job/fm-file-ops-job-xfer.c:65
 msgid "Destination is a sub folder of source"
 msgstr "Килү ноктасы - чыганакның үз эченә алган каталог"
-
-#: ../src/gtk/fm-places-model.c:615
-msgid "Trash"
-msgstr "Чүп чиләге"
-
-#: ../src/gtk/fm-places-model.c:671
-msgid "Desktop"
-msgstr "Эш өстәле"
 
 #. Translator: The word "blank" is used as an adjective, e.g. we are decsribing discs that are already blank
 #: ../src/udisks/g-udisks-device.c:41
@@ -858,11 +1148,41 @@ msgstr "Буш оптикал диск"
 msgid "Optical Disc"
 msgstr "Оптикал диск"
 
-#~ msgid "<b>Group:</b>"
-#~ msgstr "<b>Төркем:</b>"
+#: ../src/vfs/fm-vfs-menu.c:324 ../src/vfs/fm-vfs-menu.c:586
+#: ../src/vfs/fm-vfs-menu.c:618
+msgid "Menu cache error"
+msgstr ""
 
-#~ msgid "<b>Owner:</b>"
-#~ msgstr "<b>Хуҗа:</b>"
+#. ---- GFile implementation ----
+#: ../src/vfs/fm-vfs-menu.c:381 ../src/vfs/fm-vfs-search.c:896
+msgid "Operation not supported"
+msgstr ""
+
+#: ../src/vfs/fm-vfs-menu.c:552
+#, c-format
+msgid "Invalid filename %s"
+msgstr ""
+
+#: ../src/vfs/fm-vfs-menu.c:613
+msgid "Invalid menu directory"
+msgstr ""
+
+#. FIXME: need name to be converted to UTF-8?
+#: ../src/vfs/fm-vfs-search.c:959
+msgid "Search"
+msgstr ""
+
+#~ msgid "<b>_Owner:</b>"
+#~ msgstr "<b>_Хуҗа:</b>"
+
+#~ msgid "<b>_Group:</b>"
+#~ msgstr "<b>_Төркем:</b>"
+
+#~ msgid "Rename"
+#~ msgstr "Исемне үзгәртү"
+
+#~ msgid "Trash"
+#~ msgstr "Чүп чиләге"
 
 #~ msgid "Make the file executable"
 #~ msgstr "Файлны үтәүче итергә"

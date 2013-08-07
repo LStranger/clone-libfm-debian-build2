@@ -41,17 +41,26 @@
 #include <glib/gstdio.h>
 #include "fm-mime-type.h"
 #include "fm-file-info-job.h"
-#include <menu-cache.h>
+#include "glib-compat.h"
 
 #include "fm-file-info.h"
 
 extern const char gfile_info_query_attribs[]; /* defined in fm-file-info-job.c */
 
+enum {
+    FILES_FOUND,
+    N_SIGNALS
+};
+
 static void fm_dir_list_job_dispose              (GObject *object);
 G_DEFINE_TYPE(FmDirListJob, fm_dir_list_job, FM_TYPE_JOB);
 
-static gboolean fm_dir_list_job_run(FmJob *job);
+static int signals[N_SIGNALS];
 
+static gboolean fm_dir_list_job_run(FmJob *job);
+static void fm_dir_list_job_finished(FmJob* job);
+
+static gboolean emit_found_files(gpointer user_data);
 
 static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
 {
@@ -62,13 +71,36 @@ static void fm_dir_list_job_class_init(FmDirListJobClass *klass)
     /* use finalize from parent class */
 
     job_class->run = fm_dir_list_job_run;
+    job_class->finished = fm_dir_list_job_finished;
+
+    /**
+     * FmDirListJob::files-found
+     * @job: a job that emitted the signal
+     * @files: (element-type FmFileInfo): #GSList of found files
+     *
+     * The #FmDirListJob::files-found signal is emitted for every file
+     * found during directory listing. By default the signal is not
+     * emitted for performance reason. This can be turned on by calling
+     * fm_dir_list_job_set_incremental().
+     *
+     * Since: 1.0.2
+     */
+    signals[FILES_FOUND] =
+        g_signal_new("files-found",
+                     G_TYPE_FROM_CLASS(klass),
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET(FmDirListJobClass, files_found),
+                     NULL, NULL,
+                     g_cclosure_marshal_VOID__POINTER,
+                     G_TYPE_NONE, 1, G_TYPE_POINTER);
+
 }
 
 
-static void fm_dir_list_job_init(FmDirListJob *self)
+static void fm_dir_list_job_init(FmDirListJob *job)
 {
-    self->files = fm_file_info_list_new();
-    fm_job_init_cancellable(FM_JOB(self));
+    job->files = fm_file_info_list_new();
+    fm_job_init_cancellable(FM_JOB(job));
 }
 
 /**
@@ -113,142 +145,41 @@ FmDirListJob* fm_dir_list_job_new_for_gfile(GFile* gf)
 
 static void fm_dir_list_job_dispose(GObject *object)
 {
-    FmDirListJob *self;
+    FmDirListJob *job;
 
     g_return_if_fail(object != NULL);
     g_return_if_fail(FM_IS_DIR_LIST_JOB(object));
 
-    self = (FmDirListJob*)object;
+    job = (FmDirListJob*)object;
 
-    if(self->dir_path)
+    if(job->dir_path)
     {
-        fm_path_unref(self->dir_path);
-        self->dir_path = NULL;
+        fm_path_unref(job->dir_path);
+        job->dir_path = NULL;
     }
 
-    if(self->dir_fi)
+    if(job->dir_fi)
     {
-        fm_file_info_unref(self->dir_fi);
-        self->dir_fi = NULL;
+        fm_file_info_unref(job->dir_fi);
+        job->dir_fi = NULL;
     }
 
-    if(self->files)
+    if(job->files)
     {
-        fm_file_info_list_unref(self->files);
-        self->files = NULL;
+        fm_file_info_list_unref(job->files);
+        job->files = NULL;
+    }
+
+    if(job->delay_add_files_handler)
+    {
+        g_source_remove(job->delay_add_files_handler);
+        job->delay_add_files_handler = 0;
+        g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
+        job->files_to_add = NULL;
     }
 
     if (G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)
         (* G_OBJECT_CLASS(fm_dir_list_job_parent_class)->dispose)(object);
-}
-
-
-static gpointer list_menu_items(FmJob* fmjob, gpointer unused)
-{
-    FmDirListJob* job = (FmDirListJob*)fmjob;
-    FmFileInfo* fi;
-    MenuCache* mc;
-    MenuCacheDir* dir;
-    GSList* l;
-    char* path_str, *p, ch;
-    char* menu_name;
-    const char* dir_path_str;
-    guint32 de_flag;
-    const char* de_name;
-    /* example: menu://applications.menu/DesktopSettings */
-
-    g_return_val_if_fail(job->dir_path != NULL, NULL);
-    path_str = fm_path_to_str(job->dir_path);
-    p = path_str + 5; /* skip menu: */
-    while(*p == '/')
-        ++p;
-    menu_name = p;
-    while(*p && *p != '/')
-        ++p;
-    ch = *p;
-    *p = '\0';
-    menu_name = g_strconcat(menu_name, ".menu", NULL);
-    mc = menu_cache_lookup_sync(menu_name);
-    /* ensure that the menu cache is loaded */
-    if(!mc) /* if it's not loaded */
-    {
-        /* try to set $XDG_MENU_PREFIX to "lxde-" for lxmenu-data */
-        const char* menu_prefix = g_getenv("XDG_MENU_PREFIX");
-        if(g_strcmp0(menu_prefix, "lxde-")) /* if current value is not lxde- */
-        {
-            char* old_prefix = g_strdup(menu_prefix);
-            g_setenv("XDG_MENU_PREFIX", "lxde-", TRUE);
-            mc = menu_cache_lookup_sync(menu_name);
-            /* restore original environment variable */
-            if(old_prefix)
-            {
-                g_setenv("XDG_MENU_PREFIX", old_prefix, TRUE);
-                g_free(old_prefix);
-            }
-            else
-                g_unsetenv("XDG_MENU_PREFIX");
-
-            if(!mc)
-                goto done;
-        }
-        else
-            goto done;
-    }
-    *p = ch;
-    dir_path_str = p; /* path of menu dir, such as: /Internet */
-
-    de_name = g_getenv("XDG_CURRENT_DESKTOP");
-    if(de_name)
-        de_flag = menu_cache_get_desktop_env_flag(mc, de_name);
-    else
-        de_flag = (guint32)-1;
-
-    /* the menu should be loaded now */
-    if(*dir_path_str && !(*dir_path_str == '/' && dir_path_str[1]=='\0') )
-    {
-        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_path_str, NULL);
-        dir = menu_cache_get_dir_from_path(mc, tmp);
-        g_free(tmp);
-    }
-    else
-        dir = menu_cache_get_root_dir(mc);
-
-    if(dir)
-    {
-        job->dir_fi = fm_file_info_new_from_menu_cache_item(job->dir_path, MENU_CACHE_ITEM(dir));
-        for(l=menu_cache_dir_get_children(dir);l;l=l->next)
-        {
-            MenuCacheItem* item = MENU_CACHE_ITEM(l->data);
-            FmPath* item_path;
-            /* also hide menu items which should be hidden in current DE. */
-            if(!item || menu_cache_item_get_type(item) == MENU_CACHE_TYPE_SEP)
-                continue;
-            if(menu_cache_item_get_type(item) == MENU_CACHE_TYPE_APP
-               && !menu_cache_app_get_is_visible(MENU_CACHE_APP(item), de_flag))
-                continue;
-
-            if(G_UNLIKELY(job->dir_only)
-               && menu_cache_item_get_type(item) != MENU_CACHE_TYPE_DIR)
-                continue;
-            item_path = fm_path_new_child(job->dir_path, menu_cache_item_get_id(item));
-            fi = fm_file_info_new_from_menu_cache_item(item_path, item);
-            fm_path_unref(item_path);
-            fm_file_info_list_push_tail_noref(job->files, fi);
-        }
-    }
-    menu_cache_unref(mc);
-
-done:
-    g_free(menu_name);
-    g_free(path_str);
-    return NULL;
-}
-
-static gboolean fm_dir_list_job_list_xdg_menu(FmDirListJob* job)
-{
-    /* Calling libmenu-cache is only allowed in main thread. */
-    fm_job_call_main_thread(FM_JOB(job), list_menu_items, NULL);
-    return TRUE;
 }
 
 static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
@@ -319,7 +250,7 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
 
         _retry:
             if( _fm_file_info_job_get_info_for_native_file(fmjob, fi, fpath->str, &err) )
-                fm_file_info_list_push_tail_noref(job->files, fi);
+                fm_dir_list_job_add_found_file(job, fi);
             else /* failed! */
             {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
@@ -327,9 +258,8 @@ static gboolean fm_dir_list_job_run_posix(FmDirListJob* job)
                 err = NULL;
                 if(act == FM_JOB_RETRY)
                     goto _retry;
-
-                fm_file_info_unref(fi);
             }
+            fm_file_info_unref(fi);
         }
         g_string_free(fpath, TRUE);
         g_dir_close(dir);
@@ -352,10 +282,6 @@ static gboolean fm_dir_list_job_run_gio(FmDirListJob* job)
     FmJob* fmjob = FM_JOB(job);
     GFile* gf;
     const char* query;
-
-    /* handle some built-in virtual dirs */
-    if( fm_path_is_xdg_menu(job->dir_path) ) /* xdg menu:// */
-        return fm_dir_list_job_list_xdg_menu(job);
 
     gf = fm_path_to_gfile(job->dir_path);
 _retry:
@@ -411,7 +337,7 @@ _retry:
             inf = g_file_enumerator_next_file(enu, fm_job_get_cancellable(fmjob), &err);
             if(inf)
             {
-                FmPath* sub;
+                FmPath *dir, *sub;
                 if(G_UNLIKELY(job->dir_only))
                 {
                     /* FIXME: handle symlinks */
@@ -422,10 +348,14 @@ _retry:
                     }
                 }
 
-                sub = fm_path_new_child(job->dir_path, g_file_info_get_name(inf));
+                /* virtual folders may return childs not within them */
+                dir = fm_path_new_for_gfile(g_file_enumerator_get_container(enu));
+                sub = fm_path_new_child(dir, g_file_info_get_name(inf));
                 fi = fm_file_info_new_from_gfileinfo(sub, inf);
                 fm_path_unref(sub);
-                fm_file_info_list_push_tail_noref(job->files, fi);
+                fm_path_unref(dir);
+                fm_dir_list_job_add_found_file(job, fi);
+                fm_file_info_unref(fi);
             }
             else
             {
@@ -465,19 +395,206 @@ static gboolean fm_dir_list_job_run(FmJob* fmjob)
     return ret;
 }
 
+static void fm_dir_list_job_finished(FmJob* job)
+{
+    FmDirListJob* dirlist_job = FM_DIR_LIST_JOB(job);
+    FmJobClass* job_class = FM_JOB_CLASS(fm_dir_list_job_parent_class);
+
+    if(dirlist_job->emit_files_found)
+    {
+        if(dirlist_job->delay_add_files_handler)
+        {
+            g_source_remove(dirlist_job->delay_add_files_handler);
+            emit_found_files(dirlist_job);
+        }
+    }
+    if(job_class->finished)
+        job_class->finished(job);
+}
+
+#if 0
 /**
- * fm_dir_dist_job_get_files
+ * fm_dir_list_job_get_dir_path
+ * @job: the job that collected listing
+ *
+ * Retrieves the path of the directory being listed.
+ *
+ * Returns: (transfer none): FmPath for the directory.
+ *
+ * Since: 1.0.2
+ */
+FmPath* fm_dir_list_job_get_dir_path(FmDirListJob* job)
+{
+    return job->dir_path;
+}
+
+/**
+ * fm_dir_list_job_get_dir_info
+ * @job: the job that collected listing
+ *
+ * Retrieves the information of the directory being listed.
+ *
+ * Returns: (transfer none): FmFileInfo for the directory.
+ *
+ * Since: 1.0.2
+ */
+FmFileInfo* fm_dir_list_job_get_dir_info(FmDirListJob* job)
+{
+    return job->dir_fi;
+}
+#endif
+
+/**
+ * fm_dir_list_job_get_files
  * @job: the job that collected listing
  *
  * Retrieves gathered listing from the @job. This function may be called
  * only from #FmJob::finished signal handler. Returned data is owned by
  * the @job and should be not freed by caller.
  *
+ * Before 1.0.1 this call had name fm_dir_dist_job_get_files due to typo.
+ *
  * Returns: (transfer none): list of gathered data.
  *
  * Since: 0.1.0
  */
-FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
+FmFileInfoList* fm_dir_list_job_get_files(FmDirListJob* job)
 {
     return job->files;
+}
+
+#ifndef FM_DISABLE_DEPRECATED
+/**
+ * fm_dir_dist_job_get_files
+ * @job: the job that collected listing
+ *
+ * There is a typo in the function name. It should have been 
+ * fm_dir_list_job_get_files(). The one with typo is kept here for backward
+ * compatibility and will be removed later.
+ *
+ * Since: 0.1.0
+ *
+ * Deprecated: 1.0.1: Use fm_dir_list_job_get_files() instead.
+ */
+FmFileInfoList* fm_dir_dist_job_get_files(FmDirListJob* job)
+{
+    return fm_dir_list_job_get_files(job);
+}
+#endif /* FM_DISABLE_DEPRECATED */
+
+#if 0
+void fm_dir_list_job_set_emit_files_found(FmDirListJob* job, gboolean emit_files_found)
+{
+    job->emit_files_found = emit_files_found;
+}
+
+gboolean fm_dir_list_job_get_emit_files_found(FmDirListJob* job)
+{
+    return job->emit_files_found;
+}
+#endif
+
+static gboolean emit_found_files(gpointer user_data)
+{
+    /* this callback is called from the main thread */
+    FmDirListJob* job = FM_DIR_LIST_JOB(user_data);
+    /* g_print("emit_found_files: %d\n", g_slist_length(job->files_to_add)); */
+
+    if(g_source_is_destroyed(g_main_current_source()))
+        return FALSE;
+    g_signal_emit(job, signals[FILES_FOUND], 0, job->files_to_add);
+    g_slist_free_full(job->files_to_add, (GDestroyNotify)fm_file_info_unref);
+    job->files_to_add = NULL;
+    job->delay_add_files_handler = 0;
+    return FALSE;
+}
+
+static gpointer queue_add_file(FmJob* fmjob, gpointer user_data)
+{
+    FmDirListJob* job = FM_DIR_LIST_JOB(fmjob);
+    FmFileInfo* file = FM_FILE_INFO(user_data);
+    /* this callback is called from the main thread */
+    /* g_print("queue_add_file: %s\n", fm_file_info_get_disp_name(file)); */
+    job->files_to_add = g_slist_prepend(job->files_to_add, fm_file_info_ref(file));
+    if(job->delay_add_files_handler == 0)
+        job->delay_add_files_handler = g_timeout_add_seconds_full(G_PRIORITY_LOW,
+                        1, emit_found_files, g_object_ref(job), g_object_unref);
+    return NULL;
+}
+
+/**
+ * fm_dir_list_job_add_found_file
+ * @job: the job that collected listing
+ * @file: a FmFileInfo of the newly found file
+ *
+ * This API may be called by the classes derived of FmDirListJob only.
+ * Application developers should not use this API.
+ * When a new file is found in the dir being listed, implementations
+ * of FmDirListJob should call this API with the info of the newly found
+ * file. The FmFileInfo will be added to the found file list.
+ * 
+ * If emission of the #FmDirListJob::files-found signal is turned on by
+ * fm_dir_list_job_set_incremental(), the signal will be emitted
+ * for the newly found files after several new files are added.
+ * See the document for the signal for more detail.
+ *
+ * Since: 1.0.2
+ */
+void fm_dir_list_job_add_found_file(FmDirListJob* job, FmFileInfo* file)
+{
+    fm_file_info_list_push_tail(job->files, file);
+    if(G_UNLIKELY(job->emit_files_found))
+        fm_job_call_main_thread(FM_JOB(job), queue_add_file, file);
+}
+
+#if 0
+/**
+ * fm_dir_list_job_set_dir_path
+ * @job: the job that collected listing
+ * @path: a FmPath of the directory being loaded.
+ *
+ * This API is called by the implementation of FmDirListJob only.
+ * Application developers should not use this API most of the time.
+ *
+ * Since: 1.0.2
+ */
+void fm_dir_list_job_set_dir_path(FmDirListJob* job, FmPath* path)
+{
+    if(job->dir_path)
+        fm_path_unref(job->dir_path);
+    job->dir_path = fm_path_ref(path);
+}
+
+/**
+ * fm_dir_list_job_set_dir_info
+ * @job: the job that collected listing
+ * @info: a FmFileInfo of the directory being loaded.
+ *
+ * This API is called by the implementation of FmDirListJob only.
+ * Application developers should not use this API most of the time.
+ *
+ * Since: 1.0.2
+ */
+void fm_dir_list_job_set_dir_info(FmDirListJob* job, FmFileInfo* info)
+{
+    if(job->dir_fi)
+        fm_file_info_unref(job->dir_fi);
+    job->dir_fi = fm_file_info_ref(info);
+}
+#endif
+
+/**
+ * fm_dir_list_job_set_incremental
+ * @job: the job descriptor
+ * @set: %TRUE if job should send the #FmDirListJob::files-found signal
+ *
+ * Sets whether @job should send the #FmDirListJob::files-found signal
+ * on found files before the @job is finished or not.
+ * This should only be called before the @job is launched.
+ *
+ * Since: 1.0.2
+ */
+void fm_dir_list_job_set_incremental(FmDirListJob* job, gboolean set)
+{
+    job->emit_files_found = set;
 }

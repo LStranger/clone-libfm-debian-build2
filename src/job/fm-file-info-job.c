@@ -35,7 +35,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <string.h>
-#include <menu-cache.h>
 #include <errno.h>
 
 #include "fm-file-info.h"
@@ -162,50 +161,28 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
         else
         {
             GFile* gf;
-            if(fm_path_is_virtual(path))
-            {
-                /* this is a xdg menu */
-                if(fm_path_is_xdg_menu(path))
-                {
-                    MenuCache* mc;
-                    MenuCacheDir* dir;
-                    char* path_str = fm_path_to_str(path);
-                    char* menu_name = path_str + 5, ch;
-                    char* dir_name;
-                    while(*menu_name == '/')
-                        ++menu_name;
-                    dir_name = menu_name;
-                    while(*dir_name && *dir_name != '/')
-                        ++dir_name;
-                    ch = *dir_name;
-                    *dir_name = '\0';
-                    menu_name = g_strconcat(menu_name, ".menu", NULL);
-                    mc = menu_cache_lookup_sync(menu_name);
-                    g_free(menu_name);
-                    *dir_name = ch;
-
-                    if(ch && !(ch == '/' && dir_name[1]=='\0') )
-                    {
-                        char* tmp = g_strconcat("/", menu_cache_item_get_id(MENU_CACHE_ITEM(menu_cache_get_root_dir(mc))), dir_name, NULL);
-                        dir = menu_cache_get_dir_from_path(mc, tmp);
-                        g_free(tmp);
-                    }
-                    else
-                        dir = menu_cache_get_root_dir(mc);
-                    if(dir)
-                        fm_file_info_set_from_menu_cache_item(fi, MENU_CACHE_ITEM(dir));
-                    else /* no retry, just remove item */
-                        fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
-                    g_free(path_str);
-                    menu_cache_unref(mc);
-                    l = next;
-                    continue;
-                }
-            }
 
             gf = fm_path_to_gfile(path);
             if(!_fm_file_info_job_get_info_for_gfile(fmjob, fi, gf, &err))
             {
+              if(err->domain == G_IO_ERROR && err->code == G_IO_ERROR_NOT_MOUNTED)
+              {
+                GFileInfo *inf;
+                /* location by link isn't mounted; unfortunately we cannot
+                   launch a target if we don't know what kind of target we
+                   have; lets make a simplest directory-kind GFIleInfo */
+                /* FIXME: this may be dirty a bit */
+                g_error_free(err);
+                err = NULL;
+                inf = g_file_info_new();
+                g_file_info_set_file_type(inf, G_FILE_TYPE_DIRECTORY);
+                g_file_info_set_name(inf, fm_path_get_basename(path));
+                g_file_info_set_display_name(inf, fm_path_get_basename(path));
+                fm_file_info_set_from_gfileinfo(fi, inf);
+                g_object_unref(inf);
+              }
+              else
+              {
                 FmJobErrorAction act = fm_job_emit_error(fmjob, err, FM_JOB_ERROR_MILD);
                 g_error_free(err);
                 err = NULL;
@@ -216,6 +193,7 @@ static gboolean fm_file_info_job_run(FmJob* fmjob)
                 }
 
                 fm_file_info_list_delete_link(job->file_infos, l); /* also calls unref */
+              }
             }
             g_object_unref(gf);
         }
