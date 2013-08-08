@@ -3,7 +3,7 @@ Section: libs
 Priority: optional
 Maintainer: Debian LXDE Maintainers <lxde-debian@lists.lxde.org>
 Uploaders:
- Andrew Lee (李健秋) <ajqlee@debian.org>, Daniel Baumann <daniel@debian.org>,
+ Andrew Lee (李健秋) <ajqlee@debian.org>,
  Martin Bagge <brother@bsnet.se>
 Build-Depends:
  debhelper (>= 9), gtk-doc-tools, intltool,
