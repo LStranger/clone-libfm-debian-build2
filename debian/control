@@ -133,6 +133,14 @@ Description: file management support (GTK+ 2.0 GUI library)
  .
  This package contains the GTK+ version 2.0 GUI.
 
+Package: libfm-gtk-bin
+Section: misc
+Architecture: any
+Depends: libfm-tools
+Description: transitional package for libfm-gtk-bin
+ This is transitional package for libfm-gtk-bin, and can be safely removed
+ after the installation is complete.
+
 Package: libfm-tools
 Section: misc
 Architecture: any
