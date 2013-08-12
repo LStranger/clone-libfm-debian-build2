@@ -137,8 +137,8 @@ Package: libfm-gtk-bin
 Section: misc
 Architecture: any
 Depends: libfm-tools
-Description: transitional package for libfm-gtk-bin
- This is transitional package for libfm-gtk-bin, and can be safely removed
+Description: transitional package for libfm-tools
+ This is transitional package for libfm-tools, and can be safely removed
  after the installation is complete.
 
 Package: libfm-tools
