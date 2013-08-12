@@ -24,7 +24,7 @@
 
 #define FM_VERSION_MAJOR 1
 #define FM_VERSION_MINOR 1
-#define FM_VERSION_MICRO 1
+#define FM_VERSION_MICRO 2
 
 #define FM_CHECK_VERSION(_a,_b,_c) \
     (FM_VERSION_MAJOR > _a || \

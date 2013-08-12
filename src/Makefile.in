@@ -511,7 +511,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # for use in libtool -version-info
-ABI_VERSION = 4:2:1
+ABI_VERSION = 4:3:1
 NULL = 
 
 # current dir needs to be built before tests
