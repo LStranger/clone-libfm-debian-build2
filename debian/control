@@ -145,8 +145,8 @@ Package: libfm-tools
 Section: misc
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Breaks: libfm-gtk-bin
-Replaces: libfm-gtk-bin
+Breaks: libfm-gtk-bin (<< 1.1.1 )
+Replaces: libfm-gtk-bin (<< 1.1.1 )
 Provides: libfm-gtk-bin
 Description: file management support (utilities)
  LibFM provides file management functions built on top of Glib/GIO
