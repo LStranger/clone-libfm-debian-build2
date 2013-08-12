@@ -1,3 +1,75 @@
+libfm (1.1.1-1) unstable; urgency=low
+
+  [ Daniel Baumann ]
+  * Moving package to priority optional.
+  * Removing cache files if no other gio module is left on purge
+    (Closes: #659925).
+
+  [ Sergey Slipchenko ]
+  * Adding manpage for libfm-pref-apps.
+
+  [ Daniel Baumann ]
+  * Updating GPL blurbs in copyright file.
+  * Merging upstream version 1.0.
+
+  [ Martin Bagge ]
+  * Adding myself as co-maintainer.
+  * Adding valac to build-depends.
+  * Using upstream manpage for libfm-pref-apps instead of local version.
+
+  [ Daniel Baumann ]
+  * Renaming libfm1-dbg to proper unversioned name libfm-dbg.
+  * Bumping soname to 3.
+
+  [ Martin Bagge ]
+  * Enabling debug symbols.
+  * Updating symbols file for upstream version 1.0.
+  * Enabling hardening.
+
+  [ Paul Menzel ]
+  * debian/rules: Enable parallel building.
+
+  [ Andriy Grytsenko ]
+  * Merging upstream version 1.1.1.
+    (Closes: #624017, #659970, #660634, #662000, #674828, #676350, #679002,
+    #693175, #695519, #699674, #705764, #705765, #706751, #707610, #716724,
+    #699675, #703164, #703165, #591178, #698558, #678289, #585626, #649933,
+    #679043, #683713, #689317, #594674, #593607, #590899, #698629, #713328,
+    #704355, #615743, #704334)
+  * Correcting dependency for libfm-data: Replaces to Conflicts.
+  * Corrections for symbols files.
+  * Adding libfm-gtk-data package - libfm-gtk3 will crash without it.
+  * Adding version check for libfm-data dependency from libfm3.
+  * Moving /usr/share/apport/package-hooks into libfm-data package.
+  * Fixing wrong package name in dh_strip arguments.
+  * Adding postinst script for libfm-dev.
+  * Adding build dependency on libexif-dev.
+  * Adding '-f' option for autoreconf.
+  * Replace 'autoreconf -if' with dh_autoreconf.
+  * Adding symbols that are added into 1.0.2 version.
+  * Package libfm-dev split into libfm-dev and libfm-doc.
+  * Adding libglib2.0-doc and libgtk-3-doc as build-depends.
+  * Adding compatibility with menu-cache package of different ABI.
+  * Adding suggestion from libfm-gtk3 onto libfm-gtk-bin.
+  * Renaming libfm-gtk-bin package into libfm-tools.
+  * Splitting package libfm-dev into libfm-dev and libfm-gtk-dev.
+  * Splitting package libfm-dbg into libfm-dbg and libfm-gtk-dbg.
+  * Replacing Conflicts with Breaks.
+  * Removing autoreconf from dh parameters.
+  * Removing Daniel Baumann from uploaders (Closes: #704334).
+  * Removing patches which are included into upstream:
+    - 02-keep_source_when_copying.patch
+    - 03-automake1.12.patch
+
+  [ Andrew Lee (李健秋) ]
+  * debian/control: Added Andriy Grytsenko <andrej@rep.kiev.ua> in
+    uploaders.
+  * debian/control: added transitional package for libfm-tools.
+  * debian/control: libfm-tools provides libfm-gtk-bin.
+  * debian/control: added versioning breaks and replaces for libfm-tools.
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 09 Aug 2013 03:31:47 +0800
+
 libfm (0.1.17-2.2) unstable; urgency=low
 
   * Non-maintainer upload.
