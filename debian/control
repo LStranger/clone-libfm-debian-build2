@@ -134,7 +134,8 @@ Description: file management support (GTK+ 2.0 GUI library)
  This package contains the GTK+ version 2.0 GUI.
 
 Package: libfm-gtk-bin
-Section: misc
+Section: oldlibs
+Priority: extra
 Architecture: any
 Depends: libfm-tools
 Description: transitional package for libfm-tools
