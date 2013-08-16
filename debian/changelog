@@ -1,3 +1,16 @@
+libfm (1.1.2-1) unstable; urgency=low
+
+  [ Andriy Grytsenko ]
+  * Merging upstream version 1.1.2.
+  * Correcting description for libfm-gtk-bin.
+  * Correcting libfm-gtk-bin to oldlibs/extra.
+
+  [ Andrew Lee (李健秋) ]
+  * debian/control: drop build-deps on libmenu-cache1-dev, make sure it 
+    build aginst libmenu-cache-dev (>=0.5.0). (Closes: #719773)
+
+ -- Andrew Lee (李健秋) <ajqlee@debian.org>  Fri, 16 Aug 2013 18:01:40 +0800
+
 libfm (1.1.1-1) unstable; urgency=low
 
   [ Daniel Baumann ]
