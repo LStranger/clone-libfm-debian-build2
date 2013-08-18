@@ -10,7 +10,7 @@ Build-Depends:
  libdbus-glib-1-dev, libglib2.0-dev, libgtk2.0-dev, libexif-dev,
  libmenu-cache-dev (>=0.5.0), libtool, pkg-config, valac,
  libglib2.0-doc, libgtk-3-doc
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: http://pcmanfm.sourceforge.net/
 Vcs-Browser: http://git.lxde.org/gitweb/?p=debian/libfm.git
 Vcs-Git: git://git.lxde.org/git/debian/libfm.git
