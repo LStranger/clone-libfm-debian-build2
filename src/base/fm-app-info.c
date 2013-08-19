@@ -190,23 +190,21 @@ static char* expand_terminal(char* cmd)
     char* ret;
     /* add terminal emulator command */
 
-    if(fm_config->terminal &&
-       fm_app_command_parse(fm_config->terminal, expand_terminal_options, &ret, cmd) > 0)
-        return ret;
-    else /* if %s is not found, fallback to -e */
-    {
-        const char* term = fm_config->terminal;
-        char* ret2 = ret;
+    if(!fm_config->terminal)
         /* bug #3457335: Crash on application start with Terminal=true. */
-        if(!term) /* fallback to xterm if a terminal emulator is not found. */
         {
             /* FIXME: we should not hard code xterm here. :-(
              * It's better to prompt the user and let he or she set
              * his preferred terminal emulator. */
-            term = "xterm";
+            return g_strdup_printf("xterm -e %s", cmd);
         }
-        ret = g_strdup_printf("%s -e %s", term, ret2);
-        g_free(ret2);
+    else if(fm_app_command_parse(fm_config->terminal, expand_terminal_options, &ret, cmd) > 0)
+        return ret;
+    else /* if %s is not found, fallback to -e */
+    {
+        const char* term = fm_config->terminal;
+        g_free(ret);
+        ret = g_strdup_printf("%s -e %s", term, cmd);
     }
     return ret;
 }
@@ -306,7 +304,24 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
     gboolean supported = FALSE, ret = FALSE;
     if(G_IS_DESKTOP_APP_INFO(appinfo))
     {
-        const char*id = g_app_info_get_id(appinfo);
+        const char *id;
+
+#if GLIB_CHECK_VERSION(2,24,0)
+        /* if GDesktopAppInfo knows the filename then let use it */
+        id = g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(appinfo));
+        if(id) /* this is a desktop entry file */
+        {
+            /* load the desktop entry file to obtain more info */
+            GKeyFile* kf = g_key_file_new();
+            supported = g_key_file_load_from_file(kf, id, 0, NULL);
+            if(supported)
+                ret = do_launch(appinfo, id, kf, files, launch_context, error);
+            g_key_file_free(kf);
+            id = NULL;
+        }
+        else /* otherwise try application id */
+#endif
+            id = g_app_info_get_id(appinfo);
         if(id) /* this is an installed application */
         {
             /* load the desktop entry file to obtain more info */
@@ -324,19 +339,6 @@ gboolean fm_app_info_launch(GAppInfo *appinfo, GList *files,
         }
         else
         {
-#if GLIB_CHECK_VERSION(2,24,0)
-            const char* file = g_desktop_app_info_get_filename(G_DESKTOP_APP_INFO(appinfo));
-            if(file) /* this is a desktop entry file */
-            {
-                /* load the desktop entry file to obtain more info */
-                GKeyFile* kf = g_key_file_new();
-                supported = g_key_file_load_from_file(kf, file, 0, NULL);
-                if(supported)
-                    ret = do_launch(appinfo, file, kf, files, launch_context, error);
-                g_key_file_free(kf);
-            }
-            else
-#endif
             {
                 /* If this is created with fm_app_info_create_from_commandline() */
                 if(g_object_get_data(G_OBJECT(appinfo), "flags"))
