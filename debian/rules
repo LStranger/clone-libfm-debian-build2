@@ -17,9 +17,6 @@ override_dh_auto_install:
 	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.a
 	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
 
-override_dh_auto_test:
-	# disabled: fails
-
 override_dh_builddeb:
 	dh_builddeb -- -Zxz -z9
 
