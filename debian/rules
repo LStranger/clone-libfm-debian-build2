@@ -25,6 +25,10 @@ override_dh_builddeb:
 override_dh_install:
 	dh_install --fail-missing
 
+override_dh_makeshlibs:
+	# modules are not shared libs so disable processing for them
+	dh_makeshlibs -X/modules/
+
 override_dh_strip:
 	dh_strip -plibfm4 -plibfm-extra4 --dbg-package=libfm-dbg
 	dh_strip -plibfm-gtk4 --dbg-package=libfm-gtk-dbg
